@@ -1,0 +1,11 @@
+backup/
+
+result
+
+*.nix.bak
+*.nix~
+/nix/store/
+
+*~
+*.swp
+*.swo
