@@ -12,6 +12,8 @@
     text = ''
       mkdir -p /bin
       ln -sf ${pkgs.bash}/bin/bash /bin/bash
+      mkdir -p /usr/bin
+      ln -sf ${pkgs.coreutils}/bin/env /usr/bin/env
     '';
   };
 }
