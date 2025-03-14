@@ -113,6 +113,10 @@ in
     fd
     fzf
     jq
+    bash
+    go
+    sqls
+    deno
     # Rust ecosystem
     rustup
     rust-analyzer
