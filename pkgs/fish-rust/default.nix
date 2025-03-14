@@ -1,7 +1,7 @@
 { lib, rustPlatform, fetchgit, ncurses, sphinx, python3 }:
 rustPlatform.buildRustPackage rec {
   pname = "fish";
-  version = "4.1-2025-03-14";
+  version = "4.1-2025-03-14-rust";
   src = fetchgit {
     url = "https://github.com/fish-shell/fish-shell.git";
     rev = "refs/heads/master";
