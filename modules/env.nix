@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Add user's bin directory to PATH and set up environment variables
   environment.shellInit = ''
     if [ -d $HOME/.cargo/bin ]; then
       export PATH=$PATH:$HOME/.cargo/bin
@@ -12,7 +11,6 @@
     fi
   '';
 
-  # Setup development environment variables
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -33,11 +31,11 @@
     "/bin"
   ];
 
-  # Terminal utilities
   environment.systemPackages = with pkgs; [
     neovim
     tmux
     htop
+    btop
     bat
     ripgrep
     fd
