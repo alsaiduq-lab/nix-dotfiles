@@ -42,8 +42,8 @@
       iconTheme.name = "Papirus-Dark";
     };
   };
-  services.xserver.displayManager.defaultSession = "xfce+i3";
-  services.xserver.displayManager.autoLogin = {
+  services.displayManager.defaultSession = "xfce+i3";
+  services.displayManager.autoLogin = {
     enable = true;
     user = "cobray";
   };

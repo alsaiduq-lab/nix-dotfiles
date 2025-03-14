@@ -7,7 +7,7 @@
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
     extraCompatPackages = [
-      inputs.nix-gaming.packages.${system}.proton-ge
+      pkgs.proton-ge-bin
     ];
   };
   hardware.graphics = {
