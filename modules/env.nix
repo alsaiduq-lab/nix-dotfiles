@@ -5,10 +5,6 @@
     if [ -d $HOME/.cargo/bin ]; then
       export PATH=$PATH:$HOME/.cargo/bin
     fi
-    if [ -f /run/current-system/sw/bin/python3 ]; then
-      alias python3=/run/current-system/sw/bin/python3
-      alias python=/run/current-system/sw/bin/python3
-    fi
   '';
 
   environment.variables = {
@@ -26,8 +22,6 @@
 
   environment.pathsToLink = [
     "/share/fish"
-    "/lib/python3.10/site-packages"
-    "/lib/python3.11/site-packages"
     "/bin"
   ];
 
