@@ -17,10 +17,8 @@
     })
   ];
 
-  # Enable nix-index for command-not-found
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
-  # Setup nix settings
   nix.settings = {
     auto-optimise-store = true;
     experimental-features = [ "nix-command" "flakes" ];

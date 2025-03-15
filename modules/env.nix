@@ -31,31 +31,6 @@
     "/bin"
   ];
 
-  environment.systemPackages = with pkgs; [
-    neovim
-    tmux
-    htop
-    btop
-    bat
-    ripgrep
-    fd
-    yt-dlp
-    eza
-    jq
-    fzf
-    starship
-    yazi
-    fastfetch
-    # Core utilities
-    wget
-    libnotify
-    curl
-    git
-    file
-    which
-    psmisc
-  ];
-
   # Enable direnv with nix integration
   programs.direnv = {
     enable = true;
