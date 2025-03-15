@@ -1,5 +1,7 @@
 backup/
 
+.secrets
+
 result
 
 *.nix.bak

@@ -45,6 +45,12 @@ in
     libtool
     gawk
     lazygit
+    # Java ecosystem
+    jdk17
+    maven
+    gradle
+    visualvm
+    jdt-language-server
     (python310.withPackages (ps: with ps; [
       virtualenv
       ipython
@@ -117,6 +123,8 @@ in
     go
     sqls
     deno
+    redis
+    cloudflared
     # Rust ecosystem
     rustup
     rust-analyzer

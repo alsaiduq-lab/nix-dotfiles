@@ -8,19 +8,16 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-
     ./local-packages.nix
-    ../modules
+    ../modules/default.nix
   ];
 
   networking.hostName = "nixos";
-  # Setup garbage collection for old generations
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
-  # Limit the number of generations
   boot.loader.systemd-boot.configurationLimit = 5;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

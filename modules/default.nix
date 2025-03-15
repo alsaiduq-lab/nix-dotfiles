@@ -17,6 +17,7 @@
     ./steam.nix
     ./timezone.nix
     ./user.nix
+    ./systemd.nix
   ];
 
   # Enable CUPS to print documents.
