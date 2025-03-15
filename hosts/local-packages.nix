@@ -32,6 +32,7 @@ in
     vesktop
     neovim
     git
+    fastfetch
     # Development tools
     nodejs
     tree
