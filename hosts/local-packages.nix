@@ -30,6 +30,8 @@ in
     brave
     ghostty
     vesktop
+    neovim
+    git
     # Development tools
     nodejs
     tree
@@ -57,6 +59,10 @@ in
       i3ipc
       xlib
       six
+      psutil
+      pynvml
+      pyqtgraph
+      pyqt6
       numpy
       pandas
       matplotlib
