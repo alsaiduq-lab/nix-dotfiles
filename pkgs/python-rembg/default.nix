@@ -1,4 +1,4 @@
-{ lib, python310Packages, fetchPypi }:
+{ lib, python310Packages, fetchPypi, python-pymatting }:
 
 python310Packages.buildPythonPackage rec {
   pname = "rembg";
@@ -27,6 +27,7 @@ python310Packages.buildPythonPackage rec {
     filetype
     pooch
     pympler
+    python-pymatting
     scikit-image
     scipy
     tqdm
