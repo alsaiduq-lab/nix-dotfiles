@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    fish-rust
     starship
     fzf
     bat
@@ -10,7 +11,4 @@
     ripgrep
   ];
 
-  programs.fish = {
-    enable = true;
-  };
 }

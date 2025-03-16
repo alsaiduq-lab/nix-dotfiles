@@ -7,7 +7,6 @@
     ./boot.nix
     ./docker.nix
     ./env.nix
-    ./fish.nix
     ./fonts.nix
     ./home-manager.nix
     ./i3-xfce.nix

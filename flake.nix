@@ -19,22 +19,33 @@
   outputs = { self, nixpkgs, home-manager, nixvim, nix-gaming, ... }@inputs:
     let
       system = "x86_64-linux";
+      customPkgsOverlay = final: prev: import ./pkgs {
+        pkgs = prev;
+        lib = prev.lib;
+      };
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [ customPkgsOverlay ];
       };
       lib = nixpkgs.lib;
     in {
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit system;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
+            { nixpkgs.overlays = [ customPkgsOverlay ]; }
             ./hosts/configuration.nix
           ];
+        };
+      };
+
+      homeConfigurations = {
+        "cobray" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [ ./home-manager/cobray.nix ];
         };
       };
     };
