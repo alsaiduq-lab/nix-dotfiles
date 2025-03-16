@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/share/themes
-    cp -r themes/Tokyonight-* $out/share/themes/
+    cp -r themes/src/Tokyonight-* $out/share/themes/
   '';
 
   meta = with lib; {
