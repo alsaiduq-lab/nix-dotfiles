@@ -21,6 +21,7 @@
       rofi
       dunst
       polybar
+      i3-auto-layout
     ];
     extraSessionCommands = ''
       # Set random wallpaper

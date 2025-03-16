@@ -7,5 +7,7 @@
     i3lock
     i3blocks
     feh
+    yazi
+    udiskie
   ];
 }
