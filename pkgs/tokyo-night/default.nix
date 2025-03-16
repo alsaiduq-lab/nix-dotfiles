@@ -8,7 +8,7 @@ stdenv.mkDerivation {
     owner = "Fausto-Korpsvart";
     repo = "Tokyo-Night-GTK-Theme";
     rev = "4dc45d60bf35f50ebd9ee41f16ab63783f80dd64";
-    sha256 = "sha256-/VhwciY8iyxWOJI3lbbNRkF86rVFrjViZ5YCxHR+mFw=";
+    sha256 = "sha256-UhDttFWQMkiG3Ls4UdI3jJt17PfXzfzGR4d9vS2I/1Q=";
   };
 
   nativeBuildInputs = [ ];
