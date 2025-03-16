@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   patchPhase = ''
     cd themes
     substituteInPlace install.sh \
-      --replace-fail 'name="${2}${3}${4}${5}${6}"' 'name="Tokyonight${3}${4}${5}"'
+      --replace-fail 'THEME_NAME=Tokyonight' 'THEME_NAME=Tokyonight'
     substituteInPlace install.sh \
       --replace-fail 'if [ "$UID" -eq "$ROOT_UID" ]; then' 'if false; then' \
       --replace-fail 'DEST_DIR="/usr/share/themes"' 'DEST_DIR="$TMPDIR/.themes"' \
@@ -31,13 +31,14 @@ stdenv.mkDerivation {
   buildPhase = ''
     export HOME=$TMPDIR
     mkdir -p $TMPDIR/.themes
-    bash ./install.sh
-    bash ./install.sh --tweaks storm
-    bash ./install.sh --tweaks storm black
-    bash ./install.sh --tweaks storm black outline
+    bash ./install.sh -n Tokyonight
+    bash ./install.sh -n Tokyonight --tweaks storm
+    bash ./install.sh -n Tokyonight --tweaks storm black
+    bash ./install.sh -n Tokyonight --tweaks storm black outline
     echo "Created themes:"
     ls -la $TMPDIR/.themes/
   '';
+
   installPhase = ''
     mkdir -p $out/share/themes
     for theme in $TMPDIR/.themes/*; do
