@@ -1,13 +1,14 @@
 { config, pkgs, lib, ... }:
 
+let
+  customPkgs = import ../pkgs { inherit pkgs lib; };
+in
 {
   services.xserver.enable = true;
-
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
-
   services.xserver.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
@@ -28,7 +29,6 @@
       ${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png &
     '';
   };
-
   services.xserver.desktopManager.xfce = {
     enable = true;
     noDesktop = true;
@@ -39,8 +39,8 @@
     background = "#000000";
     greeters.gtk = {
       enable = true;
-      theme.name = "Adwaita-dark";
-      iconTheme.name = "Papirus-Dark";
+      theme.name = "Tokyonight-Storm-B";
+      iconTheme.name = "Vivid-Dark-Icons";
     };
   };
   services.displayManager.defaultSession = "xfce+i3";
@@ -61,13 +61,22 @@
   };
 
   qt.enable = true;
-  qt.platformTheme = "gnome";
+  qt.platformTheme = "qt5ct";
   qt.style = "adwaita-dark";
+
   environment.etc."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Adwaita-dark
-    gtk-icon-theme-name=Papirus-Dark
+    gtk-theme-name=Tokyonight-Storm-B
+    gtk-icon-theme-name=Vivid-Dark-Icons
+    gtk-font-name=Sans 10
+  '';
+
+  environment.etc."gtk-4.0/settings.ini".text = ''
+    [Settings]
+    gtk-application-prefer-dark-theme=1
+    gtk-theme-name=Tokyonight-Storm-B
+    gtk-icon-theme-name=Vivid-Dark-Icons
     gtk-font-name=Sans 10
   '';
 
@@ -76,10 +85,14 @@
     nitrogen
     xclip
     lxappearance
+    libsForQt5.qt5ct
     arc-theme
     arc-icon-theme
     papirus-icon-theme
     numix-icon-theme-circle
     candy-icons
-  ];
+  ] ++ (with customPkgs; [
+    tokyo-night-gtk
+    vivid-icons
+  ]);
 }
