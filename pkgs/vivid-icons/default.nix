@@ -7,8 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "L4ki";
     repo = "Vivid-Plasma-Themes";
-    rev = "a7fe21ff30e9efbc47043bf004f99ed06c3877f4";
-    sha256 = "sha256-UhDttFWQMkiG3Ls4UdI3jJt17PfXzfzGR4d9vS2I/1Q=";
+    rev = "fe8b8f1bdd3784dc838c125bb9e1b2d713f40e67";
+    sha256 = "1rcphy08r6337gbp98nz00mj780jn9kwm40ngd9pxnlvwp2n8mjj";
   };
 
   installPhase = ''
@@ -21,6 +21,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/L4ki/Vivid-Plasma-Themes";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = [];
+    maintainers = [ "Cobray" ];
   };
 }
