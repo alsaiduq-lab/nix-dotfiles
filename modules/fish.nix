@@ -15,5 +15,4 @@ in
     fd
     ripgrep
   ];
-  users.users.cobray.shell = lib.mkForce fish-rust;
 }

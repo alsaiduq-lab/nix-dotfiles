@@ -10,7 +10,7 @@
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-    TERM = "xterm-256color";
+    TERM = "ghostty";
     GTK_THEME = "Adwaita:dark";
     CC = "${pkgs.gcc}/bin/gcc";
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [

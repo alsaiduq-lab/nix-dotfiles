@@ -17,7 +17,6 @@
     ./steam.nix
     ./timezone.nix
     ./user.nix
-    ./systemd.nix
     ./man.nix
   ];
 

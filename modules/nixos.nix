@@ -2,21 +2,6 @@
 
 {
   nixpkgs.config.allowUnfree = true;
-
-  # Fix Python package issues
-  nixpkgs.overlays = [
-    (final: prev: {
-      python310Packages = prev.python310Packages.override {
-        overrides = pyFinal: pyPrev: {
-          terminado = pyPrev.terminado.overrideAttrs (old: {
-            doCheck = false;
-            doInstallCheck = false;
-          });
-        };
-      };
-    })
-  ];
-
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
   nix.settings = {

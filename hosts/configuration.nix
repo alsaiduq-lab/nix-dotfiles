@@ -12,7 +12,6 @@
     ../modules/default.nix
   ];
 
-  networking.hostName = "nixos";
   nix.gc = {
     automatic = true;
     dates = "weekly";

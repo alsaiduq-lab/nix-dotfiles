@@ -6,7 +6,7 @@
   ];
 
   systemd.services.autossh-redbot = {
-    description = "Persistent SSH Tunnel to Cloud Server";
+    description = "Persistent SSH Tunnel to server";
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
