@@ -13,7 +13,6 @@
     ./modules/polybar.nix
     ./modules/rofi.nix
     ./modules/starship.nix
-    ./modules/systemd.nix
     ./modules/zellij.nix
   ];
 
