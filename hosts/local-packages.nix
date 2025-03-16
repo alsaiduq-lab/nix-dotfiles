@@ -35,9 +35,12 @@ in
     fastfetch
     # Development tools
     nodejs
+    wget
+    curl
     tree
     gnumake
     gcc
+    socat
     gdb
     binutils
     cmake
@@ -47,6 +50,7 @@ in
     automake
     libtool
     gawk
+    obs-studio
     lazygit
     # Java ecosystem
     jdk17
@@ -158,6 +162,7 @@ in
     gitAndTools.diff-so-fancy
     # misc
     ani-cli
+    yt-dlp
     nmap
     psmisc
     ugrep
