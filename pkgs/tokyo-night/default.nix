@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, gtk-engine-murrine, gtk_engines }:
+{ lib, stdenv, fetchFromGitHub, gtk-engine-murrine, gtk_engines, bash, sassc }:
 
 stdenv.mkDerivation {
   pname = "tokyo-night-gtk";
@@ -11,20 +11,40 @@ stdenv.mkDerivation {
     sha256 = "0c7sp9n2pc70yy9msmbmcyhqbr63v1ssnsxk6vg10zwwc3wl19h0";
   };
 
-  nativeBuildInputs = [ ];
+  nativeBuildInputs = [ bash sassc ];
+  buildInputs = [ gtk-engine-murrine gtk_engines ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-  buildInputs = [
-    gtk-engine-murrine
-    gtk_engines
-  ];
-
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
-
+  patchPhase = ''
+    cd themes
+    substituteInPlace install.sh \
+      --replace-fail 'name="${2}${3}${4}${5}${6}"' 'name="Tokyonight${3}${4}${5}"'
+    substituteInPlace install.sh \
+      --replace-fail 'if [ "$UID" -eq "$ROOT_UID" ]; then' 'if false; then' \
+      --replace-fail 'DEST_DIR="/usr/share/themes"' 'DEST_DIR="$TMPDIR/.themes"' \
+      --replace-fail 'DEST_DIR="$HOME/.themes"' 'DEST_DIR="$TMPDIR/.themes"'
+    substituteInPlace install.sh \
+      --replace-fail 'if [[ "$(command -v gnome-shell)" ]]; then' 'if false; then' \
+      --replace-fail 'if has_command xfce4-popup-whiskermen; then' 'if false; then' \
+      --replace-fail 'if (pgrep xfce4-session &>/dev/null); then' 'if false; then'
+  '';
+  buildPhase = ''
+    export HOME=$TMPDIR
+    mkdir -p $TMPDIR/.themes
+    bash ./install.sh
+    bash ./install.sh --tweaks storm
+    bash ./install.sh --tweaks storm black
+    bash ./install.sh --tweaks storm black outline
+    echo "Created themes:"
+    ls -la $TMPDIR/.themes/
+  '';
   installPhase = ''
     mkdir -p $out/share/themes
-    cp -r themes/src/Tokyonight-* $out/share/themes/
+    for theme in $TMPDIR/.themes/*; do
+      if [ -d "$theme" ]; then
+        cp -r "$theme" "$out/share/themes/"
+      fi
+    done
   '';
 
   meta = with lib; {

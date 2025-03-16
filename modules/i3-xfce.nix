@@ -39,7 +39,7 @@ in
     background = "#000000";
     greeters.gtk = {
       enable = true;
-      theme.name = "Tokyonight-Storm-B";
+      theme.name = "Tokyonight-Dark";
       iconTheme.name = "Vivid-Dark-Icons";
     };
   };
@@ -59,27 +59,23 @@ in
     '';
     mode = "0644";
   };
-
   qt.enable = true;
   qt.platformTheme = "qt5ct";
   qt.style = "adwaita-dark";
-
   environment.etc."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Tokyonight-Storm-B
+    gtk-theme-name=Tokyonight-Dark
     gtk-icon-theme-name=Vivid-Dark-Icons
     gtk-font-name=Sans 10
   '';
-
   environment.etc."gtk-4.0/settings.ini".text = ''
     [Settings]
     gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Tokyonight-Storm-B
+    gtk-theme-name=Tokyonight-Dark
     gtk-icon-theme-name=Vivid-Dark-Icons
     gtk-font-name=Sans 10
   '';
-
   environment.systemPackages = with pkgs; [
     arandr
     nitrogen
