@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "L4ki";
     repo = "Vivid-Plasma-Themes";
-    rev = "a7fe21fb5c51e1f66ef13c899e0e9beabd03c9f8";
+    rev = "a7fe21ff30e9efbc47043bf004f99ed06c3877f4";
     sha256 = "sha256-UhDttFWQMkiG3Ls4UdI3jJt17PfXzfzGR4d9vS2I/1Q=";
   };
 

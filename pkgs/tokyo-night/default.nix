@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "Fausto-Korpsvart";
     repo = "Tokyo-Night-GTK-Theme";
-    rev = "cf6665a3115508a06cea28e8a23b9c90b8ef08c1";
+    rev = "4dc45d60bf35f50ebd9ee41f16ab63783f80dd64";
     sha256 = "sha256-/VhwciY8iyxWOJI3lbbNRkF86rVFrjViZ5YCxHR+mFw=";
   };
 
