@@ -4,8 +4,6 @@ let
   customPkgs = import ../pkgs { inherit pkgs lib; };
 in
 {
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Applications
     brave
@@ -62,8 +60,7 @@ in
       onnxruntime
       opencv4
       pillow
-      customPkgs.python-rembg
-    ]))
+    ] ++ [ customPkgs.python-rembg ]))
     uv
     ruff
     black
@@ -76,6 +73,7 @@ in
     fzf
     jq
     bash
+    customPkgs.fish-rust
     go
     sqls
     deno

@@ -30,23 +30,8 @@
     findutils
     htop
     btop
-    nvtop
+    nvtopPackages.full
     arandr
     nitrogen
   ];
-
-  xdg.configFile = {
-    "user-dirs.dirs".source = lib.mkIf (builtins.pathExists "${config.home.homeDirectory}/.config/user-dirs.dirs")
-      (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/user-dirs.dirs");
-    "user-dirs.locale".source = lib.mkIf (builtins.pathExists "${config.home.homeDirectory}/.config/user-dirs.locale")
-      (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/user-dirs.locale");
-    "mimeapps.list".source = lib.mkIf (builtins.pathExists "${config.home.homeDirectory}/.config/mimeapps.list")
-      (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mimeapps.list");
-    "systemd".source = lib.mkIf (builtins.pathExists "${config.home.homeDirectory}/.config/systemd")
-      (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/systemd");
-    "systemd".recursive = true;
-    "environment.d".source = lib.mkIf (builtins.pathExists "${config.home.homeDirectory}/.config/environment.d")
-      (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/environment.d");
-    "environment.d".recursive = true;
-  };
 }

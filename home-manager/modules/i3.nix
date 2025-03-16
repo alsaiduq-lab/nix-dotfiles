@@ -8,11 +8,4 @@
     i3blocks
     feh
   ];
-
-  xdg.configFile = {
-    "i3" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/i3";
-      recursive = true;
-    };
-  };
 }

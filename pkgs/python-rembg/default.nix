@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, fetchPypi, python310, numpy, pillow, opencv4, requests, onnxruntime }:
+{ lib, python310Packages, fetchPypi }:
 
-python310.pkgs.buildPythonPackage rec {
+python310Packages.buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.50";
   format = "setuptools";
@@ -10,21 +10,35 @@ python310.pkgs.buildPythonPackage rec {
     sha256 = "0dgq291bj4w6jkcyz7lvp1vba2nczfnmxa2acl2sqib5p8cpzjvc";
   };
 
-  propagatedBuildInputs = with python310.pkgs; [
+  nativeBuildInputs = with python310Packages; [
+    setuptools
+    poetry-core
+  ];
+
+  propagatedBuildInputs = with python310Packages; [
     numpy
     pillow
     onnxruntime
     opencv4
     requests
+    aiohttp
+    asynctest
+    click
+    filetype
+    pooch
+    pympler
+    scikit-image
+    scipy
+    tqdm
   ];
 
   doCheck = false;
 
   meta = with lib; {
-    description = "Tool to remove images background";
+    description = "Tool to remove image backgrounds";
     homepage = "https://github.com/danielgatis/rembg";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [Cobray];
+    maintainers = with maintainers; [ "Cobray" ];
   };
 }
