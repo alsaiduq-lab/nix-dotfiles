@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "fish";
-  version = "4.1-2025-03-14-rust";
+  version = "4.1-2025-03-16-rust";
 
   src = fetchgit {
     url = "https://github.com/fish-shell/fish-shell.git";
-    rev = "refs/heads/master";
+    rev = "642ec399ca17bbde973dc20461335396fe922e4c";
     fetchSubmodules = true;
-    sha256 = "18zpwa3yddic6wdwj7g51w6n4apwsixfvl179yddk2nwfpxhv4hq";
+    sha256 = "sha256-N01RmhyTNMtF8lNmnfC/uvR387UZFx6doQBICtTGWSU=";
   };
 
   cargoLock = {
