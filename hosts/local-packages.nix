@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }:
-
-let
-  customPkgs = import ../pkgs { inherit pkgs lib; };
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  customPkgs = import ../pkgs {inherit pkgs lib;};
+in {
   environment.systemPackages = with pkgs; [
     # Applications
     brave
@@ -20,6 +22,7 @@ in
     gnumake
     gcc
     socat
+    gnused
     gdb
     binutils
     cmake
@@ -37,30 +40,33 @@ in
     gradle
     visualvm
     jdt-language-server
-    (python310.withPackages (ps: with ps; [
-      virtualenv
-      ipython
-      i3ipc
-      xlib
-      six
-      psutil
-      pynvml
-      pyqtgraph
-      pyqt6
-      numpy
-      pandas
-      matplotlib
-      scipy
-      requests
-      click
-      typer
-      rich
-      pyyaml
-      pytz
-      onnxruntime
-      opencv4
-      pillow
-    ] ++ [ customPkgs.python-rembg ]))
+    (python310.withPackages (ps:
+      with ps;
+        [
+          virtualenv
+          ipython
+          i3ipc
+          xlib
+          six
+          psutil
+          pynvml
+          pyqtgraph
+          pyqt6
+          numpy
+          pandas
+          matplotlib
+          scipy
+          requests
+          click
+          typer
+          rich
+          pyyaml
+          pytz
+          onnxruntime
+          opencv4
+          pillow
+        ]
+        ++ [customPkgs.python-rembg]))
     uv
     ruff
     black
