@@ -18,8 +18,6 @@ stdenv.mkDerivation {
   patchPhase = ''
     cd themes
     substituteInPlace install.sh \
-      --replace-fail 'THEME_NAME=Tokyonight' 'THEME_NAME=Tokyonight'
-    substituteInPlace install.sh \
       --replace-fail 'if [ "$UID" -eq "$ROOT_UID" ]; then' 'if false; then' \
       --replace-fail 'DEST_DIR="/usr/share/themes"' 'DEST_DIR="$TMPDIR/.themes"' \
       --replace-fail 'DEST_DIR="$HOME/.themes"' 'DEST_DIR="$TMPDIR/.themes"'
@@ -43,9 +41,12 @@ stdenv.mkDerivation {
     mkdir -p $out/share/themes
     for theme in $TMPDIR/.themes/*; do
       if [ -d "$theme" ]; then
+        themeBase=$(basename "$theme")
         cp -r "$theme" "$out/share/themes/"
       fi
     done
+    echo "Installed themes:"
+    ls -la $out/share/themes/
   '';
 
   meta = with lib; {
