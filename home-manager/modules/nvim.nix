@@ -9,15 +9,13 @@
     nodejs
     gcc
     git
-    lua
     luajit
     luaPackages.luarocks
     nil
     lua-language-server
     curl
     unzip
-    ]))
-  ];
+    ];
 
   home.sessionVariables = {
     LUA_PATH = "${pkgs.luajit}/share/lua/5.1/?.lua;;";
