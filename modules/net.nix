@@ -4,6 +4,10 @@
   lib,
   ...
 }: {
+  environment.systemPackages = with pkgs; [
+    networkmanager_dmenu
+  ];
+
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
   networking.hostName = "nixos";
   # Configure network proxy if necessary
