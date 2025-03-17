@@ -7,46 +7,48 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, nix-gaming, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      customPkgsOverlay = final: prev: import ./pkgs {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nix-gaming,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    customPkgsOverlay = final: prev:
+      import ./pkgs {
         pkgs = prev;
         lib = prev.lib;
       };
-      pkgs = import nixpkgs {
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [customPkgsOverlay];
+    };
+    lib = nixpkgs.lib;
+  in {
+    nixosConfigurations = {
+      nixos = lib.nixosSystem {
         inherit system;
-        config.allowUnfree = true;
-        overlays = [ customPkgsOverlay ];
-      };
-      lib = nixpkgs.lib;
-    in {
-      nixosConfigurations = {
-        nixos = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            { nixpkgs.overlays = [ customPkgsOverlay ]; }
-            ./hosts/configuration.nix
-          ];
-        };
-      };
-
-      homeConfigurations = {
-        "cobray" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [ ./home-manager/cobray.nix ];
-        };
+        specialArgs = {inherit inputs;};
+        modules = [
+          {nixpkgs.overlays = [customPkgsOverlay];}
+          ./hosts/configuration.nix
+        ];
       };
     };
+
+    homeConfigurations = {
+      "cobray" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {inherit inputs;};
+        modules = [./home-manager/cobray.nix];
+      };
+    };
+  };
 }
