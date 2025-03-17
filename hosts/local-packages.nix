@@ -8,13 +8,9 @@
 in {
   environment.systemPackages = with pkgs; [
     # Applications
-    brave
-    ghostty
+    brave # TODO: make a module to save browser stuff
     vesktop
-    neovim
     git
-    fastfetch
-    # Development tools
     nodejs
     wget
     curl
@@ -34,7 +30,6 @@ in {
     gawk
     obs-studio
     lazygit
-    # Java ecosystem
     jdk17
     maven
     gradle
@@ -85,7 +80,6 @@ in {
     deno
     redis
     cloudflared
-    # Rust ecosystem
     rustup
     cargo-edit
     cargo-watch
@@ -96,19 +90,15 @@ in {
     pkg-config
     libxml2
     zlib
-    # Haskell ecosystem
     ghc
     cabal-install
     stack
     haskell-language-server
-    # Database tools
     postgresql
     sqlite
-    # Version control tools
     git-lfs
     gitAndTools.gh
     gitAndTools.diff-so-fancy
-    # misc
     ani-cli
     yt-dlp
     nmap

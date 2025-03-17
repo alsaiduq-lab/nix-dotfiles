@@ -1,5 +1,9 @@
-{ lib, python310Packages, fetchPypi, python-pymatting }:
-
+{
+  lib,
+  python310Packages,
+  fetchPypi,
+  python-pymatting,
+}:
 python310Packages.buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.50";
@@ -40,6 +44,6 @@ python310Packages.buildPythonPackage rec {
     homepage = "https://github.com/danielgatis/rembg";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ "Cobray" ];
+    maintainers = with maintainers; ["Cobray"];
   };
 }

@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   environment.shellInit = ''
     if [ -d $HOME/.cargo/bin ]; then
       export PATH=$PATH:$HOME/.cargo/bin

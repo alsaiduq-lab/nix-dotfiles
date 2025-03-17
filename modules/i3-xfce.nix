@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }:
-
-let
-  customPkgs = import ../pkgs { inherit pkgs lib; };
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  customPkgs = import ../pkgs {inherit pkgs lib;};
+in {
   services.xserver.enable = true;
   services.xserver.xkb = {
     layout = "us";
@@ -118,22 +120,24 @@ in
     GTK2_RC_FILES = "$HOME/.gtkrc-2.0";
   };
 
-  environment.systemPackages = with pkgs; [
-    arandr
-    nitrogen
-    xclip
-    lxappearance
-    libsForQt5.qt5ct
-    gnome-themes-extra
-    gsettings-desktop-schemas
-    adwaita-qt
-    arc-theme
-    arc-icon-theme
-    papirus-icon-theme
-    numix-icon-theme-circle
-    candy-icons
-  ] ++ (with customPkgs; [
-    tokyo-night-gtk
-    vivid-icons
-  ]);
+  environment.systemPackages = with pkgs;
+    [
+      arandr
+      nitrogen
+      xclip
+      lxappearance
+      libsForQt5.qt5ct
+      gnome-themes-extra
+      gsettings-desktop-schemas
+      adwaita-qt
+      arc-theme
+      arc-icon-theme
+      papirus-icon-theme
+      numix-icon-theme-circle
+      candy-icons
+    ]
+    ++ (with customPkgs; [
+      tokyo-night-gtk
+      vivid-icons
+    ]);
 }

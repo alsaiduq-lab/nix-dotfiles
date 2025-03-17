@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   clear-sans = pkgs.stdenv.mkDerivation {
     name = "clear-sans";
     src = pkgs.fetchurl {
@@ -13,16 +16,14 @@ let
       cp $src $out/share/fonts/truetype/ClearSans-Regular.ttf
     '';
   };
-in
-
-{
+in {
   fonts = {
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "0xProto" "FiraCode" "JetBrainsMono" "Hack" "Noto" "NerdFontsSymbolsOnly" ]; })
+      (nerdfonts.override {fonts = ["0xProto" "FiraCode" "JetBrainsMono" "Hack" "Noto" "NerdFontsSymbolsOnly"];})
       ipafont
       kochi-substitute
       clear-sans
@@ -42,10 +43,10 @@ in
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "0xProto Nerd Font" "Noto Sans Mono CJK JP" ];
-        sansSerif = [ "Clear Sans" "Noto Sans CJK JP" ];
-        serif = [ "Noto Serif" "Noto Serif CJK JP" ];
-        emoji = [ "Noto Color Emoji" ];
+        monospace = ["0xProto Nerd Font" "Noto Sans Mono CJK JP"];
+        sansSerif = ["Clear Sans" "Noto Sans CJK JP"];
+        serif = ["Noto Serif" "Noto Serif CJK JP"];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };

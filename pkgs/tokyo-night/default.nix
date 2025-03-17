@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, gtk-engine-murrine, gtk_engines, bash, sassc }:
-
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk-engine-murrine,
+  gtk_engines,
+  bash,
+  sassc,
+}:
 stdenv.mkDerivation {
   pname = "tokyo-night-gtk";
   version = "2025-03-16";
@@ -11,9 +18,9 @@ stdenv.mkDerivation {
     sha256 = "0c7sp9n2pc70yy9msmbmcyhqbr63v1ssnsxk6vg10zwwc3wl19h0";
   };
 
-  nativeBuildInputs = [ bash sassc ];
-  buildInputs = [ gtk-engine-murrine gtk_engines ];
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  nativeBuildInputs = [bash sassc];
+  buildInputs = [gtk-engine-murrine gtk_engines];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   patchPhase = ''
     cd themes
@@ -54,6 +61,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = [ "Cobray" ];
+    maintainers = ["Cobray"];
   };
 }

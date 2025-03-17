@@ -1,5 +1,11 @@
-{ lib, rustPlatform, fetchgit, ncurses, python3Packages, gettext }:
-
+{
+  lib,
+  rustPlatform,
+  fetchgit,
+  ncurses,
+  python3Packages,
+  gettext,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "fish";
   version = "4.1-2025-03-16-rust";
@@ -19,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = [ ncurses gettext ];
+  buildInputs = [ncurses gettext];
   nativeBuildInputs = with python3Packages; [
     sphinx
     sphinx_rtd_theme
