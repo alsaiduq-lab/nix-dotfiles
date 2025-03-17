@@ -81,7 +81,6 @@ in
     cloudflared
     # Rust ecosystem
     rustup
-    rust-analyzer
     cargo-edit
     cargo-watch
     cargo-outdated

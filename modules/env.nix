@@ -11,7 +11,7 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERM = "ghostty";
-    GTK_THEME = "Adwaita:dark";
+    GTK_THEME = lib.mkDefault "Adwaita:dark";
     CC = "${pkgs.gcc}/bin/gcc";
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.openssl.dev

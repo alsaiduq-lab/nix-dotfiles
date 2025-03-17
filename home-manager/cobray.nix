@@ -2,11 +2,9 @@
 
 {
   imports = [
-    ./modules/cava.nix
     ./modules/dunst.nix
     ./modules/fish.nix
     ./modules/ghostty.nix
-    ./modules/i3.nix
     ./modules/lazygit.nix
     ./modules/nvim.nix
     ./modules/picom.nix
@@ -27,10 +25,10 @@
     gnused
     gnugrep
     findutils
+    yazi
     htop
     btop
     nvtopPackages.full
     arandr
-    nitrogen
   ];
 }
