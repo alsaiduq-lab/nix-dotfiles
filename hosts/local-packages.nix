@@ -18,6 +18,7 @@ in {
     gnumake
     gcc
     socat
+    ffmpeg
     gnused
     gdb
     binutils
