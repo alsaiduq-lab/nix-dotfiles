@@ -107,5 +107,6 @@ in {
     unzip
     starship
     flameshot
+    yarn
   ];
 }

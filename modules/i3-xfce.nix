@@ -15,26 +15,10 @@ in {
   services.xserver.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
-    extraPackages = with pkgs; [
-      dmenu
-      i3status
-      i3lock
-      i3blocks
-      picom
-      feh
-      rofi
-      dunst
-      polybar
-      i3-auto-layout
-    ];
+    extraPackages = with pkgs; [dmenu i3status i3lock i3blocks picom feh rofi dunst polybar i3-auto-layout];
     extraSessionCommands = ''
-      # Set random wallpaper
       ${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png &
-      export GTK_THEME="Tokyonight-Dark"
-      export XCURSOR_THEME="Vivid-Dark-Icons"
-      export XCURSOR_SIZE="24"
-      export QT_STYLE_OVERRIDE="adwaita-dark"
-      ${pkgs.gtk3}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark"
+      ${pkgs.gtk3}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyo Night Storm"
       ${pkgs.gtk3}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Dark-Icons"
     '';
   };
@@ -52,7 +36,7 @@ in {
       enable = true;
       theme = {
         package = customPkgs.tokyo-night-gtk;
-        name = "Tokyonight-Dark";
+        name = "Tokyo Night Storm";
       };
       iconTheme = {
         package = customPkgs.vivid-icons;
@@ -60,8 +44,6 @@ in {
       };
       extraConfig = ''
         [greeter]
-        theme-name=Tokyonight-Dark
-        icon-theme-name=Vivid-Dark-Icons
         font-name=Clear Sans 10
         cursor-theme-name=Vivid-Dark-Icons
       '';
@@ -74,50 +56,22 @@ in {
     user = "cobray";
   };
 
-  environment.etc."xdg/autostart/i3-setup.desktop" = {
-    text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=i3 Setup
-      Exec=${pkgs.bash}/bin/bash -c "${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png"
-      Terminal=false
-      X-GNOME-Autostart-enabled=true
-    '';
-    mode = "0644";
-  };
-
   qt.enable = true;
   qt.platformTheme = "qt5ct";
   qt.style = "adwaita-dark";
 
-  environment.etc."gtk-2.0/gtkrc".text = ''
-    gtk-theme-name="Tokyonight-Dark"
-    gtk-icon-theme-name="Vivid-Dark-Icons"
-    gtk-font-name="Clear Sans 10"
-  '';
-
   environment.etc."gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Tokyonight-Dark
-    gtk-icon-theme-name=Vivid-Dark-Icons
-    gtk-font-name=Clear Sans 10
-  '';
-
-  environment.etc."gtk-4.0/settings.ini".text = ''
-    [Settings]
-    gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Tokyonight-Dark
+    gtk-theme-name=Tokyo Night Storm
     gtk-icon-theme-name=Vivid-Dark-Icons
     gtk-font-name=Clear Sans 10
   '';
 
   environment.variables = {
-    GTK_THEME = "Tokyonight-Dark";
+    GTK_THEME = "Tokyo Night Storm";
     XCURSOR_THEME = "Vivid-Dark-Icons";
     XCURSOR_SIZE = "24";
-    QT_STYLE_OVERRIDE = "adwaita-dark";
-    GTK2_RC_FILES = "$HOME/.gtkrc-2.0";
   };
 
   environment.systemPackages = with pkgs;
