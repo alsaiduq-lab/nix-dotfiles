@@ -65,6 +65,7 @@ rustPlatform.buildRustPackage rec {
     license = licenses.gpl2;
     platforms = platforms.unix;
     mainProgram = "fish";
+    maintainer = "Cobray";
   };
 
   passthru.shellPath = "/bin/fish";
