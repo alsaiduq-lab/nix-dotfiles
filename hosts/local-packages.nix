@@ -36,6 +36,7 @@ in {
     gradle
     visualvm
     jdt-language-server
+    python3Packages.pip
     (python310.withPackages (ps:
       with ps;
         [
