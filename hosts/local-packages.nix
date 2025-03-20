@@ -21,6 +21,7 @@ in {
     ffmpeg
     gnused
     gdb
+    stdenv.cc.cc.lib
     binutils
     cmake
     ninja
