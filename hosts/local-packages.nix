@@ -67,7 +67,6 @@ in {
     uv
     ruff
     black
-    mypy
     htop
     btop
     nvtopPackages.full
