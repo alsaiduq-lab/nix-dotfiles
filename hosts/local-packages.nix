@@ -63,6 +63,7 @@ in {
           onnxruntime
           opencv4
           pillow
+          timm
         ]
         ++ [customPkgs.python-rembg]))
     uv
