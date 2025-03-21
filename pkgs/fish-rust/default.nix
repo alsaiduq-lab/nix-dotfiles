@@ -8,7 +8,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "fish";
-  version = "4.1-2025-03-16-rust";
+  version = "4.1-2025-03-16-rust-${builtins.substring 0 7 "642ec399ca17bbde973dc20461335396fe922e4c"}";
 
   src = fetchgit {
     url = "https://github.com/fish-shell/fish-shell.git";
@@ -25,12 +25,8 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = [ncurses gettext];
-  nativeBuildInputs = with python3Packages; [
-    sphinx
-    sphinx_rtd_theme
-    gettext
-  ];
+  buildInputs = [ ncurses gettext ];
+  nativeBuildInputs = with python3Packages; [ sphinx sphinx_rtd_theme ];
 
   preBuild = ''
     export FISH_BUILD_VERSION="${version}"
@@ -38,23 +34,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postInstall = ''
-    export HOME=$(mktemp -d)
-    mkdir -p $HOME/.local/share/fish/install
-
-    if [ ! -f $HOME/.config/fish/config.fish ]; then
-      $out/bin/fish --install
-    fi
-
-    mkdir -p $out/share/fish
-    cp -r $HOME/.local/share/fish/install/* $out/share/fish/ 2>/dev/null || true
-
     mkdir -p $out/share/fish/tools
     cp $src/share/tools/create_manpage_completions.py $out/share/fish/tools/
     cp $src/share/tools/deroff.py $out/share/fish/tools/
     chmod +x $out/share/fish/tools/create_manpage_completions.py
     chmod +x $out/share/fish/tools/deroff.py
-
-    rm -rf $HOME
   '';
 
   doCheck = false;
@@ -65,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     license = licenses.gpl2;
     platforms = platforms.unix;
     mainProgram = "fish";
-    maintainer = "Cobray";
+    maintainers = [ "Cobray" ];
   };
 
   passthru.shellPath = "/bin/fish";
