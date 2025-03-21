@@ -11,7 +11,7 @@ python310Packages.buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-kW0MBDvIpL2Yc2n8zZ7Luw2na0qAczfORz2o6Y5YfkM=";
+    hash = "sha256-bMt/GbplRawFZUqoXq37zAq1dribnu/ZlIYTuUIS+DU=";
   };
 
   nativeBuildInputs = with python310Packages; [
