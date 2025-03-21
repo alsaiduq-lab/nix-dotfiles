@@ -22,6 +22,7 @@ in {
     gnused
     gdb
     stdenv.cc.cc.lib
+    nix-prefetch-git
     binutils
     cmake
     ninja
