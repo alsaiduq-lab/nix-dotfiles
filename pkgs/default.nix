@@ -16,7 +16,7 @@ in {
   };
 
   tokyo-night-gtk = pkgs.callPackage ./tokyo-night {
-    inherit (pkgs) lib stdenv fetchFromGitHub gtk-engine-murrine gtk_engines;
+    inherit (pkgs) lib stdenv fetchFromGitHub gtk-engine-murrine;
   };
 
   vivid-icons = pkgs.callPackage ./vivid-icons {
