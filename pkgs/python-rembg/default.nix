@@ -3,6 +3,7 @@
   python310Packages,
   fetchPypi,
   python-pymatting,
+  python-opencv-headless,
 }:
 python310Packages.buildPythonPackage rec {
   pname = "rembg";
@@ -23,7 +24,7 @@ python310Packages.buildPythonPackage rec {
     numpy
     pillow
     onnxruntime
-    opencv4
+    python-opencv-headless
     requests
     aiohttp
     asynctest
@@ -47,6 +48,6 @@ python310Packages.buildPythonPackage rec {
     homepage = "https://github.com/danielgatis/rembg";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ "Cobray" ];
+    maintainers = with maintainers; ["Cobray"];
   };
 }
