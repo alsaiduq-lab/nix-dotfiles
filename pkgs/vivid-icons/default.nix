@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     owner = "L4ki";
     repo = "Vivid-Plasma-Themes";
     rev = "fe8b8f1bdd3784dc838c125bb9e1b2d713f40e67";
-    hash = "sha256-X6NPEIhjYzf2mYOYnDADJ4A5nJ6T4HTRnF5Y9vKNIrw=";
+    sha256 ="X6NPEIhjYzf2mYOYnDADJ4A5nJ6T4HTRnF5Y9vKNIrw=";
   };
 
   buildInputs = [ hicolor-icon-theme ];
