@@ -23,9 +23,9 @@ in {
   python-opencv-headless = python-opencv-headless;
   python-rembg = python-rembg;
 
-  tokyo-night-gtk = pkgs.callPackage ./tokyo-night {
-    inherit (pkgs) lib stdenv fetchFromGitHub gtk-engine-murrine;
-  };
+  # tokyo-night-gtk = pkgs.callPackage ./tokyo-night {
+  #   inherit (pkgs) lib stdenv fetchFromGitHub gtk-engine-murrine;
+  # };
 
   vivid-icons = pkgs.callPackage ./vivid-icons {
     inherit (pkgs) lib stdenv fetchFromGitHub;
