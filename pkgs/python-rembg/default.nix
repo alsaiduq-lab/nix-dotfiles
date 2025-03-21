@@ -23,7 +23,7 @@ python310Packages.buildPythonPackage rec {
     numpy
     pillow
     onnxruntime
-    opencv-python
+    opencv4
     requests
     aiohttp
     asynctest
