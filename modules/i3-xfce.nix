@@ -47,7 +47,7 @@ in {
     greeters.gtk = {
       enable = true;
       theme = {
-        package = customPkgs.tokyo-night-gtk;
+        package = pkgs.tokyonight-gtk-theme;
         name = "Tokyonight-Storm";
       };
       iconTheme = {
@@ -105,8 +105,9 @@ in {
     numix-icon-theme-circle
     candy-icons
     capitaine-cursors
+    tokyonight-gtk-theme
+    nix-prefetch-git
   ] ++ (with customPkgs; [
-    tokyo-night-gtk
     vivid-icons
   ]);
 

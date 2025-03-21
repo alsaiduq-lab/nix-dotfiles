@@ -2,8 +2,8 @@
   pkgs ? import <nixpkgs> {},
   lib ? pkgs.lib,
 }: let
-  python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
-    inherit (pkgs) lib fetchPypi;
+   python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
+    inherit (pkgs) lib fetchurl;
     python310Packages = pkgs.python310.pkgs;
   };
 
