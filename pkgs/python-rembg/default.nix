@@ -7,23 +7,23 @@
 python310Packages.buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.50";
-  format = "setuptools";
+  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0dgq291bj4w6jkcyz7lvp1vba2nczfnmxa2acl2sqib5p8cpzjvc";
+    hash = "sha256-kW0MBDvIpL2Yc2n8zZ7Luw2na0qAczfORz2o6Y5YfkM=";
   };
 
   nativeBuildInputs = with python310Packages; [
-    setuptools
     poetry-core
+    setuptools
   ];
 
   propagatedBuildInputs = with python310Packages; [
     numpy
     pillow
     onnxruntime
-    opencv4
+    opencv-python
     requests
     aiohttp
     asynctest
@@ -37,6 +37,9 @@ python310Packages.buildPythonPackage rec {
     tqdm
   ];
 
+  buildInputs = [
+  ];
+
   doCheck = false;
 
   meta = with lib; {
@@ -44,6 +47,6 @@ python310Packages.buildPythonPackage rec {
     homepage = "https://github.com/danielgatis/rembg";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; ["Cobray"];
+    maintainers = with maintainers; [ "Cobray" ];
   };
 }
