@@ -1,16 +1,13 @@
-{ lib
-, python310Packages
-, fetchurl
-}:
+{lib, python310Packages, fetchurl}:
 
 python310Packages.buildPythonPackage rec {
   pname = "opencv-python-headless";
-  version = "4.11.0.86";
+  version = "4.9.0.80";
   format = "wheel";
 
   src = fetchurl {
-    url = "https://files.pythonhosted.org/packages/dd/5c/c139a7876099916879609372bfa513b7f1257f7f1a908b0bdc1c2328241b/opencv_python_headless-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
-    sha256 = "0yx58bpwl6bcsq3ikv5jzffvxyv663jcyxj9z7ghvx6ikp0jf2hf";
+    url = "https://files.pythonhosted.org/packages/71/19/3c65483a80a1d062d46ae20faf5404712d25cb1dfdcaf371efbd67c38544/opencv_python_headless-4.9.0.80-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
+    sha256 = "976656362d68d9f40a5c66f83901430538002465f7db59142784f3893918f3df";
   };
 
   propagatedBuildInputs = with python310Packages; [

@@ -24,6 +24,7 @@ in {
     stdenv.cc.cc.lib
     nix-prefetch-git
     binutils
+    hashcat
     cmake
     ninja
     pkg-config
@@ -34,6 +35,7 @@ in {
     obs-studio
     lazygit
     jdk17
+    bun
     maven
     gradle
     visualvm
@@ -62,7 +64,6 @@ in {
           pyyaml
           pytz
           onnxruntime
-          opencv4
           pillow
           timm
         ]
@@ -100,6 +101,7 @@ in {
     haskell-language-server
     postgresql
     sqlite
+    spotify
     git-lfs
     gitAndTools.gh
     gitAndTools.diff-so-fancy
@@ -112,5 +114,15 @@ in {
     starship
     flameshot
     yarn
+    nodePackages.typescript-language-server
+    nodePackages.eslint
+    nodePackages.prettier
+    nodePackages.vitest
+    nodePackages.pg
+    nodePackages.sqlite3
+    httpie
+    wrk
+    nodePackages.pnpm
+    zlib.dev
   ];
 }

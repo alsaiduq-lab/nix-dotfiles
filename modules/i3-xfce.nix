@@ -29,9 +29,13 @@ in {
     ];
     extraSessionCommands = ''
       ${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* 2>/dev/null || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png &
-      export GSETTINGS_SCHEMA_DIR=${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas
-      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Storm"
-      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Dark-Icons"
+
+      export GSETTINGS_SCHEMA_DIR="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas"
+      export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
+
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark" || echo "Failed to set GTK theme" > /tmp/theme-debug.log
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Icons-Dark" || ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || echo "Failed to set icon theme" > /tmp/theme-debug.log
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface cursor-theme "capitaine-cursors" || echo "Failed to set cursor theme" > /tmp/theme-debug.log
     '';
   };
 
@@ -48,11 +52,11 @@ in {
       enable = true;
       theme = {
         package = pkgs.tokyonight-gtk-theme;
-        name = "Tokyonight-Storm";
+        name = "Tokyonight-Dark";
       };
       iconTheme = {
         package = customPkgs.vivid-icons;
-        name = "Vivid-Dark-Icons";
+        name = "Vivid-Icons-Dark";
       };
       cursorTheme = {
         package = pkgs.capitaine-cursors;
@@ -72,20 +76,42 @@ in {
     user = "cobray";
   };
 
-  qt.enable = true;
-  qt.platformTheme = "qt5ct";
-  qt.style = "adwaita-dark";
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
+  };
 
-  environment.etc."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Tokyonight-Storm
-    gtk-icon-theme-name=Vivid-Dark-Icons
-    gtk-font-name=Clear Sans 10
-  '';
+  environment.etc = {
+    "gtk-2.0/gtkrc".text = ''
+      gtk-theme-name="Tokyonight-Dark"
+      gtk-icon-theme-name="Vivid-Icons-Dark"
+      gtk-font-name="Clear Sans 10"
+      gtk-cursor-theme-name="capitaine-cursors"
+      gtk-cursor-theme-size=24
+    '';
+    "gtk-3.0/settings.ini".text = ''
+      [Settings]
+      gtk-application-prefer-dark-theme=1
+      gtk-theme-name=Tokyonight-Dark
+      gtk-icon-theme-name=Vivid-Icons-Dark
+      gtk-font-name=Clear Sans 10
+      gtk-cursor-theme-name=capitaine-cursors
+      gtk-cursor-theme-size=24
+    '';
+    "gtk-4.0/settings.ini".text = ''
+      [Settings]
+      gtk-application-prefer-dark-theme=1
+      gtk-theme-name=Tokyonight-Dark
+      gtk-icon-theme-name=Vivid-Icons-Dark
+      gtk-font-name=Clear Sans 10
+      gtk-cursor-theme-name=capitaine-cursors
+      gtk-cursor-theme-size=24
+    '';
+  };
 
   environment.variables = {
-    GTK_THEME = "Tokyonight-Storm";
+    GTK_THEME = "Tokyonight-Dark";
+    ICON_THEME = "Vivid-Icons-Dark";
     XCURSOR_THEME = "capitaine-cursors";
     XCURSOR_SIZE = "24";
   };
@@ -95,7 +121,6 @@ in {
     nitrogen
     xclip
     lxappearance
-    libsForQt5.qt5ct
     gnome-themes-extra
     gsettings-desktop-schemas
     adwaita-qt
@@ -114,8 +139,20 @@ in {
   services.xserver.desktopManager.session = [{
     name = "xfce+i3";
     start = ''
+      export XDG_DATA_DIRS="${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
       ${pkgs.xfce.xfce4-session}/bin/xfce4-session --with-ck-launch &
       ${pkgs.i3-gaps}/bin/i3
     '';
+  }];
+
+  programs.dconf.enable = true;
+  programs.dconf.profiles.user.databases = [{
+    settings = {
+      "org/gnome/desktop/interface" = {
+        icon-theme = "Vivid-Icons-Dark";
+        gtk-theme = "Tokyonight-Dark";
+        cursor-theme = "capitaine-cursors";
+      };
+    };
   }];
 }

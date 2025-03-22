@@ -1,9 +1,8 @@
-{
-  lib,
-  python310Packages,
-  fetchPypi,
-  python-pymatting,
-  python-opencv-headless,
+{ lib,
+python310Packages,
+fetchPypi,
+python-pymatting,
+python-opencv-headless
 }:
 python310Packages.buildPythonPackage rec {
   pname = "rembg";
@@ -22,23 +21,15 @@ python310Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python310Packages; [
     numpy
-    pillow
     onnxruntime
     python-opencv-headless
-    requests
-    aiohttp
-    asynctest
-    click
-    filetype
+    pillow
     pooch
-    pympler
     python-pymatting
     scikit-image
     scipy
     tqdm
-  ];
-
-  buildInputs = [
+    aiohttp
   ];
 
   doCheck = false;
