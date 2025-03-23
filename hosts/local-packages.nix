@@ -40,40 +40,6 @@ in {
     gradle
     visualvm
     jdt-language-server
-    python3Packages.pip
-    (python311.withPackages (ps:
-      with ps;
-        [
-          virtualenv
-          torch-bin
-          torchvision-bin
-          torchaudio-bin
-          ipython
-          i3ipc
-          xlib
-          six
-          psutil
-          pynvml
-          pyqtgraph
-          pyqt6
-          numpy
-          pandas
-          matplotlib
-          scipy
-          requests
-          click
-          typer
-          rich
-          pyyaml
-          pytz
-          onnxruntime
-          pillow
-          timm
-        ]
-        ++ [customPkgs.python-rembg]))
-    uv
-    ruff
-    black
     htop
     btop
     nvtopPackages.full
