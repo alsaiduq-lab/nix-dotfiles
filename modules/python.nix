@@ -1,49 +1,49 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-let
-  customPkgs = import ../pkgs { inherit pkgs lib; };
-in {
-  options.custom.python = {
-    enable = lib.mkEnableOption "System Python Env";
-  };
+{ config, pkgs, lib, ... }:
 
-  config = lib.mkIf config.custom.python.enable {
+let
+  customPkgs = pkgs.callPackage ../pkgs { inherit pkgs lib; };
+in {
+  options.python = {
+    enable = lib.mkEnableOption "System Python Environment";
+  };
+  config = lib.mkIf config.python.enable {
     environment.systemPackages = with pkgs; [
-      (python311.withPackages (ps: with ps; [
-        virtualenv
-        (torch.override { cudaSupport = true; })
-        torchvision
-        torchaudio
-        ipython
+      (python311.withPackages (pyPkgs: with pyPkgs; [
+        numpy
+        python-pymatting
+        python-opencv-headless
+        python-rembg
         i3ipc
-        xlib
+        pandas
+        matplotlib
+        scipy
+        requests
+        pip
+        virtualenv
+        ipython
         six
         psutil
         pynvml
         pyqtgraph
         pyqt6
-        numpy
-        pandas
-        matplotlib
-        scipy
-        requests
         click
         typer
         rich
         pyyaml
         pytz
-        onnxruntime
         pillow
-        timm
-      ] ++ [ customPkgs.python-rembg ]))
+      ]))
       python3Packages.pip
-      uv
-      ruff
       black
+      ruff
+      uv
     ];
+    environment.variables = {
+      PIP_PREFIX = "$HOME/.local";
+      PYTHONPATH = "$HOME/.local/lib/python3.11/site-packages";
+    };
+    environment.shellAliases = {
+      python = "python3.11";
+    };
   };
 }

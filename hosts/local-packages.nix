@@ -1,13 +1,21 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
-  customPkgs = import ../pkgs {inherit pkgs lib;};
+{ config, pkgs, lib, ... }:
+let
+  customPkgs = import ../pkgs { inherit pkgs lib; };
 in {
+  imports = [
+    ../modules/python.nix
+  ];
+  python.enable = true;
   environment.systemPackages = with pkgs; [
-    # Applications
+    (python311.withPackages (pyPkgs: with pyPkgs; [
+      requests
+      pip
+      virtualenv
+      ipython
+    ]))
+    python3Packages.pip
+    black
+    ruff
     brave # TODO: make a module to save browser stuff
     vesktop
     git
@@ -89,4 +97,7 @@ in {
     nodePackages.pnpm
     zlib.dev
   ];
+  environment.shellAliases = {
+    python = "python3.11";
+  };
 }

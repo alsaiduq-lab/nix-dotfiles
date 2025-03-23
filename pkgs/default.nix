@@ -1,29 +1,44 @@
 {
   pkgs ? import <nixpkgs> {},
   lib ? pkgs.lib,
-}: let
-   python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
-    inherit (pkgs) lib fetchurl;
-    python311Packages = pkgs.python311.pkgs;
-  };
-
-  python-pymatting = pkgs.callPackage ./python-pymatting {
-    inherit (pkgs) lib fetchPypi;
-    python311Packages = pkgs.python311.pkgs;
-  };
-
-  python-rembg = pkgs.callPackage ./python-rembg {
-    inherit (pkgs) lib fetchPypi;
-    inherit python-pymatting python-opencv-headless;
-    python311Packages = pkgs.python311.pkgs;
-  };
-in {
+}: {
   fish-rust = pkgs.callPackage ./fish-rust {};
-  python-pymatting = python-pymatting;
-  python-opencv-headless = python-opencv-headless;
-  python-rembg = python-rembg;
-
+  python-pymatting = pkgs.callPackage ./python-pymatting {
+    inherit lib;
+    fetchPypi = pkgs.fetchPypi;
+    python311Packages = pkgs.python311Packages;
+  };
+  python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
+    inherit lib;
+    fetchPypi = pkgs.fetchPypi;
+    cmake = pkgs.cmake;
+    pkg-config = pkgs.pkg-config;
+    stdenv = pkgs.stdenv;
+    makeWrapper = pkgs.makeWrapper;
+    python311Packages = pkgs.python311Packages;
+  };
+  python-rembg = pkgs.callPackage ./python-rembg {
+    inherit lib;
+    fetchPypi = pkgs.fetchPypi;
+    python-pymatting = pkgs.callPackage ./python-pymatting {
+      inherit lib;
+      fetchPypi = pkgs.fetchPypi;
+      python311Packages = pkgs.python311Packages;
+    };
+    python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
+      inherit lib;
+      fetchPypi = pkgs.fetchPypi;
+      cmake = pkgs.cmake;
+      pkg-config = pkgs.pkg-config;
+      stdenv = pkgs.stdenv;
+      makeWrapper = pkgs.makeWrapper;
+      python311Packages = pkgs.python311Packages;
+    };
+    python311Packages = pkgs.python311Packages;
+  };
   vivid-icons = pkgs.callPackage ./vivid-icons {
-    inherit (pkgs) lib stdenv fetchFromGitHub;
+    inherit lib;
+    stdenv = pkgs.stdenv;
+    fetchFromGitHub = pkgs.fetchFromGitHub;
   };
 }
