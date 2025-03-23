@@ -1,18 +1,24 @@
 { config, pkgs, lib, ... }:
-
 let
   customPkgs = import ../pkgs { inherit pkgs lib; };
-in
-{
+in {
+  imports = [
+    ../modules/python.nix
+  ];
+  python.enable = true;
   environment.systemPackages = with pkgs; [
-    # Applications
-    brave
-    ghostty
+    (python311.withPackages (pyPkgs: with pyPkgs; [
+      requests
+      pip
+      virtualenv
+      ipython
+    ]))
+    python3Packages.pip
+    black
+    ruff
+    brave # TODO: make a module to save browser stuff
     vesktop
-    neovim
     git
-    fastfetch
-    # Development tools
     nodejs
     wget
     curl
@@ -20,8 +26,13 @@ in
     gnumake
     gcc
     socat
+    ffmpeg
+    gnused
     gdb
+    stdenv.cc.cc.lib
+    nix-prefetch-git
     binutils
+    hashcat
     cmake
     ninja
     pkg-config
@@ -31,40 +42,12 @@ in
     gawk
     obs-studio
     lazygit
-    # Java ecosystem
     jdk17
+    bun
     maven
     gradle
     visualvm
     jdt-language-server
-    (python310.withPackages (ps: with ps; [
-      virtualenv
-      ipython
-      i3ipc
-      xlib
-      six
-      psutil
-      pynvml
-      pyqtgraph
-      pyqt6
-      numpy
-      pandas
-      matplotlib
-      scipy
-      requests
-      click
-      typer
-      rich
-      pyyaml
-      pytz
-      onnxruntime
-      opencv4
-      pillow
-    ] ++ [ customPkgs.python-rembg ]))
-    uv
-    ruff
-    black
-    mypy
     htop
     btop
     nvtopPackages.full
@@ -79,9 +62,7 @@ in
     deno
     redis
     cloudflared
-    # Rust ecosystem
     rustup
-    rust-analyzer
     cargo-edit
     cargo-watch
     cargo-outdated
@@ -91,19 +72,16 @@ in
     pkg-config
     libxml2
     zlib
-    # Haskell ecosystem
     ghc
     cabal-install
     stack
     haskell-language-server
-    # Database tools
     postgresql
     sqlite
-    # Version control tools
+    spotify
     git-lfs
     gitAndTools.gh
     gitAndTools.diff-so-fancy
-    # misc
     ani-cli
     yt-dlp
     nmap
@@ -112,5 +90,14 @@ in
     unzip
     starship
     flameshot
+    yarn
+    mpv
+    httpie
+    wrk
+    nodePackages.pnpm
+    zlib.dev
   ];
+  environment.shellAliases = {
+    python = "python3.11";
+  };
 }

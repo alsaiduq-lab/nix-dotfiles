@@ -1,8 +1,12 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  customPkgs = import ../pkgs {inherit pkgs lib;};
+in {
   services.xserver.enable = true;
-
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -24,8 +28,14 @@
       i3-auto-layout
     ];
     extraSessionCommands = ''
-      # Set random wallpaper
-      ${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png &
+      ${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* 2>/dev/null || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png &
+
+      export GSETTINGS_SCHEMA_DIR="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas"
+      export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
+
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark" || echo "Failed to set GTK theme" > /tmp/theme-debug.log
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Icons-Dark" || ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || echo "Failed to set icon theme" > /tmp/theme-debug.log
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface cursor-theme "capitaine-cursors" || echo "Failed to set cursor theme" > /tmp/theme-debug.log
     '';
   };
 
@@ -34,52 +44,115 @@
     noDesktop = true;
     enableXfwm = false;
   };
+
   services.xserver.displayManager.lightdm = {
     enable = true;
-    background = "#000000";
+    background = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png";
     greeters.gtk = {
       enable = true;
-      theme.name = "Adwaita-dark";
-      iconTheme.name = "Papirus-Dark";
+      theme = {
+        package = pkgs.tokyonight-gtk-theme;
+        name = "Tokyonight-Dark";
+      };
+      iconTheme = {
+        package = customPkgs.vivid-icons;
+        name = "Vivid-Icons-Dark";
+      };
+      cursorTheme = {
+        package = pkgs.capitaine-cursors;
+        name = "capitaine-cursors";
+      };
+      extraConfig = ''
+        [greeter]
+        font-name=Clear Sans 10
+        cursor-theme-name=capitaine-cursors
+      '';
     };
   };
+
   services.displayManager.defaultSession = "xfce+i3";
   services.displayManager.autoLogin = {
     enable = true;
     user = "cobray";
   };
-  environment.etc."xdg/autostart/i3-setup.desktop" = {
-    text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=i3 Setup
-      Exec=${pkgs.bash}/bin/bash -c "${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png"
-      Terminal=false
-      X-GNOME-Autostart-enabled=true
-    '';
-    mode = "0644";
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
   };
 
-  qt.enable = true;
-  qt.platformTheme = "gnome";
-  qt.style = "adwaita-dark";
-  environment.etc."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-application-prefer-dark-theme=1
-    gtk-theme-name=Adwaita-dark
-    gtk-icon-theme-name=Papirus-Dark
-    gtk-font-name=Sans 10
-  '';
+  environment.etc = {
+    "gtk-2.0/gtkrc".text = ''
+      gtk-theme-name="Tokyonight-Dark"
+      gtk-icon-theme-name="Vivid-Icons-Dark"
+      gtk-font-name="Clear Sans 10"
+      gtk-cursor-theme-name="capitaine-cursors"
+      gtk-cursor-theme-size=24
+    '';
+    "gtk-3.0/settings.ini".text = ''
+      [Settings]
+      gtk-application-prefer-dark-theme=1
+      gtk-theme-name=Tokyonight-Dark
+      gtk-icon-theme-name=Vivid-Icons-Dark
+      gtk-font-name=Clear Sans 10
+      gtk-cursor-theme-name=capitaine-cursors
+      gtk-cursor-theme-size=24
+    '';
+    "gtk-4.0/settings.ini".text = ''
+      [Settings]
+      gtk-application-prefer-dark-theme=1
+      gtk-theme-name=Tokyonight-Dark
+      gtk-icon-theme-name=Vivid-Icons-Dark
+      gtk-font-name=Clear Sans 10
+      gtk-cursor-theme-name=capitaine-cursors
+      gtk-cursor-theme-size=24
+    '';
+  };
+
+  environment.variables = {
+    GTK_THEME = "Tokyonight-Dark";
+    ICON_THEME = "Vivid-Icons-Dark";
+    XCURSOR_THEME = "capitaine-cursors";
+    XCURSOR_SIZE = "24";
+  };
 
   environment.systemPackages = with pkgs; [
     arandr
     nitrogen
     xclip
     lxappearance
+    gnome-themes-extra
+    gsettings-desktop-schemas
+    adwaita-qt
     arc-theme
     arc-icon-theme
     papirus-icon-theme
     numix-icon-theme-circle
     candy-icons
-  ];
+    capitaine-cursors
+    tokyonight-gtk-theme
+    nix-prefetch-git
+  ] ++ (with customPkgs; [
+    vivid-icons
+  ]);
+
+  services.xserver.desktopManager.session = [{
+    name = "xfce+i3";
+    start = ''
+      export XDG_DATA_DIRS="${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
+      ${pkgs.xfce.xfce4-session}/bin/xfce4-session --with-ck-launch &
+      ${pkgs.i3-gaps}/bin/i3
+    '';
+  }];
+
+  programs.dconf.enable = true;
+  programs.dconf.profiles.user.databases = [{
+    settings = {
+      "org/gnome/desktop/interface" = {
+        icon-theme = "Vivid-Icons-Dark";
+        gtk-theme = "Tokyonight-Dark";
+        cursor-theme = "capitaine-cursors";
+      };
+    };
+  }];
 }

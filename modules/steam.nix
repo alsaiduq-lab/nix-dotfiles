@@ -1,6 +1,11 @@
-{ config, pkgs, lib, inputs, system, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  system,
+  ...
+}: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;

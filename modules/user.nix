@@ -1,15 +1,16 @@
-{ config, pkgs, lib, ... }:
-
-let
-  fish-rust = pkgs.callPackage ../pkgs/fish-rust { };
-in
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  fish-rust = pkgs.callPackage ../pkgs/fish-rust {};
+in {
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.cobray = {
     isNormalUser = true;
     description = "Mon Aie";
-    extraGroups = [ "networkmanager" "wheel" "docker" "video" ];
+    extraGroups = ["networkmanager" "wheel" "docker" "video"];
     shell = fish-rust;
     packages = with pkgs; [
       # User-specific packages can be defined here

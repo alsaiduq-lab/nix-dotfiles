@@ -4,6 +4,8 @@ backup/
 
 result
 
+.env
+
 *.nix.bak
 *.nix~
 /nix/store/

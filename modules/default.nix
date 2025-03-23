@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./audio.nix
     ./bluetooth.nix
@@ -16,7 +19,7 @@
     ./steam.nix
     ./timezone.nix
     ./user.nix
-    ./man.nix
+    ./python.nix
   ];
 
   # Enable CUPS to print documents.

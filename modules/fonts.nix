@@ -1,16 +1,32 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  clear-sans = pkgs.stdenv.mkDerivation {
+    name = "clear-sans";
+    src = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/resir014/Clear-Sans-Webfont/97eec13/fonts/TTF/ClearSans-Regular.ttf";
+      sha256 = "0vzhy3l056gj5vkcs1kglr4mr0546fq093v78i4ri8xni7w1m0dv";
+    };
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/share/fonts/truetype
+      cp $src $out/share/fonts/truetype/ClearSans-Regular.ttf
+    '';
+  };
+in {
   fonts = {
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "0xProto" "FiraCode" "JetBrainsMono" "Hack" "Noto" "NerdFontsSymbolsOnly" ]; })
+      (nerdfonts.override {fonts = ["0xProto" "FiraCode" "JetBrainsMono" "Hack" "Noto" "NerdFontsSymbolsOnly"];})
       ipafont
       kochi-substitute
-      # Custom BinaryClock font
+      clear-sans
       (stdenv.mkDerivation {
         name = "binary-clock-font";
         src = fetchurl {
@@ -27,10 +43,10 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JetBrains Mono" "Noto Sans Mono CJK JP" ];
-        sansSerif = [ "Noto Sans" "Noto Sans CJK JP" ];
-        serif = [ "Noto Serif" "Noto Serif CJK JP" ];
-        emoji = [ "Noto Color Emoji" ];
+        monospace = ["0xProto Nerd Font" "Noto Sans Mono CJK JP"];
+        sansSerif = ["Clear Sans" "Noto Sans CJK JP"];
+        serif = ["Noto Serif" "Noto Serif CJK JP"];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };

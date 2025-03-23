@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   home.packages = with pkgs; [
     fish-rust
     starship
@@ -10,5 +13,4 @@
     fd
     ripgrep
   ];
-
 }

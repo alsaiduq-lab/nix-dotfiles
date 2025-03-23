@@ -1,40 +1,39 @@
-{ lib, python310Packages, fetchPypi, python-pymatting }:
-
-python310Packages.buildPythonPackage rec {
+{ lib
+, python311Packages
+, fetchPypi
+, python-pymatting
+, python-opencv-headless
+}:
+python311Packages.buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.50";
-  format = "setuptools";
-
+  format = "pyproject";
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0dgq291bj4w6jkcyz7lvp1vba2nczfnmxa2acl2sqib5p8cpzjvc";
+    sha256 = "bMt/GbplRawFZUqoXq37zAq1dribnu/ZlIYTuUIS+DU=";
   };
-
-  nativeBuildInputs = with python310Packages; [
-    setuptools
+  nativeBuildInputs = with python311Packages; [
     poetry-core
+    setuptools
   ];
-
-  propagatedBuildInputs = with python310Packages; [
+  propagatedBuildInputs = with python311Packages; [
     numpy
-    pillow
     onnxruntime
-    opencv4
-    requests
-    aiohttp
-    asynctest
-    click
-    filetype
+    pillow
     pooch
-    pympler
-    python-pymatting
     scikit-image
     scipy
     tqdm
+    aiohttp
+    pytorch-bin
+  ] ++ [
+    python-opencv-headless
+    python-pymatting
   ];
-
+  pythonRemoveDeps = [ "opencv-python-headless" ];
+  dontPrecompilePages = true;
+  doInstallCheck = false;
   doCheck = false;
-
   meta = with lib; {
     description = "Tool to remove image backgrounds";
     homepage = "https://github.com/danielgatis/rembg";

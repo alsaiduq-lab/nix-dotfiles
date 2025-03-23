@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   environment.shellInit = ''
     if [ -d $HOME/.cargo/bin ]; then
       export PATH=$PATH:$HOME/.cargo/bin
@@ -11,7 +14,7 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERM = "ghostty";
-    GTK_THEME = "Adwaita:dark";
+    GTK_THEME = lib.mkDefault "Adwaita:dark";
     CC = "${pkgs.gcc}/bin/gcc";
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.openssl.dev
