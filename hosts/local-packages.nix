@@ -41,10 +41,13 @@ in {
     visualvm
     jdt-language-server
     python3Packages.pip
-    (python310.withPackages (ps:
+    (python311.withPackages (ps:
       with ps;
         [
           virtualenv
+          torch-bin
+          torchvision-bin
+          torchaudio-bin
           ipython
           i3ipc
           xlib
@@ -114,12 +117,7 @@ in {
     starship
     flameshot
     yarn
-    nodePackages.typescript-language-server
-    nodePackages.eslint
-    nodePackages.prettier
-    nodePackages.vitest
-    nodePackages.pg
-    nodePackages.sqlite3
+    mpv
     httpie
     wrk
     nodePackages.pnpm

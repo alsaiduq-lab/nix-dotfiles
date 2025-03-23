@@ -1,10 +1,10 @@
 { lib,
-python310Packages,
+python311Packages,
 fetchPypi,
 python-pymatting,
 python-opencv-headless
 }:
-python310Packages.buildPythonPackage rec {
+python311Packages.buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.50";
   format = "pyproject";
@@ -14,12 +14,12 @@ python310Packages.buildPythonPackage rec {
     hash = "sha256-bMt/GbplRawFZUqoXq37zAq1dribnu/ZlIYTuUIS+DU=";
   };
 
-  nativeBuildInputs = with python310Packages; [
+  nativeBuildInputs = with python311Packages; [
     poetry-core
     setuptools
   ];
 
-  propagatedBuildInputs = with python310Packages; [
+  propagatedBuildInputs = with python311Packages; [
     numpy
     onnxruntime
     python-opencv-headless

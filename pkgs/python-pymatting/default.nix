@@ -1,9 +1,9 @@
 {
   lib,
-  python310Packages,
+  python311Packages,
   fetchPypi,
 }:
-python310Packages.buildPythonPackage rec {
+python311Packages.buildPythonPackage rec {
   pname = "pymatting";
   version = "1.1.13";
   format = "pyproject";
@@ -13,12 +13,12 @@ python310Packages.buildPythonPackage rec {
     hash = "sha256-LNt8S++s3e9Netwt6ONKJy3mOdYIrlwKCGE9+kJTgQE=";
   };
 
-  nativeBuildInputs = with python310Packages; [
+  nativeBuildInputs = with python311Packages; [
     setuptools
     poetry-core
   ];
 
-  propagatedBuildInputs = with python310Packages; [
+  propagatedBuildInputs = with python311Packages; [
     numpy
     scipy
     pillow

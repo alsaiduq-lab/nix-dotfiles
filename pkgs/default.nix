@@ -4,18 +4,18 @@
 }: let
    python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
     inherit (pkgs) lib fetchurl;
-    python310Packages = pkgs.python310.pkgs;
+    python311Packages = pkgs.python311.pkgs;
   };
 
   python-pymatting = pkgs.callPackage ./python-pymatting {
     inherit (pkgs) lib fetchPypi;
-    python310Packages = pkgs.python310.pkgs;
+    python311Packages = pkgs.python311.pkgs;
   };
 
   python-rembg = pkgs.callPackage ./python-rembg {
     inherit (pkgs) lib fetchPypi;
     inherit python-pymatting python-opencv-headless;
-    python310Packages = pkgs.python310.pkgs;
+    python311Packages = pkgs.python311.pkgs;
   };
 in {
   fish-rust = pkgs.callPackage ./fish-rust {};

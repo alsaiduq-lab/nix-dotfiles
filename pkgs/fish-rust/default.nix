@@ -25,8 +25,8 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = [ ncurses gettext ];
-  nativeBuildInputs = with python3Packages; [ sphinx sphinx_rtd_theme ];
+  buildInputs = [ncurses gettext];
+  nativeBuildInputs = with python3Packages; [sphinx sphinx_rtd_theme];
 
   preBuild = ''
     export FISH_BUILD_VERSION="${version}"
@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     license = licenses.gpl2;
     platforms = platforms.unix;
     mainProgram = "fish";
-    maintainers = [ "Cobray" ];
+    maintainers = ["Cobray"];
   };
 
   passthru.shellPath = "/bin/fish";

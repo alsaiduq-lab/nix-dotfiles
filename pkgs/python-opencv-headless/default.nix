@@ -1,6 +1,6 @@
-{lib, python310Packages, fetchurl}:
+{lib, python311Packages, fetchurl}:
 
-python310Packages.buildPythonPackage rec {
+python311Packages.buildPythonPackage rec {
   pname = "opencv-python-headless";
   version = "4.9.0.80";
   format = "wheel";
@@ -10,7 +10,7 @@ python310Packages.buildPythonPackage rec {
     sha256 = "976656362d68d9f40a5c66f83901430538002465f7db59142784f3893918f3df";
   };
 
-  propagatedBuildInputs = with python310Packages; [
+  propagatedBuildInputs = with python311Packages; [
     numpy
   ];
 
