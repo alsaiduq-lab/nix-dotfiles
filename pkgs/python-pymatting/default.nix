@@ -19,7 +19,6 @@ python311Packages.buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = with python311Packages; [
-    numpy
     scipy
     pillow
     numba

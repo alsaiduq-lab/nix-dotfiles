@@ -31,8 +31,8 @@ python311Packages.buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = with python311Packages; [
-    numpy
     setuptools
+    numpy
   ];
 
   dontUseCmakeConfigure = true;

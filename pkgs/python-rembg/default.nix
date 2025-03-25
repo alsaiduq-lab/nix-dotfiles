@@ -17,7 +17,6 @@ python311Packages.buildPythonPackage rec {
     setuptools
   ];
   propagatedBuildInputs = with python311Packages; [
-    numpy
     onnxruntime
     pillow
     pooch
