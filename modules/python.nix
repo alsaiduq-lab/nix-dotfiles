@@ -33,16 +33,10 @@
       pynvml
       pyqtgraph
       pyqt6
-      click
-      typer
-      rich
       pyyaml
-      pytz
       pillow
       jedi
       libcst
-      ruff
-      ruff-lsp
     ];
   };
 in {
@@ -53,7 +47,6 @@ in {
     environment.systemPackages = with pkgs; [
       pythonEnv
       python3Packages.pip
-      black
       isort
       uv
       stdenv.cc.cc.lib

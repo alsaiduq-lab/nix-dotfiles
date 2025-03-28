@@ -12,7 +12,6 @@ in {
   python.enable = true;
 
   environment.systemPackages = with pkgs; [
-    black
     brave # TODO: make a module to save browser stuff
     vesktop
     git
@@ -96,5 +95,6 @@ in {
     wrk
     nodePackages.pnpm
     zlib.dev
+    udiskie
   ];
 }
