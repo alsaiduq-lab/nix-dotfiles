@@ -25,7 +25,6 @@ in {
     ffmpeg
     gnused
     gdb
-    libstdcxx5
     stdenv.cc.cc.lib
     nix-prefetch-git
     binutils
