@@ -1,5 +1,4 @@
 { config, pkgs, lib, ... }:
-
 let
   customPkgs = pkgs.callPackage ../pkgs { inherit pkgs lib; };
   pipConf = pkgs.writeText "pip.conf" ''
@@ -29,13 +28,14 @@ let
       pkgs.python311Packages.pynvml
       pkgs.python311Packages.pyqtgraph
       pkgs.python311Packages.pyqt6
-      pkgs.python311Packages.cppcheck
       pkgs.python311Packages.click
       pkgs.python311Packages.typer
       pkgs.python311Packages.rich
       pkgs.python311Packages.pyyaml
       pkgs.python311Packages.pytz
       pkgs.python311Packages.pillow
+      pkgs.python311Packages.jedi
+      pkgs.python311Packages.libcst
     ];
   };
 in {
@@ -47,14 +47,13 @@ in {
       pythonEnv
       python3Packages.pip
       black
-      ruff
+      isort
       uv
       stdenv.cc.cc.lib
     ];
-    # Environment variables
     environment.variables = {
       PIP_PREFIX = "$HOME/.local";
-      PIP_CONFIG_FILE = "${pipConf}";  # Force pip to use our config
+      PIP_CONFIG_FILE = "${pipConf}";
       PYTHONPATH = "$HOME/.local/lib/python3.11/site-packages";
     };
     system.userActivationScripts.removeNumpy2 = ''

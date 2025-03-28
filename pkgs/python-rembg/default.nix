@@ -1,8 +1,8 @@
-{ lib
-, python311Packages
-, fetchPypi
-, python-pymatting
-, python-opencv-headless
+{ lib,
+python311Packages,
+fetchPypi,
+python-pymatting,
+python-opencv-headless
 }:
 python311Packages.buildPythonPackage rec {
   pname = "rembg";

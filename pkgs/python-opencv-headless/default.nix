@@ -1,10 +1,10 @@
-{ lib
-, python311Packages
-, fetchPypi
-, stdenv
-, makeWrapper
-, cmake
-, pkg-config
+{ lib,
+python311Packages,
+fetchPypi,
+stdenv,
+makeWrapper,
+cmake,
+pkg-config
 }:
 
 python311Packages.buildPythonPackage rec {

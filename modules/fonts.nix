@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }: let
   clear-sans = pkgs.stdenv.mkDerivation {

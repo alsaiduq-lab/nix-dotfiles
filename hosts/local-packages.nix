@@ -1,21 +1,24 @@
-{ config, pkgs, lib, ... }:
-let
-  customPkgs = import ../pkgs { inherit pkgs lib; };
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  customPkgs = import ../pkgs {inherit pkgs lib;};
 in {
   imports = [
     ../modules/python.nix
   ];
   python.enable = true;
   environment.systemPackages = with pkgs; [
-    (python311.withPackages (pyPkgs: with pyPkgs; [
-      requests
-      pip
-      virtualenv
-      ipython
-    ]))
+    (python311.withPackages (pyPkgs:
+      with pyPkgs; [
+        requests
+        pip
+        virtualenv
+        ipython
+      ]))
     python3Packages.pip
     black
-    ruff
     brave # TODO: make a module to save browser stuff
     vesktop
     git
@@ -43,6 +46,7 @@ in {
     gawk
     obs-studio
     lazygit
+    lazydocker
     jdk17
     bun
     maven

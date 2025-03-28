@@ -1,6 +1,7 @@
-{ pkgs ? import <nixpkgs> {}, lib ? pkgs.lib }:
-
-let
+{
+  pkgs ? import <nixpkgs> {},
+  lib ? pkgs.lib,
+}: let
   numpy-1 = pkgs.python311Packages.numpy.overridePythonAttrs (oldAttrs: rec {
     version = "1.26.4";
     src = pkgs.fetchPypi {
@@ -16,9 +17,7 @@ let
       numpy = numpy-1;
     };
   };
-
 in {
-
   fish-rust = pkgs.callPackage ./fish-rust {};
 
   python-pymatting = pkgs.callPackage ./python-pymatting {
