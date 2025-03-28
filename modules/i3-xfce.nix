@@ -25,16 +25,24 @@ in {
       dunst
       polybar
       i3-auto-layout
+      xsettingsd
     ];
     extraSessionCommands = ''
       ${pkgs.feh}/bin/feh --randomize --bg-fill ~/wallpapers/* 2>/dev/null || ${pkgs.feh}/bin/feh --bg-fill ${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nineish-dark-gray.png &
 
       export GSETTINGS_SCHEMA_DIR="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas"
-      export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
+      export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:${pkgs.hicolor-icon-theme}/share:$XDG_DATA_DIRS"
 
-      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark" || echo "Failed to set GTK theme" > /tmp/theme-debug.log
-      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Magna-Glassy-Dark-Icons" || ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || echo "Failed to set icon theme" > /tmp/theme-debug.log
-      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface cursor-theme "capitaine-cursors" || echo "Failed to set cursor theme" > /tmp/theme-debug.log
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark"
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Magna-Glassy-Dark-Icons"
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface cursor-theme "capitaine-cursors"
+      mkdir -p $HOME/.config
+      cat > $HOME/.config/xsettingsd << EOF
+Net/ThemeName "Tokyonight-Dark"
+Net/IconThemeName "Vivid-Magna-Glassy-Dark-Icons"
+Gtk/CursorThemeName "capitaine-cursors"
+EOF
+      ${pkgs.xsettingsd}/bin/xsettingsd &
     '';
   };
 
@@ -92,18 +100,18 @@ in {
       [Settings]
       gtk-application-prefer-dark-theme=1
       gtk-theme-name=Tokyonight-Dark
-      gtk-icon-theme-name="Vivid-Magna-Glassy-Dark-Icons"
+      gtk-icon-theme-name=Vivid-Magna-Glassy-Dark-Icons
       gtk-font-name=Clear Sans 10
-      gtk-cursor-theme-name="capitaine-cursors"
+      gtk-cursor-theme-name=capitaine-cursors
       gtk-cursor-theme-size=24
     '';
     "gtk-4.0/settings.ini".text = ''
       [Settings]
       gtk-application-prefer-dark-theme=1
       gtk-theme-name=Tokyonight-Dark
-      gtk-icon-theme-name="Vivid-Magna-Glassy-Dark-Icons"
+      gtk-icon-theme-name=Vivid-Magna-Glassy-Dark-Icons
       gtk-font-name=Clear Sans 10
-      gtk-cursor-theme-name="capitaine-cursors"
+      gtk-cursor-theme-name=capitaine-cursors
       gtk-cursor-theme-size=24
     '';
   };
@@ -131,14 +139,22 @@ in {
     capitaine-cursors
     tokyonight-gtk-theme
     nix-prefetch-git
+    hicolor-icon-theme
+    adwaita-icon-theme
+    xsettingsd
   ] ++ (with customPkgs; [
     vivid-icons
   ]);
 
+  environment.pathsToLink = [
+    "/share/icons"
+    "/share/pixmaps"
+  ];
+
   services.xserver.desktopManager.session = [{
     name = "xfce+i3";
     start = ''
-      export XDG_DATA_DIRS="${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
+      export XDG_DATA_DIRS="${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:${pkgs.hicolor-icon-theme}/share:${pkgs.adwaita-icon-theme}/share:$XDG_DATA_DIRS"
       ${pkgs.xfce.xfce4-session}/bin/xfce4-session --with-ck-launch &
       ${pkgs.i3-gaps}/bin/i3
     '';
