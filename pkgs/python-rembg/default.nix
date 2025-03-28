@@ -1,8 +1,9 @@
-{ lib,
-python311Packages,
-fetchPypi,
-python-pymatting,
-python-opencv-headless
+{
+  lib,
+  python311Packages,
+  fetchPypi,
+  python-pymatting,
+  python-opencv-headless,
 }:
 python311Packages.buildPythonPackage rec {
   pname = "rembg";
@@ -16,20 +17,22 @@ python311Packages.buildPythonPackage rec {
     poetry-core
     setuptools
   ];
-  propagatedBuildInputs = with python311Packages; [
-    onnxruntime
-    pillow
-    pooch
-    scikit-image
-    scipy
-    tqdm
-    aiohttp
-    pytorch-bin
-  ] ++ [
-    python-opencv-headless
-    python-pymatting
-  ];
-  pythonRemoveDeps = [ "opencv-python-headless" ];
+  propagatedBuildInputs = with python311Packages;
+    [
+      onnxruntime
+      pillow
+      pooch
+      scikit-image
+      scipy
+      tqdm
+      aiohttp
+      pytorch-bin
+    ]
+    ++ [
+      python-opencv-headless
+      python-pymatting
+    ];
+  pythonRemoveDeps = ["opencv-python-headless"];
   dontPrecompilePages = true;
   doInstallCheck = false;
   doCheck = false;
@@ -38,6 +41,6 @@ python311Packages.buildPythonPackage rec {
     homepage = "https://github.com/danielgatis/rembg";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ "Cobray" ];
+    maintainers = with maintainers; ["Cobray"];
   };
 }
