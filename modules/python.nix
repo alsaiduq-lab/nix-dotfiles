@@ -25,7 +25,6 @@
       matplotlib
       scipy
       requests
-      pip
       virtualenv
       ipython
       six
@@ -37,6 +36,7 @@
       pillow
       jedi
       libcst
+      pip
     ];
   };
 in {
@@ -46,7 +46,6 @@ in {
   config = lib.mkIf config.python.enable {
     environment.systemPackages = with pkgs; [
       pythonEnv
-      python3Packages.pip
       isort
       uv
       stdenv.cc.cc.lib
