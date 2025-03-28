@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-let
-  customPkgs = pkgs.callPackage ../pkgs { inherit pkgs lib; };
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  customPkgs = pkgs.callPackage ../pkgs {inherit pkgs lib;};
+  py = pkgs.python311Packages;
   pipConf = pkgs.writeText "pip.conf" ''
     [global]
     no-cache-dir = false
@@ -10,32 +15,34 @@ let
     numpy = "<2.0.0"
   '';
   pythonEnv = pkgs.python311.buildEnv.override {
-    extraLibs = [
+    extraLibs = with py; [
       customPkgs.python-pymatting
       customPkgs.python-opencv-headless
       customPkgs.python-rembg
-      customPkgs.pythonPackages.numpy  # This should be numpy 1.x
-      pkgs.python311Packages.i3ipc
-      pkgs.python311Packages.pandas
-      pkgs.python311Packages.matplotlib
-      pkgs.python311Packages.scipy
-      pkgs.python311Packages.requests
-      pkgs.python311Packages.pip
-      pkgs.python311Packages.virtualenv
-      pkgs.python311Packages.ipython
-      pkgs.python311Packages.six
-      pkgs.python311Packages.psutil
-      pkgs.python311Packages.pynvml
-      pkgs.python311Packages.pyqtgraph
-      pkgs.python311Packages.pyqt6
-      pkgs.python311Packages.click
-      pkgs.python311Packages.typer
-      pkgs.python311Packages.rich
-      pkgs.python311Packages.pyyaml
-      pkgs.python311Packages.pytz
-      pkgs.python311Packages.pillow
-      pkgs.python311Packages.jedi
-      pkgs.python311Packages.libcst
+      customPkgs.pythonPackages.numpy # should force the monkeypatch'd numpy
+      i3ipc
+      pandas
+      matplotlib
+      scipy
+      requests
+      pip
+      virtualenv
+      ipython
+      six
+      psutil
+      pynvml
+      pyqtgraph
+      pyqt6
+      click
+      typer
+      rich
+      pyyaml
+      pytz
+      pillow
+      jedi
+      libcst
+      ruff
+      ruff-lsp
     ];
   };
 in {

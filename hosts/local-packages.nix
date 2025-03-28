@@ -8,16 +8,10 @@ in {
   imports = [
     ../modules/python.nix
   ];
+
   python.enable = true;
+
   environment.systemPackages = with pkgs; [
-    (python311.withPackages (pyPkgs:
-      with pyPkgs; [
-        requests
-        pip
-        virtualenv
-        ipython
-      ]))
-    python3Packages.pip
     black
     brave # TODO: make a module to save browser stuff
     vesktop
@@ -103,7 +97,4 @@ in {
     nodePackages.pnpm
     zlib.dev
   ];
-  environment.shellAliases = {
-    python = "python3.11";
-  };
 }
