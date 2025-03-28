@@ -33,7 +33,7 @@ in {
       export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.tokyonight-gtk-theme}/share:${customPkgs.vivid-icons}/share:$XDG_DATA_DIRS"
 
       ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark" || echo "Failed to set GTK theme" > /tmp/theme-debug.log
-      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Icons-Dark" || ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || echo "Failed to set icon theme" > /tmp/theme-debug.log
+      ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Vivid-Magna-Glassy-Dark-Icons" || ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark" || echo "Failed to set icon theme" > /tmp/theme-debug.log
       ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface cursor-theme "capitaine-cursors" || echo "Failed to set cursor theme" > /tmp/theme-debug.log
     '';
   };
@@ -55,7 +55,7 @@ in {
       };
       iconTheme = {
         package = customPkgs.vivid-icons;
-        name = "Vivid-Icons-Dark";
+        name = "Vivid-Magna-Glassy-Dark-Icons";
       };
       cursorTheme = {
         package = pkgs.capitaine-cursors;
@@ -83,7 +83,7 @@ in {
   environment.etc = {
     "gtk-2.0/gtkrc".text = ''
       gtk-theme-name="Tokyonight-Dark"
-      gtk-icon-theme-name="Vivid-Icons-Dark"
+      gtk-icon-theme-name="Vivid-Magna-Glassy-Dark-Icons"
       gtk-font-name="Clear Sans 10"
       gtk-cursor-theme-name="capitaine-cursors"
       gtk-cursor-theme-size=24
@@ -92,25 +92,25 @@ in {
       [Settings]
       gtk-application-prefer-dark-theme=1
       gtk-theme-name=Tokyonight-Dark
-      gtk-icon-theme-name=Vivid-Icons-Dark
+      gtk-icon-theme-name="Vivid-Magna-Glassy-Dark-Icons"
       gtk-font-name=Clear Sans 10
-      gtk-cursor-theme-name=capitaine-cursors
+      gtk-cursor-theme-name="capitaine-cursors"
       gtk-cursor-theme-size=24
     '';
     "gtk-4.0/settings.ini".text = ''
       [Settings]
       gtk-application-prefer-dark-theme=1
       gtk-theme-name=Tokyonight-Dark
-      gtk-icon-theme-name=Vivid-Icons-Dark
+      gtk-icon-theme-name="Vivid-Magna-Glassy-Dark-Icons"
       gtk-font-name=Clear Sans 10
-      gtk-cursor-theme-name=capitaine-cursors
+      gtk-cursor-theme-name="capitaine-cursors"
       gtk-cursor-theme-size=24
     '';
   };
 
   environment.variables = {
     GTK_THEME = "Tokyonight-Dark";
-    ICON_THEME = "Vivid-Icons-Dark";
+    ICON_THEME = "Vivid-Magna-Glassy-Dark-Icons";
     XCURSOR_THEME = "capitaine-cursors";
     XCURSOR_SIZE = "24";
   };
@@ -148,7 +148,7 @@ in {
   programs.dconf.profiles.user.databases = [{
     settings = {
       "org/gnome/desktop/interface" = {
-        icon-theme = "Vivid-Icons-Dark";
+        icon-theme = "Vivid-Magna-Glassy-Dark-Icons";
         gtk-theme = "Tokyonight-Dark";
         cursor-theme = "capitaine-cursors";
       };
