@@ -3,6 +3,14 @@
   ...
 }: {
   home.packages = with pkgs; [
-    polybar
+    (polybar.override {
+      alsaSupport = false;
+      curlSupport = true;
+      i3Support = true;
+      mpdSupport = true;
+      pulseSupport = true;
+      nlSupport = true;
+      iwSupport = true;
+    })
   ];
 }
