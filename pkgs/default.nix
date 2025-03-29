@@ -59,9 +59,4 @@ in {
   };
 
   pythonPackages = customPackages;
-  vivid-icons = pkgs.callPackage ./vivid-icons {
-    inherit lib;
-    stdenv = pkgs.stdenv;
-    fetchFromGitHub = pkgs.fetchFromGitHub;
-  };
 }
