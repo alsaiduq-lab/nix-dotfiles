@@ -11,20 +11,6 @@
     };
   });
 
-  customPydantic = pkgs.python311Packages.override {
-    overrides = self: super: {
-      numpy = numpy-1;
-      pydantic = super.pydantic.overridePythonAttrs (oldAttrs: rec {
-        version = "1.10.18";
-        src = pkgs.fetchPypi {
-          pname = "pydantic";
-          inherit version;
-          sha256 = "uuvf8ZB9HZahOcJRNqm7fRfhGPEzp2ou87hF6DHjQDo=";
-        };
-        nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ self.setuptools ];
-      });
-    };
-  };
 in {
   fish-rust = pkgs.callPackage ./fish-rust {};
 
@@ -53,6 +39,5 @@ in {
   python-ngx-lsp = pkgs.callPackage ./python-nginx-language-server {
     inherit lib;
     fetchFromGitHub = pkgs.fetchFromGitHub;
-    python311Packages = customPydantic;
   };
 }

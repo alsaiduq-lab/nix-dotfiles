@@ -1,10 +1,5 @@
 { lib, python311Packages, fetchFromGitHub }:
 
-let
-  customPydantic = python311Packages.pydantic.overridePythonAttrs (oldAttrs: {
-    doCheck = false;
-  });
-in
 python311Packages.buildPythonPackage rec {
   pname = "nginx-language-server";
   version = "0.8.0";
@@ -23,6 +18,7 @@ python311Packages.buildPythonPackage rec {
     pygls
     customPydantic
     crossplane
+    pydantic
     lsprotocol
   ];
   pythonImportsCheck = [ "nginx_language_server" ];

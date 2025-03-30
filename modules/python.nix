@@ -19,7 +19,7 @@
       customPkgs.python-pymatting
       customPkgs.python-opencv-headless
       customPkgs.python-rembg
-      customPkgs.pythonPackages.numpy # should force the monkeypatch'd numpy
+      customPkgs.pythonPackages.numpy-1 # should force the monkeypatch'd numpy
       i3ipc
       pandas
       matplotlib
