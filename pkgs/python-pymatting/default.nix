@@ -19,7 +19,6 @@ python311Packages.buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = with python311Packages; [
-    numpy
     scipy
     pillow
     numba
@@ -35,6 +34,6 @@ python311Packages.buildPythonPackage rec {
     homepage = "https://github.com/pymatting/pymatting";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ "Cobray" ];
+    maintainers = with maintainers; ["Cobray"];
   };
 }

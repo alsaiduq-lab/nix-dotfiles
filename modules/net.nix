@@ -1,11 +1,10 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }: {
   environment.systemPackages = with pkgs; [
     networkmanager_dmenu
+    networkmanagerapplet
   ];
 
   networking.firewall.allowedTCPPorts = [ 57621 ];

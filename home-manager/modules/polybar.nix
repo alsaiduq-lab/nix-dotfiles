@@ -1,10 +1,6 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    polybar
-  ];
+  home.packages = pkgs.polybar.all;
 }

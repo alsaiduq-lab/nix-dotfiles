@@ -1,21 +1,17 @@
-{ config, pkgs, lib, ... }:
-let
-  customPkgs = import ../pkgs { inherit pkgs lib; };
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  customPkgs = import ../pkgs {inherit pkgs lib;};
 in {
   imports = [
     ../modules/python.nix
   ];
+
   python.enable = true;
+
   environment.systemPackages = with pkgs; [
-    (python311.withPackages (pyPkgs: with pyPkgs; [
-      requests
-      pip
-      virtualenv
-      ipython
-    ]))
-    python3Packages.pip
-    black
-    ruff
     brave # TODO: make a module to save browser stuff
     vesktop
     git
@@ -42,6 +38,7 @@ in {
     gawk
     obs-studio
     lazygit
+    lazydocker
     jdk17
     bun
     maven
@@ -51,13 +48,13 @@ in {
     htop
     btop
     nvtopPackages.full
-    ripgrep
     fd
     fzf
     jq
     bash
     customPkgs.fish-rust
     go
+    ollama
     sqls
     deno
     redis
@@ -96,8 +93,42 @@ in {
     wrk
     nodePackages.pnpm
     zlib.dev
+    udiskie
+    rust-analyzer
+    clang-tools
+    vscode-langservers-extracted
+    nodePackages.eslint
+    gopls
+    lua-language-server
+    marksman
+    nil
+    ruff
+    taplo
+    yaml-language-server
+    alejandra
+    nodePackages.prettier
+    stylua
+    shfmt
+    nodePackages.sql-formatter
+    yamlfmt
+    luaPackages.luacheck
+    nodePackages.markdownlint-cli
+    nodePackages.stylelint
+    nodePackages.htmlhint
+    yamllint
+    nodePackages.jsonlint
+    hadolint
+    shellcheck
+    cppcheck
+    go-tools
+    rubocop
+    phpPackages.php-codesniffer
+    phpPackages.phpstan
+    checkstyle
+    tflint
+    sqlfluff
+    rustc
+    python3Packages.debugpy
+    customPkgs.python-ngx-lsp
   ];
-  environment.shellAliases = {
-    python = "python3.11";
-  };
 }

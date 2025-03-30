@@ -1,12 +1,12 @@
-{ lib
-, python311Packages
-, fetchPypi
-, stdenv
-, makeWrapper
-, cmake
-, pkg-config
+{
+  lib,
+  python311Packages,
+  fetchPypi,
+  stdenv,
+  makeWrapper,
+  cmake,
+  pkg-config,
 }:
-
 python311Packages.buildPythonPackage rec {
   pname = "opencv-python-headless";
   version = "4.11.0.86";
@@ -31,15 +31,15 @@ python311Packages.buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = with python311Packages; [
-    numpy
     setuptools
+    numpy
   ];
 
   dontUseCmakeConfigure = true;
 
   doCheck = false;
 
-  pythonImportsCheck = [ "cv2" ];
+  pythonImportsCheck = ["cv2"];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/lib/python3.11/site-packages" "${stdenv.cc.cc.lib}"
@@ -50,6 +50,6 @@ python311Packages.buildPythonPackage rec {
     homepage = "https://github.com/opencv/opencv-python";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ "Cobray" ];
+    maintainers = with maintainers; ["Cobray"];
   };
 }
