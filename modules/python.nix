@@ -16,10 +16,8 @@
   '';
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
-      customPkgs.python-pymatting
-      customPkgs.python-opencv-headless
       customPkgs.python-rembg
-      customPkgs.pythonPackages.numpy # should force the monkeypatch'd numpy
+      numpy
       i3ipc
       pandas
       matplotlib
@@ -49,6 +47,7 @@ in {
       isort
       uv
       stdenv.cc.cc.lib
+      python311
     ];
     environment.variables = {
       PIP_PREFIX = "$HOME/.local";

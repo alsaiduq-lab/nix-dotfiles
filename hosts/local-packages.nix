@@ -5,6 +5,12 @@
 }: let
   customPkgs = import ../pkgs {inherit pkgs lib;};
 in {
+  imports = [
+    ../modules/python.nix
+  ];
+
+  python.enable = true;
+
   environment.systemPackages = with pkgs; [
     brave # TODO: make a module to save browser stuff
     vesktop
@@ -88,7 +94,6 @@ in {
     nodePackages.pnpm
     zlib.dev
     udiskie
-
     rust-analyzer
     clang-tools
     vscode-langservers-extracted
