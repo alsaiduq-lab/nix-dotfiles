@@ -11,20 +11,26 @@
     };
   });
 
+  customPython = pkgs.python311.override {
+    packageOverrides = self: super: {
+      numpy = numpy-1;
+    };
+  };
+  customPythonPackages = customPython.pkgs;
 in {
+  inherit numpy-1 customPythonPackages;
+
   fish-rust = pkgs.callPackage ./fish-rust {};
 
   python-rembg = pkgs.callPackage ./python-rembg {
     inherit lib;
     fetchPypi = pkgs.fetchPypi;
-    python311Packages = numpy-1;
-
+    python311Packages = customPythonPackages;
     python-pymatting = pkgs.callPackage ./python-pymatting {
       inherit lib;
       fetchPypi = pkgs.fetchPypi;
-      python311Packages = numpy-1;
+      python311Packages = customPythonPackages;
     };
-
     python-opencv-headless = pkgs.callPackage ./python-opencv-headless {
       inherit lib;
       fetchPypi = pkgs.fetchPypi;
@@ -32,12 +38,13 @@ in {
       pkg-config = pkgs.pkg-config;
       stdenv = pkgs.stdenv;
       makeWrapper = pkgs.makeWrapper;
-      python311Packages = numpy-1;
+      python311Packages = customPythonPackages;
     };
   };
 
   python-ngx-lsp = pkgs.callPackage ./python-nginx-language-server {
     inherit lib;
     fetchFromGitHub = pkgs.fetchFromGitHub;
+    python311Packages = customPythonPackages;
   };
 }

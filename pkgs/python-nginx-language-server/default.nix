@@ -2,17 +2,21 @@
   lib,
   python311Packages,
   fetchFromGitHub,
+  pkgs,
 }: let
-  cusPydantic = python311Packages.pydantic.overridePythonAttrs (oldAttrs: rec {
+  cusPydantic = python311Packages.buildPythonPackage {
+    pname = "pydantic";
     version = "1.10.18";
-    src = fetchFromGitHub {
-      owner = "pydantic";
-      repo = "pydantic";
-      rev = "v${version}";
-      sha256 = "17v4y4l7bq8716y0vxv817n68k8rlc2sfa86a1jiala04s1jsmr0";
+    format = "wheel";
+    src = pkgs.fetchurl {
+      url = "https://files.pythonhosted.org/packages/py3/p/pydantic/pydantic-1.10.18-py3-none-any.whl";
+      sha256 = "10iaggdy69wk6qkagqcnlsqchrsidvqhgh68r5p78lpw3yw8k886";
     };
     doCheck = false;
-  });
+    propagatedBuildInputs = with python311Packages; [
+      typing-extensions
+    ];
+  };
 in
   python311Packages.buildPythonPackage rec {
     pname = "nginx-language-server";
