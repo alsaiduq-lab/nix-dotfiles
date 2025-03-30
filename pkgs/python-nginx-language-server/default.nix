@@ -9,7 +9,7 @@
       owner = "pydantic";
       repo = "pydantic";
       rev = "v${version}";
-      sha256 = "PiYl6hcpzJoKF/rssCunF6xuCHLWfgZUQxD2wkAbLH4=";
+      sha256 = "17v4y4l7bq8716y0vxv817n68k8rlc2sfa86a1jiala04s1jsmr0";
     };
     doCheck = false;
   });
