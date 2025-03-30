@@ -16,7 +16,6 @@ python311Packages.buildPythonPackage rec {
   ];
   propagatedBuildInputs = with python311Packages; [
     pygls
-    customPydantic
     crossplane
     pydantic
     lsprotocol
