@@ -140,5 +140,6 @@ in {
     ollama
     tree-sitter
     luajitPackages.jsregexp
+    tailscale
   ];
 }

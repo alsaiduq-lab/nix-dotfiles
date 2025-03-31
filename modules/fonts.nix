@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   clear-sans = pkgs.stdenv.mkDerivation {
     name = "clear-sans";
     src = pkgs.fetchurl {

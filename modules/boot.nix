@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -13,9 +10,13 @@
     deps = [];
     text = ''
       mkdir -p /bin
-      ln -sf ${pkgs.bash}/bin/bash /bin/bash
+      if [ ! -e /bin/bash ]; then
+        ln -sf ${pkgs.bash}/bin/bash /bin/bash
+      fi
       mkdir -p /usr/bin
-      ln -sf ${pkgs.coreutils}/bin/env /usr/bin/env
+      if [ ! -e /usr/bin/env ]; then
+        ln -sf ${pkgs.coreutils}/bin/env /usr/bin/env
+      fi
     '';
   };
 }
