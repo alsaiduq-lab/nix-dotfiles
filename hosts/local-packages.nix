@@ -128,6 +128,14 @@ in {
     tflint
     sqlfluff
     rustc
+    mercurial
+    tree-sitter
+    luajitPackages.jsregexp
+    nodePackages.typescript
+    nasm
+    elixir
+    swift
+    zig
     python3Packages.debugpy
     customPkgs.python-ngx-lsp
   ];
