@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./modules/dunst.nix
     ./modules/fish.nix
@@ -13,6 +10,7 @@
     ./modules/rofi.nix
     ./modules/starship.nix
     ./modules/zellij.nix
+    ./modules/ffmpeg.nix
   ];
 
   home.username = "cobray";
