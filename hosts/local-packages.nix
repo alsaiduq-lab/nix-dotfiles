@@ -141,5 +141,6 @@ in {
     tree-sitter
     luajitPackages.jsregexp
     tailscale
+    cachix
   ];
 }

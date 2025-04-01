@@ -11,6 +11,7 @@
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/ffmpeg.nix
+    ./modules/emulators.nix
   ];
 
   home.username = "cobray";
