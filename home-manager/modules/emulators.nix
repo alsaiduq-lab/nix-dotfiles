@@ -7,7 +7,7 @@
     rpcs3
     ryujinx
     mupen64plus
-    dolphin-emulator
+    dolphin-emu
     retroarch
     mednafen
     joycond

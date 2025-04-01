@@ -7,9 +7,11 @@
 in {
   imports = [
     ../modules/python.nix
+    ../modules/npm.nix
   ];
 
   python.enable = true;
+  npm.enable = true;
 
   environment.systemPackages = with pkgs; [
     brave # TODO: make a module to save browser stuff
