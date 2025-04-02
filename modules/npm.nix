@@ -4,8 +4,9 @@
   lib,
   ...
 }: let
+  npmGlobalDir = "$HOME/.npm-global";
   npmConf = pkgs.writeText "npmrc" ''
-    prefix=${config.environment.variables.NPM_CONFIG_PREFIX}
+    prefix=${npmGlobalDir}
     cache=$HOME/.npm
     init-module=$HOME/.npm-init.js
     node-linker=hoisted
@@ -20,18 +21,18 @@ in {
       nodePackages.npm
     ];
     environment.variables = {
-      NPM_CONFIG_PREFIX = "$HOME/.npm-global";
-      PATH = ["$HOME/.npm-global/bin"];
+      NPM_CONFIG_PREFIX = npmGlobalDir;
+      PATH = ["${npmGlobalDir}/bin"];
       NPM_CONFIG_USERCONFIG = "${npmConf}";
     };
     system.userActivationScripts.setupNpm = ''
-      mkdir -p $HOME/.npm-global/bin
+      mkdir -p ${npmGlobalDir}/bin
       mkdir -p $HOME/.npm
       if [ ! -f "$HOME/.npmrc" ]; then
         cp ${npmConf} $HOME/.npmrc
       fi
-      if [ -d "$HOME/.npm-global" ]; then
-        chmod -R +rw $HOME/.npm-global
+      if [ -d "${npmGlobalDir}" ]; then
+        chmod -R +rw ${npmGlobalDir}
       fi
     '';
   };
