@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   rpcs3_latest,
   ...
 }: {
@@ -15,7 +16,7 @@
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/ffmpeg.nix
-    (import ./modules/emulators.nix {inherit pkgs rpcs3_latest;})
+    (import ./modules/emulators.nix {inherit pkgs inputs rpcs3_latest;})
   ];
 
   home.username = "cobray";

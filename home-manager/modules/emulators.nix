@@ -1,8 +1,12 @@
 {
   pkgs,
-  rpcs3_latest,
+  inputs,
   ...
-}: {
+}: let
+  rpcs3_latest = pkgs.rpcs3.overrideAttrs (oldAttrs: {
+    src = inputs.rpcs3-latest;
+  });
+in {
   home.packages = with pkgs; [
     mgba
     desmume
