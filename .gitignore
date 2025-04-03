@@ -9,6 +9,8 @@ result
 *.nix.bak
 *.nix~
 /nix/store/
+file.txt
+
 
 *~
 *.swp

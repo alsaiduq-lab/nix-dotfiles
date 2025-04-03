@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  rpcs3_latest,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./modules/dunst.nix
     ./modules/fish.nix
@@ -16,7 +11,7 @@
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/ffmpeg.nix
-    (import ./modules/emulators.nix {inherit pkgs inputs rpcs3_latest;})
+    ./modules/emulators.nix
   ];
 
   home.username = "cobray";
