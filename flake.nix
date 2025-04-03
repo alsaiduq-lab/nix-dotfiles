@@ -8,7 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-gaming = {
-      url = "github:fufexan/nix-gaming";
+      url = "github:fufexan/nix-gaming"; # for glorious eggrolls
+    };
+    rpcs3-latest = {
+      url = "github:RPCS3/rpcs3";
+      flake = false;
     };
   };
 
@@ -17,6 +21,7 @@
     nixpkgs,
     home-manager,
     nix-gaming,
+    rpcs3-latest,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -31,6 +36,10 @@
       overlays = [customPkgsOverlay];
     };
     lib = nixpkgs.lib;
+
+    rpcs3_latest = pkgs.rpcs3.overrideAttrs (oldAttrs: {
+      src = rpcs3-latest;
+    });
   in {
     nixosConfigurations = {
       nixos = lib.nixosSystem {
@@ -46,7 +55,7 @@
     homeConfigurations = {
       "cobray" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {inherit inputs rpcs3_latest;};
         modules = [./home-manager/cobray.nix];
       };
     };
