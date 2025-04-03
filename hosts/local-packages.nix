@@ -16,6 +16,7 @@ in {
   environment.systemPackages = with pkgs; [
     brave # TODO: make a module to save browser stuff
     vesktop
+    discord
     obs-studio
     spotify
     flameshot
