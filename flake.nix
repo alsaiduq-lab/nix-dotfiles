@@ -123,14 +123,15 @@
               "-DUSE_PULSEAUDIO=ON"
               "-DUSE_LIBEVDEV=ON"
               "-DUSE_SYSTEM_ZSTD=ON"
+              "-DUSE_DISCORD_RPC=ON"
               "-DCMAKE_VERBOSE_MAKEFILE=ON"
-              "-DCMake_MESSAGE_LOG_LEVEL=TRACE"
+              "-DCMAKE_MESSAGE_LOG_LEVEL=TRACE"
             ];
           preConfigure = ''
             echo "Verifying submodule directories:" >&2
-            ls -l 3rdparty/hidapi/hidapi 3rdparty/glslang/glslang 3rdparty/yaml-cpp/yaml-cpp 3rdparty/zstd/zstd >&2
-            if [ ! -f 3rdparty/hidapi/hidapi/CMakeLists.txt ]; then
-              echo "ERROR: hidapi submodule not fetched correctly" >&2
+            ls -l 3rdparty/hidapi/hidapi 3rdparty/glslang/glslang 3rdparty/yaml-cpp/yaml-cpp 3rdparty/zstd/zstd 3rdparty/discord-rpc >&2
+            if [ ! -f 3rdparty/hidapi/hidapi/CMakeLists.txt ] || [ ! -f 3rdparty/discord-rpc/CMakeLists.txt ]; then
+              echo "ERROR: Submodules (hidapi or discord-rpc) not fetched correctly" >&2
               exit 1
             fi
             echo "Original 3rdparty/CMakeLists.txt:" >&2
@@ -144,7 +145,7 @@
             echo "Patched 3rdparty/CMakeLists.txt:" >&2
             cat 3rdparty/CMakeLists.txt >&2
             echo "Checking submodules:" >&2
-            ls -lR 3rdparty/hidapi 3rdparty/glslang 3rdparty/yaml-cpp 3rdparty/cubeb 3rdparty/zstd >&2
+            ls -lR 3rdparty/hidapi 3rdparty/glslang 3rdparty/yaml-cpp 3rdparty/cubeb 3rdparty/zstd 3rdparty/discord-rpc >&2
           '';
         });
       };
@@ -158,27 +159,36 @@
     rpcs3_latest = pkgs.rpcs3.overrideAttrs (oldAttrs: {
       src = pkgs.fetchgit {
         url = "https://github.com/RPCS3/rpcs3.git";
-        rev = inputs.rpcs3-latest.rev; # Should be 37dbd77628f44cdef3228bdfc03127365ec7383b per flake.lock
-        sha256 = "sha256-Yx0Qsc0r+5C0BqqsbJCv47QPeaNbaIut8s6Hcysy2mo="; # Confirmed for 37dbd77628f44cdef3228bdfc03127365ec7383b with submodules
+        rev = inputs.rpcs3-latest.rev;
+        sha256 = "Yx0Qsc0r+5C0BqqsbJCv47QPeaNbaIut8s6Hcysy2mo=";
         fetchSubmodules = true;
       };
+      nativeBuildInputs = oldAttrs.nativeBuildInputs;
+      buildInputs = oldAttrs.buildInputs;
+      cmakeFlags =
+        oldAttrs.cmakeFlags
+        ++ [
+          "-DUSE_DISCORD_RPC=ON"
+        ];
       preUnpack = ''
         echo "Source rev: ${inputs.rpcs3-latest.rev}" >&2
         echo "Expected rev: 37dbd77628f44cdef3228bdfc03127365ec7383b" >&2
       '';
     });
   in {
+    packages.${system} = {
+      rpcs3_latest = rpcs3_latest;
+    };
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs;};
+        specialArgs = {inherit inputs rpcs3_latest;};
         modules = [
           {nixpkgs.overlays = [customPkgsOverlay];}
           ./hosts/configuration.nix
         ];
       };
     };
-
     homeConfigurations = {
       "cobray" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

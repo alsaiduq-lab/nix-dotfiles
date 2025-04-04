@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  rpcs3_latest,
+  ...
+}: {
   imports = [
     ./modules/dunst.nix
     ./modules/fish.nix
@@ -30,5 +34,6 @@
     btop
     nvtopPackages.full
     arandr
+    rpcs3_latest
   ];
 }
