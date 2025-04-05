@@ -1,3 +1,4 @@
+# TODO: remodulate the rpcs3 stuff somewhere else, clunky here
 {
   description = "NixOS configuration for Cobray";
 
