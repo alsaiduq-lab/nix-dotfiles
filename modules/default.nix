@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./audio.nix
     ./bluetooth.nix
@@ -19,6 +16,7 @@
     ./user.nix
     ./python.nix
     ./tailscale.nix
+    ./udiskie.nix
   ];
 
   # Enable CUPS to print documents.
