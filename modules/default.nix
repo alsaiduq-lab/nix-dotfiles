@@ -18,6 +18,7 @@
     ./timezone.nix
     ./user.nix
     ./python.nix
+    ./tailscale.nix
   ];
 
   # Enable CUPS to print documents.

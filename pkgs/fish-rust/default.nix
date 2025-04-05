@@ -8,7 +8,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "fish";
-  version = "4.1-2025-03-16-rust-${builtins.substring 0 7 "642ec399ca17bbde973dc20461335396fe922e4c"}";
+  version = "4.0.1-2025-03-16-rust-${builtins.substring 0 7 "642ec399ca17bbde973dc20461335396fe922e4c"}";
 
   src = fetchgit {
     url = "https://github.com/fish-shell/fish-shell.git";

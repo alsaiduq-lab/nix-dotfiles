@@ -1,14 +1,11 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     networkmanager_dmenu
     networkmanagerapplet
   ];
 
-  networking.firewall.allowedTCPPorts = [ 57621 ];
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedTCPPorts = [57621];
+  networking.firewall.allowedUDPPorts = [5353];
 
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
   networking.hostName = "nixos";

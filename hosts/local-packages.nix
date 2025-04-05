@@ -7,98 +7,73 @@
 in {
   imports = [
     ../modules/python.nix
+    ../modules/npm.nix
   ];
 
   python.enable = true;
+  npm.enable = true;
 
   environment.systemPackages = with pkgs; [
     brave # TODO: make a module to save browser stuff
     vesktop
-    git
-    nodejs
-    wget
-    curl
-    tree
-    gnumake
-    gcc
-    socat
-    ffmpeg
-    gnused
-    gdb
-    stdenv.cc.cc.lib
-    nix-prefetch-git
-    binutils
-    hashcat
-    cmake
-    ninja
-    pkg-config
-    autoconf
-    automake
-    libtool
-    gawk
+    discord
     obs-studio
+    spotify
+    flameshot
+    mpv
+    udiskie
+    git
+    git-lfs
+    gitAndTools.gh
+    gitAndTools.diff-so-fancy
     lazygit
     lazydocker
-    jdk17
+    mercurial
+    nodejs
+    nodePackages.pnpm
+    nodePackages.typescript
+    yarn
     bun
-    maven
-    gradle
-    visualvm
-    jdt-language-server
-    htop
-    btop
-    nvtopPackages.full
-    fd
-    fzf
-    jq
-    bash
-    customPkgs.fish-rust
-    go
-    ollama
-    sqls
     deno
-    redis
-    cloudflared
+    go
+    go-tools
+    gopls
+    rustc
     rustup
     cargo-edit
     cargo-watch
     cargo-outdated
     cargo-audit
-    openssl
-    openssl.dev
+    rust-analyzer
+    python3Packages.debugpy
+    customPkgs.python-ngx-lsp
+    gcc
+    stdenv.cc.cc.lib
+    gnumake
+    cmake
+    ninja
+    binutils
+    gdb
     pkg-config
-    libxml2
-    zlib
+    autoconf
+    automake
+    libtool
+    nasm
+    elixir
+    swift
+    zig
     ghc
     cabal-install
     stack
     haskell-language-server
-    postgresql
-    sqlite
-    spotify
-    git-lfs
-    gitAndTools.gh
-    gitAndTools.diff-so-fancy
-    ani-cli
-    yt-dlp
-    nmap
-    psmisc
-    ugrep
-    unzip
-    starship
-    flameshot
-    yarn
-    mpv
-    httpie
-    wrk
-    nodePackages.pnpm
-    zlib.dev
-    udiskie
-    rust-analyzer
+    jdk17
+    maven
+    gradle
+    visualvm
+    jdt-language-server
     clang-tools
     vscode-langservers-extracted
     nodePackages.eslint
-    gopls
     lua-language-server
     marksman
     nil
@@ -120,15 +95,55 @@ in {
     hadolint
     shellcheck
     cppcheck
-    go-tools
     rubocop
     phpPackages.php-codesniffer
     phpPackages.phpstan
     checkstyle
     tflint
     sqlfluff
-    rustc
-    python3Packages.debugpy
-    customPkgs.python-ngx-lsp
+    wget
+    curl
+    tree
+    socat
+    gnused
+    gawk
+    nmap
+    psmisc
+    ugrep
+    unzip
+    starship
+    htop
+    btop
+    nvtopPackages.full
+    fd
+    fzf
+    jq
+    bash
+    customPkgs.fish-rust
+    xorg.xdpyinfo
+    slop
+    dunst
+    pulseaudio
+    ani-cli
+    yt-dlp
+    httpie
+    wrk
+    cloudflared
+    hashcat
+    nix-prefetch-git
+    openssl
+    openssl.dev
+    libxml2
+    zlib
+    zlib.dev
+    postgresql
+    sqlite
+    redis
+    sqls
+    ollama
+    tree-sitter
+    luajitPackages.jsregexp
+    tailscale
+    cachix
   ];
 }

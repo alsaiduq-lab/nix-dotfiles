@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   wallpapers = [
     "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png"
     "${pkgs.nixos-artwork.wallpapers.gnome-dark}/share/backgrounds/gnome/gnome-dark.png"

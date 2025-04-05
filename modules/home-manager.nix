@@ -1,5 +1,6 @@
 {
   inputs,
+  rpcs3_latest,
   ...
 }: {
   imports = [
@@ -9,7 +10,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      inherit inputs;
+      inherit inputs rpcs3_latest;
     };
     users.cobray = import ../home-manager/cobray.nix;
   };

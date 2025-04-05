@@ -1,5 +1,6 @@
 {
   pkgs,
+  rpcs3_latest,
   ...
 }: {
   imports = [
@@ -13,6 +14,8 @@
     ./modules/rofi.nix
     ./modules/starship.nix
     ./modules/zellij.nix
+    ./modules/ffmpeg.nix
+    ./modules/emulators.nix
   ];
 
   home.username = "cobray";
@@ -31,5 +34,6 @@
     btop
     nvtopPackages.full
     arandr
+    rpcs3_latest
   ];
 }
