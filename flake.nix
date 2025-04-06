@@ -15,6 +15,7 @@
       url = "github:RPCS3/rpcs3";
       flake = false;
     };
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
 
   outputs = {
@@ -23,6 +24,7 @@
     home-manager,
     nix-gaming,
     rpcs3-latest,
+    determinate,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -187,6 +189,7 @@
         modules = [
           {nixpkgs.overlays = [customPkgsOverlay];}
           ./hosts/configuration.nix
+          determinate.nixosModules.default
         ];
       };
     };
