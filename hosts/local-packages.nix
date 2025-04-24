@@ -5,11 +5,6 @@
 }: let
   customPkgs = import ../pkgs {inherit pkgs lib;};
 in {
-  imports = [
-    ../modules/python.nix
-    ../modules/npm.nix
-  ];
-
   python.enable = true;
   npm.enable = true;
 
@@ -21,6 +16,10 @@ in {
     spotify
     flameshot
     mpv
+    linuxHeaders
+    appimage-run
+    freetype.dev
+    pixman
     udiskie
     git
     git-lfs
@@ -62,6 +61,8 @@ in {
     elixir
     swift
     zig
+    dbus.dev
+    pkg-config
     ghc
     cabal-install
     stack
@@ -145,5 +146,9 @@ in {
     luajitPackages.jsregexp
     tailscale
     cachix
+    xorg.libX11
+    xorg.libXtst
+    xorg.libXi
+    xorg.xorgproto
   ];
 }

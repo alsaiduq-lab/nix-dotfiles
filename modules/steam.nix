@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -27,7 +32,7 @@
     libstrangle
     piper
   ];
-  environment.variables = {
-    LD_LIBRARY_PATH = "${pkgs.mangohud}/lib";
+  environment.sessionVariables = {
+    LD_LIBRARY_PATH = "${lib.makeLibraryPath [pkgs.mangohud]}:$LD_LIBRARY_PATH";
   };
 }

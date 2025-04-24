@@ -46,13 +46,13 @@ in {
       pythonEnv
       isort
       uv
+      git
       stdenv.cc.cc.lib
       python311
     ];
     environment.variables = {
       PIP_PREFIX = "$HOME/.local";
       PIP_CONFIG_FILE = "${pipConf}";
-      PYTHONPATH = "$HOME/.local/lib/python3.11/site-packages";
     };
     system.userActivationScripts.removeNumpy2 = ''
       if [ -d "$HOME/.local/lib/python3.11/site-packages/numpy" ]; then

@@ -15,6 +15,7 @@
     ./timezone.nix
     ./user.nix
     ./python.nix
+    ./npm.nix
     ./tailscale.nix
     ./udiskie.nix
   ];

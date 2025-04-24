@@ -9,7 +9,6 @@
     prefix=${npmGlobalDir}
     cache=$HOME/.npm
     init-module=$HOME/.npm-init.js
-    node-linker=hoisted
   '';
 in {
   options.npm = {
@@ -17,12 +16,16 @@ in {
   };
   config = lib.mkIf config.npm.enable {
     environment.systemPackages = with pkgs; [
-      nodejs
+      nodejs_22
       nodePackages.npm
+      electron
     ];
     environment.variables = {
       NPM_CONFIG_PREFIX = npmGlobalDir;
-      PATH = ["${npmGlobalDir}/bin"];
+      PATH = [
+        "${pkgs.nodejs_22}/bin"
+        "${npmGlobalDir}/bin"
+      ];
       NPM_CONFIG_USERCONFIG = "${npmConf}";
     };
     system.userActivationScripts.setupNpm = ''
