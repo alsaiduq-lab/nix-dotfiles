@@ -10,5 +10,6 @@
     retroarch
     mednafen
     joycond
+    shadps4
   ];
 }

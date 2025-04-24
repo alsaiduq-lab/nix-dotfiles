@@ -3,7 +3,7 @@ backup/
 .secrets
 
 result
-
+$HOME
 .env
 
 *.nix.bak

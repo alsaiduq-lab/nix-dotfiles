@@ -5,16 +5,21 @@
   ncurses,
   python3Packages,
   gettext,
+  coreutils,
+  findutils,
+  gawk,
+  groff,
+  xsel,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "fish";
-  version = "4.0.1-2025-03-16-rust-${builtins.substring 0 7 "642ec399ca17bbde973dc20461335396fe922e4c"}";
+  version = "4.0.2-2025-04-20-${builtins.substring 0 7 "489d5d1733de5d10328e948c7683da198c5859c0"}";
 
   src = fetchgit {
     url = "https://github.com/fish-shell/fish-shell.git";
-    rev = "642ec399ca17bbde973dc20461335396fe922e4c";
+    rev = "489d5d1733de5d10328e948c7683da198c5859c0";
     fetchSubmodules = true;
-    sha256 = "sha256-N01RmhyTNMtF8lNmnfC/uvR387UZFx6doQBICtTGWSU=";
+    sha256 = "sha256-Q0sGAIjsvQsjvAnZlcyB2VldOpmiBYPliF5uyOndyyA=";
   };
 
   cargoLock = {
@@ -25,8 +30,20 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = [ncurses gettext];
-  nativeBuildInputs = with python3Packages; [sphinx sphinx_rtd_theme];
+  buildInputs = [
+    ncurses
+    gettext
+    coreutils
+    findutils
+    gawk
+    groff
+    xsel
+  ];
+  nativeBuildInputs = with python3Packages; [
+    sphinx
+    sphinx_rtd_theme
+    python
+  ];
 
   preBuild = ''
     export FISH_BUILD_VERSION="${version}"

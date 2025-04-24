@@ -15,5 +15,6 @@
   environment.systemPackages = with pkgs; [
     cava
     pulseaudio
+    alsa-utils
   ];
 }
