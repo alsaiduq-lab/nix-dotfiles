@@ -18,6 +18,7 @@
     ./npm.nix
     ./tailscale.nix
     ./udiskie.nix
+    ./ollama.nix
   ];
 
   # Enable CUPS to print documents.

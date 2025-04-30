@@ -1,19 +1,23 @@
 {pkgs, ...}: let
-  unstablePkgs = import (fetchTarball
-    "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
-  {system = pkgs.system;};
+  unstablePkgs = import (fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    sha256 = "0y1qzff8kiypijbbckyanlrginz62n5mpp8xsbs180flj58snzjg";
+  }) {system = pkgs.system;};
 in {
   nixpkgs.overlays = [
-    (final: prev: {
-      ollama = unstablePkgs.ollama;
-    })
+    (final: prev: {ollama = unstablePkgs.ollama;})
   ];
+
+  environment.systemPackages = [pkgs.ollama];
 
   systemd.services.ollama = {
     description = "Ollama";
     after = ["network-online.target"];
+    wants = ["network-online.target"];
     wantedBy = ["multi-user.target"];
     serviceConfig = {
+      StateDirectory = "ollama"; # /var/lib/ollama
+      WorkingDirectory = "%S/ollama";
       ExecStart = "${pkgs.ollama}/bin/ollama serve";
       Restart = "always";
       User = "ollama";

@@ -10,6 +10,7 @@
     retroarch
     mednafen
     joycond
+    waydroid
     shadps4
   ];
 }

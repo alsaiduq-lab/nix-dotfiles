@@ -1,3 +1,5 @@
+# TODO: cleanout and repopulate individual packages better
+
 {
   pkgs,
   lib,
@@ -21,6 +23,7 @@ in {
     freetype.dev
     pixman
     udiskie
+    maim
     git
     git-lfs
     gitAndTools.gh
@@ -141,7 +144,6 @@ in {
     sqlite
     redis
     sqls
-    ollama
     tree-sitter
     luajitPackages.jsregexp
     tailscale

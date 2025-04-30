@@ -17,11 +17,7 @@
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
       customPkgs.python-rembg
-      numpy
       i3ipc
-      pandas
-      matplotlib
-      scipy
       requests
       virtualenv
       ipython
@@ -51,14 +47,7 @@ in {
       python311
     ];
     environment.variables = {
-      PIP_PREFIX = "$HOME/.local";
       PIP_CONFIG_FILE = "${pipConf}";
     };
-    system.userActivationScripts.removeNumpy2 = ''
-      if [ -d "$HOME/.local/lib/python3.11/site-packages/numpy" ]; then
-        echo "Removing NumPy from user packages to prevent conflicts..."
-        rm -rf "$HOME/.local/lib/python3.11/site-packages/numpy"*
-      fi
-    '';
   };
 }
