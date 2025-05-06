@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   unstablePkgs = import (fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    sha256 = "0y1qzff8kiypijbbckyanlrginz62n5mpp8xsbs180flj58snzjg";
+    sha256 = "0h8dhnw8j9ngxcj6wpyr8k1kx2jvwl4n5y2rk9ji7gv3iza4dspg";
   }) {system = pkgs.system;};
 in {
   nixpkgs.overlays = [
