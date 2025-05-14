@@ -21,6 +21,7 @@ in {
     linuxHeaders
     appimage-run
     freetype.dev
+    zed-editor
     pixman
     udiskie
     maim
@@ -128,8 +129,7 @@ in {
     slop
     dunst
     pulseaudio
-    ani-cli
-    yt-dlp
+    yt-dlp # might remove for source built version
     httpie
     wrk
     cloudflared
@@ -148,6 +148,7 @@ in {
     luajitPackages.jsregexp
     tailscale
     cachix
+    portaudio
     xorg.libX11
     xorg.libXtst
     xorg.libXi

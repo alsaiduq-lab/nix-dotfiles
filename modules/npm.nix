@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  npmGlobalDir = "$HOME/.npm-global";
+  npmGlobalDir = "~/.npm-global";
   npmConf = pkgs.writeText "npmrc" ''
     prefix=${npmGlobalDir}
-    cache=$HOME/.npm
-    init-module=$HOME/.npm-init.js
+    cache=~/.npm
+    init-module=~/.npm-init.js
   '';
 in {
   options.npm = {
@@ -26,17 +26,21 @@ in {
         "${pkgs.nodejs_22}/bin"
         "${npmGlobalDir}/bin"
       ];
-      NPM_CONFIG_USERCONFIG = "${npmConf}";
     };
-    system.userActivationScripts.setupNpm = ''
-      mkdir -p ${npmGlobalDir}/bin
-      mkdir -p $HOME/.npm
-      if [ ! -f "$HOME/.npmrc" ]; then
-        cp ${npmConf} $HOME/.npmrc
-      fi
-      if [ -d "${npmGlobalDir}" ]; then
-        chmod -R +rw ${npmGlobalDir}
-      fi
-    '';
+    environment.etc."npmrc".source = npmConf;
+    systemd.user.services.npm-setup = {
+      description = "Set up NPM user configuration";
+      wantedBy = ["default.target"];
+      script = ''
+        if [ ! -f ~/.npmrc ]; then
+          cp ${npmConf} ~/.npmrc
+          chmod u+rw ~/.npmrc
+        fi
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+    };
   };
 }
