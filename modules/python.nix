@@ -44,6 +44,16 @@
         --prefix LD_LIBRARY_PATH : "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}"
     '';
   };
+
+  custom-UV = pkgs.symlinkJoin {
+    name = "uv";
+    paths = [pkgs.uv];
+    buildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram $out/bin/uv \
+        --prefix LD_LIBRARY_PATH : "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}"
+    '';
+  };
 in {
   options.python = {
     enable = lib.mkEnableOption "System Python Environment";
@@ -52,7 +62,7 @@ in {
     environment.systemPackages = with pkgs; [
       pythonEnv
       isort
-      uv
+      custom-UV
       git
       stdenv.cc.cc.lib
       python311
