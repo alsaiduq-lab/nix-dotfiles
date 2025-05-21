@@ -1,5 +1,4 @@
 # TODO: cleanout and repopulate individual packages better
-
 {
   pkgs,
   lib,
@@ -38,6 +37,7 @@ in {
     yarn
     bun
     deno
+    obsidian
     go
     go-tools
     gopls
@@ -49,7 +49,6 @@ in {
     cargo-audit
     rust-analyzer
     python3Packages.debugpy
-    customPkgs.python-ngx-lsp
     gcc
     stdenv.cc.cc.lib
     gnumake
@@ -68,6 +67,7 @@ in {
     dbus.dev
     pkg-config
     ghc
+    cacert
     cabal-install
     stack
     haskell-language-server

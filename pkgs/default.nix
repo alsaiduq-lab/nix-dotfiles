@@ -42,9 +42,10 @@ in {
     };
   };
 
-  python-ngx-lsp = pkgs.callPackage ./python-nginx-language-server {
-    inherit lib;
-    fetchFromGitHub = pkgs.fetchFromGitHub;
-    python311Packages = customPythonPackages;
-  };
+  # removing for now since it seems to work, will leave just in case
+  # python-ngx-lsp = pkgs.callPackage ./python-nginx-language-server {
+  #  inherit lib;
+  #  fetchFromGitHub = pkgs.fetchFromGitHub;
+  #  python311Packages = customPythonPackages;
+  #};
 }
