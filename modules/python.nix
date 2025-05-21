@@ -25,7 +25,6 @@
       customPkgs.python-rembg
       i3ipc
       requests
-      virtualenv
       ipython
       six
       psutil
@@ -36,7 +35,6 @@
       pillow
       jedi
       libcst
-      pip
       wheel
     ];
     extraOutputsToInstall = ["out"];
