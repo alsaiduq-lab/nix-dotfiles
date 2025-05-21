@@ -14,14 +14,15 @@
     [packages]
     numpy = "<2.0.0"
   '';
+
+  gccLibPath = "${pkgs.gcc-unwrapped.lib}/lib";
+  nvidiaLibPath = "${pkgs.linuxPackages.nvidia_x11}/lib";
+  cudaLibPath = "${pkgs.cudatoolkit}/lib";
+
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
       customPkgs.python-rembg
-      numpy
       i3ipc
-      pandas
-      matplotlib
-      scipy
       requests
       virtualenv
       ipython
@@ -35,7 +36,13 @@
       jedi
       libcst
       pip
+      wheel
     ];
+    extraOutputsToInstall = ["out"];
+    postBuild = ''
+      wrapProgram $out/bin/python \
+        --prefix LD_LIBRARY_PATH : "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}"
+    '';
   };
 in {
   options.python = {
@@ -46,19 +53,13 @@ in {
       pythonEnv
       isort
       uv
+      git
       stdenv.cc.cc.lib
       python311
     ];
     environment.variables = {
-      PIP_PREFIX = "$HOME/.local";
       PIP_CONFIG_FILE = "${pipConf}";
-      PYTHONPATH = "$HOME/.local/lib/python3.11/site-packages";
+      LD_LIBRARY_PATH = lib.mkForce "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}";
     };
-    system.userActivationScripts.removeNumpy2 = ''
-      if [ -d "$HOME/.local/lib/python3.11/site-packages/numpy" ]; then
-        echo "Removing NumPy from user packages to prevent conflicts..."
-        rm -rf "$HOME/.local/lib/python3.11/site-packages/numpy"*
-      fi
-    '';
   };
 }

@@ -4,12 +4,11 @@
   lib,
   ...
 }: let
-  npmGlobalDir = "$HOME/.npm-global";
+  npmGlobalDir = "~/.npm-global";
   npmConf = pkgs.writeText "npmrc" ''
     prefix=${npmGlobalDir}
-    cache=$HOME/.npm
-    init-module=$HOME/.npm-init.js
-    node-linker=hoisted
+    cache=~/.npm
+    init-module=~/.npm-init.js
   '';
 in {
   options.npm = {
@@ -17,23 +16,31 @@ in {
   };
   config = lib.mkIf config.npm.enable {
     environment.systemPackages = with pkgs; [
-      nodejs
+      nodejs_22
       nodePackages.npm
+      electron
     ];
     environment.variables = {
       NPM_CONFIG_PREFIX = npmGlobalDir;
-      PATH = ["${npmGlobalDir}/bin"];
-      NPM_CONFIG_USERCONFIG = "${npmConf}";
+      PATH = [
+        "${pkgs.nodejs_22}/bin"
+        "${npmGlobalDir}/bin"
+      ];
     };
-    system.userActivationScripts.setupNpm = ''
-      mkdir -p ${npmGlobalDir}/bin
-      mkdir -p $HOME/.npm
-      if [ ! -f "$HOME/.npmrc" ]; then
-        cp ${npmConf} $HOME/.npmrc
-      fi
-      if [ -d "${npmGlobalDir}" ]; then
-        chmod -R +rw ${npmGlobalDir}
-      fi
-    '';
+    environment.etc."npmrc".source = npmConf;
+    systemd.user.services.npm-setup = {
+      description = "Set up NPM user configuration";
+      wantedBy = ["default.target"];
+      script = ''
+        if [ ! -f ~/.npmrc ]; then
+          cp ${npmConf} ~/.npmrc
+          chmod u+rw ~/.npmrc
+        fi
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+    };
   };
 }

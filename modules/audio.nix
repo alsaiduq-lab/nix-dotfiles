@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -15,5 +12,11 @@
   environment.systemPackages = with pkgs; [
     cava
     pulseaudio
+    alsa-utils
+    portaudio
+    alsa-lib
+    ffmpeg
+    pavucontrol
+    clang
   ];
 }

@@ -1,3 +1,4 @@
+# TODO: cleanout and repopulate individual packages better
 {
   pkgs,
   lib,
@@ -5,11 +6,6 @@
 }: let
   customPkgs = import ../pkgs {inherit pkgs lib;};
 in {
-  imports = [
-    ../modules/python.nix
-    ../modules/npm.nix
-  ];
-
   python.enable = true;
   npm.enable = true;
 
@@ -21,7 +17,13 @@ in {
     spotify
     flameshot
     mpv
+    linuxHeaders
+    appimage-run
+    freetype.dev
+    zed-editor
+    pixman
     udiskie
+    maim
     git
     git-lfs
     gitAndTools.gh
@@ -35,6 +37,7 @@ in {
     yarn
     bun
     deno
+    obsidian
     go
     go-tools
     gopls
@@ -46,7 +49,6 @@ in {
     cargo-audit
     rust-analyzer
     python3Packages.debugpy
-    customPkgs.python-ngx-lsp
     gcc
     stdenv.cc.cc.lib
     gnumake
@@ -62,7 +64,10 @@ in {
     elixir
     swift
     zig
+    dbus.dev
+    pkg-config
     ghc
+    cacert
     cabal-install
     stack
     haskell-language-server
@@ -124,8 +129,7 @@ in {
     slop
     dunst
     pulseaudio
-    ani-cli
-    yt-dlp
+    yt-dlp # might remove for source built version
     httpie
     wrk
     cloudflared
@@ -140,10 +144,14 @@ in {
     sqlite
     redis
     sqls
-    ollama
     tree-sitter
     luajitPackages.jsregexp
     tailscale
     cachix
+    portaudio
+    xorg.libX11
+    xorg.libXtst
+    xorg.libXi
+    xorg.xorgproto
   ];
 }
