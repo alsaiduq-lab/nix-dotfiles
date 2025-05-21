@@ -18,6 +18,7 @@
   gccLibPath = "${pkgs.gcc-unwrapped.lib}/lib";
   nvidiaLibPath = "${pkgs.linuxPackages.nvidia_x11}/lib";
   cudaLibPath = "${pkgs.cudatoolkit}/lib";
+  ldLibraryPath = "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}";
 
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
@@ -41,7 +42,7 @@
     extraOutputsToInstall = ["out"];
     postBuild = ''
       wrapProgram $out/bin/python \
-        --prefix LD_LIBRARY_PATH : "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}"
+        --prefix LD_LIBRARY_PATH : "${ldLibraryPath}"
     '';
   };
 
@@ -51,7 +52,8 @@
     buildInputs = [pkgs.makeWrapper];
     postBuild = ''
       wrapProgram $out/bin/uv \
-        --prefix LD_LIBRARY_PATH : "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}"
+        --prefix LD_LIBRARY_PATH : "${ldLibraryPath}" \
+        --set PYTHONPATH ""
     '';
   };
 in {
@@ -69,7 +71,7 @@ in {
     ];
     environment.variables = {
       PIP_CONFIG_FILE = "${pipConf}";
-      LD_LIBRARY_PATH = lib.mkForce "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}";
+      LD_LIBRARY_PATH = lib.mkForce "${ldLibraryPath}";
     };
   };
 }
