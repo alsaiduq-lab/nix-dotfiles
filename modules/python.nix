@@ -14,6 +14,11 @@
     [packages]
     numpy = "<2.0.0"
   '';
+
+  gccLibPath = "${pkgs.gcc-unwrapped.lib}/lib";
+  nvidiaLibPath = "${pkgs.linuxPackages.nvidia_x11}/lib";
+  cudaLibPath = "${pkgs.cudatoolkit}/lib";
+
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
       customPkgs.python-rembg
@@ -31,7 +36,13 @@
       jedi
       libcst
       pip
+      wheel
     ];
+    extraOutputsToInstall = ["out"];
+    postBuild = ''
+      wrapProgram $out/bin/python \
+        --prefix LD_LIBRARY_PATH : "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}"
+    '';
   };
 in {
   options.python = {
@@ -48,6 +59,7 @@ in {
     ];
     environment.variables = {
       PIP_CONFIG_FILE = "${pipConf}";
+      LD_LIBRARY_PATH = lib.mkForce "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}";
     };
   };
 }
