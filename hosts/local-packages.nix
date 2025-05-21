@@ -109,6 +109,7 @@ in {
     wget
     curl
     tree
+    mesa
     socat
     gnused
     gawk
