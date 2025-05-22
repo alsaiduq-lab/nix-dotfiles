@@ -110,6 +110,8 @@ in {
     curl
     tree
     mesa
+    libglvnd
+    mesa.drivers
     socat
     gnused
     gawk

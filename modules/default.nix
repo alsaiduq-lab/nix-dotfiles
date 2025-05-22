@@ -18,6 +18,7 @@
     ./npm.nix
     ./tailscale.nix
     ./udiskie.nix
+    ./ffmpeg.nix
     # ./ollama.nix
   ];
 

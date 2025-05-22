@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   fish-rust = pkgs.callPackage ../pkgs/fish-rust {};
 in {
   # Define a user account. Don't forget to set a password with 'passwd'.
@@ -10,10 +7,6 @@ in {
     description = "Mon Aie";
     extraGroups = ["networkmanager" "wheel" "docker" "video"];
     shell = fish-rust;
-    packages = with pkgs; [
-      # User-specific packages can be defined here
-      # or through home-manager
-    ];
   };
 
   security.sudo = {

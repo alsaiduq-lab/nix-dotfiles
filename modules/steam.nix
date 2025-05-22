@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -35,14 +30,6 @@
     alsa-lib
     ffmpeg
     stdenv.cc.cc.lib
+    libglvnd
   ];
-  environment.sessionVariables = {
-    LD_LIBRARY_PATH = lib.makeLibraryPath [
-      pkgs.mangohud
-      pkgs.portaudio
-      pkgs.alsa-lib
-      pkgs.ffmpeg
-      pkgs.stdenv.cc.cc.lib
-    ];
-  };
 }

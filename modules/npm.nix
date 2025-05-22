@@ -21,7 +21,6 @@ in {
       electron
     ];
     environment.variables = {
-      NPM_CONFIG_PREFIX = npmGlobalDir;
       PATH = [
         "${pkgs.nodejs_22}/bin"
         "${npmGlobalDir}/bin"

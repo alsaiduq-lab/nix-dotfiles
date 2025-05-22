@@ -19,6 +19,8 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # Disable NetworkManager-wait-online to fix boot hang
+  systemd.services."NetworkManager-wait-online".enable = false;
 }

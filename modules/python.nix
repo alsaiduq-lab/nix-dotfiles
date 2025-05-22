@@ -18,7 +18,8 @@
   gccLibPath = "${pkgs.gcc-unwrapped.lib}/lib";
   nvidiaLibPath = "${pkgs.linuxPackages.nvidia_x11}/lib";
   cudaLibPath = "${pkgs.cudatoolkit}/lib";
-  ldLibraryPath = "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}";
+  glvndLibPath = "${pkgs.libglvnd}/lib";
+  ldLibraryPath = "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}:${glvndLibPath}";
 
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
@@ -36,6 +37,7 @@
       jedi
       libcst
       wheel
+      jupyterlab
     ];
     extraOutputsToInstall = ["out"];
     postBuild = ''
@@ -69,7 +71,6 @@ in {
     ];
     environment.variables = {
       PIP_CONFIG_FILE = "${pipConf}";
-      LD_LIBRARY_PATH = lib.mkForce "${ldLibraryPath}";
     };
   };
 }
