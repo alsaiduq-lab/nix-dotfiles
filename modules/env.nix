@@ -20,7 +20,7 @@
     LUA_PATH = "${pkgs.luajit}/share/lua/5.1/?.lua;${pkgs.luajit}/share/lua/5.1/?/init.lua;;";
     LUA_CPATH = "${pkgs.luajit}/lib/lua/5.1/?.so;;";
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
-      pkgs.mesa.drivers
+      pkgs.mesa
       pkgs.openssl.dev
       pkgs.libxml2.dev
       pkgs.zlib.dev

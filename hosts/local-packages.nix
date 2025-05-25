@@ -1,11 +1,5 @@
 # TODO: cleanout and repopulate individual packages better
-{
-  pkgs,
-  lib,
-  ...
-}: let
-  customPkgs = import ../pkgs {inherit pkgs lib;};
-in {
+{pkgs, ...}: {
   python.enable = true;
   npm.enable = true;
 
@@ -111,7 +105,6 @@ in {
     tree
     mesa
     libglvnd
-    mesa.drivers
     socat
     gnused
     gawk
@@ -127,7 +120,6 @@ in {
     fzf
     jq
     bash
-    customPkgs.fish-rust
     xorg.xdpyinfo
     slop
     dunst
@@ -156,5 +148,9 @@ in {
     xorg.libXtst
     xorg.libXi
     xorg.xorgproto
+    texlive.combined.scheme-full
+    imagemagick
+    poppler_utils
+    ghostscript
   ];
 }

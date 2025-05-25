@@ -162,7 +162,7 @@ in {
     xsettingsd
     hicolor-icon-theme
     adwaita-icon-theme
-    breeze-icons
+    kdePackages.breeze-icons
     gnome-themes-extra
   ];
 

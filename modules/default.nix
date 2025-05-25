@@ -6,7 +6,6 @@
     ./docker.nix
     ./env.nix
     ./fonts.nix
-    ./home-manager.nix
     ./i3-xfce.nix
     ./net.nix
     ./nixos.nix
@@ -18,7 +17,6 @@
     ./npm.nix
     ./tailscale.nix
     ./udiskie.nix
-    ./ffmpeg.nix
     # ./ollama.nix
   ];
 
@@ -32,8 +30,4 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    home-manager
-  ];
 }

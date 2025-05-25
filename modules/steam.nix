@@ -28,7 +28,6 @@
     piper
     portaudio
     alsa-lib
-    ffmpeg
     stdenv.cc.cc.lib
     libglvnd
   ];

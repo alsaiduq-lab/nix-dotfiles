@@ -18,7 +18,12 @@ in {
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji
-      (nerdfonts.override {fonts = ["0xProto" "FiraCode" "JetBrainsMono" "Hack" "Noto" "NerdFontsSymbolsOnly"];})
+      nerd-fonts._0xproto
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.hack
+      nerd-fonts.noto
+      nerd-fonts.symbols-only
       ipafont
       kochi-substitute
       clear-sans

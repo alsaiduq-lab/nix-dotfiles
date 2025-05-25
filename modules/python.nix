@@ -4,26 +4,15 @@
   lib,
   ...
 }: let
-  customPkgs = pkgs.callPackage ../pkgs {inherit pkgs lib;};
   py = pkgs.python311Packages;
-  pipConf = pkgs.writeText "pip.conf" ''
-    [global]
-    no-cache-dir = false
-    [install]
-    ignore-installed = false
-    [packages]
-    numpy = "<2.0.0"
-  '';
-
   gccLibPath = "${pkgs.gcc-unwrapped.lib}/lib";
   nvidiaLibPath = "${pkgs.linuxPackages.nvidia_x11}/lib";
   cudaLibPath = "${pkgs.cudatoolkit}/lib";
   glvndLibPath = "${pkgs.libglvnd}/lib";
   ldLibraryPath = "${gccLibPath}:${nvidiaLibPath}:${cudaLibPath}:${glvndLibPath}";
-
   pythonEnv = pkgs.python311.buildEnv.override {
     extraLibs = with py; [
-      customPkgs.python-rembg
+      numpy
       i3ipc
       requests
       ipython
@@ -45,7 +34,6 @@
         --prefix LD_LIBRARY_PATH : "${ldLibraryPath}"
     '';
   };
-
   custom-UV = pkgs.symlinkJoin {
     name = "uv";
     paths = [pkgs.uv];
@@ -69,8 +57,5 @@ in {
       stdenv.cc.cc.lib
       python311
     ];
-    environment.variables = {
-      PIP_CONFIG_FILE = "${pipConf}";
-    };
   };
 }

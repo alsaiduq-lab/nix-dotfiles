@@ -15,7 +15,6 @@
     alsa-utils
     portaudio
     alsa-lib
-    ffmpeg
     pavucontrol
     clang
   ];

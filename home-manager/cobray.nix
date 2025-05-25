@@ -1,6 +1,6 @@
 {
   pkgs,
-  rpcs3_latest,
+  inputs,
   ...
 }: {
   imports = [
@@ -23,6 +23,7 @@
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
   home.enableNixpkgsReleaseCheck = false;
+  xdg.mime.enable = false;
 
   home.packages = with pkgs; [
     coreutils
@@ -34,6 +35,5 @@
     btop
     nvtopPackages.full
     arandr
-    rpcs3_latest
   ];
 }

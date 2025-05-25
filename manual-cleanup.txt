@@ -10,3 +10,6 @@ sudo nix-collect-garbage -d
 
 # As a separation of concerns - you will need to run this command to clean out boot
 sudo /run/current-system/bin/switch-to-configuration boot
+
+# bonus: in case you're stuck in some limbo state
+sudo /run/current-system/sw/bin/nixos-rebuild switch --flake .
