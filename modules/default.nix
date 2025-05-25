@@ -17,8 +17,13 @@
     ./npm.nix
     ./tailscale.nix
     ./udiskie.nix
-    # ./ollama.nix
   ];
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    loadModels = [];
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
