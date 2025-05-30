@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    networkmanager_dmenu
     networkmanagerapplet
   ];
 

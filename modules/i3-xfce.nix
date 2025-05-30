@@ -1,22 +1,29 @@
 {pkgs, ...}: let
-  wallpapers = [
-    "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png"
-    "${pkgs.nixos-artwork.wallpapers.gnome-dark}/share/backgrounds/gnome/gnome-dark.png"
-    "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png"
-  ];
+  wallpaperDir = "/home/cobray/wallpapers";
 
   randomWallpaper = pkgs.writeShellScript "wallpaper.sh" ''
     #!${pkgs.runtimeShell}
     set -e
     BG_DIR="/var/lib/lightdm-background"
-    BG_LINK="$BG_DIR/current-wallpaper.png"
+    BG_LINK="$BG_DIR/random-wallpaper.png"
+    LAST_WALLPAPER="$BG_DIR/.last-wallpaper"
+    WALLPAPER_DIR="${wallpaperDir}"
+
     mkdir -p "$BG_DIR"
-    WALLPAPERS=( ${builtins.concatStringsSep " " (map (w: "\"${w}\"") wallpapers)} )
+    rm -f "$BG_LINK"
+    mapfile -t WALLPAPERS < <(${pkgs.findutils}/bin/find "$WALLPAPER_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \))
     COUNT=''${#WALLPAPERS[@]}
-    if [[ "$COUNT" -eq 0 ]]; then exit 1; fi
-    RAND=$(shuf -i 0-$(($COUNT - 1)) -n 1)
+    if [[ "$COUNT" -eq 0 ]]; then
+      cp -f "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png" "$BG_LINK"
+      echo "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png" > "$LAST_WALLPAPER"
+      chown lightdm:lightdm "$BG_LINK" "$LAST_WALLPAPER"
+      exit 0
+    fi
+    RAND=$(${pkgs.coreutils}/bin/shuf -i 0-$(($COUNT - 1)) -n 1)
     SELECT=''${WALLPAPERS[$RAND]}
-    ln -sf "$SELECT" "$BG_LINK"
+    cp -f "$SELECT" "$BG_LINK"
+    echo "$SELECT" > "$LAST_WALLPAPER"
+    chown lightdm:lightdm "$BG_LINK" "$LAST_WALLPAPER"
   '';
 in {
   services.xserver.enable = true;
@@ -31,7 +38,7 @@ in {
     extraPackages = with pkgs; [
       dmenu
       i3status
-      i3lock
+      i3lock-color
       i3blocks
       picom
       feh
@@ -42,6 +49,10 @@ in {
       xsettingsd
     ];
     extraSessionCommands = ''
+      if [ -f /var/lib/lightdm-background/.last-wallpaper ]; then
+        ${pkgs.feh}/bin/feh --bg-fill "$(cat /var/lib/lightdm-background/.last-wallpaper)"
+      fi
+
       export GSETTINGS_SCHEMA_DIR="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas"
       ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "Tokyonight-Dark"
       ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "candy-icons"
@@ -64,7 +75,7 @@ in {
 
   services.xserver.displayManager.lightdm = {
     enable = true;
-    background = "/var/lib/lightdm-background/current-wallpaper.png";
+    background = "/var/lib/lightdm-background/random-wallpaper.png";
     greeters.gtk = {
       enable = true;
       theme = {
@@ -91,17 +102,21 @@ in {
 
   systemd.tmpfiles.rules = [
     "d /var/lib/lightdm-background 0755 lightdm lightdm - -"
-    "L+ /var/lib/lightdm-background/current-wallpaper.png - - - - ${builtins.elemAt wallpapers 0}"
+    "d ${wallpaperDir} 0755 cobray users - -"
+    "f /var/log/random-wallpaper.log 0644 root root - -"
   ];
 
   systemd.services.random-wallpaper = {
     description = "Update wallpaper to a random image";
+    before = ["display-manager.service"];
+    wantedBy = ["display-manager.service"];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${randomWallpaper}";
       User = "root";
     };
   };
+
   systemd.timers.random-wallpaper = {
     description = "Daily wallpaper refresh for LightDM";
     wantedBy = ["timers.target"];
@@ -134,18 +149,18 @@ in {
       [Settings]
       gtk-application-prefer-dark-theme=1
       gtk-theme-name=Tokyonight-Dark
-      gtk-icon-theme-name="candy-icons"
-      gtk-font-name="Clear Sans 10"
-      gtk-cursor-theme-name="capitaine-cursors"
+      gtk-icon-theme-name=candy-icons
+      gtk-font-name=Clear Sans 10
+      gtk-cursor-theme-name=capitaine-cursors
       gtk-cursor-theme-size=24
     '';
     "gtk-4.0/settings.ini".text = ''
       [Settings]
       gtk-application-prefer-dark-theme=1
       gtk-theme-name=Tokyonight-Dark
-      gtk-icon-theme-name="candy-icons"
-      gtk-font-name="Clear Sans 10"
-      gtk-cursor-theme-name="capitaine-cursors"
+      gtk-icon-theme-name=candy-icons
+      gtk-font-name=Clear Sans 10
+      gtk-cursor-theme-name=capitaine-cursors
       gtk-cursor-theme-size=24
     '';
   };
@@ -164,6 +179,9 @@ in {
     adwaita-icon-theme
     kdePackages.breeze-icons
     gnome-themes-extra
+    findutils
+    coreutils
+    feh
   ];
 
   environment.pathsToLink = [
@@ -175,6 +193,9 @@ in {
     {
       name = "xfce+i3";
       start = ''
+        if [ -f /var/lib/lightdm-background/.last-wallpaper ]; then
+          ${pkgs.feh}/bin/feh --bg-fill "$(cat /var/lib/lightdm-background/.last-wallpaper)"
+        fi
         export XDG_DATA_DIRS="${pkgs.tokyonight-gtk-theme}/share:${pkgs.candy-icons}/share:${pkgs.hicolor-icon-theme}/share:${pkgs.adwaita-icon-theme}/share:$XDG_DATA_DIRS"
         ${pkgs.xfce.xfce4-session}/bin/xfce4-session --with-ck-launch &
         ${pkgs.i3-gaps}/bin/i3

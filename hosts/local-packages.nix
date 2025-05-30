@@ -1,8 +1,5 @@
 # TODO: cleanout and repopulate individual packages better
 {pkgs, ...}: {
-  python.enable = true;
-  npm.enable = true;
-
   environment.systemPackages = with pkgs; [
     brave # TODO: make a module to save browser stuff
     vesktop

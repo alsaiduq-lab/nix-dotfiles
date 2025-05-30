@@ -17,6 +17,7 @@
     ./npm.nix
     ./tailscale.nix
     ./udiskie.nix
+    ./ld.nix
   ];
 
   services.ollama = {

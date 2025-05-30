@@ -34,7 +34,7 @@
     ];
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       pkgs.libglvnd
-      pkgs.mesa.drivers
+      pkgs.mesa
       pkgs.gcc-unwrapped.lib
       pkgs.linuxPackages.nvidia_x11
       pkgs.cudatoolkit

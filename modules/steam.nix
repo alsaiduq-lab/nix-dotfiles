@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
     # apparently enabling this makes big picture boot up, does not work on nvidia however
     # gamescopeSession.enable = true;
     extraCompatPackages = [
@@ -28,7 +26,6 @@
     piper
     portaudio
     alsa-lib
-    stdenv.cc.cc.lib
     libglvnd
   ];
 }

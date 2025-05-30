@@ -35,5 +35,6 @@
     btop
     nvtopPackages.full
     arandr
+    inputs.nix-gaming.packages.${pkgs.system}.wine-discord-ipc-bridge
   ];
 }
