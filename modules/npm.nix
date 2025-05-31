@@ -3,12 +3,14 @@
   pkgs,
   lib,
   ...
-}: let
-  npmGlobalDir = "~/.npm-global";
+}:
+# TODO:bandaid fix for now
+let
+  npmGlobalDir = "/home/cobray/.npm-global";
   npmConf = pkgs.writeText "npmrc" ''
     prefix=${npmGlobalDir}
-    cache=~/.npm
-    init-module=~/.npm-init.js
+    cache=/home/cobray/.npm
+    init-module=/home/cobray/.npm-init.js
   '';
 in {
   options.npm = {
@@ -19,6 +21,18 @@ in {
       nodejs_22
       nodePackages.npm
       electron
+      yarn
+      bun
+      deno
+      nodePackages.eslint
+      nodePackages.prettier
+      nodePackages.sql-formatter
+      nodePackages.markdownlint-cli
+      nodePackages.stylelint
+      nodePackages.htmlhint
+      nodePackages.jsonlint
+      nodePackages.pnpm
+      nodePackages.typescript
     ];
     environment.variables = {
       PATH = [

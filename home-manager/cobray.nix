@@ -16,6 +16,8 @@
     ./modules/zellij.nix
     ./modules/ffmpeg.nix
     ./modules/emulators.nix
+    ./modules/discord.nix
+    ./modules/brave.nix
   ];
 
   home.username = "cobray";
@@ -28,7 +30,6 @@
   home.packages = with pkgs; [
     coreutils
     gnused
-    gnugrep
     findutils
     yazi
     htop

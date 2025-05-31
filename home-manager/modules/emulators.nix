@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     mgba
     desmume
@@ -9,7 +6,7 @@
     pcsx2
     ryujinx
     mupen64plus
-    dolphin-emu
+    dolphin-emu # might remove. causes a long time to build
     retroarch
     mednafen
     joycond

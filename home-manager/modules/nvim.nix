@@ -6,18 +6,39 @@
   home.packages = with pkgs; [
     neovim
     gnugrep
-    fd
-    fzf
-    nodejs
-    gcc
     git
     luajit
     luaPackages.luarocks
+    gopls
+    haskell-language-server
+    jdt-language-server
+    clang-tools
+    vscode-langservers-extracted
+    marksman
     nil
-    lua-language-server
+    taplo
+    yaml-language-server
+    sqls
+    alejandra
+    stylua
+    shfmt
+    yamlfmt
+    luaPackages.luacheck
+    yamllint
+    hadolint
+    shellcheck
+    cppcheck
+    rubocop
+    phpPackages.php-codesniffer
+    phpPackages.phpstan
+    checkstyle
+    tflint
+    sqlfluff
+    tree-sitter
+    luajitPackages.jsregexp
+    jq
     curl
     unzip
-    alejandra
   ];
 
   home.sessionVariables = {
