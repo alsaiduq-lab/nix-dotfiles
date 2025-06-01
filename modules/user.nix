@@ -6,7 +6,7 @@ in {
     isNormalUser = true;
     description = "Mon Aie";
     extraGroups = ["networkmanager" "wheel" "docker" "video"];
-    shell = fish-rust;
+    shell = pkgs.bash;
   };
 
   security.sudo = {

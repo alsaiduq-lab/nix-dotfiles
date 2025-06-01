@@ -17,9 +17,11 @@
         wheel
         jupyterlab
         datasets
+        debugpy
       ]))
     isort
     uv
     python311
+    ruff
   ];
 }

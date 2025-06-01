@@ -6,7 +6,6 @@
     ./docker.nix
     ./env.nix
     ./fonts.nix
-    ./i3-xfce.nix
     ./net.nix
     ./nixos.nix
     ./nvidia.nix
@@ -18,16 +17,14 @@
     ./tailscale.nix
     ./udiskie.nix
     ./ld.nix
+    ./rust.nix
+    ./x11.nix
+    ./i3-xfce.nix
+    ./ollama.nix
+    ./cups.nix
   ];
 
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-    loadModels = [];
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  npm.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
