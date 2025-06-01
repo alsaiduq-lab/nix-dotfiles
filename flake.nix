@@ -24,10 +24,12 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+    customFontPkgs = import "${self}/pkgs/fonts" {inherit pkgs;};
     customPkgs = import "${self}/pkgs" {
-      pkgs = nixpkgs.legacyPackages.${system};
+      inherit pkgs;
       lib = nixpkgs.lib;
-      inherit rpcs3_latest;
+      inherit rpcs3_latest customFontPkgs;
     };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -47,6 +49,8 @@
                 pugixml
                 SDL3
                 rpcs3_latest
+                clear-sans
+                binary-font
                 ;
             })
           ];
