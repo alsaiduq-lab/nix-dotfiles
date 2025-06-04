@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./system-packages.nix
     ../modules/default.nix
+    ./cachix.nix
   ];
 
   nix.gc = {
