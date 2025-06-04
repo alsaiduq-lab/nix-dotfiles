@@ -2,7 +2,6 @@
   pkgs,
   lib,
   rpcs3_latest,
-  customFontPkgs,
 }: let
   rpcs3Pkgs = pkgs.callPackage ./rpcs3 {
     inherit lib rpcs3_latest;
