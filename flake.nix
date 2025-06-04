@@ -30,7 +30,7 @@
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
       lib = nixpkgs.lib;
-      inherit rpcs3_latest customFontPkgs;
+      inherit rpcs3_latest;
     };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
