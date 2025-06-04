@@ -1,5 +1,6 @@
 {
   description = "NixOS configuration for Cobray";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     home-manager = {
@@ -15,6 +16,7 @@
       flake = false;
     };
   };
+
   outputs = {
     self,
     nixpkgs,
@@ -25,7 +27,6 @@
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    customFontPkgs = import "${self}/pkgs/fonts" {inherit pkgs;};
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
       lib = nixpkgs.lib;
@@ -34,26 +35,34 @@
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = {
-        inherit inputs customPkgs;
-        lib = nixpkgs.lib;
-      };
+      specialArgs = {inherit inputs;};
       modules = [
         {
-          nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = [
-            (final: prev: {
-              inherit
-                (customPkgs)
-                fish-rust
-                pugixml
-                SDL3
-                rpcs3_latest
-                clear-sans
-                binary-font
-                ;
-            })
-          ];
+          nixpkgs = {
+            config = {
+              allowUnfree = true;
+              allowAliases = true;
+            };
+            hostPlatform = system;
+            overlays = [
+              (final: prev: {
+                inherit
+                  (customPkgs)
+                  fish-rust
+                  pugixml
+                  SDL3
+                  rpcs3
+                  rpcs3_latest
+                  clear-sans
+                  binary-font
+                  ;
+              })
+              (final: prev: {
+                clear-sans = prev.clear-sans.clear-sans;
+                binary-font = prev.binary-font.binary-clock-font;
+              })
+            ];
+          };
         }
         ./hosts/configuration.nix
         home-manager.nixosModules.home-manager
@@ -61,9 +70,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = {
-              inherit inputs customPkgs;
-            };
+            extraSpecialArgs = {inherit inputs;};
             users.cobray = import ./home-manager/cobray.nix;
           };
         }

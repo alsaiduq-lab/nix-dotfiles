@@ -37,7 +37,7 @@
     src = pkgs.fetchgit {
       url = "https://github.com/RPCS3/rpcs3.git";
       rev = rpcs3_latest.rev;
-      sha256 = "sha256-l7ewWWbFWaziBGrWUMdmSn79tq1Sumnqvjcqr1LYfhU=";
+      sha256 = "sha256-WTb2FHR46qirndxQLcs7k7GPDTTSXb39ydtzuxCe17k=";
       fetchSubmodules = true;
     };
     patches = [];

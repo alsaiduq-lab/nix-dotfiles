@@ -6,8 +6,8 @@
       noto-fonts-cjk-serif
       noto-fonts-emoji
       nerd-fonts._0xproto
-      nerd-fonts-noto
-      nerd-fonts-symbols-only
+      nerd-fonts.noto
+      nerd-fonts.symbols-only
       ipafont
       kochi-substitute
       clear-sans
