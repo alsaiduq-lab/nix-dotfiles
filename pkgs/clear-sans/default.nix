@@ -18,7 +18,7 @@
     meta = with lib; {
       description = "Clear Sans font";
       homepage = "https://github.com/intel/clear-sans";
-      license = licenses.apache;
+      license = licenses.asl20;
       maintainers = [cobray];
       platforms = platforms.all;
     };

@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  binary-clock-font = pkgs.stden.mkDerivation {
+  binary-clock-font = pkgs.stdenv.mkDerivation {
     pname = "binary-clock-font";
     version = "1.0.0";
     src = pkgs.fetchurl {
