@@ -3,15 +3,6 @@
   lib,
   ...
 }: {
-  environment.shellInit = ''
-    if [ -d "$HOME/.cargo/bin" ]; then
-      export PATH="$PATH:$HOME/.cargo/bin"
-    fi
-    if [ -d "$HOME/.npm-global/bin" ]; then
-      export PATH="$PATH:$HOME/.npm-global/bin"
-    fi
-  '';
-
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -24,7 +15,6 @@
       pkgs.openssl.dev
       pkgs.libxml2.dev
       pkgs.zlib.dev
-      pkgs.ffmpeg
       pkgs.portaudio
       pkgs.alsa-lib
       pkgs.stdenv.cc.cc
@@ -41,14 +31,12 @@
       pkgs.mangohud
       pkgs.portaudio
       pkgs.alsa-lib
-      pkgs.ffmpeg
       pkgs.stdenv.cc.cc.lib
       pkgs.xorg.libX11
       pkgs.xorg.libXtst
       pkgs.xorg.libXi
       pkgs.glib
     ];
-    NPM_CONFIG_PREFIX = "$HOME/.npm-global";
   };
 
   environment.pathsToLink = [
