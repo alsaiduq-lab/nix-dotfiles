@@ -17,7 +17,6 @@
     ./tailscale.nix
     ./udiskie.nix
     ./ld.nix
-    ./rust.nix
     ./x11.nix
     ./i3-xfce.nix
     ./ollama.nix

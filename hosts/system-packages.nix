@@ -8,12 +8,11 @@
     linuxHeaders
     appimage-run
     freetype.dev
-    zed-editor
     pixman
+    bitwarden
     udiskie
     maim
     mercurial
-    obsidian
     go
     go-tools
     gopls
@@ -40,6 +39,13 @@
     jdk17
     maven
     gradle
+    rustc
+    rustup
+    cargo-edit
+    cargo-watch
+    cargo-outdated
+    cargo-audit
+    rust-analyzer
     visualvm
     wget
     curl

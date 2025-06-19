@@ -1,31 +1,21 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  config,
   ...
 }: {
-  options.rust = {
-    enable = lib.mkEnableOption "System Rust Environment";
-  };
+  options.rust.enable = lib.mkEnableOption "System Rust Environment";
 
   config = lib.mkIf config.rust.enable {
     environment.systemPackages = with pkgs; [
-      rustc
       rustup
+      rust-analyzer
+      clippy
       cargo-edit
       cargo-watch
       cargo-outdated
       cargo-audit
-      rust-analyzer
-      clippy
       minijinja-cli
     ];
-
-    environment.variables = {
-      PATH = [
-        "${pkgs.rustc}/bin"
-        "${pkgs.cargo}/bin"
-      ];
-    };
   };
 }
