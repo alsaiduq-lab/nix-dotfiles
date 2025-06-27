@@ -51,7 +51,6 @@
                   fish-rust
                   pugixml
                   SDL3
-                  rpcs3
                   rpcs3_latest
                   clear-sans
                   binary-font
