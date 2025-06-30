@@ -4,7 +4,9 @@
   config,
   ...
 }: {
-  options.rust.enable = lib.mkEnableOption "System Rust Environment";
+  options.rust = {
+    enable = lib.mkEnableOption "System Rust Environment";
+  };
 
   config = lib.mkIf config.rust.enable {
     environment.systemPackages = with pkgs; [
