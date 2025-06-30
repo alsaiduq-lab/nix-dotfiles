@@ -47,11 +47,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750960128,
-        "narHash": "sha256-Or2VEGOQojQBtt6csiFjbza/2Zwyr+ZiNuvlhsh/+kc=",
+        "lastModified": 1751163021,
+        "narHash": "sha256-BZGuvFape+quvsfFm+RJdjABUu/xMWnRNd+mzvfrj30=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "a4bc2115b466e92ab83a773f73f7f1d0d3fa83f0",
+        "rev": "094da7499257ec96bb1708f76cf221687a9aa498",
         "type": "github"
       },
       "original": {
@@ -62,11 +62,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1750838302,
-        "narHash": "sha256-aVkL3/yu50oQzi2YuKo0ceiCypVZpZXYd2P2p1FMJM4=",
+        "lastModified": 1750969886,
+        "narHash": "sha256-zW/OFnotiz/ndPFdebpo3X0CrbVNf22n4DjN2vxlb58=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7284e2decc982b81a296ab35aa46e804baaa1cfe",
+        "rev": "a676066377a2fe7457369dd37c31fd2263b662f4",
         "type": "github"
       },
       "original": {
@@ -96,22 +96,39 @@
         "home-manager": "home-manager",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs",
-        "rpcs3_latest": "rpcs3_latest"
+        "rpcs3_latest": "rpcs3_latest",
+        "unstable": "unstable"
       }
     },
     "rpcs3_latest": {
       "flake": false,
       "locked": {
-        "lastModified": 1750881964,
-        "narHash": "sha256-frn2F3DX8w4ACXhMNCkBLq9XFmdJn/UMkvmW24YJ+iU=",
+        "lastModified": 1751221912,
+        "narHash": "sha256-H8u56u8m4crkatMedCQb2I9aREaJ3biz7eBVqredE/Q=",
         "owner": "RPCS3",
         "repo": "rpcs3",
-        "rev": "aa50b0fbb99c04918645a78acd1fcab8a1cf31b2",
+        "rev": "786ac95dc018bd56874450b48b6cbd2083ef3242",
         "type": "github"
       },
       "original": {
         "owner": "RPCS3",
         "repo": "rpcs3",
+        "type": "github"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1751180975,
+        "narHash": "sha256-BKk4yDiXr4LdF80OTVqYJ53Q74rOcA/82EClXug8xsY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a48741b083d4f36dd79abd9f760c84da6b4dc0e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     }
