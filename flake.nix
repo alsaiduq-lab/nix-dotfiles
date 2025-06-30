@@ -71,6 +71,7 @@
                   rpcs3_latest
                   clear-sans
                   binary-font
+                  minijinja-cli
                   ;
               })
 

@@ -11,4 +11,5 @@ in {
   fish-rust = pkgs.callPackage ./fish-rust {};
   clear-sans = pkgs.callPackage ./clear-sans {};
   binary-font = pkgs.callPackage ./binary-font {};
+  minijinja-cli = pkgs.callPackage ./minijinja-cli {};
 }
