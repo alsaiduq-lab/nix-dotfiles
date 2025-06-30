@@ -39,13 +39,6 @@
     jdk17
     maven
     gradle
-    rustc
-    rustup
-    cargo-edit
-    cargo-watch
-    cargo-outdated
-    cargo-audit
-    rust-analyzer
     visualvm
     wget
     curl
@@ -76,7 +69,6 @@
     sqlite
     redis
     sqls
-    luajitPackages.jsregexp
     cachix
     texlive.combined.scheme-full
     imagemagick
