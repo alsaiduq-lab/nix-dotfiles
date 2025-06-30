@@ -21,6 +21,7 @@
     ./i3-xfce.nix
     ./ollama.nix
     ./cups.nix
+    ./rust.nix
   ];
 
   npm.enable = true;

@@ -1,23 +1,16 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}: {
-  options.rust = {
-    enable = lib.mkEnableOption "System Rust Environment";
+{pkgs, ...}: let
+  rustToolchain = pkgs.symlinkJoin {
+    name = "rust-toolchain";
+    paths = with pkgs; [rustc cargo rustfmt clippy];
   };
-
-  config = lib.mkIf config.rust.enable {
-    environment.systemPackages = with pkgs; [
-      rustup
-      rust-analyzer
-      clippy
-      cargo-edit
-      cargo-watch
-      cargo-outdated
-      cargo-audit
-      minijinja-cli
-    ];
-  };
+in {
+  environment.systemPackages = with pkgs; [
+    rustToolchain
+    rust-analyzer
+    cargo-edit
+    cargo-watch
+    cargo-outdated
+    cargo-audit
+    minijinja-cli
+  ];
 }
