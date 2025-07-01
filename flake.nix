@@ -22,6 +22,11 @@
     unstable = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
+
+    i3-dotfiles = {
+      url = "git+ssh://git@github.com/alsaiduq-lab/i3-dotfiles";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -88,7 +93,10 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = {inherit inputs;};
+            extraSpecialArgs = {
+              inherit inputs;
+              i3dotfiles = inputs.i3-dotfiles;
+            };
             users.cobray = import ./home-manager/cobray.nix;
           };
         }

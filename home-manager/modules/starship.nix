@@ -1,8 +1,12 @@
 {
   pkgs,
+  lib,
+  i3dotfiles,
   ...
 }: {
-  home.packages = with pkgs; [
-    starship
-  ];
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = lib.importTOML "${i3dotfiles}/starship.toml";
+  };
 }
