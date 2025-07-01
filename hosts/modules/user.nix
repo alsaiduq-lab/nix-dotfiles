@@ -1,12 +1,10 @@
-{pkgs, ...}: let
-  fish-rust = pkgs.callPackage ../pkgs/fish-rust {};
-in {
+{pkgs, ...}: {
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.cobray = {
     isNormalUser = true;
     description = "Mon Aie";
     extraGroups = ["networkmanager" "wheel" "docker" "video"];
-    shell = pkgs.bash;
+    shell = pkgs.fish;
   };
 
   security.sudo = {
@@ -16,6 +14,5 @@ in {
 
   programs.fish = {
     enable = true;
-    package = fish-rust;
   };
 }
