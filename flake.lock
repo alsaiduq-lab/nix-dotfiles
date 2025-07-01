@@ -39,6 +39,22 @@
         "type": "github"
       }
     },
+    "i3-dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751342458,
+        "narHash": "sha256-TZEPeibXSqcC9JbQrR8cQ3nDTh5mUhY66w+48N2AV2M=",
+        "ref": "refs/heads/master",
+        "rev": "8b04075b1496b40224b37c0e422399c58ed3c300",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/alsaiduq-lab/i3-dotfiles"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/alsaiduq-lab/i3-dotfiles"
+      }
+    },
     "nix-gaming": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -94,6 +110,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "i3-dotfiles": "i3-dotfiles",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs",
         "rpcs3_latest": "rpcs3_latest",
