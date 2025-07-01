@@ -6,8 +6,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./system-packages.nix
-    ../modules/default.nix
-    ./cachix.nix
   ];
 
   nix.gc = {

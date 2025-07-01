@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./cachix.nix
     ./modules/audio.nix
     ./modules/bluetooth.nix
     ./modules/boot.nix
