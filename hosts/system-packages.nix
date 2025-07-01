@@ -16,7 +16,6 @@
     ./modules/python.nix
     ./modules/npm.nix
     ./modules/tailscale.nix
-    ./modules/udiskie.nix
     ./modules/ld.nix
     ./modules/x11.nix
     ./modules/i3-xfce.nix
