@@ -18,6 +18,8 @@
     ./modules/emulators.nix
     ./modules/discord.nix
     ./modules/brave.nix
+    ./modules/spotify.nix
+    ./modules/obs.nix
   ];
 
   home.username = "cobray";
