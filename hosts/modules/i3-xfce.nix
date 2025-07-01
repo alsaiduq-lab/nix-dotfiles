@@ -47,6 +47,12 @@ in {
       polybar
       i3-auto-layout
       xsettingsd
+      mpv
+      yt-dlp
+      flameshot
+      imagemagick
+      slop
+      ghostscript
     ];
     extraSessionCommands = ''
       if [ -f /var/lib/lightdm-background/.last-wallpaper ]; then

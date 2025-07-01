@@ -1,6 +1,12 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
+    wget
+    curl
+    cloudflared
+    nmap
+    httpie
+    socat
   ];
 
   networking.firewall.allowedTCPPorts = [57621];
