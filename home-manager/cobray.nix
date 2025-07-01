@@ -20,6 +20,7 @@
     ./modules/brave.nix
     ./modules/spotify.nix
     ./modules/obs.nix
+    ./modules/udiskie.nix
   ];
 
   home.username = "cobray";
