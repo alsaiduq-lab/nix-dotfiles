@@ -99,11 +99,11 @@
     "i3-dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1751342458,
-        "narHash": "sha256-TZEPeibXSqcC9JbQrR8cQ3nDTh5mUhY66w+48N2AV2M=",
+        "lastModified": 1751442530,
+        "narHash": "sha256-5NItrRRLwBpRkp1XjBdP0AUpM61PJh0FvxseWa3QXBw=",
         "ref": "refs/heads/master",
-        "rev": "8b04075b1496b40224b37c0e422399c58ed3c300",
-        "revCount": 2,
+        "rev": "063264a5bfaa2f0ffdb51f7c740c53e909b98a0b",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/alsaiduq-lab/i3-dotfiles"
       },
@@ -191,11 +191,11 @@
     "rpcs3_latest": {
       "flake": false,
       "locked": {
-        "lastModified": 1751264330,
-        "narHash": "sha256-Na/en54dDJ8krCH4pL2GuxCfXWCSSQnbg0l4GHCxM7A=",
+        "lastModified": 1751436755,
+        "narHash": "sha256-Oa55hrm3dGaiuwGcs/iXQkY+A7FDSPpzLOKnNdhQlgI=",
         "owner": "RPCS3",
         "repo": "rpcs3",
-        "rev": "20c9dcd2d6dbac8d2c1a4b1aab88d995ed6dc72e",
+        "rev": "eeeb7fb4ab11edbfe1f4a7e1708f5bc45fedfbc8",
         "type": "github"
       },
       "original": {
