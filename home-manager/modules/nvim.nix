@@ -9,7 +9,6 @@
 in {
   programs.neovim = {
     enable = true;
-    extraPython3Packages = ps: [ps.pynvim];
   };
 
   home.packages = with pkgs; [

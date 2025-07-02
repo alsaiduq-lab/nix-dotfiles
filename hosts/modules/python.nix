@@ -18,6 +18,7 @@
         jupyterlab
         datasets
         debugpy
+        pynvim
       ]))
     isort
     uv
