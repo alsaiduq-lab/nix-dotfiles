@@ -1,19 +1,23 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs; [
     lazygit
     git
     git-lfs
-    gitAndTools.gh
-    gitAndTools.diff-so-fancy
+    gh
+    diff-so-fancy
   ];
 
   programs.git = {
     enable = true;
     includes = [
-      {path = "./.secrets/.git-config";}
+      {path = "${config.home.homeDirectory}/nix/.secrets/.git-config";}
     ];
     extraConfig = {
-      credential.helper = "store --file ./.secrets/.git-credentials";
+      credential.helper = "store --file=${config.home.homeDirectory}/nix/.secrets/.git-credentials";
     };
   };
 }

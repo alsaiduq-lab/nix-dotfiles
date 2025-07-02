@@ -21,7 +21,8 @@
     ./modules/spotify.nix
     ./modules/obs.nix
     ./modules/udiskie.nix
-    ./modules/bambustudio.nix
+    # temp removed, currently broken on nixpkgs? lmao
+    # ./modules/bambustudio.nix
   ];
 
   home.username = "cobray";
