@@ -59,7 +59,10 @@
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        i3dotfiles = inputs.i3-dotfiles;
+      };
 
       modules = [
         {

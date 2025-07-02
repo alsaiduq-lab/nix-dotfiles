@@ -1,29 +1,33 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  i3dotfiles,
+  ...
+}: let
   wallpaperDir = "/home/cobray/wallpapers";
 
   randomWallpaper = pkgs.writeShellScript "wallpaper.sh" ''
     #!${pkgs.runtimeShell}
     set -e
     BG_DIR="/var/lib/lightdm-background"
-    BG_LINK="$BG_DIR/random-wallpaper.png"
-    LAST_WALLPAPER="$BG_DIR/.last-wallpaper"
+    BG_LINK="''$BG_DIR/random-wallpaper.png"
+    LAST_WALLPAPER="''$BG_DIR/.last-wallpaper"
     WALLPAPER_DIR="${wallpaperDir}"
 
-    mkdir -p "$BG_DIR"
-    rm -f "$BG_LINK"
-    mapfile -t WALLPAPERS < <(${pkgs.findutils}/bin/find "$WALLPAPER_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \))
+    mkdir -p "''$BG_DIR"
+    rm -f "''$BG_LINK"
+    mapfile -t WALLPAPERS < <(${pkgs.findutils}/bin/find "''$WALLPAPER_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \))
     COUNT=''${#WALLPAPERS[@]}
-    if [[ "$COUNT" -eq 0 ]]; then
-      cp -f "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png" "$BG_LINK"
-      echo "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png" > "$LAST_WALLPAPER"
-      chown lightdm:lightdm "$BG_LINK" "$LAST_WALLPAPER"
+    if [[ "''$COUNT" -eq 0 ]]; then
+      cp -f "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png" "''$BG_LINK"
+      echo "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nixos-wallpaper.png" > "''$LAST_WALLPAPER"
+      chown lightdm:lightdm "''$BG_LINK" "''$LAST_WALLPAPER"
       exit 0
     fi
-    RAND=$(${pkgs.coreutils}/bin/shuf -i 0-$(($COUNT - 1)) -n 1)
-    SELECT=''${WALLPAPERS[$RAND]}
-    cp -f "$SELECT" "$BG_LINK"
-    echo "$SELECT" > "$LAST_WALLPAPER"
-    chown lightdm:lightdm "$BG_LINK" "$LAST_WALLPAPER"
+    RAND=$(${pkgs.coreutils}/bin/shuf -i 0-''$((COUNT - 1)) -n 1)
+    SELECT=''${WALLPAPERS[''$RAND]}
+    cp -f "''$SELECT" "''$BG_LINK"
+    echo "''$SELECT" > "''$LAST_WALLPAPER"
+    chown lightdm:lightdm "''$BG_LINK" "''$LAST_WALLPAPER"
   '';
 in {
   services.xserver.enable = true;
@@ -35,25 +39,6 @@ in {
   services.xserver.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
-    extraPackages = with pkgs; [
-      dmenu
-      i3status
-      i3lock-color
-      i3blocks
-      picom
-      feh
-      rofi
-      dunst
-      polybar
-      i3-auto-layout
-      xsettingsd
-      mpv
-      yt-dlp
-      flameshot
-      imagemagick
-      slop
-      ghostscript
-    ];
     extraSessionCommands = ''
       if [ -f /var/lib/lightdm-background/.last-wallpaper ]; then
         ${pkgs.feh}/bin/feh --bg-fill "$(cat /var/lib/lightdm-background/.last-wallpaper)"
@@ -144,6 +129,10 @@ in {
   };
 
   environment.etc = {
+    "xdg/i3/config" = {
+      source = "${i3dotfiles}/i3/config";
+      mode = "0644";
+    };
     "gtk-2.0/gtkrc".text = ''
       gtk-theme-name="Tokyonight-Dark"
       gtk-icon-theme-name="candy-icons"
@@ -172,22 +161,38 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    dmenu
+    i3status
+    i3lock-color
+    i3blocks
+    picom
+    feh
+    rofi
+    dunst
+    polybar
+    i3-auto-layout
+    mpv
+    yt-dlp
+    flameshot
+    imagemagick
+    slop
+    ghostscript
+    via
     arandr
     xclip
+    xsettingsd
     lxappearance
     gsettings-desktop-schemas
     adwaita-qt
     candy-icons
     capitaine-cursors
     tokyonight-gtk-theme
-    xsettingsd
     hicolor-icon-theme
     adwaita-icon-theme
     kdePackages.breeze-icons
     gnome-themes-extra
     findutils
     coreutils
-    feh
   ];
 
   environment.pathsToLink = [

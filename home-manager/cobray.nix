@@ -21,6 +21,7 @@
     ./modules/spotify.nix
     ./modules/obs.nix
     ./modules/udiskie.nix
+    ./modules/bambustudio.nix
   ];
 
   home.username = "cobray";
