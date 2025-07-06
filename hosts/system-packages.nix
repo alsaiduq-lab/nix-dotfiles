@@ -26,6 +26,7 @@
     ./modules/go.nix
     ./modules/core.nix
     ./modules/libs.nix
+    ./modules/rgb.nix
   ];
 
   services.udisks2.enable = true;
