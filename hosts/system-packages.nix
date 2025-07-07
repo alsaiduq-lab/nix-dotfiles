@@ -17,9 +17,8 @@
     ./modules/npm.nix
     ./modules/tailscale.nix
     ./modules/ld.nix
-    ./modules/x11.nix
-    ./modules/i3-xfce.nix
     ./modules/ollama.nix
+    ./modules/sway.nix
     ./modules/cups.nix
     ./modules/rust.nix
     ./modules/java.nix

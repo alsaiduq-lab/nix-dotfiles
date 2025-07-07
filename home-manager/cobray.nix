@@ -4,13 +4,10 @@
   ...
 }: {
   imports = [
-    ./modules/dunst.nix
     ./modules/fish.nix
     ./modules/ghostty.nix
     ./modules/lazygit.nix
     ./modules/nvim.nix
-    ./modules/picom.nix
-    ./modules/polybar.nix
     ./modules/rofi.nix
     ./modules/starship.nix
     ./modules/zellij.nix
@@ -22,6 +19,8 @@
     ./modules/obs.nix
     ./modules/udiskie.nix
     ./modules/mpv.nix
+    ./modules/waybar.nix
+    ./modules/mako.nix
     # temp removed, currently broken on nixpkgs? lmao
     # ./modules/bambustudio.nix
   ];
