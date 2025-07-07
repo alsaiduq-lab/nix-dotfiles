@@ -21,6 +21,7 @@
     ./modules/spotify.nix
     ./modules/obs.nix
     ./modules/udiskie.nix
+    ./modules/mpv.nix
     # temp removed, currently broken on nixpkgs? lmao
     # ./modules/bambustudio.nix
   ];
