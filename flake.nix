@@ -14,13 +14,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rpcs3_latest = {
-      url = "github:RPCS3/rpcs3";
+    unstable = {
+      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    };
+
+    hrtowii = {
+      url = "git+https://github.com/hrtowii/dotfiles?dir=nixos/home-manager/config/quickshell";
       flake = false;
     };
 
-    unstable = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    astal = {
+      url = "github:aylur/ags";
     };
 
     i3-dotfiles = {
@@ -38,7 +42,6 @@
     nixpkgs,
     home-manager,
     nix-gaming,
-    rpcs3_latest,
     unstable,
     ...
   } @ inputs: let
@@ -54,7 +57,6 @@
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
       lib = nixpkgs.lib;
-      inherit rpcs3_latest;
     };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -74,15 +76,13 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {ollama = unstablePkgs.ollama;})
+              (final: prev: {quickshell = inputs.hrtowii;})
               (final: prev: {
                 ghostty = inputs.ghostty.packages.${system}.default;
               })
               (final: prev: {
                 inherit
                   (customPkgs)
-                  pugixml
-                  SDL3
-                  rpcs3_latest
                   clear-sans
                   binary-font
                   minijinja-cli

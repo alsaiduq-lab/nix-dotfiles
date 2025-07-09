@@ -1,6 +1,7 @@
 {
   pkgs,
-  inputs,
+  config,
+  lib,
   ...
 }: {
   imports = [
@@ -21,6 +22,7 @@
     ./modules/mpv.nix
     ./modules/waybar.nix
     ./modules/mako.nix
+    ./modules/hyprland.nix
     # temp removed, currently broken on nixpkgs? lmao
     # ./modules/bambustudio.nix
   ];

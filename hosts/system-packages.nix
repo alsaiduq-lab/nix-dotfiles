@@ -18,7 +18,6 @@
     ./modules/tailscale.nix
     ./modules/ld.nix
     ./modules/ollama.nix
-    ./modules/sway.nix
     ./modules/cups.nix
     ./modules/rust.nix
     ./modules/java.nix
@@ -26,6 +25,8 @@
     ./modules/core.nix
     ./modules/libs.nix
     ./modules/rgb.nix
+    ./modules/uwsm.nix
+    ./modules/hyprland.nix
   ];
 
   services.udisks2.enable = true;

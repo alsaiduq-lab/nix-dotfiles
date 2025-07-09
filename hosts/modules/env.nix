@@ -4,8 +4,8 @@
   ...
 }: {
   environment.shellInit = ''
-    [ -d "$HOME/.cargo/bin"     ] && PATH+=":$HOME/.cargo/bin"
-    [ -d "$HOME/.npm-global/bin"] && PATH+=":$HOME/.npm-global/bin"
+    [ -d "$HOME/.cargo/bin"      ] && PATH+=":$HOME/.cargo/bin"
+    [ -d "$HOME/.npm-global/bin" ] && PATH+=":$HOME/.npm-global/bin"
   '';
 
   environment.variables = {
@@ -27,7 +27,7 @@
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.wayland
       pkgs.wayland-protocols
-      pkgs.xkbcommon
+      pkgs.libxkbcommon.dev
       pkgs.mesa
       pkgs.openssl.dev
       pkgs.libxml2.dev
@@ -48,7 +48,7 @@
       pkgs.alsa-lib
       pkgs.stdenv.cc.cc.lib
       pkgs.wayland
-      pkgs.xkbcommon
+      pkgs.libxkbcommon
       pkgs.glib
     ];
   };
