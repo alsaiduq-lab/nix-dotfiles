@@ -4,6 +4,6 @@
     ryujinx
     retroarch
     waydroid
-    rpcs3_latest
+    rpcs3
   ];
 }

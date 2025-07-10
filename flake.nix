@@ -14,11 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rpcs3_latest = {
-      url = "github:RPCS3/rpcs3";
-      flake = false;
-    };
-
     unstable = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
@@ -38,7 +33,6 @@
     nixpkgs,
     home-manager,
     nix-gaming,
-    rpcs3_latest,
     unstable,
     ...
   } @ inputs: let
@@ -54,7 +48,6 @@
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
       lib = nixpkgs.lib;
-      inherit rpcs3_latest;
     };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -74,15 +67,13 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {ollama = unstablePkgs.ollama;})
+              (final: prev: {rpcs3 = unstablePkgs.rpcs3;})
               (final: prev: {
                 ghostty = inputs.ghostty.packages.${system}.default;
               })
               (final: prev: {
                 inherit
                   (customPkgs)
-                  pugixml
-                  SDL3
-                  rpcs3_latest
                   clear-sans
                   binary-font
                   minijinja-cli
@@ -103,7 +94,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             extraSpecialArgs = {
-              inherit inputs;
+              inherit inputs unstable;
               i3dotfiles = inputs.i3-dotfiles;
             };
             users.cobray = import ./home-manager/cobray.nix;
