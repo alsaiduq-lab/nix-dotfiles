@@ -7,10 +7,8 @@
     if [ -d "$HOME/.cargo/bin" ]; then
       export PATH="$PATH:$HOME/.cargo/bin"
     fi
-    if [ -d "$HOME/.npm-global/bin" ]; then
-      export PATH="$PATH:$HOME/.npm-global/bin"
-    fi
   '';
+
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
