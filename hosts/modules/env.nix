@@ -16,6 +16,7 @@
     CC = "${pkgs.gcc}/bin/gcc";
     LUA_PATH = "${pkgs.luajit}/share/lua/5.1/?.lua;${pkgs.luajit}/share/lua/5.1/?/init.lua;;";
     LUA_CPATH = "${pkgs.luajit}/lib/lua/5.1/?.so;;";
+
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.mesa
       pkgs.openssl.dev
@@ -28,6 +29,7 @@
       pkgs.xorg.libXtst
       pkgs.xorg.libXi.dev
     ];
+
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       pkgs.libglvnd
       pkgs.mesa
@@ -43,6 +45,10 @@
       pkgs.xorg.libXi
       pkgs.glib
     ];
+
+    CUDA_HOME = "${pkgs.cudatoolkit}";
+    CPATH = "${pkgs.cudatoolkit}/include";
+    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang}/lib";
   };
 
   environment.pathsToLink = [

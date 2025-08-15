@@ -24,5 +24,7 @@
     libtool
     nasm
     nix-prefetch-git
+    icu
+    libclang
   ];
 }
