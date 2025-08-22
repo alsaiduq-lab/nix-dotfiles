@@ -26,5 +26,6 @@
     nix-prefetch-git
     icu
     libclang
+    argc
   ];
 }

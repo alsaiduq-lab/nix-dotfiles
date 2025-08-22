@@ -14,7 +14,7 @@ in {
 
   config = lib.mkIf config.npm.enable {
     environment.systemPackages = with pkgs; [
-      nodejs_23
+      nodejs_24
       nodePackages.npm
       yarn
       bun
