@@ -1,16 +1,6 @@
+{ config, pkgs, lib, ... }:
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
-  npmConf = pkgs.writeText "npmrc" ''
-    prefix=${"$"}HOME/.npm-global
-    cache=${"$"}HOME/.npm
-    init-module=${"$"}HOME/.npm-init.js
-  '';
-in {
-  options.npm.enable = lib.mkEnableOption "system-wide npm environment";
+  options.npm.enable = lib.mkEnableOption "npm setup";
 
   config = lib.mkIf config.npm.enable {
     environment.systemPackages = with pkgs; [
@@ -21,31 +11,33 @@ in {
       nodePackages.typescript
     ];
 
-    environment.etc."npmrc".source = npmConf;
-
-    systemd.user.services.npm-global-dir = {
-      wantedBy = ["default.target"];
+    systemd.user.services."npm-init" = {
+      wantedBy = [ "default.target" ];
+      serviceConfig.Type = "oneshot";
       script = ''
-        mkdir -p $HOME/.npm-global/bin
-        chmod u+rwx $HOME/.npm-global
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-      };
-    };
-
-    systemd.user.services.npm-setup = {
-      wantedBy = ["default.target"];
-      script = ''
-        if [ ! -f ~/.npmrc ]; then
-          cp ${npmConf} ~/.npmrc
-          chmod u+rw ~/.npmrc
+        set -eu
+        H="$HOME"
+        mkdir -p "$H/.npm-global/bin" "$H/.npm"
+        tmp="$(mktemp)"
+        cat > "$tmp" <<EOF
+prefix=$H/.npm-global
+cache=$H/.npm
+init-module=$H/.npm-init.js
+EOF
+        if [ ! -f "$H/.npmrc" ] || ! cmp -s "$tmp" "$H/.npmrc"; then
+          mv "$tmp" "$H/.npmrc"
+          chmod 600 "$H/.npmrc"
+        else
+          rm -f "$tmp"
         fi
       '';
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
     };
+
+    environment.etc."profile.d/50-npm-global.sh".text = ''
+      case ":$PATH:" in
+        *:"$HOME/.npm-global/bin":*) ;;
+        *) [ -d "$HOME/.npm-global/bin" ] && export PATH="$HOME/.npm-global/bin:$PATH" ;;
+      esac
+    '';
   };
 }
