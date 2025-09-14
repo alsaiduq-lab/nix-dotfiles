@@ -22,10 +22,6 @@
       url = "git+ssh://git@github.com/alsaiduq-lab/i3-dotfiles";
       flake = false;
     };
-    # see: https://github.com/ghostty-org/ghostty/commit/20c6a6fcf2a1dc72d6a60ad2f6e58cba14e4fb2f
-    ghostty = {
-      url = "github:ghostty-org/ghostty/20c6a6fcf2a1dc72d6a60ad2f6e58cba14e4fb2f";
-    };
   };
 
   outputs = {
@@ -68,9 +64,6 @@
             overlays = [
               (final: prev: {ollama = unstablePkgs.ollama;})
               (final: prev: {rpcs3 = unstablePkgs.rpcs3;})
-              (final: prev: {
-                ghostty = inputs.ghostty.packages.${system}.default;
-              })
               (final: prev: {
                 inherit
                   (customPkgs)
