@@ -37,7 +37,10 @@
   } @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = import nixpkgs { inherit system; config = { allowUnfree = true; }; };
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
 
     unstablePkgs = import unstable {
       inherit system;
@@ -81,6 +84,7 @@
                 clear-sans = prev.clear-sans.clear-sans;
                 binary-font = prev.binary-font.binary-clock-font;
               })
+              (final: prev: {ghostty = inputs.ghostty.packages.${system}.default;})
             ];
           };
         }

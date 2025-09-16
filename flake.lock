@@ -61,11 +61,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1757970134,
-        "narHash": "sha256-Qj5r7gKTwo738cACM9fSFNKVbbGVVv8jZx2uEcS0D7g=",
+        "lastModified": 1757995992,
+        "narHash": "sha256-5r2hDhQioC1+CKh+DETQAR9UlQzcn9jH+EYxw4csinI=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "0646cf8c1e0f77282cb25b7ff8dc961327b30775",
+        "rev": "79f8ea07a173ae17aba1e59ff677eb8889560967",
         "type": "github"
       },
       "original": {
@@ -98,11 +98,11 @@
     "i3-dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1756051379,
-        "narHash": "sha256-l1FDSO4/aqOEBQv7GPc96azTLWPCuwMMTW2mankB1S8=",
+        "lastModified": 1758014321,
+        "narHash": "sha256-CpGiZ0yYuoqsQT/zFDM6JLYrJL8P6aXze2wK2i5WQkU=",
         "ref": "refs/heads/master",
-        "rev": "a89e12d6f50fbcae982e5ed84c5f18fdd7b92887",
-        "revCount": 11,
+        "rev": "ad5a8a4e4a8742d2513cd2f43e3a71b0825703af",
+        "revCount": 13,
         "type": "git",
         "url": "ssh://git@github.com/alsaiduq-lab/i3-dotfiles"
       },
@@ -216,11 +216,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1757873102,
-        "narHash": "sha256-kYhNxLlYyJcUouNRazBufVfBInMWMyF+44xG/xar2yE=",
+        "lastModified": 1757935978,
+        "narHash": "sha256-xeHiYTqlibGf6VQADGrZ2GzayTOJo8G0g8D8f5zCE3Y=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "88cef159e47c0dc56f151593e044453a39a6e547",
+        "rev": "0b96957fb614f693d0cee1bd65fbfc0e610df47f",
         "type": "github"
       },
       "original": {
