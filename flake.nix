@@ -17,7 +17,9 @@
     unstable = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
-
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
     i3-dotfiles = {
       url = "git+ssh://git@github.com/alsaiduq-lab/i3-dotfiles";
       flake = false;
@@ -30,11 +32,12 @@
     home-manager,
     nix-gaming,
     unstable,
+    ghostty,
     ...
   } @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs { inherit system; config = { allowUnfree = true; }; };
 
     unstablePkgs = import unstable {
       inherit system;
@@ -70,6 +73,7 @@
                   clear-sans
                   binary-font
                   minijinja-cli
+                  thorium
                   ;
               })
 
