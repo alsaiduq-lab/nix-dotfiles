@@ -17,7 +17,7 @@
     ./modules/ffmpeg.nix
     ./modules/emulators.nix
     ./modules/discord.nix
-    ./modules/brave.nix
+    ./modules/thorium.nix
     ./modules/spotify.nix
     ./modules/obs.nix
     ./modules/udiskie.nix
