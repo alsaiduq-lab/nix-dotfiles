@@ -28,6 +28,7 @@
     ./modules/libs.nix
     ./modules/rgb.nix
     ./modules/nano.nix
+    ./modules/searxng.nix
   ];
   npm.enable = true;
   services.udisks2.enable = true;
