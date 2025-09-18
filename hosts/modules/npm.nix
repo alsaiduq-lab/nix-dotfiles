@@ -36,8 +36,20 @@ EOF
     environment.etc."profile.d/50-npm-global.sh".text = ''
       case ":$PATH:" in
         *:"$HOME/.npm-global/bin":*) ;;
-        *) [ -d "$HOME/.npm-global/bin" ] && export PATH="$HOME/.npm-global/bin:$PATH" ;;
+        *) if [ -d "$HOME/.npm-global/bin" ]; then
+             PATH="$HOME/.npm-global/bin:$PATH"
+             export PATH
+           fi ;;
       esac
+    '';
+
+    environment.etc."fish/conf.d/50-npm-global.fish".text = ''
+      if test -d "$HOME/.npm-global/bin"
+        if not contains -- "$HOME/.npm-global/bin" $PATH
+          set -gx PATH "$HOME/.npm-global/bin" $PATH
+        end
+      end
     '';
   };
 }
+
