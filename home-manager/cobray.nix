@@ -22,6 +22,7 @@
     ./modules/obs.nix
     ./modules/udiskie.nix
     ./modules/mpv.nix
+    ./modules/ani-cli.nix
     # temp removed, currently broken on nixpkgs? lmao
     # ./modules/bambustudio.nix
   ];
