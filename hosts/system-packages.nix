@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   imports = [
     ./cachix.nix
+    ./modules/settings.nix
+    ./modules/i3.nix
+    ./modules/gtk.nix
     ./modules/audio.nix
     ./modules/bluetooth.nix
     ./modules/boot.nix
@@ -18,7 +21,6 @@
     ./modules/tailscale.nix
     ./modules/ld.nix
     ./modules/x11.nix
-    ./modules/i3-xfce.nix
     ./modules/ollama.nix
     ./modules/cups.nix
     ./modules/rust.nix
