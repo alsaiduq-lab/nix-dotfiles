@@ -24,6 +24,9 @@
       url = "git+ssh://git@github.com/alsaiduq-lab/i3-dotfiles";
       flake = false;
     };
+    hu-tao-cursor = {
+      url = "git+ssh://git@github.com/alsaiduq-lab/Hu-Tao-Animated-Cursor";
+    };
   };
 
   outputs = {
@@ -33,6 +36,7 @@
     nix-gaming,
     unstable,
     ghostty,
+    hu-tao-cursor,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -85,6 +89,9 @@
                 binary-font = prev.binary-font.binary-clock-font;
               })
               (final: prev: {ghostty = inputs.ghostty.packages.${system}.default;})
+              (final: prev: {
+                hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
+              })
             ];
           };
         }

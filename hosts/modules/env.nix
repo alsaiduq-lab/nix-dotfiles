@@ -1,8 +1,11 @@
 {
   pkgs,
   lib,
+  config,
   ...
-}: {
+}: let
+  t = config.theme;
+in {
   environment.shellInit = ''
     if [ -d "$HOME/.cargo/bin" ]; then
       export PATH="$PATH:$HOME/.cargo/bin"
@@ -13,6 +16,9 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERM = "ghostty";
+    BROWSER = "thorium";
+    XCURSOR_THEME = t.cursorName;
+    XCURSOR_SIZE = toString t.cursorSize;
     CC = "${pkgs.gcc}/bin/gcc";
     LUA_PATH = "${pkgs.luajit}/share/lua/5.1/?.lua;${pkgs.luajit}/share/lua/5.1/?/init.lua;;";
     LUA_CPATH = "${pkgs.luajit}/lib/lua/5.1/?.so;;";
@@ -54,6 +60,8 @@
   environment.pathsToLink = [
     "/share/fish"
     "/bin"
+    "/share/icons"
+    "/share/pixmaps"
   ];
 
   programs.direnv = {
