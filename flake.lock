@@ -61,11 +61,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1758616426,
-        "narHash": "sha256-pPzbbpuh44gGHtA/diB5pv8w8qe9w6+TZLWm1qPUjwk=",
+        "lastModified": 1758895124,
+        "narHash": "sha256-qCQPdEX0F7ved/a2ydjA2vyFBhiKPuDJq9tZPlpEVYQ=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "3eb646ea6baf5eb45bbd39cd7ad624cda0264554",
+        "rev": "7749b46463cfe39501110998d6adbfa121b04adb",
         "type": "github"
       },
       "original": {
@@ -95,6 +95,24 @@
         "type": "github"
       }
     },
+    "hu-tao-cursor": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1758768962,
+        "narHash": "sha256-Ht+nzVFro1TwGnoe2v/vvs/CyP2CFWUyGMdo63OBCzA=",
+        "ref": "refs/heads/master",
+        "rev": "cac19deaf828c9d28a0813c7dda3b171c047cf0d",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@github.com/alsaiduq-lab/Hu-Tao-Animated-Cursor"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/alsaiduq-lab/Hu-Tao-Animated-Cursor"
+      }
+    },
     "i3-dotfiles": {
       "flake": false,
       "locked": {
@@ -119,11 +137,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758420014,
-        "narHash": "sha256-a7IGWXPRppgXMRpBosBl2Afr5DICt21ogeZL45uVkX0=",
+        "lastModified": 1758851551,
+        "narHash": "sha256-7tKDTarLl/WSktFUDBRwLEOE0UV/OV0r3nEMzKXI8jY=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "cd931e08409954b2e3595b1532039f8052dd8198",
+        "rev": "b08fc1a88b61430a48761e5e6d3e977886391a54",
         "type": "github"
       },
       "original": {
@@ -189,13 +207,30 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1758791193,
+        "narHash": "sha256-F8WmEwFoHsnix7rt290R0rFXNJiMbClMZyIC/e+HYf0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "25e53aa156d47bad5082ff7618f5feb1f5e02d01",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "ghostty": "ghostty",
         "home-manager": "home-manager",
+        "hu-tao-cursor": "hu-tao-cursor",
         "i3-dotfiles": "i3-dotfiles",
         "nix-gaming": "nix-gaming",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "unstable": "unstable"
       }
     },
@@ -216,11 +251,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1758446476,
-        "narHash": "sha256-5rdAi7CTvM/kSs6fHe1bREIva5W3TbImsto+dxG4mBo=",
+        "lastModified": 1758763312,
+        "narHash": "sha256-puBMviZhYlqOdUUgEmMVJpXqC/ToEqSvkyZ30qQ09xM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a1f79a1770d05af18111fbbe2a3ab2c42c0f6cd0",
+        "rev": "e57b3b16ad8758fd681511a078f35c416a8cc939",
         "type": "github"
       },
       "original": {

@@ -27,5 +27,6 @@
     icu
     libclang
     argc
+    appimage-run
   ];
 }
