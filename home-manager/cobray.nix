@@ -1,16 +1,17 @@
 {
   pkgs,
-  inputs,
+  config,
+  lib,
+  hyprlanddots,
+  nvimDotfiles,
   ...
 }: {
   imports = [
-    ./modules/dunst.nix
+    ./init.nix
     ./modules/fish.nix
     ./modules/ghostty.nix
     ./modules/lazygit.nix
     ./modules/nvim.nix
-    ./modules/picom.nix
-    ./modules/polybar.nix
     ./modules/rofi.nix
     ./modules/starship.nix
     ./modules/zellij.nix
@@ -20,11 +21,15 @@
     ./modules/thorium.nix
     ./modules/spotify.nix
     ./modules/obs.nix
-    ./modules/udiskie.nix
     ./modules/mpv.nix
+    ./modules/waybar.nix
     ./modules/ani-cli.nix
-    # temp removed, currently broken on nixpkgs? lmao
-    # ./modules/bambustudio.nix
+    ./modules/quickshell.nix
+    # currently broken
+    # ./modules/hyprspace.nix
+    ./modules/cava.nix
+    ./modules/matugen.nix
+    ./modules/rgb.nix
   ];
 
   home.username = "cobray";
@@ -35,13 +40,8 @@
   xdg.mime.enable = false;
 
   home.packages = with pkgs; [
-    coreutils
-    gnused
-    findutils
-    yazi
-    htop
     btop
     nvtopPackages.full
-    arandr
+    kdePackages.dolphin
   ];
 }

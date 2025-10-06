@@ -17,7 +17,7 @@ in {
       server = {
         bind_address = "127.0.0.1";
         port = 11212;
-        limiter = true;
+        limiter = false;
         image_proxy = true;
         base_url = lib.mkIf (domain != null) "https://${domain}";
       };
@@ -27,18 +27,25 @@ in {
       };
       search = {
         safe_search = 0;
-        autocomplete = "google";
-        default_engine = "google_web";
-        default_categories = ["general" "it" "images" "videos" "map"];
+        autocomplete = "duckduckgo";
+        default_engine = "";
+        default_categories = ["general" "it" "images" "videos" "map" "news" "science"];
+        formats = ["html" "json"];
       };
-      enabled_plugins = ["hash" "self_info" "tracker_url_remover" "hostname_replace"];
+      enabled_plugins = [
+        "hash"
+        "self_info"
+        "tracker_url_remover"
+        "hostname_replace"
+        "open_access_doi_rewrite"
+      ];
       engines = [
         {
           name = "duckduckgo_web";
           engine = "duckduckgo";
           disabled = false;
           categories = ["general"];
-          weight = 0.9;
+          weight = 1.0;
           timeout = 3.0;
         }
         {
@@ -46,7 +53,7 @@ in {
           engine = "google";
           disabled = false;
           categories = ["general"];
-          weight = 0.75;
+          weight = 1.0;
           timeout = 4.0;
         }
         {
@@ -54,12 +61,51 @@ in {
           engine = "bing";
           disabled = false;
           categories = ["general"];
-          weight = 0.4;
+          weight = 1.0;
+          timeout = 4.0;
+        }
+        {
+          name = "brave";
+          engine = "brave";
+          disabled = false;
+          categories = ["general"];
+          weight = 1.0;
+          timeout = 3.0;
+        }
+        {
+          name = "mojeek";
+          engine = "mojeek";
+          disabled = false;
+          categories = ["general"];
+          weight = 0.9;
+          timeout = 3.0;
+        }
+        {
+          name = "qwant";
+          engine = "qwant";
+          disabled = false;
+          categories = ["general"];
+          weight = 0.8;
+          timeout = 3.0;
+        }
+        {
+          name = "startpage";
+          engine = "startpage";
+          disabled = false;
+          categories = ["general"];
+          weight = 0.9;
           timeout = 4.0;
         }
         {
           name = "wikipedia";
           engine = "wikipedia";
+          disabled = false;
+          categories = ["general"];
+          timeout = 3.0;
+        }
+        {
+          name = "wikidata";
+          engine = "wikidata";
           disabled = false;
           categories = ["general"];
           timeout = 3.0;
@@ -79,8 +125,36 @@ in {
           timeout = 3.0;
         }
         {
+          name = "arxiv";
+          engine = "arxiv";
+          disabled = false;
+          categories = ["science"];
+          timeout = 4.0;
+        }
+        {
+          name = "crossref";
+          engine = "crossref";
+          disabled = false;
+          categories = ["science"];
+          timeout = 4.0;
+        }
+        {
+          name = "semantic_scholar";
+          engine = "semantic_scholar";
+          disabled = false;
+          categories = ["science"];
+          timeout = 4.0;
+        }
+        {
           name = "github_code";
           engine = "github";
+          disabled = false;
+          categories = ["it"];
+          timeout = 4.0;
+        }
+        {
+          name = "stackoverflow";
+          engine = "stackoverflow";
           disabled = false;
           categories = ["it"];
           timeout = 4.0;

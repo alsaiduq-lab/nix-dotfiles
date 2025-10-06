@@ -3,6 +3,7 @@
     networkmanagerapplet
     wget
     curl
+    aria2
     cloudflared
     nmap
     httpie

@@ -6,5 +6,6 @@
     eza
     fd
     ugrep
+    yazi
   ];
 }

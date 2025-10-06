@@ -12,6 +12,7 @@
       kochi-substitute
       clear-sans
       binary-font
+      fontconfig
     ];
     fontconfig = {
       enable = true;

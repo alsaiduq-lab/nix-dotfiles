@@ -3,62 +3,62 @@
   lib,
   config,
   ...
-}: let
-  t = config.theme;
-in {
-  environment.shellInit = ''
-    if [ -d "$HOME/.cargo/bin" ]; then
-      export PATH="$PATH:$HOME/.cargo/bin"
-    fi
-  '';
-
+}: {
   environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    TERM = "ghostty";
-    BROWSER = "thorium";
-    XCURSOR_THEME = t.cursorName;
-    XCURSOR_SIZE = toString t.cursorSize;
+    EDITOR = config.theme.Editor;
+    TERM = config.theme.Terminal;
+    BROWSER = config.theme.Browser;
+    XCURSOR_THEME = config.theme.cursorName;
+    XCURSOR_SIZE = toString config.theme.cursorSize;
+    GTK_THEME = "${config.theme.gtkTheme}:${config.theme.gtkThemeMode}";
+    QT_QPA_PLATFORMTHEME = config.theme.qtTheme;
+    QT_STYLE_OVERRIDE = config.theme.qtOverride;
+
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    GDK_BACKEND = "wayland,x11";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_VIDEODRIVER = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    NIXOS_OZONE_WL = "1";
+
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    LIBVA_DRIVER_NAME = "nvidia";
+
     CC = "${pkgs.gcc}/bin/gcc";
+    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+
     LUA_PATH = "${pkgs.luajit}/share/lua/5.1/?.lua;${pkgs.luajit}/share/lua/5.1/?/init.lua;;";
     LUA_CPATH = "${pkgs.luajit}/lib/lua/5.1/?.so;;";
 
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
-      pkgs.mesa
-      pkgs.openssl.dev
-      pkgs.libxml2.dev
-      pkgs.zlib.dev
       pkgs.portaudio
       pkgs.alsa-lib
       pkgs.stdenv.cc.cc
-      pkgs.xorg.libX11.dev
-      pkgs.xorg.libXtst
-      pkgs.xorg.libXi.dev
     ];
 
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       pkgs.libglvnd
       pkgs.mesa
       pkgs.gcc-unwrapped.lib
-      pkgs.linuxPackages.nvidia_x11
       pkgs.cudatoolkit
       pkgs.mangohud
       pkgs.portaudio
       pkgs.alsa-lib
       pkgs.stdenv.cc.cc.lib
-      pkgs.xorg.libX11
-      pkgs.xorg.libXtst
-      pkgs.xorg.libXi
+      pkgs.wayland
+      pkgs.libxkbcommon
       pkgs.glib
     ];
 
-    CUDA_HOME = "${pkgs.cudatoolkit}";
+    CUDA_HOME = pkgs.cudatoolkit;
     CPATH = "${pkgs.cudatoolkit}/include";
-    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang}/lib";
   };
 
   environment.pathsToLink = [
-    "/share/fish"
+    "/share/${config.theme.Shell}"
     "/bin"
     "/share/icons"
     "/share/pixmaps"

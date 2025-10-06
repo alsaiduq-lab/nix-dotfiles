@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration for Cobray";
+  description = "NixOS configuration (hyprland) for Cobray";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -17,20 +17,38 @@
     unstable = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    i3-dotfiles = {
-      url = "git+ssh://git@github.com/alsaiduq-lab/i3-dotfiles";
+
+    nvim-dots = {
+      url = "github:alsaiduq-lab/nvim-dotfiles";
       flake = false;
     };
+
+    hyprland-dots = {
+      url = "git+ssh://git@github.com/alsaiduq-lab/hyprland-dots";
+      flake = false;
+    };
+
     hu-tao-cursor = {
       url = "git+ssh://git@github.com/alsaiduq-lab/Hu-Tao-Animated-Cursor";
     };
-   # TODO: sops-nix = {
-   #   url = "github:Mic92/sops-nix";
-   #   inputs.nixpkgs.follows = "nixpkgs";
-   # };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
+
+    # TODO: sops-nix = {
+    #   url = "github:Mic92/sops-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    # Hyprspace = {
+    #   url = "github:rich/Hyprspace";
+    # };
   };
 
   outputs = {
@@ -65,7 +83,7 @@
       inherit system;
       specialArgs = {
         inherit inputs;
-        i3dotfiles = inputs.i3-dotfiles;
+        hyprlanddots = inputs.hyprland-dots;
       };
 
       modules = [
@@ -77,8 +95,11 @@
             };
             hostPlatform = system;
             overlays = [
-              (final: prev: {ollama = unstablePkgs.ollama;})
-              (final: prev: {rpcs3 = unstablePkgs.rpcs3;})
+              (final: prev: {
+                ollama = unstablePkgs.ollama;
+                rpcs3 = unstablePkgs.rpcs3;
+                quickshell = unstable.legacyPackages.${system}.quickshell;
+              })
               (final: prev: {
                 inherit
                   (customPkgs)
@@ -94,9 +115,7 @@
                 binary-font = prev.binary-font.binary-clock-font;
               })
               (final: prev: {ghostty = inputs.ghostty.packages.${system}.default;})
-              (final: prev: {
-                hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
-              })
+              (final: prev: {hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;})
             ];
           };
         }
@@ -107,8 +126,9 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             extraSpecialArgs = {
-              inherit inputs unstable;
-              i3dotfiles = inputs.i3-dotfiles;
+              inherit inputs;
+              hyprlanddots = inputs.hyprland-dots;
+              nvimDotfiles = inputs.nvim-dots;
             };
             users.cobray = import ./home-manager/cobray.nix;
           };

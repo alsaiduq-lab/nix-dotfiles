@@ -1,8 +1,7 @@
 {pkgs, ...}: {
   imports = [
+    ./settings.nix
     ./cachix.nix
-    ./modules/settings.nix
-    ./modules/i3.nix
     ./modules/gtk.nix
     ./modules/audio.nix
     ./modules/bluetooth.nix
@@ -20,7 +19,6 @@
     ./modules/npm.nix
     ./modules/tailscale.nix
     ./modules/ld.nix
-    ./modules/x11.nix
     ./modules/ollama.nix
     ./modules/cups.nix
     ./modules/rust.nix
@@ -29,9 +27,11 @@
     ./modules/core.nix
     ./modules/libs.nix
     ./modules/rgb.nix
-    ./modules/nano.nix
+    ./modules/hyprland.nix
     ./modules/searxng.nix
+    ./modules/nano.nix
     ./modules/qt.nix
+    ./modules/udiskie.nix
   ];
   npm.enable = true;
   services.udisks2.enable = true;

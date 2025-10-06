@@ -9,27 +9,35 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = true;
     modesetting.enable = true; # must be true for Wayland
-    powerManagement.enable = false;
+    powerManagement.enable = false; # laptops need this
     nvidiaSettings = true;
+    nvidiaPersistenced = true;
   };
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      stdenv.cc.cc.lib
-      cudaPackages.cudatoolkit.lib
+      cudaPackages.cudatoolkit
       cudaPackages.cudnn
       cudaPackages.nccl
+      config.hardware.nvidia.package
     ];
   };
 
   environment.systemPackages = with pkgs; [
-    glxinfo
+    mesa-demos
+    vulkan-tools
+    vulkan-headers
+    vulkan-validation-layers
+    libva-utils
+    vdpauinfo
+    egl-wayland
     cudaPackages.cudatoolkit
   ];
 }

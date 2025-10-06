@@ -10,12 +10,10 @@
   };
 
   environment.systemPackages = with pkgs; [
-    cava
     pulseaudio
     alsa-utils
     portaudio
     alsa-lib
     pavucontrol
-    clang
   ];
 }

@@ -21,11 +21,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1756770412,
-        "narHash": "sha256-+uWLQZccFHwqpGqr2Yt5VsW/PbeJVTn9Dk6SHWhNRPw=",
+        "lastModified": 1759362264,
+        "narHash": "sha256-wfG0S7pltlYyZTM+qqlhJ7GMw2fTF4mLKCIVhLii/4M=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "4524271976b625a4a605beefd893f270620fd751",
+        "rev": "758cf7296bee11f1706a574c77d072b8a7baa881",
         "type": "github"
       },
       "original": {
@@ -61,11 +61,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1759249740,
-        "narHash": "sha256-csdhbTzHy7LjedNmSFVBIaUca3IBGK6YKeDO3UUd7nw=",
+        "lastModified": 1759677488,
+        "narHash": "sha256-fhRv6OdFLSfuiDDJpcfmmGRzy0fSSzOHbdMpuvwysTU=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "ceac472af000ce370520b31a9fba927f55e7aac7",
+        "rev": "fa3bc416ab08a7ab849ef878c01009c0710725b4",
         "type": "github"
       },
       "original": {
@@ -113,20 +113,20 @@
         "url": "ssh://git@github.com/alsaiduq-lab/Hu-Tao-Animated-Cursor"
       }
     },
-    "i3-dotfiles": {
+    "hyprland-dots": {
       "flake": false,
       "locked": {
-        "lastModified": 1758613492,
-        "narHash": "sha256-pYaBq0FCUoSZtTE73HAWDw97LEBvp56upVfJcLbdBH4=",
+        "lastModified": 1759689455,
+        "narHash": "sha256-GsuG+Gbs3XMbmmkK1azoWF+ZUJ891OhRMy3S6Fv8qo0=",
         "ref": "refs/heads/master",
-        "rev": "73238b6b91151a0feeb4c7162fc5d1ca4e8fb132",
-        "revCount": 14,
+        "rev": "3c8faf70c7b92a09399f6ab48bb7b06c47a7b833",
+        "revCount": 19,
         "type": "git",
-        "url": "ssh://git@github.com/alsaiduq-lab/i3-dotfiles"
+        "url": "ssh://git@github.com/alsaiduq-lab/hyprland-dots"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/alsaiduq-lab/i3-dotfiles"
+        "url": "ssh://git@github.com/alsaiduq-lab/hyprland-dots"
       }
     },
     "nix-gaming": {
@@ -137,11 +137,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759110900,
-        "narHash": "sha256-fcu/r0ijvaYT2VHGkZGr0wq9uBMNFkiftVBy43/2oig=",
+        "lastModified": 1759629535,
+        "narHash": "sha256-VIXcJ2ahRgoqIUySwAz3r5mtITO2dp6tXGCVKVW6FmA=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "2ac6a49266e9159ccb001b4c8cb1f50f67d502ae",
+        "rev": "df388c42b54714bd121796a9cec9322b7fa2894e",
         "type": "github"
       },
       "original": {
@@ -152,15 +152,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1748189127,
-        "narHash": "sha256-zRDR+EbbeObu4V2X5QCd2Bk5eltfDlCr5yvhBwUT6pY=",
-        "rev": "7c43f080a7f28b2774f3b3f43234ca11661bf334",
+        "lastModified": 315532800,
+        "narHash": "sha256-YwoXN6fthkakCFD7nXPcUK+rkNr6ZTNTuF8zdGaxZo0=",
+        "rev": "dc704e6102e76aad573f63b74c742cd96f8f1e6c",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/25.05/nixos-25.05.802491.7c43f080a7f2/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre870318.dc704e6102e7/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://channels.nixos.org/nixos-25.05/nixexprs.tar.xz"
+        "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
       }
     },
     "nixpkgs-lib": {
@@ -209,11 +209,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1759143472,
-        "narHash": "sha256-TvODmeR2W7yX/JmOCmP+lAFNkTT7hAxYcF3Kz8SZV3w=",
+        "lastModified": 1759580034,
+        "narHash": "sha256-YWo57PL7mGZU7D4WeKFMiW4ex/O6ZolUS6UNBHTZfkI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5ed4e25ab58fd4c028b59d5611e14ea64de51d23",
+        "rev": "3bcc93c5f7a4b30335d31f21e2f1281cba68c318",
         "type": "github"
       },
       "original": {
@@ -223,14 +223,52 @@
         "type": "github"
       }
     },
+    "nvim-dots": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759115710,
+        "narHash": "sha256-IdLoHrGkhlqAJmfi4nRe2DAoHA5udyb5UTSCpNboaOo=",
+        "owner": "alsaiduq-lab",
+        "repo": "nvim-dotfiles",
+        "rev": "d251eb27eb70f67373aea50a15f1f71748af9039",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alsaiduq-lab",
+        "repo": "nvim-dotfiles",
+        "type": "github"
+      }
+    },
+    "quickshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759610621,
+        "narHash": "sha256-P3UPFd95mS/3aNgy40nCXAmyfR2bEEBd+tX6xfkYFb0=",
+        "ref": "refs/heads/master",
+        "rev": "c5c438f1cd1a76660a8658ef929a3d19e968e2ce",
+        "revCount": 689,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      }
+    },
     "root": {
       "inputs": {
         "ghostty": "ghostty",
         "home-manager": "home-manager",
         "hu-tao-cursor": "hu-tao-cursor",
-        "i3-dotfiles": "i3-dotfiles",
+        "hyprland-dots": "hyprland-dots",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_4",
+        "nvim-dots": "nvim-dots",
+        "quickshell": "quickshell",
         "unstable": "unstable"
       }
     },
@@ -251,11 +289,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1759070547,
-        "narHash": "sha256-JVZl8NaVRYb0+381nl7LvPE+A774/dRpif01FKLrYFQ=",
+        "lastModified": 1759632233,
+        "narHash": "sha256-krgZxGAIIIKFJS+UB0l8do3sYUDWJc75M72tepmVMzE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "647e5c14cbd5067f44ac86b74f014962df460840",
+        "rev": "d7f52a7a640bc54c7bb414cca603835bf8dd4b10",
         "type": "github"
       },
       "original": {
@@ -281,11 +319,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748261582,
-        "narHash": "sha256-3i0IL3s18hdDlbsf0/E+5kyPRkZwGPbSFngq5eToiAA=",
+        "lastModified": 1759192380,
+        "narHash": "sha256-0BWJgt4OSzxCESij5oo8WLWrPZ+1qLp8KUQe32QeV4Q=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "aafb1b093fb838f7a02613b719e85ec912914221",
+        "rev": "0bcd1401ed43d10f10cbded49624206553e92f57",
         "type": "github"
       },
       "original": {

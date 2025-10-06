@@ -1,4 +1,3 @@
-{ pkgs, ... }:
-{
-  home.packages = [ pkgs.thorium ];
+{pkgs, ...}: {
+  home.packages = [pkgs.thorium];
 }

@@ -6,13 +6,11 @@
     gawk
     psmisc
     unzip
-    bash
-    maim
     wrk
     bitwarden
     hashcat
     cachix
-    gcc
+    gcc14
     gnumake
     cmake
     ninja
@@ -28,5 +26,8 @@
     libclang
     argc
     appimage-run
+    clang
+    rsync
+    openssl
   ];
 }

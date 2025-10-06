@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   services.hardware.openrgb = {
     enable = true;
     package = pkgs.openrgb-with-all-plugins;
@@ -6,9 +11,16 @@
     server.port = 6742;
   };
 
-  services.udev.packages = [pkgs.openrgb-with-all-plugins];
   boot.kernelModules = ["i2c-dev" "i2c-piix4"];
-  users.groups.i2c.members = ["cobray"];
+  services.udev.packages = [pkgs.openrgb-with-all-plugins];
 
-  systemd.services.openrgb.serviceConfig.Environment = "QT_QPA_PLATFORM=offscreen";
+  users.groups = {
+    i2c = {};
+    plugdev = {};
+  };
+
+  users.users.${config.theme.user}.extraGroups = ["i2c" "plugdev"];
+
+  systemd.services.openrgb.serviceConfig.Environment = ["QT_QPA_PLATFORM=offscreen"];
+  environment.sessionVariables.QT_QPA_PLATFORM = "wayland;xcb";
 }

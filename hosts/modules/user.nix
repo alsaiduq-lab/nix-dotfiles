@@ -1,10 +1,14 @@
-{pkgs, ...}: {
-  # Define a user account. Don't forget to set a password with 'passwd'.
-  users.users.cobray = {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  users.users.${config.theme.user} = {
     isNormalUser = true;
-    description = "Mon Aie";
-    extraGroups = ["networkmanager" "wheel" "docker" "video"];
-    shell = pkgs.fish;
+    shell = builtins.getAttr config.theme.Shell pkgs;
+    extraGroups = ["wheel" "networkmanager" "docker" "video" "render" "input" "audio"];
+    linger = true;
   };
 
   security.sudo = {
@@ -12,7 +16,7 @@
     wheelNeedsPassword = true;
   };
 
-  programs.fish = {
-    enable = true;
-  };
+  programs."${config.theme.Shell}".enable = true;
+
+  nix.settings.trusted-users = ["root" config.theme.user];
 }

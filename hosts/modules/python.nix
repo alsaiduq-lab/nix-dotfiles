@@ -1,8 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    (python311.withPackages (ps:
+    (python312.withPackages (ps:
       with ps; [
-        i3ipc
         requests
         ipython
         six
@@ -19,10 +18,10 @@
         datasets
         debugpy
         pynvim
+        pkginfo
       ]))
     isort
     uv
-    python311
     ruff
   ];
 }
