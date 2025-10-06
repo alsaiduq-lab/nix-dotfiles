@@ -30,7 +30,6 @@
     copy_dir "$repo/fish"       "${config.xdg.configHome}/fish"
     copy_dir "$repo/hypr"       "${config.xdg.configHome}/hypr"
     copy_dir "$repo/quickshell" "${config.xdg.configHome}/quickshell"
-    copy_dir "$repo/waybar"     "${config.xdg.configHome}/waybar"
     copy_dir "$repo/cava"       "${config.xdg.configHome}/cava"
     copy_dir "$nvimrepo"        "${config.xdg.configHome}/nvim"
 
