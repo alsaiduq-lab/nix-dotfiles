@@ -8,12 +8,20 @@
       efi.canTouchEfiVariables = true;
       timeout = 5;
     };
-    tmp = {
-      cleanOnBoot = true;
-    };
+    tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages;
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=auto"
+    ];
   };
 
+  # some people really like putting #/bin/sh or #/bin/bash
   system.activationScripts.binbash = {
     deps = [];
     text = ''

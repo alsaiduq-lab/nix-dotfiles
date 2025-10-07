@@ -2,7 +2,7 @@ backup/
 
 .secrets
 
-result
+result*
 $HOME
 .env
 

@@ -4,6 +4,7 @@
 {...}: {
   imports = [
     # Include the results of the hardware scan.
+    ../settings.nix
     ./hardware-configuration.nix
     ./system-packages.nix
   ];

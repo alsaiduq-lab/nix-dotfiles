@@ -20,12 +20,10 @@ with lib; {
     };
     gtkThemeMode = mkOption {
       type = types.str;
-      # light or dark mode
       default = "dark";
     };
     qtTheme = mkOption {
       type = types.str;
-      # qt5 or 6 it seems
       default = "qt6ct";
     };
     qtOverride = mkOption {

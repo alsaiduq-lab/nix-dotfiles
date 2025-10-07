@@ -45,17 +45,21 @@
   libpng,
   freetype,
   fontconfig,
-}: let
-  tag = "M130.0.6723.174";
+  systemd,
+  pipewire,
+  gnome-settings-daemon,
+}:
+stdenvNoCC.mkDerivation rec {
+  pname = "thorium";
   version = "130.0.6723.174";
-  variant = "SSE3";
 
   src = fetchurl {
-    url = "https://github.com/Alex313031/Thorium/releases/download/${tag}/thorium-browser_${version}_${variant}.deb";
-    sha256 = "sha256-sr8f4E329VrA1iHjF+72Db4pApTt9uDTzofr3Ak65Wo=";
+    url = "https://github.com/Alex313031/Thorium/releases/download/M${version}/thorium-browser_${version}_AVX2.deb";
+    sha256 = "sha256-TeDwx7Bqy0NSaNBMuzCf4O+rgWjB/tmIvDgJQnGVSGY=";
   };
 
-  libs = [
+  nativeBuildInputs = [autoPatchelfHook makeWrapper dpkg gnutar];
+  buildInputs = [
     nss
     nspr
     glib
@@ -94,68 +98,49 @@
     libpng
     freetype
     fontconfig
+    systemd
+    pipewire
   ];
-in
-  stdenvNoCC.mkDerivation {
-    pname = "thorium";
-    inherit version src;
 
-    nativeBuildInputs = [autoPatchelfHook makeWrapper dpkg gnutar];
-    buildInputs = libs;
+  unpackPhase = ''
+    ar x "$src"
+    tar --no-same-owner --no-same-permissions -xf data.tar.*
+  '';
 
-    unpackPhase = ''
-      ar x "$src"
-      tar --no-same-owner --no-same-permissions -xf data.tar.*
-    '';
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/{opt/thorium,bin,share/{applications,icons}}
+    cp -r $(find opt -type d -name thorium | head -1)/* $out/opt/thorium/
+    rm -f $out/opt/thorium/libqt{5,6}_shim.so
+    ln -sf $out/opt/thorium/thorium $out/bin/thorium
+    ln -sf $out/bin/thorium $out/bin/thorium-browser
+    [ -f usr/share/applications/thorium*.desktop ] && sed -E \
+      -e "s|^Exec=.*|Exec=$out/bin/thorium %U|" \
+      -e "s|^Icon=.*|Icon=thorium|" \
+      usr/share/applications/thorium*.desktop > $out/share/applications/thorium.desktop
+    [ -d usr/share/icons ] && cp -r usr/share/icons/* $out/share/icons/
+    [ -d usr/share/pixmaps ] && cp -r usr/share/pixmaps/* $out/share/icons/
+    [ ! -d "$out/share/icons/hicolor" ] && mkdir -p $out/share/icons/hicolor/256x256/apps && \
+      find $out/opt/thorium -name "product_logo_*.png" -exec cp {} $out/share/icons/hicolor/256x256/apps/thorium.png \; -quit
+    runHook postInstall
+  '';
 
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/opt/thorium $out/bin $out/share/applications $out/share/icons
+  postFixup = ''
+    wrapProgram $out/bin/thorium \
+      --prefix PATH : ${lib.makeBinPath [xdg-utils gnome-settings-daemon]} \
+      --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH:$out/share" \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs} \
+      --add-flags "--enable-features=VaapiVideoDecoder,VaapiVideoEncoder,UseOzonePlatform" \
+      --add-flags "--ozone-platform-hint=auto" \
+      --set-default CHROME_VERSION_EXTRA "Thorium AVX2"
+  '';
 
-      if [ -d opt/chromium.org/thorium ]; then
-        srcdir=opt/chromium.org/thorium
-      else
-        srcdir=opt/thorium-browser
-      fi
-
-      cp -r "$srcdir"/* $out/opt/thorium/
-
-      rm -f $out/opt/thorium/libqt5_shim.so $out/opt/thorium/libqt6_shim.so || true
-
-      ln -sf $out/opt/thorium/thorium $out/bin/thorium
-      ln -sf $out/bin/thorium          $out/bin/thorium-browser
-
-      desk_in=
-      for f in usr/share/applications/thorium-browser.desktop usr/share/applications/thorium.desktop; do
-        [ -f "$f" ] && desk_in="$f" && break
-      done
-      if [ -n "$desk_in" ]; then
-        mkdir -p $out/share/applications
-        sed -E \
-          -e "s|^Exec=.*|Exec=thorium %U|" \
-          -e "s|/opt/[^/]*/thorium|$out/bin/thorium|g" \
-          "$desk_in" > $out/share/applications/thorium.desktop
-      fi
-
-      if [ -d usr/share/icons ]; then
-        cp -r usr/share/icons/* $out/share/icons/ || true
-      fi
-      runHook postInstall
-    '';
-
-    postFixup = ''
-      wrapProgram $out/bin/thorium \
-        --prefix PATH : ${lib.makeBinPath [xdg-utils]} \
-        --set-default CHROME_VERSION_EXTRA "Thorium" \
-        --set LD_LIBRARY_PATH ${lib.makeLibraryPath libs}
-    '';
-
-    meta = with lib; {
-      description = "Thorium Browser (Chromium fork)";
-      homepage = "https://github.com/Alex313031/Thorium";
-      license = licenses.unfreeRedistributable;
-      platforms = ["x86_64-linux"];
-      mainProgram = "thorium";
-      maintainers = ["Cobray"];
-    };
-  }
+  meta = {
+    description = "Thorium Browser (Chromium fork)";
+    homepage = "https://github.com/Alex313031/Thorium";
+    license = lib.licenses.bsd3;
+    platforms = ["x86_64-linux"];
+    maintainers = ["Cobray"];
+    mainProgram = "thorium";
+  };
+}

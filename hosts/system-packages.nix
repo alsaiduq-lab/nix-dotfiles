@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./settings.nix
+    ../settings.nix
     ./cachix.nix
     ./modules/gtk.nix
     ./modules/audio.nix
@@ -22,8 +22,6 @@
     ./modules/ollama.nix
     ./modules/cups.nix
     ./modules/rust.nix
-    ./modules/java.nix
-    ./modules/go.nix
     ./modules/core.nix
     ./modules/libs.nix
     ./modules/rgb.nix

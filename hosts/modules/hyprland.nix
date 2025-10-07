@@ -28,14 +28,12 @@
       hyprland.default = ["hyprland" "gtk"];
     };
   };
-  systemd.user.services.xdg-desktop-portal-hyprland.unitConfig.ConditionPathExists = "%t/wayland-0";
 
   security.polkit.enable = true;
 
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
     qt6.qtwayland
-    polkit_gnome
     candy-icons
     hu-tao-animated-cursor
     tokyonight-gtk-theme
@@ -46,12 +44,18 @@
     wofi
     hyprshot
     hypridle
-    polkit_gnome
-    grim
+    hyprpolkitagent
+    grim-hyprland
     slurp
     swappy
+    satty
     imv
     syshud
     hyprpaper
+    hyprpicker
+    nwg-look
+    gsimplecal
+    hyprspace
+    kdePackages.xwaylandvideobridge
   ];
 }

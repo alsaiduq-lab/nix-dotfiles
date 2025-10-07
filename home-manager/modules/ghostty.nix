@@ -10,12 +10,13 @@
   ];
 
   programs.ghostty = {
+    # TODO: figure another way to do this
     enable = true;
     enableFishIntegration = true;
 
     settings = {
       command = "${pkgs.fish}/bin/fish --login --interactive";
-      font-family = "0xProto Nerd Font";
+      font-family = "${config.theme.TerminalFont}";
       font-size = 12;
       theme = "TokyoNight Storm";
       window-padding-x = 10;

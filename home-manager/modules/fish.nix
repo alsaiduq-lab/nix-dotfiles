@@ -7,5 +7,6 @@
     fd
     ugrep
     yazi
+    chafa
   ];
 }

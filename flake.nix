@@ -41,14 +41,23 @@
       url = "github:ghostty-org/ghostty";
     };
 
+    grim-hyprland = {
+      url = "github:eriedaberrie/grim-hyprland";
+    };
+
     # TODO: sops-nix = {
     #   url = "github:Mic92/sops-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # Hyprspace = {
-    #   url = "github:rich/Hyprspace";
-    # };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
+    hyprspace = {
+      url = "github:KZDKM/Hyprspace/7a3adf6";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = {
@@ -60,6 +69,7 @@
     ghostty,
     hu-tao-cursor,
     #sops-nix,
+    hyprspace,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -96,9 +106,13 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                ollama = unstablePkgs.ollama;
+                ollama = unstablePkgs.ollama-cuda;
                 rpcs3 = unstablePkgs.rpcs3;
                 quickshell = unstable.legacyPackages.${system}.quickshell;
+                ghostty = inputs.ghostty.packages.${system}.default;
+                hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
+                grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
+                hyprspace = inputs.hyprspace.packages.${system}.default;
               })
               (final: prev: {
                 inherit
@@ -114,8 +128,6 @@
                 clear-sans = prev.clear-sans.clear-sans;
                 binary-font = prev.binary-font.binary-clock-font;
               })
-              (final: prev: {ghostty = inputs.ghostty.packages.${system}.default;})
-              (final: prev: {hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;})
             ];
           };
         }

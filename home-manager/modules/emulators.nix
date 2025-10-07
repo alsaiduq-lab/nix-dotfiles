@@ -5,5 +5,6 @@
     retroarch
     waydroid
     rpcs3
+    input-remapper
   ];
 }

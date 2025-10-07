@@ -1,11 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    tree
+    busybox # in case im missing something random
     fd
     jq
-    gawk
-    psmisc
-    unzip
     wrk
     bitwarden
     hashcat
@@ -27,7 +24,6 @@
     argc
     appimage-run
     clang
-    rsync
     openssl
   ];
 }
