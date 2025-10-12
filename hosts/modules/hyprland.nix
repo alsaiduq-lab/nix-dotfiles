@@ -55,7 +55,7 @@
     hyprpicker
     nwg-look
     gsimplecal
-    hyprspace
+    # hyprspace
     kdePackages.xwaylandvideobridge
   ];
 }

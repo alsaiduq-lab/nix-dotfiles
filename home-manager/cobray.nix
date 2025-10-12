@@ -24,7 +24,7 @@
     ./modules/mpv.nix
     ./modules/ani-cli.nix
     ./modules/quickshell.nix
-    ./modules/hyprspace.nix
+    #./modules/hyprspace.nix
     ./modules/cava.nix
     ./modules/matugen.nix
     ./modules/rgb.nix

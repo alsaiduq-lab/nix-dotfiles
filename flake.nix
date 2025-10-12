@@ -53,11 +53,11 @@
     hyprland = {
       url = "github:hyprwm/Hyprland";
     };
-
-    hyprspace = {
-      url = "github:KZDKM/Hyprspace/7a3adf6";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # nvm didnt even end up working
+    # hyprspace = {
+    #  url = "github:KZDKM/Hyprspace/";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
   };
 
   outputs = {
@@ -69,7 +69,6 @@
     ghostty,
     hu-tao-cursor,
     #sops-nix,
-    hyprspace,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -112,7 +111,6 @@
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
-                hyprspace = inputs.hyprspace.packages.${system}.default;
               })
               (final: prev: {
                 inherit
