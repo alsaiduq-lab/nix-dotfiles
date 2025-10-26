@@ -4,6 +4,7 @@
   lib,
   hyprlanddots,
   nvimDotfiles,
+  inputs,
   ...
 }: {
   imports = [
@@ -26,7 +27,6 @@
     ./modules/quickshell.nix
     #./modules/hyprspace.nix
     ./modules/cava.nix
-    ./modules/matugen.nix
     ./modules/rgb.nix
     ./modules/anyrun.nix
   ];
@@ -38,11 +38,11 @@
   home.enableNixpkgsReleaseCheck = false;
   xdg.mime.enable = false;
 
-
   # TODO: move these somewhere else; undecided
   home.packages = with pkgs; [
     btop
     nvtopPackages.full
     kdePackages.dolphin
+    voicevox
   ];
 }

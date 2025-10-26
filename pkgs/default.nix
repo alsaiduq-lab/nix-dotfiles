@@ -6,4 +6,5 @@
   binary-font = pkgs.callPackage ./binary-font {};
   minijinja-cli = pkgs.callPackage ./minijinja-cli {};
   thorium = pkgs.callPackage ./thorium {};
+  voicevox = pkgs.callPackage ./voicevox {};
 }

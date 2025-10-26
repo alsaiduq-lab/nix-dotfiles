@@ -7,6 +7,10 @@
       pkgs.proton-ge-bin
     ];
   };
+  programs.gamemode = {
+    enable = true;
+    enableRenice = true;
+  };
   hardware.graphics = {
     enable = true;
     enable32Bit = true;

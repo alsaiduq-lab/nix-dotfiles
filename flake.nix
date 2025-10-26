@@ -18,9 +18,31 @@
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
 
+    pinix = {
+      url = "github:remi-dupre/pinix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms-cli = {
+      url = "github:AvengeMedia/danklinux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+      inputs.dms-cli.follows = "dms-cli";
     };
 
     nvim-dots = {
@@ -68,6 +90,9 @@
     unstable,
     ghostty,
     hu-tao-cursor,
+    dgop,
+    dankMaterialShell,
+    pinix,
     #sops-nix,
     ...
   } @ inputs: let
@@ -106,11 +131,14 @@
             overlays = [
               (final: prev: {
                 ollama = unstablePkgs.ollama-cuda;
-                rpcs3 = unstablePkgs.rpcs3;
+                # broken atm
+                # rpcs3 = unstablePkgs.rpcs3;
                 quickshell = unstable.legacyPackages.${system}.quickshell;
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
+                dgop = inputs.dgop.packages.${system}.default;
+                pinix = inputs.pinix.packages.${system}.default;
               })
               (final: prev: {
                 inherit
@@ -119,6 +147,7 @@
                   binary-font
                   minijinja-cli
                   thorium
+                  voicevox
                   ;
               })
 
@@ -141,6 +170,49 @@
               nvimDotfiles = inputs.nvim-dots;
             };
             users.cobray = import ./home-manager/cobray.nix;
+          };
+        }
+      ];
+    };
+
+    nixosConfigurations.magus = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        inherit inputs;
+      };
+      modules = [
+        {
+          nixpkgs = {
+            config = {
+              allowUnfree = true;
+              allowAliases = true;
+            };
+            hostPlatform = system;
+            overlays = [
+              (final: prev: {
+                inherit
+                  (customPkgs)
+                  minijinja-cli
+                  voicevox
+                  ;
+              })
+              (final: prev: {
+                clear-sans = prev.clear-sans.clear-sans;
+                binary-font = prev.binary-font.binary-clock-font;
+              })
+            ];
+          };
+        }
+        ./hosts/magus.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              inherit inputs;
+              nvimDotfiles = inputs.nvim-dots;
+            };
           };
         }
       ];

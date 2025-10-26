@@ -30,6 +30,8 @@
     ./modules/nano.nix
     ./modules/qt.nix
     ./modules/udiskie.nix
+    ./modules/appimage.nix
+    ./modules/greeter.nix
   ];
   npm.enable = true;
   services.udisks2.enable = true;

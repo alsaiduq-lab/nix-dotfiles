@@ -8,6 +8,7 @@
     nmap
     httpie
     socat
+    posting
   ];
 
   networking.firewall.allowedTCPPorts = [57621];

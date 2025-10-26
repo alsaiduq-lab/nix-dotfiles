@@ -19,6 +19,11 @@
     warn-dirty = false;
   };
 
+  # I swear I hate nix sometimes
+  nixpkgs.config.permittedInsecurePackages = [
+    "mbedtls-2.28.10"
+  ];
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave

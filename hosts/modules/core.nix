@@ -22,8 +22,8 @@
     icu
     libclang
     argc
-    appimage-run
     clang
     openssl
+    pinix
   ];
 }

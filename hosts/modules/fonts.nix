@@ -8,6 +8,7 @@
       nerd-fonts._0xproto
       nerd-fonts.noto
       nerd-fonts.symbols-only
+      material-symbols
       ipafont
       kochi-substitute
       clear-sans

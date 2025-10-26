@@ -11,15 +11,6 @@
     xwayland.enable = true;
   };
 
-  services.greetd = {
-    enable = true;
-    package = pkgs.greetd.tuigreet;
-    settings.default_session = {
-      user = "greeter";
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.hyprland}/bin/Hyprland";
-    };
-  };
-
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
@@ -57,5 +48,7 @@
     gsimplecal
     # hyprspace
     kdePackages.xwaylandvideobridge
+    matugen
+    brightnessctl
   ];
 }

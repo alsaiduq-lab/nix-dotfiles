@@ -19,6 +19,7 @@
         debugpy
         pynvim
         pkginfo
+        pypresence
       ]))
     isort
     uv
