@@ -1,48 +1,56 @@
-# WIP
 {
   config,
   pkgs,
   lib,
   inputs,
+  modulesPath,
   ...
 }: {
   imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./server/disk-config.nix
     ./server/hardware-configuration.nix
     ./server/networking.nix
     ./server/security.nix
     ./server/nginx.nix
     ./server/redis.nix
+    ./modules/timezone.nix
+    ./modules/docker.nix
+    ./modules/npm.nix
+    ./modules/nixos.nix
   ];
-  system.stateVersion = "24.11";
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/vda";
+
+  system.stateVersion = "25.05";
+
+  boot = {
+    loader.grub.enable = true;
+    initrd.availableKernelModules = ["xen_blkfront" "virtio_blk"];
   };
-  networking.hostName = "alteur";
-  users.users.admin = {
-    isNormalUser = true;
-    extraGroups = ["wheel"];
-    openssh.authorizedKeys.keyFiles = [
-      ../.secrets/id_ed25519.pub
-    ];
-  };
+
   environment.systemPackages = with pkgs; [
     wget
     curl
     git
     htop
     btop
-    nodejs_20
     ffmpeg
     yt-dlp
+    fastfetch
   ];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    settings.auto-optimise-store = true;
   };
-  nix.settings.auto-optimise-store = true;
-  services.fstrim.enable = true;
-  services.xserver.enable = false;
+
+  services = {
+    fstrim.enable = true;
+    xserver.enable = false;
+  };
+
   sound.enable = false;
 }
