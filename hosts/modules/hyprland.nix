@@ -22,6 +22,8 @@
 
   security.polkit.enable = true;
 
+  services.accounts-daemon.enable = true;
+
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
     qt6.qtwayland
@@ -46,9 +48,9 @@
     hyprpicker
     nwg-look
     gsimplecal
-    # hyprspace
     kdePackages.xwaylandvideobridge
     matugen
     brightnessctl
+    xwayland-satellite
   ];
 }

@@ -67,6 +67,11 @@
       url = "github:eriedaberrie/grim-hyprland";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # TODO: sops-nix = {
     #   url = "github:Mic92/sops-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -75,6 +80,7 @@
     hyprland = {
       url = "github:hyprwm/Hyprland";
     };
+
     # nvm didnt even end up working
     # hyprspace = {
     #  url = "github:KZDKM/Hyprspace/";
@@ -91,8 +97,10 @@
     ghostty,
     hu-tao-cursor,
     dgop,
+    dms-cli,
     dankMaterialShell,
     pinix,
+    disko,
     #sops-nix,
     ...
   } @ inputs: let
@@ -131,13 +139,14 @@
             overlays = [
               (final: prev: {
                 ollama = unstablePkgs.ollama-cuda;
-                # broken atm
-                # rpcs3 = unstablePkgs.rpcs3;
+                #rpcs3 = unstablePkgs.rpcs3;
                 quickshell = unstable.legacyPackages.${system}.quickshell;
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
                 dgop = inputs.dgop.packages.${system}.default;
+                dms-cli = inputs.dms-cli.packages.${system}.default;
+                DMShell = inputs.dankMaterialShell.packages.${system}.default;
                 pinix = inputs.pinix.packages.${system}.default;
               })
               (final: prev: {
@@ -147,7 +156,6 @@
                   binary-font
                   minijinja-cli
                   thorium
-                  voicevox
                   ;
               })
 
@@ -181,6 +189,7 @@
         inherit inputs;
       };
       modules = [
+        disko.nixosModules.disko
         {
           nixpkgs = {
             config = {

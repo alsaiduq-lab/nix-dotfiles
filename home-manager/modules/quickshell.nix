@@ -4,12 +4,12 @@
   lib,
   ...
 }: {
-
   home.packages = with pkgs; [
     quickshell
+    DMShell
+    dms-cli
     dgop
     ddcutil
-    accountsservice
     cliphist
   ];
   home.sessionPath = ["${pkgs.quickshell}/bin"];
