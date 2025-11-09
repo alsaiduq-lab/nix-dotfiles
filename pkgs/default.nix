@@ -7,4 +7,5 @@
   minijinja-cli = pkgs.callPackage ./minijinja-cli {};
   thorium = pkgs.callPackage ./thorium {};
   voicevox = pkgs.callPackage ./voicevox {};
+  rpcs3 = pkgs.callPackage ./rpcs3 {};
 }

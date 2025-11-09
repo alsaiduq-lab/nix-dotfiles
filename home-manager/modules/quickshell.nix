@@ -6,8 +6,7 @@
 }: {
   home.packages = with pkgs; [
     quickshell
-    DMShell
-    dms-cli
+    dmsCli
     dgop
     ddcutil
     cliphist

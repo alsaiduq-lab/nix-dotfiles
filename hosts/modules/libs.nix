@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
+    libclang
     texlive.combined.scheme-full
     poppler_utils
     libnotify

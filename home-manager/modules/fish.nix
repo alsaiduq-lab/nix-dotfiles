@@ -2,11 +2,13 @@
   home.packages = with pkgs; [
     fish
     fzf
+    ripgrep
     bat
     eza
-    fd
     ugrep
     yazi
     chafa
+    btop
+    nvtopPackages.full
   ];
 }

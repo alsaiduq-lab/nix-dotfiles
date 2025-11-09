@@ -5,13 +5,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     unstable = {
@@ -42,7 +41,6 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dgop.follows = "dgop";
-      inputs.dms-cli.follows = "dms-cli";
     };
 
     nvim-dots = {
@@ -80,12 +78,6 @@
     hyprland = {
       url = "github:hyprwm/Hyprland";
     };
-
-    # nvm didnt even end up working
-    # hyprspace = {
-    #  url = "github:KZDKM/Hyprspace/";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
   };
 
   outputs = {
@@ -96,7 +88,6 @@
     unstable,
     ghostty,
     hu-tao-cursor,
-    dgop,
     dms-cli,
     dankMaterialShell,
     pinix,
@@ -138,14 +129,13 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                rpcs3 = unstablePkgs.rpcs3;
                 quickshell = unstable.legacyPackages.${system}.quickshell;
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
                 dgop = inputs.dgop.packages.${system}.default;
-                dms-cli = inputs.dms-cli.packages.${system}.default;
-                DMShell = inputs.dankMaterialShell.packages.${system}.default;
+                dmsCli = inputs.dankMaterialShell.packages.${system}.default;
+                dankMaterialShell = inputs.dankMaterialShell.packages.${system}.dankMaterialShell;
                 pinix = inputs.pinix.packages.${system}.default;
               })
               (final: prev: {
@@ -155,6 +145,7 @@
                   binary-font
                   minijinja-cli
                   thorium
+                  rpcs3
                   ;
               })
 
@@ -201,7 +192,6 @@
                 inherit
                   (customPkgs)
                   minijinja-cli
-                  voicevox
                   ;
               })
               (final: prev: {

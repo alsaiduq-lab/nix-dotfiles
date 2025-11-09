@@ -109,23 +109,28 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/{opt/thorium,bin,share/{applications,icons/hicolor/256x256/apps}}
+    mkdir -p $out/{opt/thorium,bin,share/applications}
     cp -r $(find opt -type d -name thorium | head -1)/* $out/opt/thorium/
     rm -f $out/opt/thorium/libqt{5,6}_shim.so
     ln -sf $out/opt/thorium/thorium $out/bin/thorium
     ln -sf $out/bin/thorium $out/bin/thorium-browser
-    if [ -f usr/share/applications/thorium*.desktop ]; then
+    if [ -f usr/share/applications/thorium-browser.desktop ]; then
       sed -E \
         -e "s|^Exec=.*|Exec=$out/bin/thorium %U|" \
-        -e "s|^Icon=.*|Icon=thorium|" \
-        usr/share/applications/thorium*.desktop > $out/share/applications/thorium.desktop
+        usr/share/applications/thorium-browser.desktop > $out/share/applications/thorium.desktop
     fi
-    [ -d usr/share/icons ] && cp -r usr/share/icons/* $out/share/icons/ || true
-    [ -d usr/share/pixmaps ] && cp -r usr/share/pixmaps/* $out/share/icons/ || true
-    if [ -f $out/opt/thorium/product_logo_256.png ]; then
-      cp $out/opt/thorium/product_logo_256.png $out/share/icons/hicolor/256x256/apps/thorium.png
-    elif [ -f $out/opt/thorium/thorium.png ]; then
-      cp $out/opt/thorium/thorium.png $out/share/icons/hicolor/256x256/apps/thorium.png
+    if [ -d usr/share/icons ]; then
+      cp -r usr/share/icons $out/share/
+    fi
+    if [ ! -d $out/share/icons/hicolor ]; then
+      mkdir -p $out/share/icons/hicolor/{48x48,128x128,256x256}/apps
+      if [ -f $out/opt/thorium/product_logo_256.png ]; then
+        cp $out/opt/thorium/product_logo_256.png $out/share/icons/hicolor/256x256/apps/thorium-browser.png
+      elif [ -f $out/opt/thorium/product_logo_128.png ]; then
+        cp $out/opt/thorium/product_logo_128.png $out/share/icons/hicolor/128x128/apps/thorium-browser.png
+      elif [ -f $out/opt/thorium/thorium.png ]; then
+        cp $out/opt/thorium/thorium.png $out/share/icons/hicolor/256x256/apps/thorium-browser.png
+      fi
     fi
     runHook postInstall
   '';

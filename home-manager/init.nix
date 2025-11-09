@@ -11,11 +11,12 @@
     umask 022
     repo=${lib.escapeShellArg hyprlanddots}
     nvimrepo=${lib.escapeShellArg nvimDotfiles}
+    dmsConfig="${pkgs.dankMaterialShell}/etc/xdg/quickshell/dms"
     mkdir -p "${config.xdg.configHome}"
     copy_dir() {
-      src="$1"; dest="$2"
+      src="$1"; dest="$2"; skip="''${3:-true}"
       [ -d "$src" ] || return 0
-      [ -e "$dest" ] && return 0
+      [ "$skip" = "true" ] && [ -e "$dest" ] && return 0
       mkdir -p "$dest"
       if [ -x ${pkgs.rsync}/bin/rsync ]; then
         ${pkgs.rsync}/bin/rsync -rlD \
@@ -26,12 +27,11 @@
       fi
       chmod -R u+rwX "$dest"
     }
-
     copy_dir "$repo/fish"       "${config.xdg.configHome}/fish"
     copy_dir "$repo/hypr"       "${config.xdg.configHome}/hypr"
     copy_dir "$repo/cava"       "${config.xdg.configHome}/cava"
     copy_dir "$nvimrepo"        "${config.xdg.configHome}/nvim"
-
+    copy_dir "$dmsConfig"       "${config.xdg.configHome}/quickshell" "false"
     if [ -f "$repo/starship.toml" ] && [ ! -e "${config.xdg.configHome}/starship.toml" ]; then
       install -Dm0644 "$repo/starship.toml" "${config.xdg.configHome}/starship.toml"
     fi

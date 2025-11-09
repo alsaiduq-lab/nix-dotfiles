@@ -25,10 +25,10 @@
     ./modules/mpv.nix
     ./modules/ani-cli.nix
     ./modules/quickshell.nix
-    #./modules/hyprspace.nix
     ./modules/cava.nix
     ./modules/rgb.nix
-    ./modules/anyrun.nix
+    ./modules/imagemagick.nix
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
   ];
 
   home.username = "${config.theme.user}";
@@ -40,8 +40,6 @@
 
   # TODO: move these somewhere else; undecided
   home.packages = with pkgs; [
-    btop
-    nvtopPackages.full
     kdePackages.dolphin
     voicevox
   ];

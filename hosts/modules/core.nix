@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     busybox # in case im missing something random
-    fd
+    unzip
     jq
     wrk
     bitwarden
@@ -20,7 +20,6 @@
     nasm
     nix-prefetch-git
     icu
-    libclang
     argc
     clang
     openssl
