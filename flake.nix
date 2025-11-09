@@ -138,8 +138,7 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                ollama = unstablePkgs.ollama-cuda;
-                #rpcs3 = unstablePkgs.rpcs3;
+                rpcs3 = unstablePkgs.rpcs3;
                 quickshell = unstable.legacyPackages.${system}.quickshell;
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;

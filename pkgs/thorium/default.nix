@@ -109,19 +109,24 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/{opt/thorium,bin,share/{applications,icons}}
+    mkdir -p $out/{opt/thorium,bin,share/{applications,icons/hicolor/256x256/apps}}
     cp -r $(find opt -type d -name thorium | head -1)/* $out/opt/thorium/
     rm -f $out/opt/thorium/libqt{5,6}_shim.so
     ln -sf $out/opt/thorium/thorium $out/bin/thorium
     ln -sf $out/bin/thorium $out/bin/thorium-browser
-    [ -f usr/share/applications/thorium*.desktop ] && sed -E \
-      -e "s|^Exec=.*|Exec=$out/bin/thorium %U|" \
-      -e "s|^Icon=.*|Icon=thorium|" \
-      usr/share/applications/thorium*.desktop > $out/share/applications/thorium.desktop
-    [ -d usr/share/icons ] && cp -r usr/share/icons/* $out/share/icons/
-    [ -d usr/share/pixmaps ] && cp -r usr/share/pixmaps/* $out/share/icons/
-    [ ! -d "$out/share/icons/hicolor" ] && mkdir -p $out/share/icons/hicolor/256x256/apps && \
-      find $out/opt/thorium -name "product_logo_*.png" -exec cp {} $out/share/icons/hicolor/256x256/apps/thorium.png \; -quit
+    if [ -f usr/share/applications/thorium*.desktop ]; then
+      sed -E \
+        -e "s|^Exec=.*|Exec=$out/bin/thorium %U|" \
+        -e "s|^Icon=.*|Icon=thorium|" \
+        usr/share/applications/thorium*.desktop > $out/share/applications/thorium.desktop
+    fi
+    [ -d usr/share/icons ] && cp -r usr/share/icons/* $out/share/icons/ || true
+    [ -d usr/share/pixmaps ] && cp -r usr/share/pixmaps/* $out/share/icons/ || true
+    if [ -f $out/opt/thorium/product_logo_256.png ]; then
+      cp $out/opt/thorium/product_logo_256.png $out/share/icons/hicolor/256x256/apps/thorium.png
+    elif [ -f $out/opt/thorium/thorium.png ]; then
+      cp $out/opt/thorium/thorium.png $out/share/icons/hicolor/256x256/apps/thorium.png
+    fi
     runHook postInstall
   '';
 

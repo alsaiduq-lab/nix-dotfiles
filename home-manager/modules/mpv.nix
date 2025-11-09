@@ -16,6 +16,7 @@
 in {
   home.packages = with pkgs; [
     mpv
+    mpvpaper
     mpvScripts.thumbfast
   ];
   home.file.".config/mpv/mpv.conf".text = ''
