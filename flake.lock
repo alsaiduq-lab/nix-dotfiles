@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763764254,
-        "narHash": "sha256-+40Kw27qiSK/4BTAUXRa0xUo2dBCA9m5diOvLYPKDR4=",
+        "lastModified": 1763788986,
+        "narHash": "sha256-uYgLhTSxWs9IRpia5Hxd7AMCaE0plr0+QhWBf26h9V0=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "f8dc6ad2bc7361a7cfb40d70bd0fcf16aba6e4de",
+        "rev": "58bf1899410536c4244b9d44c243426dc1b2a2c9",
         "type": "github"
       },
       "original": {
@@ -93,26 +93,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "disko",
-        "type": "github"
-      }
-    },
-    "dms-cli": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1763078370,
-        "narHash": "sha256-wsYqJlLdRSlJpRE0tIuuPMU6aOyhMdV237rEG/enUxY=",
-        "owner": "AvengeMedia",
-        "repo": "danklinux",
-        "rev": "7a083a0d6d087d41d0bc5077d03e662e1417ce3c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "danklinux",
         "type": "github"
       }
     },
@@ -733,11 +713,11 @@
     "nvim-dots": {
       "flake": false,
       "locked": {
-        "lastModified": 1763770049,
-        "narHash": "sha256-rSTmSFqyYXh/t/zsV46dHavshjJNlc1Qajb8K78blNA=",
+        "lastModified": 1763795441,
+        "narHash": "sha256-hUP7GJuh5wSunhLCjuxkMRCYZweuQ3SOID3bUeG9zQ4=",
         "owner": "alsaiduq-lab",
         "repo": "nvim-dotfiles",
-        "rev": "2816b6522ce703c7d506064214f5dcb6bad149c5",
+        "rev": "26ae0fa8f47057c61632464d10b75599b1c2f1d6",
         "type": "github"
       },
       "original": {
@@ -814,7 +794,6 @@
         "dankMaterialShell": "dankMaterialShell",
         "dgop": "dgop",
         "disko": "disko",
-        "dms-cli": "dms-cli",
         "ghostty": "ghostty",
         "grim-hyprland": "grim-hyprland",
         "home-manager": "home-manager",

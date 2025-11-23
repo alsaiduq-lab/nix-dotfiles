@@ -16,7 +16,7 @@
     includes = [
       {path = "${config.home.homeDirectory}/nix/.secrets/.git-config";}
     ];
-    extraConfig = {
+    settings = {
       credential.helper = "store --file=${config.home.homeDirectory}/nix/.secrets/.git-credentials";
     };
   };

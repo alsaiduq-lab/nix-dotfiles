@@ -1,12 +1,13 @@
 {
   lib,
-  stdenvNoCC,
+  stdenv,
   fetchurl,
   autoPatchelfHook,
   makeWrapper,
   dpkg,
   gnutar,
   xdg-utils,
+  hicolor-icon-theme,
   nss,
   nspr,
   glib,
@@ -49,8 +50,8 @@
   pipewire,
   gnome-settings-daemon,
 }:
-stdenvNoCC.mkDerivation rec {
-  pname = "thorium";
+stdenv.mkDerivation rec {
+  pname = "thorium-browser";
   version = "130.0.6723.174";
 
   src = fetchurl {
@@ -102,6 +103,7 @@ stdenvNoCC.mkDerivation rec {
     pipewire
   ];
 
+  propagatedBuildInputs = [hicolor-icon-theme];
   unpackPhase = ''
     ar x "$src"
     tar --no-same-owner --no-same-permissions -xf data.tar.*
@@ -117,21 +119,14 @@ stdenvNoCC.mkDerivation rec {
     if [ -f usr/share/applications/thorium-browser.desktop ]; then
       sed -E \
         -e "s|^Exec=.*|Exec=$out/bin/thorium %U|" \
-        usr/share/applications/thorium-browser.desktop > $out/share/applications/thorium.desktop
+        usr/share/applications/thorium-browser.desktop > $out/share/applications/thorium-browser.desktop
     fi
-    if [ -d usr/share/icons ]; then
-      cp -r usr/share/icons $out/share/
-    fi
-    if [ ! -d $out/share/icons/hicolor ]; then
-      mkdir -p $out/share/icons/hicolor/{48x48,128x128,256x256}/apps
-      if [ -f $out/opt/thorium/product_logo_256.png ]; then
-        cp $out/opt/thorium/product_logo_256.png $out/share/icons/hicolor/256x256/apps/thorium-browser.png
-      elif [ -f $out/opt/thorium/product_logo_128.png ]; then
-        cp $out/opt/thorium/product_logo_128.png $out/share/icons/hicolor/128x128/apps/thorium-browser.png
-      elif [ -f $out/opt/thorium/thorium.png ]; then
-        cp $out/opt/thorium/thorium.png $out/share/icons/hicolor/256x256/apps/thorium-browser.png
-      fi
-    fi
+    mkdir -p $out/share/icons/hicolor
+    cp ${hicolor-icon-theme}/share/icons/hicolor/index.theme $out/share/icons/hicolor/
+    for size in 16 24 32 48 64 128 256; do
+      mkdir -p $out/share/icons/hicolor/''${size}x''${size}/apps
+      cp $out/opt/thorium/product_logo_256.png $out/share/icons/hicolor/''${size}x''${size}/apps/thorium-browser.png
+    done
     runHook postInstall
   '';
 
