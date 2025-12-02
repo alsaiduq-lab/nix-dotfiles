@@ -32,7 +32,7 @@
     ./modules/udiskie.nix
     ./modules/appimage.nix
     ./modules/greeter.nix
-    ./moduels/go.nix
+    ./modules/go.nix
   ];
   npm.enable = true;
   services.udisks2.enable = true;
