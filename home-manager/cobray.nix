@@ -42,5 +42,7 @@
   home.packages = with pkgs; [
     kdePackages.dolphin
     voicevox
+    vkbasalt
+    hashcat
   ];
 }

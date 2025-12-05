@@ -42,12 +42,10 @@
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       pkgs.libglvnd
       pkgs.mesa
-      pkgs.gcc-unwrapped.lib
       pkgs.cudatoolkit
       pkgs.mangohud
       pkgs.portaudio
       pkgs.alsa-lib
-      pkgs.stdenv.cc.cc.lib
       pkgs.wayland
       pkgs.libxkbcommon
       pkgs.glib

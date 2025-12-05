@@ -4,10 +4,8 @@
     unzip
     jq
     wrk
-    bitwarden
-    hashcat
     cachix
-    gcc14
+    gcc15
     gnumake
     cmake
     ninja
@@ -24,5 +22,7 @@
     clang
     openssl
     pinix
+    cairo
+    cabextract
   ];
 }

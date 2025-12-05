@@ -3,6 +3,7 @@
 
   programs.hyprland = {
     enable = true;
+    package = pkgs.hyprland;
     xwayland.enable = true;
   };
 
@@ -21,16 +22,29 @@
     };
   };
 
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
   security.polkit.enable = true;
 
   services.accounts-daemon.enable = true;
 
   systemd.user.services.hyprpolkitagent = {
     enable = true;
+    description = "hyprpolkitagent";
     wantedBy = ["graphical-session.target"];
+    wants = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
   };
 
   environment.systemPackages = with pkgs; [
+    hyprland
     qt5.qtwayland
     qt6.qtwayland
     candy-icons
@@ -54,9 +68,9 @@
     hyprpicker
     nwg-look
     gsimplecal
-    kdePackages.xwaylandvideobridge
     matugen
     brightnessctl
     xwayland-satellite
+    hyprshade
   ];
 }

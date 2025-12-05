@@ -4,6 +4,7 @@
   pkgs,
   hyprlanddots,
   nvimDotfiles,
+  dankMaterialShell,
   ...
 }: {
   home.activation.HyprlandDots = lib.hm.dag.entryAfter ["linkGeneration"] ''
@@ -11,7 +12,7 @@
     umask 022
     repo=${lib.escapeShellArg hyprlanddots}
     nvimrepo=${lib.escapeShellArg nvimDotfiles}
-    dmsConfig="${pkgs.dankMaterialShell}/etc/xdg/quickshell/dms"
+    dmsConfig="${dankMaterialShell}/etc/xdg/quickshell/dms"
     mkdir -p "${config.xdg.configHome}"
     copy_dir() {
       src="$1"; dest="$2"; skip="''${3:-true}"

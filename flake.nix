@@ -2,7 +2,7 @@
   description = "NixOS configuration (hyprland) for Cobray";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -72,6 +72,7 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -123,7 +124,7 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                quickshell = unstable.legacyPackages.${system}.quickshell;
+                quickshell = unstablePkgs.quickshell;
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
@@ -160,6 +161,7 @@
               inherit inputs;
               hyprlanddots = inputs.hyprland-dots;
               nvimDotfiles = inputs.nvim-dots;
+              dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
             };
             users.cobray = import ./home-manager/cobray.nix;
           };

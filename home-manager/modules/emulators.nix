@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     desmume
-    ryujinx
+    # ryujinx
     retroarch
     waydroid
     rpcs3

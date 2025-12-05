@@ -12,4 +12,6 @@
     cliphist
   ];
   home.sessionPath = ["${pkgs.quickshell}/bin"];
+
+  programs.dankMaterialShell.enable = true;
 }

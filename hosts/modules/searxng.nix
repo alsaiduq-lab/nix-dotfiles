@@ -12,7 +12,7 @@ in {
     package = pkgs.searxng;
     redisCreateLocally = true;
     environmentFile = envFile;
-    runInUwsgi = false;
+    configureUwsgi = false;
     settings = {
       server = {
         bind_address = "127.0.0.1";
