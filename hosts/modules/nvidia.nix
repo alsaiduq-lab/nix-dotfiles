@@ -6,10 +6,10 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = pkgs.nvidiaRollback.linuxPackages.nvidiaPackages.stable;
     open = true;
     modesetting.enable = true; # must be true for Wayland
-    powerManagement.enable = false; # laptops need this
+    powerManagement.enable = false;
     nvidiaSettings = true;
     nvidiaPersistenced = true;
   };

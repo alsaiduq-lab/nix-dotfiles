@@ -74,6 +74,10 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    rollback = {
+      url = "github:NixOS/nixpkgs/nixos-25.05";
+    };
   };
 
   outputs = {
@@ -132,6 +136,10 @@
                 dmsCli = inputs.dankMaterialShell.packages.${system}.default;
                 dankMaterialShell = inputs.dankMaterialShell.packages.${system}.dankMaterialShell;
                 pinix = inputs.pinix.packages.${system}.default;
+                nvidiaRollback = import inputs.rollback {
+                  inherit system;
+                  config.allowUnfree = true;
+                };
               })
               (final: prev: {
                 inherit
