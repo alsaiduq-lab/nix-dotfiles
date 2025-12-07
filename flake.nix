@@ -75,6 +75,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # 25.11 ships with nvidia 580 as stable while 25.05 has 570 as stable. this rollback exists for this reason
     rollback = {
       url = "github:NixOS/nixpkgs/nixos-25.05";
     };
@@ -111,6 +112,16 @@
       lib = nixpkgs.lib;
     };
   in {
+    packages.${system} = {
+      inherit
+        (customPkgs)
+        minijinja-cli
+        thorium
+        rpcs3
+        ;
+      clear-sans = customPkgs.clear-sans.clear-sans;
+      binary-font = customPkgs.binary-font.binary-clock-font;
+    };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {

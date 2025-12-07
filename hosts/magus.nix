@@ -18,6 +18,8 @@
     ./modules/docker.nix
     ./modules/npm.nix
     ./modules/nixos.nix
+    ./modules/appimage.nix
+    ./modules/core.nix
   ];
 
   system.stateVersion = "25.05";
@@ -28,14 +30,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wget
-    curl
     git
-    htop
     btop
     ffmpeg
     yt-dlp
     fastfetch
+    zelliq
   ];
 
   nix = {
