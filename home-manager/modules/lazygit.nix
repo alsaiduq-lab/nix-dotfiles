@@ -17,6 +17,8 @@
       {path = "${config.home.homeDirectory}/nix/.secrets/.git-config";}
     ];
     settings = {
+      user.name = "alsaiduq-lab";
+      user.email = "riiidge.racer@gmail.com";
       credential.helper = "store --file=${config.home.homeDirectory}/nix/.secrets/.git-credentials";
     };
   };

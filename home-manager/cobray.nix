@@ -29,6 +29,7 @@
     ./modules/rgb.nix
     ./modules/imagemagick.nix
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    ./modules/viv.nix
   ];
 
   home.username = "${config.theme.user}";

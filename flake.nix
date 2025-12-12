@@ -74,11 +74,6 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # 25.11 ships with nvidia 580 as stable while 25.05 has 570 as stable. this rollback exists for this reason
-    rollback = {
-      url = "github:NixOS/nixpkgs/nixos-25.05";
-    };
   };
 
   outputs = {
@@ -139,7 +134,7 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                quickshell = unstablePkgs.quickshell;
+                quickshell = inputs.quickshell.packages.${system}.default;
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
@@ -147,10 +142,6 @@
                 dmsCli = inputs.dankMaterialShell.packages.${system}.default;
                 dankMaterialShell = inputs.dankMaterialShell.packages.${system}.dankMaterialShell;
                 pinix = inputs.pinix.packages.${system}.default;
-                nvidiaRollback = import inputs.rollback {
-                  inherit system;
-                  config.allowUnfree = true;
-                };
               })
               (final: prev: {
                 inherit
