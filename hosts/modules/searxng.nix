@@ -104,27 +104,6 @@ in {
           timeout = 3.0;
         }
         {
-          name = "wikidata";
-          engine = "wikidata";
-          disabled = false;
-          categories = ["general"];
-          timeout = 3.0;
-        }
-        {
-          name = "wikibooks";
-          engine = "wikibooks";
-          disabled = false;
-          categories = ["general"];
-          timeout = 3.0;
-        }
-        {
-          name = "wiktionary";
-          engine = "wiktionary";
-          disabled = false;
-          categories = ["general"];
-          timeout = 3.0;
-        }
-        {
           name = "arxiv";
           engine = "arxiv";
           disabled = false;
@@ -157,13 +136,6 @@ in {
           engine = "stackoverflow";
           disabled = false;
           categories = ["it"];
-          timeout = 4.0;
-        }
-        {
-          name = "wikicommons_img";
-          engine = "wikicommons";
-          disabled = false;
-          categories = ["images"];
           timeout = 4.0;
         }
         {
