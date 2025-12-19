@@ -33,6 +33,7 @@
     ./modules/appimage.nix
     ./modules/greeter.nix
     ./modules/go.nix
+    ./modules/flatpak.nix
   ];
   npm.enable = true;
   services.udisks2.enable = true;

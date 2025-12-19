@@ -28,8 +28,9 @@
     ./modules/cava.nix
     ./modules/rgb.nix
     ./modules/imagemagick.nix
-    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.dankMaterialShell.homeModules.dank-material-shell
     ./modules/viv.nix
+    ./modules/godot.nix
   ];
 
   home.username = "${config.theme.user}";
@@ -45,5 +46,6 @@
     voicevox
     vkbasalt
     hashcat
+    libretranslate
   ];
 }
