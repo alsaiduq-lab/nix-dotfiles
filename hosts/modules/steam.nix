@@ -3,9 +3,6 @@
     enable = true;
     # apparently enabling this makes big picture boot up, does not work on nvidia however
     # gamescopeSession.enable = true;
-    extraCompatPackages = [
-      pkgs.proton-ge-bin
-    ];
   };
   programs.gamemode = {
     enable = true;
@@ -17,7 +14,7 @@
   };
   environment.systemPackages = with pkgs; [
     lutris
-    wineWowPackages.stable
+    wine-cachyos
     winetricks
     protontricks
     gamemode

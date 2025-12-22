@@ -8,9 +8,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
+    wine-cachyos = {
+      url = "github:CachyOS/wine-cachyos/cachyos_10.0_20251126/main";
+      flake = false;
     };
 
     unstable = {
@@ -80,7 +80,7 @@
     self,
     nixpkgs,
     home-manager,
-    nix-gaming,
+    wine-cachyos,
     unstable,
     ghostty,
     hu-tao-cursor,
@@ -105,6 +105,7 @@
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
       lib = nixpkgs.lib;
+      wine-cachyos = inputs.wine-cachyos;
     };
   in {
     packages.${system} = {
@@ -151,6 +152,7 @@
                   minijinja-cli
                   thorium
                   rpcs3
+                  wine-cachyos
                   ;
               })
 
