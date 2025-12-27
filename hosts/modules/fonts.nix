@@ -15,6 +15,9 @@
       binary-font
       fontconfig
     ];
+
+    fontDir.enable = true;
+
     fontconfig = {
       enable = true;
       defaultFonts = {
