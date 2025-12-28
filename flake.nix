@@ -13,6 +13,15 @@
       url = "github:fufexan/nix-gaming";
     };
 
+    proton-cachyos = {
+      url = "github:Arsalan2356/proton-cachyos-flake";
+    };
+
+    aagl = {
+      url = "github:alsaiduq-lab/aagl-gtk-on-nix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     unstable = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
@@ -87,6 +96,7 @@
     dankMaterialShell,
     pinix,
     disko,
+    aagl,
     #sops-nix,
     ...
   } @ inputs: let
@@ -125,6 +135,7 @@
       };
 
       modules = [
+        aagl.nixosModules.default
         {
           nixpkgs = {
             config = {
@@ -143,6 +154,7 @@
                 dankMaterialShell = inputs.dankMaterialShell.packages.${system}.dankMaterialShell;
                 pinix = inputs.pinix.packages.${system}.default;
                 wine-cachyos = inputs.nix-gaming.packages.${system}.wine-cachyos;
+                proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
               })
               (final: prev: {
                 inherit

@@ -24,5 +24,6 @@
     pinix
     cairo
     cabextract
+    xdg-utils
   ];
 }
