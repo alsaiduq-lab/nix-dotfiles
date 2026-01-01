@@ -36,15 +36,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.dgop.follows = "dgop";
     };
 
     nvim-dots = {
@@ -69,6 +63,10 @@
       url = "github:eriedaberrie/grim-hyprland";
     };
 
+    linux-desktop-gremlin = {
+      url = "github:iluvgirlswithglasses/linux-desktop-gremlin";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,7 +79,6 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -149,12 +146,15 @@
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
-                dgop = inputs.dgop.packages.${system}.default;
                 dmsCli = inputs.dankMaterialShell.packages.${system}.default;
                 dankMaterialShell = inputs.dankMaterialShell.packages.${system}.dankMaterialShell;
                 pinix = inputs.pinix.packages.${system}.default;
                 wine-cachyos = inputs.nix-gaming.packages.${system}.wine-cachyos;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
+                desktop-gremlin = inputs.linux-desktop-gremlin.packages.${pkgs.system}.default;
+                ipc-bridge = inputs.nix-gaming.packages.${system}.wine-discord-ipc-bridge;
+                dgop = unstablePkgs.dgop;
+                hyprland = inputs.hyprland.packages.${system}.default;
               })
               (final: prev: {
                 inherit

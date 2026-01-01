@@ -31,6 +31,7 @@
     inputs.dankMaterialShell.homeModules.dank-material-shell
     ./modules/viv.nix
     ./modules/godot.nix
+    ./modules/gremlin.nix
   ];
 
   home.username = "${config.theme.user}";

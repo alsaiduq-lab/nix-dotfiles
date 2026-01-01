@@ -25,5 +25,6 @@
     cairo
     cabextract
     xdg-utils
+    nix-search
   ];
 }

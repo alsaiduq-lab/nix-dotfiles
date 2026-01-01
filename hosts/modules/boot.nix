@@ -9,7 +9,7 @@
       timeout = 5;
     };
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
     initrd.verbose = false;
     kernelParams = [
@@ -19,6 +19,11 @@
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
     ];
+    # cpu specific optimizations
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+      "vm.vfs_cache_pressure" = 50;
+    };
   };
 
   # some people really like putting #/bin/sh or #/bin/bash

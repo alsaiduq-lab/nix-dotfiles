@@ -44,7 +44,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    hyprland
     qt5.qtwayland
     qt6.qtwayland
     candy-icons
@@ -54,6 +53,7 @@
     wlogout
     wl-clipboard
     xclip
+    rofi
     wofi
     hyprshot
     hypridle

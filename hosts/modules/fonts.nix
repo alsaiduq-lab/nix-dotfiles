@@ -2,6 +2,7 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts
+      unifont
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-color-emoji
