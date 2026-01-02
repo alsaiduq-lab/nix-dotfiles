@@ -10,6 +10,7 @@
     dgop
     ddcutil
     cliphist
+    kdePackages.dolphin
   ];
   home.sessionPath = ["${pkgs.quickshell}/bin"];
 }

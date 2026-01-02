@@ -10,16 +10,18 @@
     gh
     diff-so-fancy
   ];
-
   programs.git = {
     enable = true;
     includes = [
-      {path = "${config.home.homeDirectory}/nix/.secrets/.git-config";}
+      {path = "${config.home.homeDirectory}/nix/.secrets/.gitconfig";}
     ];
     settings = {
-      user.name = "alsaiduq-lab";
-      user.email = "riiidge.racer@gmail.com";
       credential.helper = "store --file=${config.home.homeDirectory}/nix/.secrets/.git-credentials";
+      init.defaultBranch = "master";
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+      core.pager = "diff-so-fancy | less --tabs=4 -RF";
+      interactive.diffFilter = "diff-so-fancy --patch";
     };
   };
 }

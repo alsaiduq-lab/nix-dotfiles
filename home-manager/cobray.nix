@@ -1,9 +1,6 @@
 {
   pkgs,
   config,
-  lib,
-  hyprlanddots,
-  nvimDotfiles,
   inputs,
   ...
 }: {
@@ -26,12 +23,12 @@
     ./modules/ani-cli.nix
     ./modules/quickshell.nix
     ./modules/cava.nix
-    ./modules/rgb.nix
     ./modules/imagemagick.nix
     inputs.dankMaterialShell.homeModules.dank-material-shell
     ./modules/viv.nix
     ./modules/godot.nix
     ./modules/gremlin.nix
+    ./modules/udiskie.nix
   ];
 
   home.username = "${config.theme.user}";
@@ -39,14 +36,8 @@
   home.stateVersion = "25.11";
   programs.home-manager.enable = true;
   home.enableNixpkgsReleaseCheck = false;
-  xdg.mime.enable = false;
 
   # TODO: move these somewhere else; undecided
-  home.packages = with pkgs; [
-    kdePackages.dolphin
-    voicevox
-    vkbasalt
-    hashcat
-    libretranslate
-  ];
+  #home.packages = with pkgs; [
+  #];
 }

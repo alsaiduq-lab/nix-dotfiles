@@ -64,11 +64,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1767213761,
-        "narHash": "sha256-DRGKMzx/hq4TQvhtEB+BjkXZ6UIV4V9gmCNDy4dKSJk=",
+        "lastModified": 1767299095,
+        "narHash": "sha256-a/DHoBafFIrhkN0FSNSk5fbWrslBptnkgs/LDk5QzEY=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "37f972d0750a7e739e58bb352a626622954d4098",
+        "rev": "bae32e51ff6d873e51e29fe20fee378714aba150",
         "type": "github"
       },
       "original": {
@@ -191,11 +191,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1767218016,
-        "narHash": "sha256-YrI3kmaTDcIEKATPFDhn/gUJ06m4t5NuQshKISHmQmo=",
+        "lastModified": 1767302070,
+        "narHash": "sha256-hfbgjYOP+YC5w2AcWK1fn5h0JyG4GI9UPUmKmBI+oVc=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "3a89c8ac5493636530129c80a32d29aa7ec45f03",
+        "rev": "9a21e563114b8b1eb1501d03a087af8d23e508d3",
         "type": "github"
       },
       "original": {
@@ -380,11 +380,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1767201430,
-        "narHash": "sha256-2FF66EaIbsc7CL1jKHbRFslSePDq40fzlTTbUlm5v3k=",
+        "lastModified": 1767300597,
+        "narHash": "sha256-kr8ThYlgv/cvwbYnqy/EAoYtAi3W5XMlmrXtF1YnUmo=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "48a024e0322bbd7c4c88126498ec478444ec4cb2",
+        "rev": "31d3181e1ee91e338fb4fb8207d64b8d689310fc",
         "type": "github"
       },
       "original": {
@@ -396,11 +396,11 @@
     "hyprland-dots": {
       "flake": false,
       "locked": {
-        "lastModified": 1760065789,
-        "narHash": "sha256-RlAnAGqJhiY/KR2fP0qWHuBkPwp/QtAJ1gqTZxcqXuk=",
+        "lastModified": 1767234512,
+        "narHash": "sha256-s7e3tsx5Nr8RIGWCNZHQuh1wBHOik93HxHqs5dXLURI=",
         "ref": "refs/heads/master",
-        "rev": "efbe70f5616e59bde1b8cff1813e27c5a9271b12",
-        "revCount": 23,
+        "rev": "ef856f3eb18059621a618e62612f028dd6ea5869",
+        "revCount": 26,
         "type": "git",
         "url": "ssh://git@github.com/alsaiduq-lab/hyprland-dots"
       },
@@ -1038,11 +1038,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1767151656,
-        "narHash": "sha256-ujL2AoYBnJBN262HD95yer7QYUmYp5kFZGYbyCCKxq8=",
+        "lastModified": 1767242400,
+        "narHash": "sha256-knFaYjeg7swqG1dljj1hOxfg39zrIy8pfGuicjm9s+o=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f665af0cdb70ed27e1bd8f9fdfecaf451260fc55",
+        "rev": "c04833a1e584401bb63c1a63ddc51a71e6aa457a",
         "type": "github"
       },
       "original": {

@@ -33,7 +33,6 @@
     ./modules/searxng.nix
     ./modules/nano.nix
     ./modules/qt.nix
-    ./modules/udiskie.nix
     ./modules/appimage.nix
     ./modules/greeter.nix
     ./modules/go.nix

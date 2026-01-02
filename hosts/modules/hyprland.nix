@@ -27,23 +27,18 @@
   security.polkit.enable = true;
 
   services.accounts-daemon.enable = true;
-
-  systemd.user.services.hyprpolkitagent = {
-    enable = true;
-    description = "hyprpolkitagent";
-    wantedBy = ["graphical-session.target"];
-    wants = ["graphical-session.target"];
-    after = ["graphical-session.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
+  systemd.user.targets.graphical-session = {
+    unitConfig = {
+      RefuseManualStart = false;
+      StopWhenUnneeded = false;
     };
+    wantedBy = ["default.target"];
   };
 
   environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "hyprpolkitagent" ''
+      exec ${hyprpolkitagent}/libexec/hyprpolkitagent "$@"
+    '')
     qt5.qtwayland
     qt6.qtwayland
     candy-icons
@@ -57,7 +52,6 @@
     wofi
     hyprshot
     hypridle
-    hyprpolkitagent
     grim-hyprland
     slurp
     swappy
