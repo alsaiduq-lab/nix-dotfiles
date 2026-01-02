@@ -64,11 +64,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1767299095,
-        "narHash": "sha256-a/DHoBafFIrhkN0FSNSk5fbWrslBptnkgs/LDk5QzEY=",
+        "lastModified": 1767325825,
+        "narHash": "sha256-DVQByhV9jLS8Zn2HsYdHMoaH2h+XP90NEVk2f6vhgGg=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "bae32e51ff6d873e51e29fe20fee378714aba150",
+        "rev": "5e111d89a5e8a3aa473bedde642af63a756a96f2",
         "type": "github"
       },
       "original": {
@@ -191,11 +191,11 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1767302070,
-        "narHash": "sha256-hfbgjYOP+YC5w2AcWK1fn5h0JyG4GI9UPUmKmBI+oVc=",
+        "lastModified": 1767313275,
+        "narHash": "sha256-yp3n4aKlG1lZDkQl3sDD7smjNjGFeEErVaiQlorzxrk=",
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "9a21e563114b8b1eb1501d03a087af8d23e508d3",
+        "rev": "1c2db85aa41c7d929cb23b408229e297dce2758a",
         "type": "github"
       },
       "original": {
@@ -396,11 +396,11 @@
     "hyprland-dots": {
       "flake": false,
       "locked": {
-        "lastModified": 1767234512,
-        "narHash": "sha256-s7e3tsx5Nr8RIGWCNZHQuh1wBHOik93HxHqs5dXLURI=",
+        "lastModified": 1767319963,
+        "narHash": "sha256-UrmhsIUdovBWZ2hQJ6G86xKVOuk4vFEa3IIXCsvqpFk=",
         "ref": "refs/heads/master",
-        "rev": "ef856f3eb18059621a618e62612f028dd6ea5869",
-        "revCount": 26,
+        "rev": "b730372809923a9f629ad436a1f4af1cae96914e",
+        "revCount": 27,
         "type": "git",
         "url": "ssh://git@github.com/alsaiduq-lab/hyprland-dots"
       },
@@ -664,11 +664,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1767060285,
-        "narHash": "sha256-E8oSyoOQnqVCSg7+D0512fnL8JeltFqWaKETJrmo1Q8=",
+        "lastModified": 1767319620,
+        "narHash": "sha256-salrbdHzVTRpgnASAJMX61kuqrg65KiuQ2yxkrVcB8Y=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "45ce6a5470514514079e2d65eea7dddafba6bfc8",
+        "rev": "f39d1b692c466255e7f5b2fa8ac5b8aead5eadb5",
         "type": "github"
       },
       "original": {

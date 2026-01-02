@@ -99,15 +99,8 @@
   } @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
-
-    unstablePkgs = import unstable {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
+    pkgs = nixpkgs.legacyPackages.${system};
+    unstablePkgs = unstable.legacyPackages.${system};
 
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
@@ -125,7 +118,6 @@
       binary-font = customPkgs.binary-font.binary-clock-font;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      inherit system;
       specialArgs = {
         inherit inputs;
         hyprlanddots = inputs.hyprland-dots;
@@ -151,7 +143,7 @@
                 pinix = inputs.pinix.packages.${system}.default;
                 wine-cachyos = inputs.nix-gaming.packages.${system}.wine-cachyos;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
-                desktop-gremlin = inputs.linux-desktop-gremlin.packages.${pkgs.system}.default;
+                desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
                 ipc-bridge = inputs.nix-gaming.packages.${system}.wine-discord-ipc-bridge;
                 dgop = unstablePkgs.dgop;
                 hyprland = inputs.hyprland.packages.${system}.default;
@@ -193,7 +185,6 @@
     };
 
     nixosConfigurations.magus = nixpkgs.lib.nixosSystem {
-      inherit system;
       specialArgs = {
         inherit inputs;
       };
