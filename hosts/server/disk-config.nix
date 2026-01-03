@@ -41,4 +41,8 @@
       };
     };
   };
+  fileSystems."/home" = {
+    device = "/dev/data/home";
+    fsType = "ext4";
+  };
 }
