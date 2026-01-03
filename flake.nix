@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -72,6 +72,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # vps OOMs when trying to nix-index with 8 GB of ram
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # TODO: sops-nix = {
     #   url = "github:Mic92/sops-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -93,6 +99,7 @@
     dankMaterialShell,
     pinix,
     disko,
+    nix-index-database,
     aagl,
     #sops-nix,
     ...
@@ -175,7 +182,7 @@
             extraSpecialArgs = {
               inherit inputs;
               hyprlanddots = inputs.hyprland-dots;
-              nvimDotfiles = inputs.nvim-dots;
+              nvimDots = inputs.nvim-dots;
               dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
             };
             users.cobray = import ./home-manager/cobray.nix;
@@ -190,6 +197,7 @@
       };
       modules = [
         disko.nixosModules.disko
+        nix-index-database.nixosModules.nix-index
         {
           nixpkgs = {
             config = {
@@ -199,7 +207,6 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                pinix = inputs.pinix.packages.${system}.default;
                 inherit
                   (customPkgs)
                   minijinja-cli
@@ -220,8 +227,10 @@
             useUserPackages = true;
             extraSpecialArgs = {
               inherit inputs;
-              nvimDotfiles = inputs.nvim-dots;
+              nvimDots = inputs.nvim-dots;
+              hyprlanddots = inputs.hyprland-dots;
             };
+            users.alteur = import ./home-manager/alteur.nix;
           };
         }
       ];

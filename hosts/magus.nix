@@ -18,6 +18,11 @@
     ./modules/npm.nix
     ./modules/nixos.nix
     ./modules/appimage.nix
+    ./modules/tailscale.nix
+    ./modules/rust.nix
+    ./modules/python.nix
+    ./modules/go.nix
+    ./modules/ld.nix
   ];
   system.stateVersion = "25.11";
 
@@ -26,13 +31,12 @@
     efiSupport = false;
   };
 
+  programs.fish.enable = true;
+
   environment.systemPackages = with pkgs; [
-    git
-    btop
-    ffmpeg
-    yt-dlp
-    fastfetch
-    zellij
+    busybox
+    xclip
+    direnv
   ];
   nix = {
     gc = {
