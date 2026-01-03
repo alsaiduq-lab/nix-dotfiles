@@ -1,17 +1,33 @@
 {lib, ...}: {
   disko.devices = {
     disk = {
-      main = {
+      boot = {
         type = "disk";
         device = "/dev/xvda";
         content = {
           type = "gpt";
           partitions = {
-            MBR = {
-              type = "EF02";
+            boot = {
               size = "1M";
-              priority = 1;
+              type = "EF02";
             };
+            mbr = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/boot";
+              };
+            };
+          };
+        };
+      };
+      main = {
+        type = "disk";
+        device = "/dev/xvdb";
+        content = {
+          type = "gpt";
+          partitions = {
             root = {
               size = "100%";
               content = {

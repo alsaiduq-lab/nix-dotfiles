@@ -11,18 +11,15 @@
       PasswordAuthentication = false;
     };
   };
-
-  users.users.root.openssh.authorizedKeys.keyFiles = [
-    ../../.secrets/id_ed25519.pub
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK29z1CTXF77ykGyklPM8X3SxeMYM7zHyoIDGi2C9/HU riiidge.racer@gmail.com"
   ];
-
-  users.users.admin = {
+  users.users.alteur = {
     isNormalUser = true;
     extraGroups = ["wheel" "docker"];
-    openssh.authorizedKeys.keyFiles = [
-      ../../.secrets/id_ed25519.pub
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK29z1CTXF77ykGyklPM8X3SxeMYM7zHyoIDGi2C9/HU riiidge.racer@gmail.com"
     ];
   };
-
   security.sudo.wheelNeedsPassword = false;
 }

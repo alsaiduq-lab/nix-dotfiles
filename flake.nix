@@ -199,6 +199,7 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
+                pinix = inputs.pinix.packages.${system}.default;
                 inherit
                   (customPkgs)
                   minijinja-cli
