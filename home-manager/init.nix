@@ -3,7 +3,7 @@
   config,
   pkgs,
   hyprlanddots,
-  nvimDotfiles,
+  nvimDots,
   dankMaterialShell,
   ...
 }: {
@@ -11,7 +11,7 @@
     set -euo pipefail
     umask 022
     repo=${lib.escapeShellArg hyprlanddots}
-    nvimrepo=${lib.escapeShellArg nvimDotfiles}
+    nvimrepo=${lib.escapeShellArg nvimDots}
     dmsConfig="${dankMaterialShell}/etc/xdg/quickshell/dms"
     mkdir -p "${config.xdg.configHome}"
     copy_dir() {

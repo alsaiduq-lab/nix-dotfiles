@@ -10,6 +10,6 @@
     yazi
     chafa
     btop
-    nvtopPackages.full
+    fastfetch
   ];
 }

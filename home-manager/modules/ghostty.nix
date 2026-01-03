@@ -6,7 +6,6 @@
 }: {
   home.packages = with pkgs; [
     ghostty
-    fastfetch
   ];
 
   programs.ghostty = {

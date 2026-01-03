@@ -38,6 +38,7 @@
   home.enableNixpkgsReleaseCheck = false;
 
   # TODO: move these somewhere else; undecided
-  #home.packages = with pkgs; [
-  #];
+  home.packages = with pkgs; [
+    nvtopPackages.full
+  ];
 }
