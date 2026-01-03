@@ -7,7 +7,7 @@ My config for Hyprland desktop that I normally use as my daily driver (read: all
 list generations
 
 ```bash
-nix-env --list-generations
+sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 ```
 
 perform garbage collection by deleting old derivations
@@ -31,7 +31,7 @@ sudo /run/current-system/bin/switch-to-configuration boot
 rollback to previous generation
 
 ```bash
-sudo nixos-rebuild switch --rollback
+sudo nixos-rebuild switch --flake . --rollback
 ```
 
 bonus: in case you're stuck in some limbo state
