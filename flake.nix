@@ -67,6 +67,10 @@
       url = "github:iluvgirlswithglasses/linux-desktop-gremlin";
     };
 
+    nixcord = {
+      url = "github:FlameFlag/nixcord";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -120,9 +124,9 @@
         minijinja-cli
         thorium
         rpcs3
+        clear-sans
+        binary-font
         ;
-      clear-sans = customPkgs.clear-sans.clear-sans;
-      binary-font = customPkgs.binary-font.binary-clock-font;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = {
@@ -145,8 +149,7 @@
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
-                dmsCli = inputs.dankMaterialShell.packages.${system}.default;
-                dankMaterialShell = inputs.dankMaterialShell.packages.${system}.dankMaterialShell;
+                dms-shell = inputs.dankMaterialShell.packages.${system}.default;
                 pinix = inputs.pinix.packages.${system}.default;
                 wine-cachyos = inputs.nix-gaming.packages.${system}.wine-cachyos;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
@@ -185,12 +188,16 @@
               nvimDots = inputs.nvim-dots;
               dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
             };
+            sharedModules = [
+              inputs.nixcord.homeModules.nixcord
+            ];
             users.cobray = import ./home-manager/cobray.nix;
           };
         }
       ];
     };
 
+    # server
     nixosConfigurations.magus = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit inputs;
@@ -215,6 +222,7 @@
               (final: prev: {
                 clear-sans = prev.clear-sans.clear-sans;
                 binary-font = prev.binary-font.binary-clock-font;
+                pinix = inputs.pinix.packages.${system}.default;
               })
             ];
           };
