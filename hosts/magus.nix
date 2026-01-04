@@ -23,6 +23,7 @@
     ./modules/python.nix
     ./modules/go.nix
     ./modules/ld.nix
+    ./modules/core.nix
   ];
   system.stateVersion = "25.11";
 
@@ -34,7 +35,6 @@
   programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [
-    busybox
     xclip
     direnv
   ];

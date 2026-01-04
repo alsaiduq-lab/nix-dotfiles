@@ -67,6 +67,10 @@
       url = "github:iluvgirlswithglasses/linux-desktop-gremlin";
     };
 
+    nixcord = {
+      url = "github:FlameFlag/nixcord";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -185,6 +189,9 @@
               nvimDots = inputs.nvim-dots;
               dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
             };
+            sharedModules = [
+              inputs.nixcord.homeModules.nixcord
+            ];
             users.cobray = import ./home-manager/cobray.nix;
           };
         }
@@ -215,6 +222,7 @@
               (final: prev: {
                 clear-sans = prev.clear-sans.clear-sans;
                 binary-font = prev.binary-font.binary-clock-font;
+                pinix = inputs.pinix.packages.${system}.default;
               })
             ];
           };
