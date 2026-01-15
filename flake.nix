@@ -13,6 +13,10 @@
       url = "github:fufexan/nix-gaming";
     };
 
+    nix-monitor = {
+      url = "github:antonjah/nix-monitor";
+    };
+
     proton-cachyos = {
       url = "github:Arsalan2356/proton-cachyos-flake";
     };
@@ -39,6 +43,7 @@
     dankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
     };
 
     nvim-dots = {
@@ -68,7 +73,11 @@
     };
 
     nixcord = {
-      url = "github:FlameFlag/nixcord";
+      url = "github:kaylorben/nixcord";
+    };
+
+    dw-proton = {
+      url = "github:Momoyaan/dwproton-flake";
     };
 
     disko = {
@@ -105,6 +114,7 @@
     disko,
     nix-index-database,
     aagl,
+    dw-proton,
     #sops-nix,
     ...
   } @ inputs: let
@@ -126,6 +136,7 @@
         rpcs3
         clear-sans
         binary-font
+        dms-plugins
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -145,18 +156,19 @@
             hostPlatform = system;
             overlays = [
               (final: prev: {
-                quickshell = inputs.quickshell.packages.${system}.default;
+                quickshell = inputs.quickshell.packages.${system}.default.withModules [final.qt6Packages.qtwebsockets];
                 ghostty = inputs.ghostty.packages.${system}.default;
                 hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
                 dms-shell = inputs.dankMaterialShell.packages.${system}.default;
                 pinix = inputs.pinix.packages.${system}.default;
-                wine-cachyos = inputs.nix-gaming.packages.${system}.wine-cachyos;
+                wine-tkg = inputs.nix-gaming.packages.${system}.wine-tkg;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
                 desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
                 ipc-bridge = inputs.nix-gaming.packages.${system}.wine-discord-ipc-bridge;
                 dgop = unstablePkgs.dgop;
                 hyprland = inputs.hyprland.packages.${system}.default;
+                dw-proton = inputs.dw-proton.packages.${system}.default;
               })
               (final: prev: {
                 inherit
@@ -166,12 +178,8 @@
                   minijinja-cli
                   thorium
                   rpcs3
+                  dms-plugins
                   ;
-              })
-
-              (final: prev: {
-                clear-sans = prev.clear-sans.clear-sans;
-                binary-font = prev.binary-font.binary-clock-font;
               })
             ];
           };
@@ -190,6 +198,7 @@
             };
             sharedModules = [
               inputs.nixcord.homeModules.nixcord
+              inputs.nix-monitor.homeManagerModules.default
             ];
             users.cobray = import ./home-manager/cobray.nix;
           };

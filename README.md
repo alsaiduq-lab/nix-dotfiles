@@ -4,6 +4,12 @@ My config for Hyprland desktop that I normally use as my daily driver (read: all
 
 ## Useful commands
 
+if you're curious what's currently available you can run:
+
+```bash
+nix flake show github:alsaiduq-lab/nix-dotfiles
+```
+
 list generations
 
 ```bash
