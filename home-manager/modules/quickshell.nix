@@ -4,9 +4,22 @@
   lib,
   ...
 }: {
+  programs.dank-material-shell = {
+    enable = true;
+    systemd = {
+      enable = true;
+      restartIfChanged = true;
+    };
+    enableSystemMonitoring = true;
+    enableVPN = false;
+    enableDynamicTheming = true;
+    enableAudioWavelength = true;
+    enableCalendarEvents = true;
+    enableClipboardPaste = true;
+  };
+
   home.packages = with pkgs; [
-    quickshell
-    dmsCli
+    dms-shell
     dgop
     ddcutil
     cliphist

@@ -16,5 +16,6 @@
     portaudio
     alsa-lib
     pavucontrol
+    headsetcontrol
   ];
 }

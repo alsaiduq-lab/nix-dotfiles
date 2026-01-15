@@ -6,7 +6,6 @@
   programs.nixcord = {
     enable = true;
     discord.enable = true;
-    vesktop.enable = true;
     equibop.enable = true;
     config = {
       autoUpdateNotification = true;
@@ -50,6 +49,7 @@
         blockKeywords = {
           enable = true;
           useRegex = true;
+          caseSensitive = true;
           blockedWords = "Wumpus";
         };
         customIdle = {

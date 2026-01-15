@@ -6,16 +6,15 @@
   nixpkgs.config.allowUnfree = true;
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
+
+  zramSwap.enable = true;
+
+  systemd.services.nix-daemon.serviceConfig.MemoryMax = "28G";
+
   nix.settings = {
     auto-optimise-store = true;
-    max-jobs =
-      if config.networking.hostName == "magus"
-      then 1
-      else "auto";
-    cores =
-      if config.networking.hostName == "magus"
-      then 1
-      else 0;
+    max-jobs = 4;
+    cores = 4;
     experimental-features = ["nix-command" "flakes"];
     substituters =
       [
