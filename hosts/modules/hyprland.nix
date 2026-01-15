@@ -3,7 +3,6 @@
 
   programs.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
     xwayland.enable = true;
   };
 
@@ -12,12 +11,10 @@
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
     config = {
       common = {
-        default = ["gtk"];
+        default = ["hyprland" "gtk"];
       };
       hyprland = {
-        default = ["gtk"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
-        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
+        default = ["hyprland" "gtk"];
       };
     };
   };

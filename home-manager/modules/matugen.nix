@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  home.packages = [pkgs.matugen];
+  home.packages = with pkgs; [matugen];
 }

@@ -5,18 +5,13 @@
     extraCompatPackages = [
       pkgs.proton-ge-bin
       pkgs.proton-cachyos
+      pkgs.dw-proton
     ];
     # for hosting
     # dedicatedServer.openFirewall = true;
     # remotePlay.openFirewall = true;
     extest.enable = true;
     protontricks.enable = true;
-  };
-
-  programs.wine = {
-    enable = true;
-    package = pkgs.wine-cachyos;
-    ntsync = true;
   };
 
   programs.gamescope = {
@@ -45,11 +40,12 @@
   };
   environment.systemPackages = with pkgs; [
     lutris
-    wine-cachyos
+    wine-tkg
     winetricks
     mangohud
     libstrangle
     gamescope-wsi
     ipc-bridge
+    umu-launcher
   ];
 }

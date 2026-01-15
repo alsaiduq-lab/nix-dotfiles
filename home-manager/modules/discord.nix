@@ -27,15 +27,11 @@
           allowMentions = true;
           ignoreUsers = "Wumpus"; # die
         };
-        RPCEditor = {
-          enable = true;
-        };
         ReviewDB = {
           enable = true;
         };
         anonymiseFileNames = {
           enable = true;
-          consistent = "killallWumpus";
         };
         autoZipper = {
           enable = true;
@@ -45,12 +41,6 @@
         };
         biggerStreamPreview = {
           enable = true;
-        };
-        blockKeywords = {
-          enable = true;
-          useRegex = true;
-          caseSensitive = true;
-          blockedWords = "Wumpus";
         };
         customIdle = {
           enable = true;
@@ -68,9 +58,6 @@
           enable = true;
         };
         reverseImageSearch = {
-          enable = true;
-        };
-        richMagnetLinks = {
           enable = true;
         };
         sekaiStickers = {

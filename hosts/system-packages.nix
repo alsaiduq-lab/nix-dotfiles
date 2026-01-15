@@ -39,7 +39,6 @@
     ./modules/flatpak.nix
     ./modules/aagl.nix
     inputs.nix-gaming.nixosModules.pipewireLowLatency
-    inputs.nix-gaming.nixosModules.wine
   ];
   npm.enable = true;
   services.udisks2.enable = true;
