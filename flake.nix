@@ -22,7 +22,7 @@
     };
 
     aagl = {
-      url = "github:alsaiduq-lab/aagl-gtk-on-nix/release-25.11";
+      url = "github:alsaiduq-lab/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -69,7 +69,7 @@
     };
 
     linux-desktop-gremlin = {
-      url = "github:iluvgirlswithglasses/linux-desktop-gremlin";
+      url = "git+file:////home/cobray/linux-desktop-gremlin?ref=nix";
     };
 
     nixcord = {

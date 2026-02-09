@@ -52,11 +52,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "thorium-browser";
-  version = "130.0.6723.174";
+  version = "138.0.7204.300";
 
   src = fetchurl {
     url = "https://github.com/Alex313031/Thorium/releases/download/M${version}/thorium-browser_${version}_AVX2.deb";
-    sha256 = "sha256-TeDwx7Bqy0NSaNBMuzCf4O+rgWjB/tmIvDgJQnGVSGY=";
+    sha256 = "sha256-aQrQGacmrdz9jD4YE/F4XIM1TNrsKcTWbwyTI4+Mf5k=";
   };
 
   nativeBuildInputs = [autoPatchelfHook makeWrapper dpkg gnutar];
