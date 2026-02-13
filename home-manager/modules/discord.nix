@@ -6,7 +6,6 @@
   programs.nixcord = {
     enable = true;
     discord.enable = true;
-    equibop.enable = true;
     config = {
       autoUpdateNotification = true;
       notifyAboutUpdates = true;
