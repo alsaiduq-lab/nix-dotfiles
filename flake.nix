@@ -56,8 +56,8 @@
       flake = false;
     };
 
-    hu-tao-cursor = {
-      url = "git+ssh://git@github.com/alsaiduq-lab/Hu-Tao-Animated-Cursor";
+    firefly-cursor = {
+      url = "git+ssh://git@github.com/alsaiduq-lab/animated-cursors?ref=firefly";
     };
 
     ghostty = {
@@ -108,7 +108,7 @@
     nix-gaming,
     unstable,
     ghostty,
-    hu-tao-cursor,
+    firefly-cursor,
     dankMaterialShell,
     pinix,
     disko,
@@ -121,7 +121,10 @@
     system = "x86_64-linux";
 
     pkgs = nixpkgs.legacyPackages.${system};
-    unstablePkgs = unstable.legacyPackages.${system};
+    unstablePkgs = import unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
 
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
@@ -158,7 +161,7 @@
               (final: prev: {
                 quickshell = inputs.quickshell.packages.${system}.default.withModules [final.qt6Packages.qtwebsockets];
                 ghostty = inputs.ghostty.packages.${system}.default;
-                hu-tao-animated-cursor = inputs.hu-tao-cursor.packages.${system}.default;
+                firefly-cursor = inputs.firefly-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
                 dms-shell = inputs.dankMaterialShell.packages.${system}.default;
                 pinix = inputs.pinix.packages.${system}.default;
@@ -169,6 +172,7 @@
                 dgop = unstablePkgs.dgop;
                 hyprland = inputs.hyprland.packages.${system}.default;
                 dw-proton = inputs.dw-proton.packages.${system}.default;
+                ollama = unstablePkgs.ollama-cuda;
               })
               (final: prev: {
                 inherit
