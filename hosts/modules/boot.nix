@@ -9,7 +9,8 @@
       timeout = 5;
     };
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_18;
     consoleLogLevel = 3;
     initrd.verbose = false;
     kernelParams = [
