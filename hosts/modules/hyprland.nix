@@ -13,7 +13,7 @@
       xdg-desktop-portal-gtk
     ];
     config = {
-      Hyprland.default = [ "hyprland" "gtk" ];
+      Hyprland.default = ["hyprland" "gtk"];
     };
   };
 
@@ -37,7 +37,7 @@
     qt5.qtwayland
     qt6.qtwayland
     candy-icons
-    hu-tao-animated-cursor
+    firefly-cursor
     tokyonight-gtk-theme
     hyprlock
     wlogout

@@ -8,7 +8,7 @@ with lib; {
     };
     cursorName = mkOption {
       type = types.str;
-      default = "Hu-Tao-Animated-Cursor";
+      default = "Firefly-Animated-Cursor";
     };
     cursorSize = mkOption {
       type = types.int;
