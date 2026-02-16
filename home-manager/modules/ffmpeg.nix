@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     ffmpeg
-    wf-recorder
+    gpu-screen-recorder
   ];
 }

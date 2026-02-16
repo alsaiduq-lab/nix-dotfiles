@@ -14,7 +14,7 @@
     owner = "KangweiZhu";
     repo = "lyrics-on-panel";
     rev = "main";
-    hash = "sha256-AjOfNUfw6oU13KFOGcRzAF48I1faLiWwWqcgsmBmc80=";
+    hash = "sha256-IRmbfNzVgHC2uEzVOdIvYqEhx1wouWTB0zKPppiNTms=";
   };
 in
   stdenvNoCC.mkDerivation {

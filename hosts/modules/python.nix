@@ -16,7 +16,6 @@
         wheel
         jupyterlab
         datasets
-        debugpy
         pynvim
         pkginfo
         pypresence
