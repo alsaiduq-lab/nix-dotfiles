@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    (python312.withPackages (ps:
+    (python313.withPackages (ps:
       with ps; [
         requests
         ipython

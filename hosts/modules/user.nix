@@ -15,8 +15,6 @@
     enable = true;
     wheelNeedsPassword = true;
     extraConfig = ''
-      ${config.theme.user} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/pixos-rebuild
-      ${config.theme.user} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/pix-collect-garbage
       ${config.theme.user} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nix-env
     '';
   };

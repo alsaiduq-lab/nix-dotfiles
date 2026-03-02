@@ -10,7 +10,8 @@
     };
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_latest;
-    #kernelPackages = pkgs.linuxPackages_6_18;
+    #50 series nvidia drivers are kinda a mess; use 6.12 if there's any issues
+    #kernelPackages = pkgs.linuxPackages_6_12;
     consoleLogLevel = 3;
     initrd.verbose = false;
     kernelParams = [
@@ -19,6 +20,8 @@
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
+      "nvidia_drm.modeset=1"
+      "nvidia_drm.fbdev=1"
     ];
     # cpu specific optimizations
     kernel.sysctl = {
@@ -26,6 +29,9 @@
       "vm.vfs_cache_pressure" = 50;
     };
   };
+
+  # been annoying as of late
+  systemd.oomd.enable = false;
 
   # some people really like putting #/bin/sh or #/bin/bash
   system.activationScripts.binbash = {

@@ -1,21 +1,26 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
-
   zramSwap.enable = true;
-
-  systemd.services.nix-daemon.serviceConfig.MemoryMax = "28G";
-
+  environment.systemPackages = with pkgs; [
+    cachix
+    nix-prefetch-git
+    nix-search
+    nix-your-shell
+  ];
   nix.settings = {
     auto-optimise-store = true;
-    max-jobs = 4;
-    cores = 4;
+    max-jobs = "auto";
+    cores = 0;
     experimental-features = ["nix-command" "flakes"];
+    warn-dirty = false;
+    use-xdg-base-directories = true;
     substituters =
       [
         "https://cache.nixos.org"
@@ -40,5 +45,10 @@
         "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
       ];
+  };
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
   };
 }

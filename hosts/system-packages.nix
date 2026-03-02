@@ -22,11 +22,10 @@
     ./modules/python.nix
     ./modules/npm.nix
     ./modules/tailscale.nix
-    ./modules/ld.nix
     ./modules/ollama.nix
     ./modules/cups.nix
     ./modules/rust.nix
-    ./modules/core.nix
+    ./modules/misc.nix
     ./modules/libs.nix
     ./modules/rgb.nix
     ./modules/hyprland.nix
@@ -38,16 +37,7 @@
     ./modules/go.nix
     ./modules/flatpak.nix
     ./modules/aagl.nix
-    inputs.nix-gaming.nixosModules.pipewireLowLatency
+    ./modules/ssh.nix
+    ./modules/sops.nix
   ];
-  npm.enable = true;
-  services.udisks2.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 }

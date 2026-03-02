@@ -4,7 +4,6 @@
     unzip
     jq
     wrk
-    cachix
     gcc15
     gnumake
     cmake
@@ -16,15 +15,13 @@
     automake
     libtool
     nasm
-    nix-prefetch-git
     icu
     argc
     clang
     openssl
-    pinix
     cairo
     cabextract
     xdg-utils
-    nix-search
+    cacert
   ];
 }

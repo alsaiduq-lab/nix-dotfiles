@@ -31,12 +31,12 @@
     rebuildCommand = [
       "bash"
       "-c"
-      "cd ~/nix && nix flake update && sudo pixos-rebuild switch --flake ~/nix 2>&1"
+      "cd ~/nix && nix flake update && nix run nixpkgs#nh -- os boot ~/nix 2>&1"
     ];
     gcCommand = [
       "bash"
       "-c"
-      "sudo pix-collect-garbage -d 2>&1"
+      "nix run nixpkgs#nh -- clean all 2>&1"
     ];
     generationsCommand = ["bash" "-c" "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | wc -l"];
     updateInterval = 1800;

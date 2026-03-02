@@ -2,10 +2,10 @@
   description = "NixOS configuration (hyprland) for Cobray";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -30,11 +30,6 @@
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
 
-    pinix = {
-      url = "github:remi-dupre/pinix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,8 +51,8 @@
       flake = false;
     };
 
-    firefly-cursor = {
-      url = "git+ssh://git@github.com/alsaiduq-lab/animated-cursors?ref=firefly";
+    furina-cursor = {
+      url = "git+ssh://git@github.com/alsaiduq-lab/animated-cursors?ref=furina";
     };
 
     ghostty = {
@@ -91,10 +86,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # TODO: sops-nix = {
-    #   url = "github:Mic92/sops-nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -108,14 +103,13 @@
     nix-gaming,
     unstable,
     ghostty,
-    firefly-cursor,
+    furina-cursor,
     dankMaterialShell,
-    pinix,
     disko,
     nix-index-database,
     aagl,
     dw-proton,
-    #sops-nix,
+    sops-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -161,14 +155,11 @@
               (final: prev: {
                 quickshell = inputs.quickshell.packages.${system}.default.withModules [final.qt6Packages.qtwebsockets];
                 ghostty = inputs.ghostty.packages.${system}.default;
-                firefly-cursor = inputs.firefly-cursor.packages.${system}.default;
+                furina-cursor = inputs.furina-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
                 dms-shell = inputs.dankMaterialShell.packages.${system}.default;
-                pinix = inputs.pinix.packages.${system}.default;
-                wine-tkg = inputs.nix-gaming.packages.${system}.wine-tkg;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
                 desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
-                ipc-bridge = inputs.nix-gaming.packages.${system}.wine-discord-ipc-bridge;
                 dgop = unstablePkgs.dgop;
                 hyprland = inputs.hyprland.packages.${system}.default;
                 dw-proton = inputs.dw-proton.packages.${system}.default;
@@ -235,7 +226,6 @@
               (final: prev: {
                 clear-sans = prev.clear-sans.clear-sans;
                 binary-font = prev.binary-font.binary-clock-font;
-                pinix = inputs.pinix.packages.${system}.default;
               })
             ];
           };

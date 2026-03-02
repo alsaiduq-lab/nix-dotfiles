@@ -1,11 +1,9 @@
-{pkgs, ...}: let
-  rustToolchain = pkgs.symlinkJoin {
-    name = "rust-toolchain";
-    paths = with pkgs; [rustc cargo rustfmt clippy];
-  };
-in {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    rustToolchain
+    rustc
+    cargo
+    rustfmt
+    clippy
     rust-analyzer
     cargo-edit
     cargo-watch

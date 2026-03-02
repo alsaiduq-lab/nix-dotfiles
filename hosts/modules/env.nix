@@ -10,29 +10,15 @@
     BROWSER = config.theme.Browser;
     XCURSOR_THEME = config.theme.cursorName;
     XCURSOR_SIZE = toString config.theme.cursorSize;
-    GTK_THEME = "${config.theme.gtkTheme}:${config.theme.gtkThemeMode}";
     QT_QPA_PLATFORMTHEME = config.theme.qtTheme;
     QT_STYLE_OVERRIDE = config.theme.qtOverride;
-
-    XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    GDK_BACKEND = "wayland,x11";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    SDL_VIDEODRIVER = "wayland";
-    MOZ_ENABLE_WAYLAND = "1";
-    NIXOS_OZONE_WL = "1";
-
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-
     CC = "${pkgs.gcc}/bin/gcc";
     LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+    LUA_PATH = "${pkgs.luajit}/share/lua/${pkgs.luajit.luaversion}/?.lua;${pkgs.luajit}/share/lua/${pkgs.luajit.luaversion}/?/init.lua;;";
+    LUA_CPATH = "${pkgs.luajit}/lib/lua/${pkgs.luajit.luaversion}/?.so;;";
+  };
 
-    LUA_PATH = "${pkgs.luajit}/share/lua/5.1/?.lua;${pkgs.luajit}/share/lua/5.1/?/init.lua;;";
-    LUA_CPATH = "${pkgs.luajit}/lib/lua/5.1/?.so;;";
-
+  environment.sessionVariables = {
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.portaudio
       pkgs.alsa-lib
@@ -50,9 +36,6 @@
       pkgs.libxkbcommon
       pkgs.glib
     ];
-
-    CUDA_HOME = pkgs.cudatoolkit;
-    CPATH = "${pkgs.cudatoolkit}/include";
   };
 
   environment.pathsToLink = [

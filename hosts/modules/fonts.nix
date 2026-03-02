@@ -21,6 +21,15 @@
 
     fontconfig = {
       enable = true;
+      antialias = true;
+      hinting = {
+        enable = true;
+        style = "full";
+      };
+      subpixel = {
+        rgba = "rgb";
+        lcdfilter = "default";
+      };
       defaultFonts = {
         monospace = ["0xProto Nerd Font" "Noto Sans Mono CJK JP"];
         sansSerif = ["Clear Sans" "Noto Sans CJK JP"];

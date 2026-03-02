@@ -3,26 +3,15 @@
 # and in the NixOS manual (accessible by running 'nixos-help').
 {...}: {
   imports = [
-    # Include the results of the hardware scan.
     ../settings.nix
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./system-packages.nix
   ];
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  nix.settings = {
-    warn-dirty = false;
-  };
-
   # I swear I hate nix sometimes
-  nixpkgs.config.permittedInsecurePackages = [
-    "mbedtls-2.28.10"
-  ];
+  #nixpkgs.config.permittedInsecurePackages = [
+  #  "mbedtls-2.28.10"
+  #];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

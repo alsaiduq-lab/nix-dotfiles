@@ -5,7 +5,11 @@
 }: {
   programs.nixcord = {
     enable = true;
-    discord.enable = true;
+    discord = {
+      enable = true;
+      branch = "canary";
+      autoscroll.enable = true;
+    };
     config = {
       autoUpdateNotification = true;
       notifyAboutUpdates = true;
@@ -30,12 +34,6 @@
           enable = true;
         };
         anonymiseFileNames = {
-          enable = true;
-        };
-        autoZipper = {
-          enable = true;
-        };
-        betterInvites = {
           enable = true;
         };
         biggerStreamPreview = {
@@ -63,6 +61,15 @@
           enable = true;
         };
         sendTimestamps = {
+          enable = true;
+        };
+        youtubeAdblock = {
+          enable = true;
+        };
+        summaries = {
+          enable = true;
+        };
+        translate = {
           enable = true;
         };
       };

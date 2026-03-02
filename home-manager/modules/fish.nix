@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     fish
-    nix-your-shell
     fzf
     ripgrep
     bat
@@ -9,7 +8,7 @@
     ugrep
     yazi
     chafa
-    btop
+    (btop.override {cudaSupport = true;})
     fastfetch
   ];
 }

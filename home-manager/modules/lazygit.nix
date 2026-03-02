@@ -12,11 +12,11 @@
   ];
   programs.git = {
     enable = true;
-    includes = [
-      {path = "${config.home.homeDirectory}/nix/.secrets/.gitconfig";}
-    ];
+    lfs.enable = true;
     settings = {
-      credential.helper = "store --file=${config.home.homeDirectory}/nix/.secrets/.git-credentials";
+      credential.helper = "store --file=/run/secrets/git/credentials";
+      user.name = "alsaiduq-lab";
+      user.email = "riiidge.racer@gmail.com";
       init.defaultBranch = "master";
       push.autoSetupRemote = true;
       pull.rebase = true;

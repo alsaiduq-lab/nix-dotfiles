@@ -1,43 +1,33 @@
 {pkgs, ...}: {
   services.xserver.enable = false;
+  programs.gpu-screen-recorder.enable = true;
 
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-    config = {
-      Hyprland.default = ["hyprland" "gtk"];
-    };
-  };
-
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
-  security.polkit.enable = true;
-
   services.accounts-daemon.enable = true;
-  systemd.user.targets.graphical-session = {
-    unitConfig = {
-      RefuseManualStart = false;
-      StopWhenUnneeded = false;
-    };
-    wantedBy = ["default.target"];
+
+  environment.variables = {
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    GDK_BACKEND = "wayland,x11";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_VIDEODRIVER = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    NIXOS_OZONE_WL = "1";
   };
 
   environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "hyprpolkitagent" ''
-      exec ${hyprpolkitagent}/libexec/hyprpolkitagent "$@"
-    '')
+    hyprpolkitagent
     qt5.qtwayland
     qt6.qtwayland
     candy-icons
-    firefly-cursor
+    furina-cursor
     tokyonight-gtk-theme
     hyprlock
     wlogout
@@ -61,5 +51,6 @@
     brightnessctl
     xwayland-satellite
     hyprshade
+    kdePackages.kdeconnect-kde
   ];
 }

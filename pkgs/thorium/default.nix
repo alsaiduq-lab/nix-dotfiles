@@ -5,18 +5,17 @@
   autoPatchelfHook,
   makeWrapper,
   dpkg,
-  gnutar,
   xdg-utils,
   hicolor-icon-theme,
   nss,
   nspr,
   glib,
   gtk3,
-  at-spi2-atk,
   at-spi2-core,
   dbus,
   libdrm,
   mesa,
+  libgbm,
   libGL,
   libX11,
   libXext,
@@ -50,26 +49,33 @@
   pipewire,
   gnome-settings-daemon,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "thorium-browser";
-  version = "138.0.7204.300";
+  version = "138.0.7204.303";
 
   src = fetchurl {
-    url = "https://github.com/Alex313031/Thorium/releases/download/M${version}/thorium-browser_${version}_AVX2.deb";
-    sha256 = "sha256-aQrQGacmrdz9jD4YE/F4XIM1TNrsKcTWbwyTI4+Mf5k=";
+    url = "https://github.com/Alex313031/Thorium/releases/download/M${finalAttrs.version}/thorium-browser_${finalAttrs.version}_AVX2.deb";
+    hash = "sha256-3wVaXIqwsEN/EmX2mS3g1ZrEnricqhRY57lY2WmEepg=";
   };
 
-  nativeBuildInputs = [autoPatchelfHook makeWrapper dpkg gnutar];
+  strictDeps = true;
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    dpkg
+  ];
+
   buildInputs = [
     nss
     nspr
     glib
     gtk3
-    at-spi2-atk
     at-spi2-core
     dbus
     libdrm
     mesa
+    libgbm
     libGL
     libX11
     libXext
@@ -105,8 +111,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [hicolor-icon-theme];
   unpackPhase = ''
-    ar x "$src"
-    tar --no-same-owner --no-same-permissions -xf data.tar.*
+    runHook preUnpack
+    dpkg-deb --fsys-tarfile "$src" | tar --no-same-owner --no-same-permissions -xf -
+    runHook postUnpack
   '';
 
   installPhase = ''
@@ -134,7 +141,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/thorium \
       --prefix PATH : ${lib.makeBinPath [xdg-utils gnome-settings-daemon]} \
       --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH:$out/share" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath finalAttrs.buildInputs} \
       --add-flags "--enable-features=VaapiVideoDecoder,VaapiVideoEncoder,UseOzonePlatform" \
       --add-flags "--ozone-platform-hint=auto" \
       --set-default CHROME_VERSION_EXTRA "Thorium AVX2"
@@ -148,4 +155,4 @@ stdenv.mkDerivation rec {
     maintainers = ["Cobray"];
     mainProgram = "thorium";
   };
-}
+})

@@ -40,12 +40,10 @@
   };
   environment.systemPackages = with pkgs; [
     lutris
-    wine-tkg
     winetricks
     mangohud
     libstrangle
     gamescope-wsi
-    ipc-bridge
     umu-launcher
   ];
 }

@@ -9,6 +9,7 @@
     httpie
     socat
     posting
+    mtr
   ];
 
   networking = {
@@ -26,8 +27,6 @@
       allowedUDPPorts = [5353];
     };
   };
-
-  services.openssh.enable = true;
 
   # Disable NetworkManager-wait-online to fix boot hang
   systemd.services."NetworkManager-wait-online".enable = false;
