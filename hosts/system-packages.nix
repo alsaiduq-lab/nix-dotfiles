@@ -39,5 +39,6 @@
     ./modules/aagl.nix
     ./modules/ssh.nix
     ./modules/sops.nix
+    ./modules/udisk.nix
   ];
 }

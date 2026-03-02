@@ -28,7 +28,6 @@
     ./modules/viv.nix
     ./modules/godot.nix
     ./modules/gremlin.nix
-    ./modules/udiskie.nix
   ];
 
   home.username = "${config.theme.user}";
