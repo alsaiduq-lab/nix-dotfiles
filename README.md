@@ -19,13 +19,7 @@ sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 perform garbage collection by deleting old derivations
 
 ```bash
-nix-collect-garbage --delete-old
-```
-
-recommeneded to sometimes run as sudo to collect additional garbage
-
-```bash
-sudo nix-collect-garbage -d
+nix run nixpkgs#nh -- clean all
 ```
 
 as a separation of concerns - you will need to run this command to clean out boot

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     lazygit
     git
@@ -14,7 +10,7 @@
     enable = true;
     lfs.enable = true;
     settings = {
-      credential.helper = "store --file=/run/secrets/git/credentials";
+      credential.helper = "!cat /run/secrets/git-credentials #";
       user.name = "alsaiduq-lab";
       user.email = "riiidge.racer@gmail.com";
       init.defaultBranch = "master";

@@ -15,7 +15,8 @@
     enable = true;
     wheelNeedsPassword = true;
     extraConfig = ''
-      ${config.theme.user} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nix-env
+      Defaults pwfeedback
+        ${config.theme.user} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nix-env
     '';
   };
 

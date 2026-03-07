@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  apiKeys = [
+  secrets = [
     "api/openai"
     "api/deepseek"
     "api/anthropic"
@@ -18,7 +18,10 @@
     "api/gelbooru_id"
     "api/gelbooru_api"
     "api/fireworks"
-    "cachix/token"
+    "api/cachix"
+    "api/vast"
+    "api/hf"
+    "git-credentials"
   ];
 in {
   imports = [inputs.sops-nix.nixosModules.sops];
@@ -26,15 +29,6 @@ in {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-
-    secrets =
-      lib.genAttrs apiKeys (_: {owner = "cobray";})
-      // {
-        "cachix/token" = {};
-        "git/credentials" = {
-          owner = "cobray";
-          mode = "0600";
-        };
-      };
+    secrets = lib.genAttrs secrets (_: {owner = "${config.theme.user}";});
   };
 }
