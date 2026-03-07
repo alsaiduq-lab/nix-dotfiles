@@ -40,12 +40,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #    dankMaterialShell = {
-    #      url = "github:AvengeMedia/DankMaterialShell";
-    #      inputs.nixpkgs.follows = "nixpkgs";
-    #      inputs.quickshell.follows = "quickshell";
-    #    };
-
     nvim-dots = {
       url = "github:alsaiduq-lab/nvim-dotfiles";
       flake = false;
@@ -154,7 +148,6 @@
                 ghostty = inputs.ghostty.packages.${system}.default;
                 furina-cursor = inputs.furina-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
-                #dms-shell = inputs.dankMaterialShell.packages.${system}.default;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
                 desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
                 dgop = unstablePkgs.dgop;
