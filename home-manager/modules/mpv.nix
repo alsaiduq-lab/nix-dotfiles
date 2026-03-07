@@ -24,7 +24,6 @@ in {
     osc=no
     border=no
     script=~~/scripts/modernx.lua
-    script=~~/scripts/thumbfast.lua
     script-opts=modernx-theme=Nordic
     sub-font="Noto Sans"
     sub-font-size=40
@@ -38,8 +37,6 @@ in {
     CTRL+2 no-osd change-list glsl-shaders set "~~/shaders/Restore/Anime4K_Clamp_Highlights.glsl:~~/shaders/Upscale+Denoise/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl:~~/shaders/Upscale/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Upscale/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Upscale/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode B (Denoise - for artifact-heavy anime)"
   '';
   home.file.".config/mpv/scripts/modernx.lua".source = modernx;
-  home.file.".config/mpv/scripts/thumbfast.lua".source = "${pkgs.mpvScripts.thumbfast}/share/mpv/scripts/thumbfast.lua";
-  home.file.".config/mpv/script-opts/thumbfast.conf".source = "${pkgs.mpvScripts.thumbfast}/share/mpv/script-opts/thumbfast.conf";
   home.file.".config/mpv/fonts/Material-Design-Iconic-Font.ttf".source = modernxFont;
   home.file.".config/mpv/shaders".source = "${anime4k}/glsl";
 }
