@@ -13,7 +13,10 @@
     #50 series nvidia drivers are kinda a mess; use 6.12 if there's any issues
     #kernelPackages = pkgs.linuxPackages_6_12;
     consoleLogLevel = 3;
-    initrd.verbose = false;
+    initrd = {
+      verbose = false;
+      kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+    };
     kernelParams = [
       "quiet"
       "splash"

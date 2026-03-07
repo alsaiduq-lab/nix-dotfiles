@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }: {
   imports = [
@@ -21,10 +20,10 @@
     ./modules/obs.nix
     ./modules/mpv.nix
     ./modules/ani-cli.nix
-    ./modules/quickshell.nix
+    #./modules/quickshell.nix
     ./modules/cava.nix
     ./modules/imagemagick.nix
-    inputs.dankMaterialShell.homeModules.dank-material-shell
+    #    inputs.dankMaterialShell.homeModules.dank-material-shell
     ./modules/viv.nix
     ./modules/godot.nix
     ./modules/gremlin.nix
@@ -39,5 +38,6 @@
   # TODO: move these somewhere else; undecided
   home.packages = with pkgs; [
     nvtopPackages.full
+    kdePackages.dolphin
   ];
 }

@@ -4,7 +4,6 @@
   pkgs,
   hyprlanddots,
   nvimDots,
-  dankMaterialShell,
   ...
 }: {
   home.activation.HyprlandDots = lib.hm.dag.entryAfter ["linkGeneration"] ''
@@ -12,7 +11,7 @@
     ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${hyprlanddots}/hypr/"    "${config.xdg.configHome}/hypr/"
     ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${hyprlanddots}/cava/"    "${config.xdg.configHome}/cava/"
     ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${nvimDots}/"             "${config.xdg.configHome}/nvim/"
-    ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${dankMaterialShell}/etc/xdg/quickshell/dms/" "${config.xdg.configHome}/quickshell/"
+    ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${pkgs.dms-shell}/etc/xdg/quickshell/dms/" "${config.xdg.configHome}/quickshell/"
     ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${hyprlanddots}/starship.toml" "${config.xdg.configHome}/starship.toml"
   '';
 }

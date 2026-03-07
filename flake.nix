@@ -35,11 +35,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
+    dms-plugins-registry = {
+      url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
     };
+
+    #    dankMaterialShell = {
+    #      url = "github:AvengeMedia/DankMaterialShell";
+    #      inputs.nixpkgs.follows = "nixpkgs";
+    #      inputs.quickshell.follows = "quickshell";
+    #    };
 
     nvim-dots = {
       url = "github:alsaiduq-lab/nvim-dotfiles";
@@ -102,13 +107,6 @@
     home-manager,
     nix-gaming,
     unstable,
-    ghostty,
-    furina-cursor,
-    dankMaterialShell,
-    disko,
-    nix-index-database,
-    aagl,
-    dw-proton,
     sops-nix,
     ...
   } @ inputs: let
@@ -133,7 +131,6 @@
         rpcs3
         clear-sans
         binary-font
-        dms-plugins
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -143,7 +140,7 @@
       };
 
       modules = [
-        aagl.nixosModules.default
+        inputs.aagl.nixosModules.default
         {
           nixpkgs = {
             config = {
@@ -157,7 +154,7 @@
                 ghostty = inputs.ghostty.packages.${system}.default;
                 furina-cursor = inputs.furina-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
-                dms-shell = inputs.dankMaterialShell.packages.${system}.default;
+                #dms-shell = inputs.dankMaterialShell.packages.${system}.default;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
                 desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
                 dgop = unstablePkgs.dgop;
@@ -173,7 +170,6 @@
                   minijinja-cli
                   thorium
                   rpcs3
-                  dms-plugins
                   ;
               })
             ];
@@ -189,7 +185,7 @@
               inherit inputs;
               hyprlanddots = inputs.hyprland-dots;
               nvimDots = inputs.nvim-dots;
-              dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
+              #dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
             };
             sharedModules = [
               inputs.nixcord.homeModules.nixcord
@@ -207,8 +203,8 @@
         inherit inputs;
       };
       modules = [
-        disko.nixosModules.disko
-        nix-index-database.nixosModules.nix-index
+        inputs.disko.nixosModules.disko
+        inputs.nix-index-database.nixosModules.nix-index
         {
           nixpkgs = {
             config = {

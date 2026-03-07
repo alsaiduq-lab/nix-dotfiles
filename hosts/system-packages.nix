@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{...}: {
   imports = [
     ../settings.nix
     ./cachix.nix
@@ -40,5 +36,6 @@
     ./modules/ssh.nix
     ./modules/sops.nix
     ./modules/udisk.nix
+    ./modules/dms.nix
   ];
 }
