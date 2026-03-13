@@ -129,7 +129,6 @@
         thorium
         rpcs3
         clear-sans
-        binary-font
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -164,7 +163,6 @@
                 inherit
                   (customPkgs)
                   clear-sans
-                  binary-font
                   minijinja-cli
                   thorium
                   rpcs3
@@ -221,7 +219,6 @@
               })
               (final: prev: {
                 clear-sans = prev.clear-sans.clear-sans;
-                binary-font = prev.binary-font.binary-clock-font;
               })
             ];
           };
