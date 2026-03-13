@@ -11,27 +11,13 @@
     powerManagement.enable = false;
     nvidiaSettings = true;
     nvidiaPersistenced = true;
-
-    package = let
-      base = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "590.48.01";
-        sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
-        openSha256 = "sha256-hECHfguzwduEfPo5pCDjWE/MjtRDhINVr4b1awFdP44=";
-        settingsSha256 = "sha256-4SfCWp3swUp+x+4cuIZ7SA5H7/NoizqgPJ6S9fm90fA=";
-        persistencedSha256 = "sha256-wsNeuw7IaY6Qc/i/AzT/4N82lPjkwfrhxidKWUtcwW8=";
-      };
-
-      cachyosPatch = pkgs.fetchpatch {
-        url = "https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/master/nvidia/nvidia-utils/kernel-6.19.patch";
-        sha256 = "sha256-YuJjSUXE6jYSuZySYGnWSNG5sfVei7vvxDcHx3K+IN4=";
-      };
-    in
-      base
-      // {
-        open = base.open.overrideAttrs (old: {
-          patches = (old.patches or []) ++ [cachyosPatch];
-        });
-      };
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "595.45.04";
+      sha256_64bit = "sha256-zUllSSRsuio7dSkcbBTuxF+dN12d6jEPE0WgGvVOj14=";
+      openSha256 = "sha256-uqNfImwTKhK8gncUdP1TPp0D6Gog4MSeIJMZQiJWDoE=";
+      settingsSha256 = "sha256-Y45pryyM+6ZTJyRaRF3LMKaiIWxB5gF5gGEEcQVr9nA=";
+      persistencedSha256 = "sha256-5FoeUaRRMBIPEWGy4Uo0Aho39KXmjzQsuAD9m/XkNpA=";
+    };
   };
 
   hardware.nvidia-container-toolkit.enable = true;

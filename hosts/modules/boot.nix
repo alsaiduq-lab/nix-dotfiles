@@ -8,7 +8,10 @@
       efi.canTouchEfiVariables = true;
       timeout = 5;
     };
-    tmp.cleanOnBoot = true;
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "50%";
+    };
     kernelPackages = pkgs.linuxPackages_latest;
     #50 series nvidia drivers are kinda a mess; use 6.12 if there's any issues
     #kernelPackages = pkgs.linuxPackages_6_12;
@@ -23,16 +26,41 @@
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
-      "nvidia_drm.modeset=1"
-      "nvidia_drm.fbdev=1"
+      "nowatchdog"
     ];
-    # cpu specific optimizations
+    kernelModules = ["tcp_bbr"];
     kernel.sysctl = {
-      "vm.swappiness" = 10;
+      "vm.swappiness" = 60;
       "vm.vfs_cache_pressure" = 50;
+      "vm.compaction_proactiveness" = 0;
+      "vm.page_lock_unfairness" = 1;
+      "vm.max_map_count" = 2147483642; #SteamOS default
+      "kernel.split_lock_mitigate" = 0;
+      "net.core.rmem_max" = 16777216;
+      "net.core.wmem_max" = 16777216;
+      "net.ipv4.tcp_fastopen" = 3;
+      "net.ipv4.tcp_congestion_control" = "bbr";
     };
+    kernelPatches = [
+      {
+        name = "Rust";
+        patch = null;
+        features = {
+          rust = true;
+        };
+      }
+    ];
   };
 
+  # redirect builds to disk so tmpfs doesn't blow up
+  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+    priority = 100;
+  };
   # been annoying as of late
   systemd.oomd.enable = false;
 
