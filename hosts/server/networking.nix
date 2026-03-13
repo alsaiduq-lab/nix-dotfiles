@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{...}: {
   networking = {
     hostName = "magus";
     useDHCP = false;

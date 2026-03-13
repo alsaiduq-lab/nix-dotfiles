@@ -1,8 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
-  inputs,
   modulesPath,
   ...
 }: {
@@ -22,8 +19,9 @@
     ./modules/rust.nix
     ./modules/python.nix
     ./modules/go.nix
-    ./modules/ld.nix
-    ./modules/core.nix
+    ./modules/misc.nix
+    ./server/forgejo.nix
+    ./server/copyparty.nix
   ];
   system.stateVersion = "25.11";
 
@@ -34,20 +32,10 @@
 
   programs.fish.enable = true;
 
-  npm.enable = true;
-
   environment.systemPackages = with pkgs; [
     xclip
     direnv
   ];
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-    settings.auto-optimise-store = true;
-  };
   services = {
     fstrim.enable = true;
     xserver.enable = false;

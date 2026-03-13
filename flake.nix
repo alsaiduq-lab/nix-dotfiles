@@ -85,6 +85,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    copyparty = {
+      url = "github:9001/copyparty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -178,7 +183,6 @@
               inherit inputs;
               hyprlanddots = inputs.hyprland-dots;
               nvimDots = inputs.nvim-dots;
-              #dankMaterialShell = inputs.dankMaterialShell.packages.${system}.default;
             };
             sharedModules = [
               inputs.nixcord.homeModules.nixcord
@@ -198,6 +202,8 @@
       modules = [
         inputs.disko.nixosModules.disko
         inputs.nix-index-database.nixosModules.nix-index
+        inputs.copyparty.nixosModules.default
+        inputs.sops-nix.nixosModules.sops
         {
           nixpkgs = {
             config = {
@@ -206,6 +212,7 @@
             };
             hostPlatform = system;
             overlays = [
+              inputs.copyparty.overlays.default
               (final: prev: {
                 inherit
                   (customPkgs)

@@ -5,9 +5,11 @@
 keys:
   - &nixos age1rqnmhrrauup2wdhwsahq2ewk39ea9mwhuut2hzpmjfsnhdrxndcsajgj6a
   - &cobray age195uflh4prg2ysxghpe4h4fvzngc3flheh2yk558fnfrys9c82uvq8xyala
+  - &magus age1l30vp2udwqguzy82vat7p947fr8ss3cxt2turan3533007q80vss46m9vd
 creation_rules:
   - path_regex: secrets/.*\.yaml$
     key_groups:
       - age:
           - *nixos
           - *cobray
+          - *magus

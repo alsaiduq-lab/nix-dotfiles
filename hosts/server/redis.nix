@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   services.redis.servers."" = {
     enable = true;
     bind = "127.0.0.1";
