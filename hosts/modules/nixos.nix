@@ -7,7 +7,6 @@
   nixpkgs.config.allowUnfree = true;
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
-  zramSwap.enable = true;
   environment.systemPackages = with pkgs; [
     cachix
     nix-prefetch-git

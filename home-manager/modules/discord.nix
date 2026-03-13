@@ -1,13 +1,9 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{...}: {
   programs.nixcord = {
     enable = true;
     discord = {
       enable = true;
-      branch = "canary";
+      branch = "stable";
       autoscroll.enable = true;
     };
     config = {
@@ -55,9 +51,6 @@
           enable = true;
         };
         reverseImageSearch = {
-          enable = true;
-        };
-        sekaiStickers = {
           enable = true;
         };
         sendTimestamps = {
