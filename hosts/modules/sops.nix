@@ -22,6 +22,7 @@
     "api/vast"
     "api/hf"
     "git-credentials"
+    "api/mullvad"
   ];
 in {
   imports = [inputs.sops-nix.nixosModules.sops];

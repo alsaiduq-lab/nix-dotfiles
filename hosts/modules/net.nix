@@ -14,7 +14,10 @@
 
   networking = {
     hostName = "nixos";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";
+    };
     firewall = {
       enable = true;
       allowedTCPPorts = [80 443 57621];
@@ -28,6 +31,5 @@
     };
   };
 
-  # Disable NetworkManager-wait-online to fix boot hang
   systemd.services."NetworkManager-wait-online".enable = false;
 }
