@@ -41,9 +41,6 @@
         expressionCloner = {
           enable = true;
         };
-        fixFileExtensions = {
-          enable = true;
-        };
         fixYoutubeEmbeds = {
           enable = true;
         };
