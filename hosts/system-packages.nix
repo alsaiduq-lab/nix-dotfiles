@@ -37,5 +37,6 @@
     ./modules/sops.nix
     ./modules/udisk.nix
     ./modules/dms.nix
+    ./modules/mullvad.nix
   ];
 }

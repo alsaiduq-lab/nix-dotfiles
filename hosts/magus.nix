@@ -20,9 +20,12 @@
     ./modules/python.nix
     ./modules/go.nix
     ./modules/misc.nix
+    ./modules/searxng.nix
     ./server/forgejo.nix
     ./server/copyparty.nix
+    ./server/bot.nix
   ];
+
   system.stateVersion = "25.11";
 
   boot.loader.grub = {
