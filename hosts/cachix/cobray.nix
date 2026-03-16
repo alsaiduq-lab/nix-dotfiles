@@ -1,4 +1,3 @@
-
 {
   nix = {
     settings = {
@@ -6,7 +5,7 @@
         "https://cobray.cachix.org"
       ];
       trusted-public-keys = [
-        "cobray.cachix.org-1:6ZmcK5aWb30lKS4VkEkPV2YkMv8yXYu5eQjY9D6r8kk="
+        "cobray.cachix.org-1:nqAB6ixmgsS6VlrHpb0zLOuaF8CJsnI/ytLJ5v6EwCk="
       ];
     };
   };

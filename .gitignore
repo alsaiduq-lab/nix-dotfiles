@@ -1,17 +1,24 @@
-backup/
+# This gitignore is a whitelist. Inspired by https://rgbcu.be/blog/gitignore
 
-.secrets
+*
+!.gitignore
+!flake.lock
+!flake.nix
+!.sops.yaml
+!settings.nix
+!README.md
 
-result*
-$HOME
-.env
+!home-manager/
+!home-manager/**/
+!home-manager/**/*.nix
 
-*.nix.bak
-*.nix~
-/nix/store/
-file.txt
+!hosts/
+!hosts/**/
+!hosts/**/*.nix
 
+!pkgs/
+!pkgs/**/
+!pkgs/**/*.nix
 
-*~
-*.swp
-*.swo
+!secrets/
+!secrets/secrets.yaml

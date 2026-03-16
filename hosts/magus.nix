@@ -1,6 +1,7 @@
 {
   pkgs,
   modulesPath,
+  lib,
   ...
 }: {
   imports = [
@@ -24,23 +25,32 @@
     ./server/forgejo.nix
     ./server/copyparty.nix
     ./server/bot.nix
+    ./server/ntfy.nix
+    ./server/kuma.nix
+    ./modules/syncthing.nix
+    ./modules/sops.nix
   ];
-
-  system.stateVersion = "25.11";
-
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = false;
+  options.theme.user = lib.mkOption {
+    type = lib.types.str;
+    default = "alteur";
   };
 
-  programs.fish.enable = true;
+  config = {
+    system.stateVersion = "25.11";
+    boot.loader.grub = {
+      enable = true;
+      efiSupport = false;
+    };
 
-  environment.systemPackages = with pkgs; [
-    xclip
-    direnv
-  ];
-  services = {
-    fstrim.enable = true;
-    xserver.enable = false;
+    programs.fish.enable = true;
+    environment.systemPackages = with pkgs; [
+      xclip
+      direnv
+    ];
+
+    services = {
+      fstrim.enable = true;
+      xserver.enable = false;
+    };
   };
 }

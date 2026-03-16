@@ -63,7 +63,7 @@
     };
 
     linux-desktop-gremlin = {
-      url = "git+file:////home/cobray/linux-desktop-gremlin?ref=nix";
+      url = "github:alsaiduq-lab/linux-desktop-gremlin/nix";
     };
 
     nixcord = {
