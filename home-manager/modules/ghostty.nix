@@ -4,10 +4,6 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    ghostty
-  ];
-
   programs.ghostty = {
     # TODO: figure another way to do this
     enable = true;

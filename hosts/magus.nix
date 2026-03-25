@@ -17,7 +17,7 @@
     ./modules/nixos.nix
     ./modules/appimage.nix
     ./modules/tailscale.nix
-    ./modules/rust.nix
+    ./modules/minijinja.nix
     ./modules/python.nix
     ./modules/go.nix
     ./modules/misc.nix
@@ -29,6 +29,7 @@
     ./server/kuma.nix
     ./modules/syncthing.nix
     ./modules/sops.nix
+    ./server/hermes.nix
   ];
   options.theme.user = lib.mkOption {
     type = lib.types.str;

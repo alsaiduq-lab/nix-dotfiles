@@ -10,10 +10,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    pulseaudio
     alsa-utils
-    portaudio
-    alsa-lib
     pavucontrol
     headsetcontrol
   ];

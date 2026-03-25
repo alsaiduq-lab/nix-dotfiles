@@ -20,7 +20,7 @@
     ./modules/tailscale.nix
     ./modules/ollama.nix
     ./modules/cups.nix
-    ./modules/rust.nix
+    ./modules/minijinja.nix
     ./modules/misc.nix
     ./modules/libs.nix
     ./modules/rgb.nix
@@ -39,5 +39,6 @@
     ./modules/dms.nix
     ./modules/mullvad.nix
     ./modules/syncthing.nix
+    ./modules/ld.nix
   ];
 }

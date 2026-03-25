@@ -1,11 +1,8 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{config, ...}: {
   imports = [
     ../settings.nix
     ./init.nix
+    ./modules/mime.nix
     ./modules/fish.nix
     ./modules/ghostty.nix
     ./modules/lazygit.nix
@@ -20,12 +17,9 @@
     ./modules/obs.nix
     ./modules/mpv.nix
     ./modules/ani-cli.nix
-    #./modules/quickshell.nix
     ./modules/cava.nix
     ./modules/imagemagick.nix
-    #    inputs.dankMaterialShell.homeModules.dank-material-shell
     ./modules/viv.nix
-    ./modules/godot.nix
     ./modules/gremlin.nix
   ];
 
@@ -35,9 +29,6 @@
   programs.home-manager.enable = true;
   home.enableNixpkgsReleaseCheck = false;
 
-  # TODO: move these somewhere else; undecided
-  home.packages = with pkgs; [
-    nvtopPackages.full
-    kdePackages.dolphin
-  ];
+  #home.packages = with pkgs; [
+  #];
 }

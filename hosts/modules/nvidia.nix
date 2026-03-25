@@ -28,16 +28,6 @@
     extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      cudaPackages.cudatoolkit
-      cudaPackages.cudnn
-      cudaPackages.nccl
-      config.hardware.nvidia.package
-    ];
-  };
-
   environment.variables = {
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     GBM_BACKEND = "nvidia-drm";
@@ -47,6 +37,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    nvtopPackages.nvidia
     mesa-demos
     vulkan-tools
     vulkan-headers

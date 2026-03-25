@@ -1,15 +1,5 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   services.flatpak.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
 
   systemd.services.flatpak-repo = {
     wantedBy = ["multi-user.target"];

@@ -1,62 +1,30 @@
 # used to seed my config
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  mkStr = default:
+    lib.mkOption {
+      type = lib.types.str;
+      inherit default;
+    };
+  mkInt = default:
+    lib.mkOption {
+      type = lib.types.int;
+      inherit default;
+    };
+in {
   options.theme = {
-    user = mkOption {
-      type = types.str;
-      default = "cobray";
-    };
-    cursorName = mkOption {
-      type = types.str;
-      default = "Furina-Animated-Cursor";
-    };
-    cursorSize = mkOption {
-      type = types.int;
-      default = 24;
-    };
-    gtkTheme = mkOption {
-      type = types.str;
-      default = "Tokyonight-Dark";
-    };
-    gtkThemeMode = mkOption {
-      type = types.str;
-      default = "dark";
-    };
-    qtTheme = mkOption {
-      type = types.str;
-      default = "qt6ct";
-    };
-    qtOverride = mkOption {
-      type = types.str;
-      default = "Fusion";
-    };
-    iconTheme = mkOption {
-      type = types.str;
-      default = "candy-icons";
-    };
-    font = mkOption {
-      type = types.str;
-      default = "Clear Sans 10";
-    };
-    Terminal = mkOption {
-      type = types.str;
-      default = "ghostty";
-    };
-    TerminalFont = mkOption {
-      type = types.str;
-      default = "0xProto Nerd Font";
-    };
-    Browser = mkOption {
-      type = types.str;
-      default = "thorium";
-    };
-    Editor = mkOption {
-      type = types.str;
-      default = "nvim";
-    };
-    Shell = mkOption {
-      type = types.str;
-      default = "fish";
-    };
+    user = mkStr "cobray";
+    cursorName = mkStr "Hatsune Miku Colorful Stage";
+    cursorSize = mkInt 40;
+    gtkTheme = mkStr "Tokyonight-Dark";
+    gtkThemeMode = mkStr "dark";
+    qtTheme = mkStr "qt6ct";
+    qtOverride = mkStr "Fusion";
+    iconTheme = mkStr "candy-icons";
+    font = mkStr "Clear Sans 12";
+    Terminal = mkStr "ghostty";
+    TerminalFont = mkStr "0xProto Nerd Font";
+    Browser = mkStr "thorium-browser";
+    Editor = mkStr "nvim";
+    Shell = mkStr "fish";
   };
 }

@@ -12,6 +12,7 @@
     nix-prefetch-git
     nix-search
     nix-your-shell
+    nh
   ];
   nix.settings = {
     auto-optimise-store = true;

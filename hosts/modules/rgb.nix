@@ -1,5 +1,4 @@
 {
-  lib,
   config,
   pkgs,
   ...
@@ -22,5 +21,4 @@
   users.users.${config.theme.user}.extraGroups = ["i2c" "plugdev"];
 
   systemd.services.openrgb.serviceConfig.Environment = ["QT_QPA_PLATFORM=offscreen"];
-  environment.sessionVariables.QT_QPA_PLATFORM = "wayland;xcb";
 }

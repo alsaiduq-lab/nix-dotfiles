@@ -50,8 +50,8 @@
       flake = false;
     };
 
-    furina-cursor = {
-      url = "git+ssh://git@github.com/alsaiduq-lab/animated-cursors?ref=furina";
+    miku-cursor = {
+      url = "git+https://git.monaie.ca/alteur/animated-cursors";
     };
 
     ghostty = {
@@ -88,6 +88,15 @@
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    soul = {
+      url = "git+ssh://forgejo@git.monaie.ca/alteur/soul";
+      flake = false;
+    };
+
+    nix-hermes = {
+      url = "git+file:///home/cobray/nix-hermes-agent";
     };
 
     sops-nix = {
@@ -150,7 +159,7 @@
               (final: prev: {
                 quickshell = inputs.quickshell.packages.${system}.default.withModules [final.qt6Packages.qtwebsockets];
                 ghostty = inputs.ghostty.packages.${system}.default;
-                furina-cursor = inputs.furina-cursor.packages.${system}.default;
+                miku-cursor = inputs.miku-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
                 proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
                 desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
@@ -202,6 +211,7 @@
         inputs.nix-index-database.nixosModules.nix-index
         inputs.copyparty.nixosModules.default
         inputs.sops-nix.nixosModules.sops
+        inputs.nix-hermes.nixosModules.hermes-agent
         {
           nixpkgs = {
             config = {
@@ -216,6 +226,7 @@
                   (customPkgs)
                   minijinja-cli
                   ;
+                hermes-agent = inputs.nix-hermes.packages.${system}.hermes-agent-nightly;
               })
               (final: prev: {
                 clear-sans = prev.clear-sans.clear-sans;
