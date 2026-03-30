@@ -6,8 +6,7 @@
 }: {
   services.hermes-agent = {
     enable = true;
-    package = inputs.nix-hermes.packages.${pkgs.system}.hermes-agent-nightly;
-    config = {
+    settings = {
       model.default = "google/gemini-2.5-flash-lite";
       model.provider = "openrouter";
       terminal.backend = "local";
@@ -24,11 +23,9 @@
         host = "127.0.0.1";
       };
     };
-    environmentFiles = [
-      "/run/secrets/hermes-env"
-    ];
     documents = {
       "AGENTS.md" = builtins.readFile "${inputs.soul}/AGENTS.md";
+      "SOUL.md" = builtins.readFile "${inputs.soul}/SOUL.md";
     };
     mcpServers = {
       searxng = {
@@ -41,19 +38,17 @@
       wolfram-alpha = {
         command = "uvx";
         args = ["MCP-wolfram-alpha"];
-        env = {
-          WOLFRAM_API_KEY = "@@WOLFRAM_API_KEY@@";
-        };
       };
     };
     extraPackages = with pkgs; [jq ripgrep curl git];
   };
 
-  system.activationScripts.hermes-env = {
-    deps = ["setupSecrets"];
-    text = ''
-            mkdir -p /run/secrets
-            cat > /run/secrets/hermes-env <<EOF
+  systemd.services.hermes-agent.serviceConfig.ExecStartPre = let
+    script = pkgs.writeShellScript "hermes-env-setup" ''
+            set -euo pipefail
+            ENV_FILE="/var/lib/hermes/.hermes/.env"
+            install -o hermes -g hermes -m 0600 /dev/null "$ENV_FILE"
+            cat > "$ENV_FILE" <<EOF
       OPENROUTER_API_KEY=$(cat ${config.sops.secrets."api/openrouter".path})
       ANTHROPIC_API_KEY=$(cat ${config.sops.secrets."api/anthropic".path})
       OPENAI_API_KEY=$(cat ${config.sops.secrets."api/openai".path})
@@ -65,28 +60,9 @@
       API_SERVER_KEY=$(cat ${config.sops.secrets."api/api-server".path})
       WOLFRAM_API_KEY=$(cat ${config.sops.secrets."api/wolfram".path})
       EOF
-            chown hermes:hermes /run/secrets/hermes-env
-            chmod 600 /run/secrets/hermes-env
+            chown hermes:hermes "$ENV_FILE"
     '';
-  };
-
-  system.activationScripts.hermes-soul = {
-    deps = ["setupSecrets"];
-    text = ''
-      mkdir -p /var/lib/hermes/.hermes
-      cp ${inputs.soul}/SOUL.md /var/lib/hermes/.hermes/SOUL.md
-      chown hermes:hermes /var/lib/hermes/.hermes/SOUL.md
-      chmod 644 /var/lib/hermes/.hermes/SOUL.md
-    '';
-  };
-
-  system.activationScripts.hermes-mcp-secrets = {
-    deps = ["hermes-agent-setup" "setupSecrets"];
-    text = ''
-      ${pkgs.gnused}/bin/sed -i "s|@@WOLFRAM_API_KEY@@|$(cat ${config.sops.secrets."api/wolfram".path})|" \
-        /var/lib/hermes/.hermes/cli-config.yaml
-    '';
-  };
+  in "+${script}";
 
   sops.secrets."api/openrouter".sopsFile = ../../secrets/secrets.yaml;
   sops.secrets."api/anthropic".sopsFile = ../../secrets/secrets.yaml;

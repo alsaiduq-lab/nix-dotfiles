@@ -27,9 +27,10 @@
     ./server/bot.nix
     ./server/ntfy.nix
     ./server/kuma.nix
-    ./modules/syncthing.nix
+    #./modules/syncthing.nix
     ./modules/sops.nix
     ./server/hermes.nix
+    ./server/umami.nix
   ];
   options.theme.user = lib.mkOption {
     type = lib.types.str;

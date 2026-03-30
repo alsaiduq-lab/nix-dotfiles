@@ -12,7 +12,7 @@
     };
 in {
   options.theme = {
-    user = mkStr "cobray";
+    user = mkStr "hibiki";
     cursorName = mkStr "Hatsune Miku Colorful Stage";
     cursorSize = mkInt 40;
     gtkTheme = mkStr "Tokyonight-Dark";

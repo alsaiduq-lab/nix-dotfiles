@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration (hyprland) for Cobray";
+  description = "bloated rice";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
@@ -95,8 +95,8 @@
       flake = false;
     };
 
-    nix-hermes = {
-      url = "git+file:///home/cobray/nix-hermes-agent";
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
     };
 
     sops-nix = {
@@ -186,6 +186,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
+            backupFileExtension = "bak";
             extraSpecialArgs = {
               inherit inputs;
               hyprlanddots = inputs.hyprland-dots;
@@ -195,7 +196,7 @@
               inputs.nixcord.homeModules.nixcord
               inputs.nix-monitor.homeManagerModules.default
             ];
-            users.cobray = import ./home-manager/cobray.nix;
+            users.hibiki = import ./home-manager/hibiki.nix;
           };
         }
       ];
@@ -211,7 +212,7 @@
         inputs.nix-index-database.nixosModules.nix-index
         inputs.copyparty.nixosModules.default
         inputs.sops-nix.nixosModules.sops
-        inputs.nix-hermes.nixosModules.hermes-agent
+        inputs.hermes-agent.nixosModules.default
         {
           nixpkgs = {
             config = {
@@ -226,7 +227,6 @@
                   (customPkgs)
                   minijinja-cli
                   ;
-                hermes-agent = inputs.nix-hermes.packages.${system}.hermes-agent-nightly;
               })
               (final: prev: {
                 clear-sans = prev.clear-sans.clear-sans;

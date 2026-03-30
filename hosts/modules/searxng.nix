@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
-  domain = null;
-  acmeEmail = null;
+{pkgs, ...}: let
   envFile = "/var/lib/searx/searxng.env";
 in {
   services.searx = {
@@ -12,14 +6,13 @@ in {
     package = pkgs.searxng;
     redisCreateLocally = true;
     environmentFile = envFile;
-    configureUwsgi = false;
     settings = {
       server = {
         bind_address = "127.0.0.1";
         port = 11212;
         limiter = false;
         image_proxy = true;
-        base_url = lib.mkIf (domain != null) "https://${domain}";
+        secret_key = "@SEARXNG_SECRET@";
       };
       ui = {
         default_locale = "en";
@@ -37,11 +30,6 @@ in {
         "hostname_replace"
         "open_access_doi_rewrite"
       ];
-    };
-    limiterSettings.real_ip = {
-      x_for = 1;
-      ipv4_prefix = 32;
-      ipv6_prefix = 56;
     };
   };
   systemd.services.searx-secret = {
@@ -71,10 +59,5 @@ in {
   systemd.services.searx = {
     wants = ["searx-secret.service"];
     after = ["searx-secret.service"];
-  };
-  users.groups.searx.members = ["nginx"];
-  security.acme = lib.mkIf (domain != null) {
-    acceptTerms = true;
-    defaults = lib.mkIf (acmeEmail != null) {email = acmeEmail;};
   };
 }

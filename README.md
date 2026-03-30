@@ -1,4 +1,4 @@
-# Cobray's dotfiles
+# Hibiki's dotfiles
 
 My config for Hyprland desktop that I normally use as my daily driver (read: all my bloat).
 
