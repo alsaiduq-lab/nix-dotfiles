@@ -21,6 +21,7 @@
     ./modules/imagemagick.nix
     ./modules/viv.nix
     ./modules/gremlin.nix
+    ./modules/wallpaperengine.nix
   ];
 
   home.username = "${config.theme.user}";
