@@ -19,7 +19,6 @@
     "api/fireworks" = "FIREWORKS_API_KEY";
     "api/cachix" = "CACHIX_AUTH_TOKEN";
     "api/vast" = "VAST_API_KEY";
-    "api/hf" = "HF_TOKEN";
   };
 
   envLines =

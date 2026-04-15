@@ -10,7 +10,8 @@
     enable = true;
     lfs.enable = true;
     settings = {
-      credential.helper = "!cat /run/secrets/git-credentials #";
+      credential."https://git.monaie.ca".helper = "!cat /run/secrets/forgejo-cred #";
+      credential."https://github.com".helper = "!cat /run/secrets/git-credentials #";
       user.name = "alsaiduq-lab";
       user.email = "riiidge.racer@gmail.com";
       init.defaultBranch = "master";

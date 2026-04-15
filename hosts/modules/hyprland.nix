@@ -13,8 +13,6 @@
 
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
-    qt5.qtwayland
-    qt6.qtwayland
     candy-icons
     miku-cursor
     tokyonight-gtk-theme
@@ -38,7 +36,6 @@
     matugen
     brightnessctl
     xwayland-satellite
-    hyprshade
     kdePackages.kdeconnect-kde
     kdePackages.dolphin
     kdePackages.dolphin-plugins

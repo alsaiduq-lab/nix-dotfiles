@@ -12,9 +12,7 @@
       useTmpfs = true;
       tmpfsSize = "50%";
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-    #50 series nvidia drivers are kinda a mess; use 6.12 if there's any issues
-    #kernelPackages = pkgs.linuxPackages_6_12;
+    kernelPackages = pkgs.linuxPackages_testing;
     consoleLogLevel = 3;
     initrd = {
       verbose = false;

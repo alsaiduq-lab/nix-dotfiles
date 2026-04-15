@@ -30,7 +30,8 @@
     #./modules/syncthing.nix
     ./modules/sops.nix
     ./server/hermes.nix
-    ./server/umami.nix
+    #./server/umami.nix
+    #./server/homepage.nix
   ];
   options.theme.user = lib.mkOption {
     type = lib.types.str;

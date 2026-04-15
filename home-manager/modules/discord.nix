@@ -50,9 +50,6 @@
         customIdle = {
           enable = true;
         };
-        expressionCloner = {
-          enable = true;
-        };
         fixYoutubeEmbeds = {
           enable = true;
         };
