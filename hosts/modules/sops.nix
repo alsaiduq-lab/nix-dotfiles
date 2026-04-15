@@ -20,9 +20,9 @@
     "api/fireworks"
     "api/cachix"
     "api/vast"
-    "api/hf"
     "git-credentials"
     "api/mullvad"
+    "forgejo-cred"
   ];
 in {
   imports = [inputs.sops-nix.nixosModules.sops];

@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       PORT = "3001";
-      HOST = "0.0.0.0";
+      HOST = "127.0.0.1";
     };
   };
 }
