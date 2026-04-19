@@ -138,6 +138,7 @@
         thorium
         rpcs3
         clear-sans
+        vita3k
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -175,6 +176,7 @@
                   minijinja-cli
                   thorium
                   rpcs3
+                  vita3k
                   ;
               })
             ];
