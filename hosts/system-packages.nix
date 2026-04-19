@@ -37,7 +37,7 @@
     ./modules/sops.nix
     ./modules/udisk.nix
     ./modules/dms.nix
-    ./modules/mullvad.nix
+    #./modules/mullvad.nix
     #./modules/syncthing.nix
     ./modules/ld.nix
   ];

@@ -7,6 +7,9 @@
     EDITOR = config.theme.Editor;
     TERM = config.theme.Terminal;
     BROWSER = config.theme.Browser;
+  };
+
+  environment.sessionVariables = {
     XCURSOR_THEME = config.theme.cursorName;
     XCURSOR_SIZE = toString config.theme.cursorSize;
     QT_QPA_PLATFORMTHEME = config.theme.qtTheme;

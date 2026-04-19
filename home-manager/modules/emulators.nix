@@ -6,5 +6,6 @@
     mgba
     dolphin-emu
     input-remapper
+    vita3k
   ];
 }

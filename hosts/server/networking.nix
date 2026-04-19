@@ -2,6 +2,7 @@
   networking = {
     hostName = "magus";
     useDHCP = false;
+    nftables.enable = true;
     interfaces.enX0.ipv4.addresses = [
       {
         address = "104.152.210.245";

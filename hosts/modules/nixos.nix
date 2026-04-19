@@ -5,6 +5,7 @@
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
+  environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
   environment.systemPackages = with pkgs; [
