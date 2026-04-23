@@ -14,10 +14,6 @@
     sha256 = "sha256-OQWJWcDpwmnJJ/kc4uEReaO74dYFlxNQwf33E5Oagb0=";
   };
 in {
-  home.packages = with pkgs; [
-    mpvpaper
-  ];
-
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [

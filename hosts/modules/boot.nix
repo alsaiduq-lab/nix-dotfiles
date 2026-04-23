@@ -10,9 +10,9 @@
     };
     tmp = {
       useTmpfs = true;
-      tmpfsSize = "50%";
+      tmpfsSize = "67%";
     };
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
     initrd = {
       verbose = false;
@@ -59,8 +59,7 @@
     memoryPercent = 50;
     priority = 100;
   };
-  # been annoying as of late
-  systemd.oomd.enable = false;
+  systemd.oomd.enable = true;
 
   # some people really like putting #/bin/sh or #/bin/bash
   system.activationScripts.binbash = {
@@ -71,9 +70,6 @@
         ln -sf ${pkgs.bash}/bin/bash /bin/bash
       fi
       mkdir -p /usr/bin
-      if [ ! -e /usr/bin/env ]; then
-        ln -sf ${pkgs.coreutils}/bin/env /usr/bin/env
-      fi
     '';
   };
 }

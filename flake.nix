@@ -13,10 +13,6 @@
       url = "github:fufexan/nix-gaming";
     };
 
-    nix-monitor = {
-      url = "github:antonjah/nix-monitor";
-    };
-
     proton-cachyos = {
       url = "github:Arsalan2356/proton-cachyos-flake";
     };
@@ -139,6 +135,7 @@
         rpcs3
         clear-sans
         vita3k
+        ryubing
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -168,6 +165,15 @@
                 hyprland = inputs.hyprland.packages.${system}.default;
                 dw-proton = inputs.dw-proton.packages.${system}.default;
                 ollama = unstablePkgs.ollama-cuda;
+                ryubing = customPkgs.ryubing;
+                python313 = prev.python313.override {
+                  packageOverrides = pyfinal: pyprev: {
+                    pyqtgraph = pyprev.pyqtgraph.overridePythonAttrs (_: {doCheck = false;});
+                  };
+                };
+                pkgsi686Linux = prev.pkgsi686Linux.extend (ifinal: iprev: {
+                  openldap = iprev.openldap.overrideAttrs (_: {doCheck = false;});
+                });
               })
               (final: prev: {
                 inherit
@@ -177,6 +183,7 @@
                   thorium
                   rpcs3
                   vita3k
+                  ryubing
                   ;
               })
             ];
@@ -196,7 +203,6 @@
             };
             sharedModules = [
               inputs.nixcord.homeModules.nixcord
-              inputs.nix-monitor.homeManagerModules.default
             ];
             users.hibiki = import ./home-manager/hibiki.nix;
           };

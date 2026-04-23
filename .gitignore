@@ -18,7 +18,8 @@
 
 !pkgs/
 !pkgs/**/
-!pkgs/**/*.nix
+!pkgs/**/default.nix
+!pkgs/**/*.json
 
 !secrets/
 !secrets/secrets.yaml
