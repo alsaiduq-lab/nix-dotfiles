@@ -20,6 +20,7 @@
     "api/fireworks"
     "api/cachix"
     "api/vast"
+    "github_token"
     "git-credentials"
     "api/mullvad"
     "forgejo-cred"

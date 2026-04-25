@@ -2,26 +2,38 @@
   lib,
   rustPlatform,
   fetchCrate,
-}:
-rustPlatform.buildRustPackage rec {
+  updateDeps,
+}: let
   pname = "minijinja-cli";
   version = "2.11.0";
-
-  src = fetchCrate {
+  deps = builtins.fromJSON (builtins.readFile ./deps.json);
+in
+  rustPlatform.buildRustPackage {
     inherit pname version;
-    hash = "sha256-HPocm+dEV5dBJqjYedylTGHhm2iPHjZzg2mvuFgaDCY=";
-  };
 
-  cargoHash = "sha256-4ZYbB/tAzTOryBZKBoMKFNDC3CpWA92t1nfJHwMDlUg=";
+    src = fetchCrate {
+      inherit pname version;
+      hash = deps.src.hash;
+    };
 
-  doCheck = false;
+    cargoHash = deps.cargo.hash;
 
-  meta = with lib; {
-    description = "Command-line renderer for MiniJinja/Jinja2 templates";
-    homepage = "https://github.com/mitsuhiko/minijinja";
-    license = licenses.asl20;
-    mainProgram = "minijinja";
-    platforms = platforms.unix;
-    maintainer = "Cobray";
-  };
-}
+    passthru = {
+      depsFile = "pkgs/minijinja-cli/deps.json";
+      "update-deps" = updateDeps.fetchCrateRustPackage {
+        name = pname;
+        inherit pname version;
+      };
+    };
+
+    doCheck = false;
+
+    meta = {
+      description = "Command-line renderer for MiniJinja/Jinja2 templates";
+      homepage = "https://github.com/mitsuhiko/minijinja";
+      license = lib.licenses.asl20;
+      mainProgram = "minijinja";
+      platforms = lib.platforms.unix;
+      maintainers = ["Hibiki"];
+    };
+  }

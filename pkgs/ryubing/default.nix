@@ -28,6 +28,7 @@
   SDL2_mixer,
   gtk3,
   wrapGAppsHook3,
+  updateDeps,
 }:
 buildDotnetModule rec {
   pname = "ryubing";
@@ -55,6 +56,11 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
   nugetDeps = ./deps.json;
+
+  passthru = {
+    depsFile = "pkgs/ryubing/deps.json";
+    "update-deps" = updateDeps.dotnet;
+  };
 
   runtimeDeps =
     [

@@ -2,7 +2,7 @@
   description = "bloated rice";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,10 +20,6 @@
     aagl = {
       url = "github:alsaiduq-lab/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    unstable = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
 
     quickshell = {
@@ -110,14 +106,13 @@
     nixpkgs,
     home-manager,
     nix-gaming,
-    unstable,
     sops-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
 
     pkgs = nixpkgs.legacyPackages.${system};
-    unstablePkgs = import unstable {
+    unstablePkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
     };
@@ -136,6 +131,7 @@
         clear-sans
         vita3k
         ryubing
+        update-deps
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -166,6 +162,7 @@
                 dw-proton = inputs.dw-proton.packages.${system}.default;
                 ollama = unstablePkgs.ollama-cuda;
                 ryubing = customPkgs.ryubing;
+                # some weird issues as of late with some tests; can safely remove if its dealt with
                 python313 = prev.python313.override {
                   packageOverrides = pyfinal: pyprev: {
                     pyqtgraph = pyprev.pyqtgraph.overridePythonAttrs (_: {doCheck = false;});

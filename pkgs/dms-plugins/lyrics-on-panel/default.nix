@@ -4,7 +4,12 @@
   fetchFromGitHub,
   python313,
   makeWrapper,
+  updateDeps,
 }: let
+  pname = "dms-lyrics-on-panel";
+  version = "unstable";
+  deps = builtins.fromJSON (builtins.readFile ./deps.json);
+
   python = python313.withPackages (ps: [
     ps.websockets
     ps.dbus-python
@@ -14,16 +19,23 @@
     owner = "KangweiZhu";
     repo = "lyrics-on-panel";
     rev = "main";
-    hash = "sha256-IRmbfNzVgHC2uEzVOdIvYqEhx1wouWTB0zKPppiNTms=";
+    hash = deps.src.hash;
   };
 in
   stdenvNoCC.mkDerivation {
-    pname = "dms-lyrics-on-panel";
-    version = "unstable";
-
-    inherit src;
+    inherit pname version src;
 
     nativeBuildInputs = [makeWrapper];
+
+    passthru = {
+      depsFile = "pkgs/dms-plugins/lyrics-on-panel/deps.json";
+      "update-deps" = updateDeps.fetchFromGitHub {
+        name = pname;
+        owner = "KangweiZhu";
+        repo = "lyrics-on-panel";
+        rev = "main";
+      };
+    };
 
     dontBuild = true;
 
@@ -44,6 +56,6 @@ in
       description = "Lyrics on Panel - DMS plugin and backend";
       homepage = "https://github.com/KangweiZhu/lyrics-on-panel";
       license = lib.licenses.gpl3;
-      maintainer = ["Cobray"];
+      maintainers = ["Hibiki"];
     };
   }

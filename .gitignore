@@ -17,9 +17,11 @@
 !hosts/**/*.nix
 
 !pkgs/
+!pkgs/update.nix
 !pkgs/**/
 !pkgs/**/default.nix
-!pkgs/**/*.json
+!pkgs/**/deps.json
+!pkgs/**/*.sh
 
 !secrets/
 !secrets/secrets.yaml

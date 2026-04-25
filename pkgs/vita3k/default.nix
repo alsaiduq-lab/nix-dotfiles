@@ -25,19 +25,29 @@
   alsa-lib,
   systemd,
   wayland,
+  updateDeps,
 }: let
   pname = "vita3k";
   version = "3920";
+  deps = builtins.fromJSON (builtins.readFile ./deps.json);
 
   src = fetchurl {
     url = "https://github.com/Vita3K/Vita3K-builds/releases/download/${version}/Vita3K-x86_64.AppImage";
-    hash = "sha256-xQAYXFW1ytO1iB60AtMYWDs18dzyjtzT68vyDuc/N5s=";
+    hash = deps.src.hash;
   };
 
   contents = appimageTools.extractType2 {inherit pname version src;};
 in
   buildFHSEnv {
     inherit pname version;
+
+    passthru = {
+      depsFile = "pkgs/vita3k/deps.json";
+      "update-deps" = updateDeps.fetchurl {
+        name = pname;
+        url = "https://github.com/Vita3K/Vita3K-builds/releases/download/${version}/Vita3K-x86_64.AppImage";
+      };
+    };
 
     targetPkgs = pkgs: [
       SDL2
