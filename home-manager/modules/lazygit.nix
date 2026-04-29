@@ -1,11 +1,24 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    lazygit
     git
     git-lfs
     gh
     diff-so-fancy
   ];
+
+  programs.lazygit = {
+    enable = true;
+
+    settings = {
+      os = {
+        edit = "${pkgs.zed-editor}/bin/zeditor {{filename}}";
+        editAtLine = "${pkgs.zed-editor}/bin/zeditor {{filename}}:{{line}}";
+        editAtLineAndWait = "${pkgs.zed-editor}/bin/zeditor --wait {{filename}}:{{line}}";
+        openDirInEditor = "${pkgs.zed-editor}/bin/zeditor {{dir}}";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -17,6 +30,7 @@
       init.defaultBranch = "master";
       push.autoSetupRemote = true;
       pull.rebase = true;
+      core.editor = "${pkgs.zed-editor}/bin/zeditor --wait";
       core.pager = "diff-so-fancy | less --tabs=4 -RF";
       interactive.diffFilter = "diff-so-fancy --patch";
     };

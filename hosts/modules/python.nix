@@ -7,7 +7,6 @@
         six
         psutil
         pynvml
-        pyqtgraph
         pyqt6
         pyyaml
         pillow

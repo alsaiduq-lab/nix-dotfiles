@@ -22,6 +22,7 @@
     ./modules/viv.nix
     ./modules/gremlin.nix
     ./modules/wallpaperengine.nix
+    ./modules/zed.nix
   ];
 
   home.username = "${config.theme.user}";

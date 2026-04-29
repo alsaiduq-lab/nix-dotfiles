@@ -111,12 +111,21 @@
   } @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = nixpkgs.legacyPackages.${system};
-    unstablePkgs = import nixpkgs {
+    pkgs = import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        allowAliases = true;
+      };
     };
 
+    unstablePkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        allowAliases = true;
+      };
+    };
     customPkgs = import "${self}/pkgs" {
       inherit pkgs;
       lib = nixpkgs.lib;
