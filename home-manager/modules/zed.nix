@@ -130,40 +130,27 @@
           "ctrl-shift-p" = "command_palette::Toggle";
           "ctrl-," = "zed::OpenSettings";
           "ctrl-alt-," = "zed::OpenSettingsFile";
-          "ctrl-k ctrl-s" = "zed::OpenKeymap";
-          "ctrl-k ctrl-shift-s" = "zed::OpenKeymapFile";
-          "ctrl-shift-e" = "project_panel::ToggleFocus";
-          "ctrl-j" = "workspace::ToggleBottomDock";
-          "ctrl-alt-b" = "workspace::ToggleRightDock";
-          "ctrl-shift-o" = "outline_panel::Toggle";
-          "ctrl-shift-f" = "pane::DeploySearch";
-          "ctrl-~" = "workspace::NewTerminal";
-          "ctrl-`" = "terminal_panel::ToggleFocus";
-          "ctrl-shift-m" = "diagnostics::Deploy";
-          "ctrl-alt-shift-m" = "diagnostics::DeployCurrentFile";
-          "ctrl-alt-l" = "lsp_tool::ToggleMenu";
-          "ctrl-k ctrl-l" = "dev::OpenLanguageServerLogs";
-          "ctrl-k ctrl-alt-l" = "zed::OpenLog";
-          "ctrl-k ctrl-alt-k" = "dev::OpenKeyContextView";
+          "ctrl-alt-k" = "zed::OpenKeymapFile";
+          "alt-1" = "project_panel::ToggleFocus";
+          "alt-7" = "outline_panel::ToggleFocus";
+          "alt-6" = "diagnostics::Deploy";
+          "alt-f12" = "terminal_panel::ToggleFocus";
+          "ctrl-alt-t" = "workspace::NewTerminal";
         };
       }
       {
         context = "Editor && mode == full";
         bindings = {
-          "ctrl-shift-i" = "editor::Format";
-          "ctrl-k ctrl-shift-i" = "editor::FormatSelections";
-          "ctrl-." = "editor::ToggleCodeActions";
-          "f2" = "editor::Rename";
-          "f12" = "editor::GoToDefinition";
-          "ctrl-f12" = "editor::GoToTypeDefinition";
-          "shift-f12" = "editor::GoToImplementation";
-          "f8" = "editor::GoToDiagnostic";
-          "shift-f8" = "editor::GoToPreviousDiagnostic";
-          "ctrl-k ctrl-alt-r" = "editor::RestartLanguageServer";
-          "ctrl-k ctrl-alt-s" = "editor::StopLanguageServer";
-          "ctrl-k ctrl-alt-c" = "editor::CancelLanguageServerWork";
-          "ctrl-k ctrl-alt-h" = "editor::ToggleInlayHints";
-          "ctrl-k ctrl-alt-g" = "editor::ToggleGitBlameInline";
+          "ctrl-alt-l" = "editor::Format";
+          "alt-enter" = "editor::ToggleCodeActions";
+          "shift-f6" = "editor::Rename";
+          "ctrl-b" = "editor::GoToDefinition";
+          "ctrl-alt-b" = "editor::GoToImplementation";
+          "ctrl-shift-b" = "editor::GoToTypeDefinition";
+          "f2" = "editor::GoToDiagnostic";
+          "shift-f2" = "editor::GoToPreviousDiagnostic";
+          "ctrl-alt-h" = "editor::ToggleInlayHints";
+          "ctrl-alt-g" = "editor::ToggleGitBlameInline";
           "ctrl-/" = "editor::ToggleComments";
         };
       }
