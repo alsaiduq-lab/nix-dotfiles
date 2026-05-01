@@ -9,8 +9,8 @@
     extensions = [
       "material-icon-theme"
       "tokyo-night"
-      "discord-presence"
       "nix"
+      "hyprlang"
       "toml"
       "html"
       "scss"
@@ -120,27 +120,6 @@
             arguments = ["server"];
           };
         };
-
-        discord_presence = {
-          initialization_options = {
-            application_id = "1263505205522337886";
-            details = "In {workspace} - {git_branch}";
-            base_icons_url = "https://raw.githubusercontent.com/vyfor/icons/master/icons/minecraft/dark";
-            large_image = "{base_icons_url}/{language:lo}.png";
-            large_text = "{language:u}";
-            small_image = "https://raw.githubusercontent.com/xhyrom/zed-discord-presence/main/assets/icons/zed.png";
-            small_text = "Zed";
-            git_integration = true;
-            git_host_overrides = {
-              "git.monaie.ca" = "git.monaie.ca";
-              "github.com" = "github.com";
-            };
-            idle = {
-              timeout = 300;
-              action = "clear_activity";
-            };
-          };
-        };
       };
     };
 
@@ -148,49 +127,51 @@
       {
         context = "Workspace";
         bindings = {
-          ctrl-shift-p = "command_palette::Toggle";
-          ctrl-shift-comma = "zed::OpenSettings";
-          ctrl-shift-k = "zed::OpenKeymap";
-          ctrl-alt-shift-k = "dev::OpenKeyContextView";
-          ctrl-alt-shift-l = "zed::OpenLog";
-          ctrl-shift-e = "project_panel::ToggleFocus";
-          ctrl-shift-b = "workspace::ToggleBottomDock";
-          ctrl-shift-r = "workspace::ToggleRightDock";
-          ctrl-shift-o = "outline_panel::Toggle";
-          ctrl-shift-f = "pane::DeploySearch";
-          ctrl-shift-t = "workspace::NewTerminal";
-          ctrl-grave = "terminal_panel::ToggleFocus";
-          ctrl-shift-d = "diagnostics::Deploy";
-          ctrl-alt-d = "diagnostics::DeployCurrentFile";
-          ctrl-alt-m = "lsp_tool::ToggleMenu";
-          ctrl-alt-shift-s = "dev::OpenLanguageServerLogs";
+          "ctrl-shift-p" = "command_palette::Toggle";
+          "ctrl-," = "zed::OpenSettings";
+          "ctrl-alt-," = "zed::OpenSettingsFile";
+          "ctrl-k ctrl-s" = "zed::OpenKeymap";
+          "ctrl-k ctrl-shift-s" = "zed::OpenKeymapFile";
+          "ctrl-shift-e" = "project_panel::ToggleFocus";
+          "ctrl-j" = "workspace::ToggleBottomDock";
+          "ctrl-alt-b" = "workspace::ToggleRightDock";
+          "ctrl-shift-o" = "outline_panel::Toggle";
+          "ctrl-shift-f" = "pane::DeploySearch";
+          "ctrl-~" = "workspace::NewTerminal";
+          "ctrl-`" = "terminal_panel::ToggleFocus";
+          "ctrl-shift-m" = "diagnostics::Deploy";
+          "ctrl-alt-shift-m" = "diagnostics::DeployCurrentFile";
+          "ctrl-alt-l" = "lsp_tool::ToggleMenu";
+          "ctrl-k ctrl-l" = "dev::OpenLanguageServerLogs";
+          "ctrl-k ctrl-alt-l" = "zed::OpenLog";
+          "ctrl-k ctrl-alt-k" = "dev::OpenKeyContextView";
         };
       }
       {
         context = "Editor && mode == full";
         bindings = {
-          ctrl-alt-l = "editor::Format";
-          ctrl-alt-shift-l = "editor::FormatSelections";
-          alt-enter = "editor::ToggleCodeActions";
-          shift-f6 = "editor::Rename";
-          ctrl-b = "editor::GoToDefinition";
-          ctrl-alt-b = "editor::GoToTypeDefinition";
-          ctrl-alt-i = "editor::GoToImplementation";
-          f2 = "editor::GoToDiagnostic";
-          shift-f2 = "editor::GoToPreviousDiagnostic";
-          ctrl-alt-r = "editor::RestartLanguageServer";
-          ctrl-alt-s = "editor::StopLanguageServer";
-          ctrl-alt-c = "editor::CancelLanguageServerWork";
-          ctrl-alt-h = "editor::ToggleInlayHints";
-          ctrl-alt-g = "editor::ToggleGitBlameInline";
-          ctrl-slash = "editor::ToggleComments";
+          "ctrl-shift-i" = "editor::Format";
+          "ctrl-k ctrl-shift-i" = "editor::FormatSelections";
+          "ctrl-." = "editor::ToggleCodeActions";
+          "f2" = "editor::Rename";
+          "f12" = "editor::GoToDefinition";
+          "ctrl-f12" = "editor::GoToTypeDefinition";
+          "shift-f12" = "editor::GoToImplementation";
+          "f8" = "editor::GoToDiagnostic";
+          "shift-f8" = "editor::GoToPreviousDiagnostic";
+          "ctrl-k ctrl-alt-r" = "editor::RestartLanguageServer";
+          "ctrl-k ctrl-alt-s" = "editor::StopLanguageServer";
+          "ctrl-k ctrl-alt-c" = "editor::CancelLanguageServerWork";
+          "ctrl-k ctrl-alt-h" = "editor::ToggleInlayHints";
+          "ctrl-k ctrl-alt-g" = "editor::ToggleGitBlameInline";
+          "ctrl-/" = "editor::ToggleComments";
         };
       }
       {
         context = "Terminal";
         bindings = {
-          ctrl-shift-c = "terminal::Copy";
-          ctrl-shift-v = "terminal::Paste";
+          "ctrl-shift-c" = "terminal::Copy";
+          "ctrl-shift-v" = "terminal::Paste";
         };
       }
     ];
