@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }: {
   programs.ghostty = {
@@ -30,5 +29,5 @@
       ];
     };
   };
-  home.file."${config.xdg.configHome}/ghostty/config".force = lib.mkForce true;
+  # home.file."${config.xdg.configHome}/ghostty/config".force = lib.mkForce true;
 }

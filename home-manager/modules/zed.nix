@@ -15,6 +15,7 @@
       "html"
       "scss"
       "lua"
+      "markdown"
     ];
 
     extraPackages = with pkgs; [
@@ -29,6 +30,9 @@
       taplo
       yaml-language-server
       vscode-langservers-extracted
+      prettier
+      lua-language-server
+      marksman
     ];
 
     userSettings = {
@@ -52,6 +56,31 @@
         };
       };
 
+      agent = {
+        tool_permissions = {
+          default = "confirm";
+
+          tools = {
+            terminal = {
+              default = "confirm";
+              always_allow = [
+                {pattern = "^rg\\b";}
+                {pattern = "^fd\\b";}
+                {pattern = "^ls\\b";}
+                {pattern = "^cat\\s";}
+              ];
+              always_confirm = [
+                {pattern = "^sudo\\b";}
+                {pattern = "^git\\s+push\\b";}
+              ];
+            };
+            edit_file.default = "confirm";
+            delete_path.default = "confirm";
+            move_path.default = "confirm";
+          };
+        };
+      };
+
       ui_font_size = 16;
       buffer_font_size = 15;
       buffer_font_family = config.theme.TerminalFont;
@@ -64,7 +93,7 @@
 
       terminal = {
         shell = {
-          program = "fish";
+          program = config.theme.Shell;
         };
       };
 
@@ -97,6 +126,24 @@
             external = {
               command = "ruff";
               arguments = ["format" "--stdin-filename" "{buffer_path}" "-"];
+            };
+          };
+        };
+
+        HTML = {
+          formatter = {
+            external = {
+              command = "prettier";
+              arguments = ["--stdin-filepath" "{buffer_path}"];
+            };
+          };
+        };
+
+        SCSS = {
+          formatter = {
+            external = {
+              command = "prettier";
+              arguments = ["--stdin-filepath" "{buffer_path}"];
             };
           };
         };
@@ -136,6 +183,7 @@
           "alt-6" = "diagnostics::Deploy";
           "alt-f12" = "terminal_panel::ToggleFocus";
           "ctrl-alt-t" = "workspace::NewTerminal";
+          "ctrl-alt-a" = "agent::NewThread";
         };
       }
       {
