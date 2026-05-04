@@ -62,11 +62,6 @@
         readline
         glib
         dbus
-        systemd
-        util-linux
-        e2fsprogs
-        attr
-        acl
         alsa-lib
         libpulseaudio
         pipewire
