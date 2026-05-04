@@ -5,27 +5,27 @@
   updateDeps,
 }: let
   pname = "clear-sans";
-  version = "1.0";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = deps.version;
+  source = {
+    owner = "intel";
+    repo = "clear-sans";
+    rev = "main";
+  };
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
 
-    src = fetchFromGitHub {
-      owner = "intel";
-      repo = "clear-sans";
-      rev = "main";
+    src = fetchFromGitHub (source // {
       hash = deps.src.hash;
-    };
+    });
 
     passthru = {
       depsFile = "pkgs/clear-sans/deps.json";
-      "update-deps" = updateDeps.fetchFromGitHub {
+      "update-deps" = updateDeps.fetchFromGitHub (source // {
+        inherit version;
         name = pname;
-        owner = "intel";
-        repo = "clear-sans";
-        rev = "main";
-      };
+      });
     };
 
     installPhase = ''

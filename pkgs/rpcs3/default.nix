@@ -3,10 +3,13 @@
   updateDeps,
 }: let
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  discordRpcSrc = pkgs.fetchFromGitHub {
+  discordRpc = {
     owner = "Vestrel";
     repo = "discord-rpc";
     rev = "master";
+  };
+  discordRpcSrc = pkgs.fetchFromGitHub {
+    inherit (discordRpc) owner repo rev;
     hash = deps.discordRpc.hash;
   };
 in
@@ -27,12 +30,15 @@ in
         depsFile = "pkgs/rpcs3/deps.json";
         "update-deps" = updateDeps.fetchFromGitHub {
           name = "rpcs3-discord-rpc";
-          owner = "Vestrel";
-          repo = "discord-rpc";
-          rev = "master";
+          inherit (discordRpc) owner repo rev;
           key = "discordRpc";
-          maintainer = "Hibiki";
         };
+      };
+
+    meta =
+      (oldAttrs.meta or {})
+      // {
+        maintainers = pkgs.lib.unique ((oldAttrs.meta.maintainers or []) ++ ["Hibiki"]);
       };
 
     preConfigure = ''

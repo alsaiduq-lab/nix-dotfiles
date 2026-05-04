@@ -5,8 +5,8 @@
   updateDeps,
 }: let
   pname = "minijinja-cli";
-  version = "2.11.0";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = deps.version;
 in
   rustPlatform.buildRustPackage {
     inherit pname version;
@@ -22,7 +22,7 @@ in
       depsFile = "pkgs/minijinja-cli/deps.json";
       "update-deps" = updateDeps.fetchCrateRustPackage {
         name = pname;
-        inherit pname version;
+        inherit pname;
       };
     };
 

@@ -71,7 +71,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # vps OOMs when trying to nix-index with 8 GB of ram
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -158,6 +157,7 @@
               allowAliases = true;
             };
             hostPlatform = system;
+            # TODO: move to seperate file
             overlays = [
               (final: prev: {
                 quickshell = inputs.quickshell.packages.${system}.default.withModules [final.qt6Packages.qtwebsockets];
@@ -171,15 +171,12 @@
                 dw-proton = inputs.dw-proton.packages.${system}.default;
                 ollama = unstablePkgs.ollama-cuda;
                 ryubing = customPkgs.ryubing;
-                # some weird issues as of late with some tests; can safely remove if its dealt with
-                python313 = prev.python313.override {
-                  packageOverrides = pyfinal: pyprev: {
-                    pyqtgraph = pyprev.pyqtgraph.overridePythonAttrs (_: {doCheck = false;});
-                  };
-                };
                 pkgsi686Linux = prev.pkgsi686Linux.extend (ifinal: iprev: {
                   openldap = iprev.openldap.overrideAttrs (_: {doCheck = false;});
                 });
+                # python313 = prev.python313.override {
+                # packageOverrides = pyfinal: pyprev: {
+                # pyqtgraph = pyprev.pyqtgraph.overridePythonAttrs (_: {doCheck = false;});
               })
               (final: prev: {
                 inherit

@@ -7,20 +7,22 @@
   updateDeps,
 }: let
   pname = "dms-lyrics-on-panel";
-  version = "unstable";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = deps.version;
+  source = {
+    owner = "KangweiZhu";
+    repo = "lyrics-on-panel";
+    rev = "main";
+  };
 
   python = python313.withPackages (ps: [
     ps.websockets
     ps.dbus-python
   ]);
 
-  src = fetchFromGitHub {
-    owner = "KangweiZhu";
-    repo = "lyrics-on-panel";
-    rev = "main";
+  src = fetchFromGitHub (source // {
     hash = deps.src.hash;
-  };
+  });
 in
   stdenvNoCC.mkDerivation {
     inherit pname version src;
@@ -29,12 +31,10 @@ in
 
     passthru = {
       depsFile = "pkgs/dms-plugins/lyrics-on-panel/deps.json";
-      "update-deps" = updateDeps.fetchFromGitHub {
+      "update-deps" = updateDeps.fetchFromGitHub (source // {
+        inherit version;
         name = pname;
-        owner = "KangweiZhu";
-        repo = "lyrics-on-panel";
-        rev = "main";
-      };
+      });
     };
 
     dontBuild = true;

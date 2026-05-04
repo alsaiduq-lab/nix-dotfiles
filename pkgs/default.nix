@@ -17,8 +17,10 @@
     };
   };
 
-  packages = packageSet // {
-    update-deps = update.updateAll packageSet;
-  };
+  packages =
+    packageSet
+    // {
+      update-deps = update.updateAll packageSet;
+    };
 in
   packages

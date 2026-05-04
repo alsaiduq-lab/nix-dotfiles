@@ -50,23 +50,29 @@
   gnome-settings-daemon,
   updateDeps,
 }: let
+  pname = "thorium-browser";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = deps.version;
+  source = {
+    owner = "Alex313031";
+    repo = "Thorium";
+    tag = version: "M${version}";
+    asset = version: "thorium-browser_${version}_AVX2.deb";
+  };
 in
   stdenv.mkDerivation (finalAttrs: {
-    pname = "thorium-browser";
-    version = "138.0.7204.303";
+    inherit pname version;
 
     src = fetchurl {
-      url = "https://github.com/Alex313031/Thorium/releases/download/M${finalAttrs.version}/thorium-browser_${finalAttrs.version}_AVX2.deb";
+      url = "https://github.com/${source.owner}/${source.repo}/releases/download/${source.tag version}/${source.asset version}";
       hash = deps.src.hash;
     };
 
     passthru = {
       depsFile = "pkgs/thorium/deps.json";
-      "update-deps" = updateDeps.fetchurl {
-        name = "thorium";
-        url = "https://github.com/Alex313031/Thorium/releases/download/M${finalAttrs.version}/thorium-browser_${finalAttrs.version}_AVX2.deb";
-      };
+      "update-deps" = updateDeps.fetchGitHubReleaseAsset (source // {
+        name = pname;
+      });
     };
 
     strictDeps = true;

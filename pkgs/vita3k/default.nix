@@ -28,11 +28,21 @@
   updateDeps,
 }: let
   pname = "vita3k";
-  version = "3920";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = deps.version;
+  source = {
+    owner = "Vita3K";
+    repo = "Vita3K-builds";
+    asset = "Vita3K-x86_64.AppImage";
+  };
+  resourceDirs = [
+    "data"
+    "lang"
+    "shaders-builtin"
+  ];
 
   src = fetchurl {
-    url = "https://github.com/Vita3K/Vita3K-builds/releases/download/${version}/Vita3K-x86_64.AppImage";
+    url = "https://github.com/${source.owner}/${source.repo}/releases/download/${version}/${source.asset}";
     hash = deps.src.hash;
   };
 
@@ -43,10 +53,9 @@ in
 
     passthru = {
       depsFile = "pkgs/vita3k/deps.json";
-      "update-deps" = updateDeps.fetchurl {
+      "update-deps" = updateDeps.fetchGitHubReleaseAsset (source // {
         name = pname;
-        url = "https://github.com/Vita3K/Vita3K-builds/releases/download/${version}/Vita3K-x86_64.AppImage";
-      };
+      });
     };
 
     targetPkgs = pkgs: [
@@ -74,22 +83,39 @@ in
     ];
 
     runScript = writeShellScript "vita3k-wrapper" ''
-      DATA_DIR="''${XDG_DATA_HOME:-$HOME/.local/share}/Vita3K"
-      mkdir -p "$DATA_DIR"
-      for dir in shaders-builtin data lang; do
-        if [ ! -e "$DATA_DIR/$dir" ]; then
-          ln -sf ${contents}/usr/share/Vita3K/$dir "$DATA_DIR/$dir"
+      set -euo pipefail
+
+      dataDir="''${XDG_DATA_HOME:-''${HOME:?HOME must be set}/.local/share}/Vita3K"
+      mkdir -p "$dataDir"
+
+      configDir="''${XDG_CONFIG_HOME:-''${HOME:?HOME must be set}/.config}/Vita3K"
+      configFile="$configDir/config.yml"
+      if [ ! -e "$configFile" ]; then
+        mkdir -p "$configDir"
+        touch "$configFile"
+      fi
+
+      for dir in ${lib.escapeShellArgs resourceDirs}; do
+        target="$dataDir/$dir"
+        if [ -e "$target" ]; then
+          continue
         fi
+        if [ -L "$target" ]; then
+          rm -f "$target"
+        fi
+        ln -s ${contents}/usr/share/Vita3K/"$dir" "$target"
       done
+
+      export APPDIR=${contents}
+      export APPIMAGE=${src}
       exec env VK_LAYER_PATH= ${contents}/usr/bin/Vita3K "$@"
     '';
 
     extraInstallCommands = ''
       install -Dm644 ${contents}/usr/share/applications/vita3k.desktop $out/share/applications/vita3k.desktop
       substituteInPlace $out/share/applications/vita3k.desktop \
-        --replace-warn "Exec=vita3k" "Exec=${pname}"
-      install -Dm644 ${contents}/usr/share/icons/hicolor/128x128/apps/vita3k.png \
-        $out/share/icons/hicolor/128x128/apps/vita3k.png
+        --replace-fail "Exec=Vita3K" "Exec=${pname}"
+      cp -R ${contents}/usr/share/icons $out/share/
     '';
 
     meta = {
@@ -97,6 +123,7 @@ in
       homepage = "https://vita3k.org/";
       license = lib.licenses.gpl2Only;
       platforms = ["x86_64-linux"];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       maintainers = ["Hibiki"];
       mainProgram = "vita3k";
     };

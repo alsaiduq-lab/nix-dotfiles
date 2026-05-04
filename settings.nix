@@ -24,7 +24,7 @@ in {
     Terminal = mkStr "ghostty";
     TerminalFont = mkStr "0xProto Nerd Font";
     Browser = mkStr "thorium-browser";
-    Editor = mkStr "zed";
+    Editor = mkStr "zeditor";
     Shell = mkStr "fish";
   };
 }

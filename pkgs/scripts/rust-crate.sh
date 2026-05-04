@@ -6,7 +6,22 @@ package_attr="${PACKAGE_ATTR:?missing PACKAGE_ATTR}"
 repo_root="${REPO_ROOT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 system="${UPDATE_SYSTEM:?missing UPDATE_SYSTEM}"
 crate_pname="${CRATE_PNAME:?missing CRATE_PNAME}"
-crate_version="${CRATE_VERSION:?missing CRATE_VERSION}"
+crate_version="${VERSION:-}"
+
+if [ -n "${LATEST_VERSION_URL:-}" ]; then
+  crate_version="$(
+    curl -fsSL \
+      -H "Accept: application/json" \
+      -H "User-Agent: nix-update-deps" \
+      "$LATEST_VERSION_URL" \
+      | jq -r "${LATEST_VERSION_JQ:-.crate.max_version}"
+  )"
+fi
+
+if [ -z "$crate_version" ] || [ "$crate_version" = "null" ]; then
+  echo "missing crate version for $crate_pname" >&2
+  exit 1
+fi
 
 src_hash="$(
   nix store prefetch-file --json --unpack "https://static.crates.io/crates/$crate_pname/$crate_pname-$crate_version.crate" \
@@ -79,6 +94,7 @@ if [ -z "$cargo_hash" ]; then
 fi
 
 jq -n \
+  --arg version "$crate_version" \
   --arg srcHash "$src_hash" \
   --arg cargoHash "$cargo_hash" \
-  '{ src: { hash: $srcHash }, cargo: { hash: $cargoHash } }' > "$output"
+  '{ version: $version, src: { hash: $srcHash }, cargo: { hash: $cargoHash } }' > "$output"
