@@ -2,11 +2,38 @@
   lib,
   config,
   pkgs,
-  hyprlanddots,
-  nvimDots,
   ...
 }: {
+  imports = [
+    ./dotfiles.nix
+  ];
+
   home.activation.init-seed = let
+    dotfiles =
+      lib.concatStringsSep "\n"
+      (lib.mapAttrsToList
+        (_: entry:
+          lib.optionalString entry.enable ''
+            if [ ! -e "${config.xdg.configHome}/${entry.to}" ]; then
+              ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${entry.from}" "${config.xdg.configHome}/${entry.to}"
+            fi
+          '')
+        config.dotfiles.files);
+    quickshell =
+      if config.dotfiles.quickshell == null || ! config.dotfiles.quickshell.enable
+      then ""
+      else ''
+        if [ -L "${config.xdg.configHome}/quickshell" ]; then
+          ${pkgs.coreutils}/bin/ln -sfnT "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
+        elif [ ! -e "${config.xdg.configHome}/quickshell" ]; then
+          ${pkgs.coreutils}/bin/ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
+        elif [ -d "${config.xdg.configHome}/quickshell" ] && [ -f "${config.xdg.configHome}/quickshell/${config.dotfiles.quickshell.marker}" ]; then
+          quickshell_back="${config.xdg.configHome}/quickshell.${config.dotfiles.quickshell.name}.$(${pkgs.coreutils}/bin/date +%Y%m%d%H%M%S)"
+          ${pkgs.coreutils}/bin/mv "${config.xdg.configHome}/quickshell" "$quickshell_back"
+          ${pkgs.coreutils}/bin/ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
+        fi
+      '';
+
     envVars = {
       "api/openai" = "OPENAI_API_KEY";
       "api/deepseek" = "DEEPSEEK_API_KEY";
@@ -33,44 +60,16 @@
       url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/545d72cde6400835d895160ecb5853874fd5156d/extras/fish/tokyonight_storm.fish";
       hash = "sha256-gDzHyaOFk96qiWZZmP6xnK74zrKdCnBRh2AzNNF5Vyg=";
     };
-    dots = src: dest: ''
-      if [ ! -e "${dest}" ]; then
-        ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${src}" "${dest}"
-      fi
-    '';
-
-    dotfiles =
-      (lib.concatMapStringsSep "\n"
-        (name: dots "${hyprlanddots}/${name}/" "${config.xdg.configHome}/${name}/")
-        ["fish" "hypr" "cava"])
-      + dots "${nvimDots}/" "${config.xdg.configHome}/nvim/"
-      + dots "${hyprlanddots}/starship.toml" "${config.xdg.configHome}/starship.toml";
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
-      fish_dir="${config.xdg.configHome}/fish"
-      quickshell_dir="${config.xdg.configHome}/quickshell"
-      dms_dir="${pkgs.dms-shell}/share/quickshell/dms"
-
       ${dotfiles}
-
-      if [ -L "$quickshell_dir" ]; then
-        ${pkgs.coreutils}/bin/ln -sfnT "$dms_dir" "$quickshell_dir"
-      elif [ ! -e "$quickshell_dir" ]; then
-        ${pkgs.coreutils}/bin/ln -s "$dms_dir" "$quickshell_dir"
-      elif [ -d "$quickshell_dir" ] && [ -f "$quickshell_dir/DMSShell.qml" ] && [ -f "$quickshell_dir/VERSION" ]; then
-        quickshell_back="$quickshell_dir.$(${pkgs.coreutils}/bin/date +%Y%m%d%H%M%S)"
-        ${pkgs.coreutils}/bin/mv "$quickshell_dir" "$quickshell_back"
-        ${pkgs.coreutils}/bin/ln -s "$dms_dir" "$quickshell_dir"
-        echo "Moved existing DMS quickshell tree to $quickshell_back"
-      fi
-
-      cat > "$fish_dir/conf.d/envs.fish" <<'EOF'
+      ${quickshell}
+      cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
       # Auto-generated from sops secrets
       ${lib.concatStringsSep "\n" envLines}
       EOF
-
-      if [ ! -e "$fish_dir/conf.d/tokyonight_storm.fish" ]; then
-        ${pkgs.coreutils}/bin/install -Dm644 "${tokyonightStorm}" "$fish_dir/conf.d/tokyonight_storm.fish"
+      if [ ! -e "${config.xdg.configHome}/fish/conf.d/tokyonight_storm.fish" ]; then
+        ${pkgs.coreutils}/bin/install -Dm644 "${tokyonightStorm}" "${config.xdg.configHome}/fish/conf.d/tokyonight_storm.fish"
       fi
     '';
 }
