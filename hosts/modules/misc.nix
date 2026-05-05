@@ -10,5 +10,6 @@
     xdg-utils
     cacert
     xdg-terminal-exec
+    patchelf
   ];
 }

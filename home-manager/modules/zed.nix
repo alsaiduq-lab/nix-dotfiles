@@ -9,13 +9,13 @@
     extensions = [
       "material-icon-theme"
       "tokyo-night"
+      "discord-presence"
       "nix"
       "hyprlang"
       "toml"
       "html"
       "scss"
       "lua"
-      "markdown"
     ];
 
     extraPackages = with pkgs; [
@@ -111,20 +111,20 @@
 
       languages = {
         Nix = {
-          language_servers = ["nixd"];
+          language_servers = ["nixd" "!nil" "discord_presence"];
           formatter = {
             external = {
-              command = "alejandra";
+              command = "${pkgs.alejandra}/bin/alejandra";
               arguments = ["--quiet" "--"];
             };
           };
         };
 
         Python = {
-          language_servers = ["basedpyright" "ruff"];
+          language_servers = ["basedpyright" "ruff" "discord_presence"];
           formatter = {
             external = {
-              command = "ruff";
+              command = "${pkgs.ruff}/bin/ruff";
               arguments = ["format" "--stdin-filename" "{buffer_path}" "-"];
             };
           };
@@ -133,7 +133,7 @@
         HTML = {
           formatter = {
             external = {
-              command = "prettier";
+              command = "${pkgs.prettier}/bin/prettier";
               arguments = ["--stdin-filepath" "{buffer_path}"];
             };
           };
@@ -142,7 +142,7 @@
         SCSS = {
           formatter = {
             external = {
-              command = "prettier";
+              command = "${pkgs.prettier}/bin/prettier";
               arguments = ["--stdin-filepath" "{buffer_path}"];
             };
           };
@@ -151,20 +151,50 @@
 
       lsp = {
         nixd = {
-          binary.path = "nixd";
+          binary = {
+            path = "${pkgs.nixd}/bin/nixd";
+          };
         };
 
         basedpyright = {
           binary = {
-            path = "basedpyright-langserver";
+            path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
             arguments = ["--stdio"];
           };
         };
 
         ruff = {
           binary = {
-            path = "ruff";
+            path = "${pkgs.ruff}/bin/ruff";
             arguments = ["server"];
+          };
+        };
+
+        discord_presence = {
+          initialization_options = {
+            application_id = "1263505205522337886";
+            base_icons_url = "https://raw.githubusercontent.com/vyfor/icons/master/icons/minecraft/dark";
+
+            details = "Editing {filename}";
+            state = "In {workspace}";
+
+            large_image = "{base_icons_url}/{language:lo}.png";
+            large_text = "{language:u}";
+
+            small_image = "https://raw.githubusercontent.com/xhyrom/zed-discord-presence/main/assets/icons/zed.png";
+            small_text = "Zed";
+
+            git_integration = true;
+
+            git_host_overrides = {
+              "git.monaie.ca" = "git.monaie.ca";
+              "github.com" = "github.com";
+            };
+
+            idle = {
+              timeout = 300;
+              action = "clear_activity";
+            };
           };
         };
       };

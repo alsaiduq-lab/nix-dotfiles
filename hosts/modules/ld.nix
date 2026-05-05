@@ -9,7 +9,6 @@
     libraries = with pkgs;
       [
         glibc
-        stdenv.cc.cc
         stdenv.cc.cc.lib
         libgcc.lib
         zlib
@@ -21,9 +20,7 @@
         libdrm
         vulkan-loader
         libva
-        vulkan-tools
         wayland
-        wayland-protocols
         libxkbcommon
         libx11
         libxcb

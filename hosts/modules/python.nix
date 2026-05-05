@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     (python313.withPackages (ps:
       with ps; [
@@ -23,4 +28,8 @@
     uv
     ruff
   ];
+
+  environment.etc."uv/uv.toml".text = ''
+    python-preference = "only-managed"
+  '';
 }
