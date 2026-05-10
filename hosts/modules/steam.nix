@@ -4,7 +4,6 @@
 
     extraCompatPackages = [
       pkgs.proton-ge-bin
-      pkgs.proton-cachyos
       pkgs.dw-proton
     ];
     # for hosting
@@ -45,5 +44,6 @@
     libstrangle
     gamescope-wsi
     umu-launcher
+    faugus-launcher
   ];
 }

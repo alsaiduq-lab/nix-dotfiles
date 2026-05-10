@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     jq
-    wrk
     gcc15
     pkg-config
     argc
@@ -11,5 +10,7 @@
     cacert
     xdg-terminal-exec
     patchelf
+    bubblewrap
+    hwinfo
   ];
 }
