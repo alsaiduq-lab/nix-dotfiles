@@ -40,15 +40,12 @@ fi
 
 hash="$(nix store prefetch-file "${prefetch_args[@]}" "$url" | jq -r '.hash')"
 
-if [ -n "$version" ]; then
-  jq -n \
-    --arg version "$version" \
-    --arg key "$key" \
-    --arg hash "$hash" \
-    '{ version: $version, ($key): { hash: $hash } }' > "$output"
-else
-  jq -n \
-    --arg key "$key" \
-    --arg hash "$hash" \
-    '{ ($key): { hash: $hash } }' > "$output"
-fi
+jq -n \
+  --arg version "$version" \
+  --arg key "$key" \
+  --arg hash "$hash" \
+  '
+    {}
+    | if $version != "" then .version = $version else . end
+    | .[$key].hash = $hash
+  ' > "$output"

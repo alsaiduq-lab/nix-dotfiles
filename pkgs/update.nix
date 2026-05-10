@@ -109,6 +109,18 @@
     then asset version
     else asset;
 
+  versionedAsset = asset: version:
+    if builtins.isFunction asset
+    then asset "{version}"
+    else if version == null
+    then asset
+    else builtins.replaceStrings [version] ["{version}"] asset;
+
+  hasVersionToken = asset:
+    builtins.match ".*[{]version[}].*" asset != null;
+
+  updateSources = import ./update-sources.nix {inherit updateDeps;};
+
   versionJqFromTag = tag: let
     renderedTag = renderAsset tag "{version}";
     parts = builtins.match "^(.*)[{]version[}](.*)$" renderedTag;
@@ -125,16 +137,25 @@
     + lib.optionalString (prefix != "") " | ltrimstr(${builtins.toJSON prefix})"
     + lib.optionalString (suffix != "") " | rtrimstr(${builtins.toJSON suffix})";
 
-  collectUpdaters = path: value:
-    if lib.isDerivation value
-    then
-      lib.optional (builtins.hasAttr "update-deps" value && builtins.hasAttr "depsFile" value) {
-        attr = lib.concatStringsSep "." path;
-        depsFile = value.depsFile;
-        updater = lib.getExe value."update-deps";
-      }
+  isUpdateSource = value:
+    builtins.isAttrs value && builtins.hasAttr "depsFile" value && builtins.hasAttr "updater" value;
+
+  collectUpdateSources = path: value:
+    if isUpdateSource value
+    then let
+      attr = lib.concatStringsSep "." path;
+    in
+      if lib.isDerivation value.updater
+      then [
+        {
+          inherit attr;
+          depsFile = value.depsFile;
+          updater = lib.getExe value.updater;
+        }
+      ]
+      else throw "${attr}: updater is ${builtins.typeOf value.updater}, expected a derivation"
     else if builtins.isAttrs value
-    then lib.concatLists (lib.mapAttrsToList (name: child: collectUpdaters (path ++ [name]) child) value)
+    then lib.concatLists (lib.mapAttrsToList (name: child: collectUpdateSources (path ++ [name]) child) value)
     else [];
 
   updateDeps = {
@@ -144,23 +165,70 @@
 
     dotnet = {
       name,
-      version,
-      srcHash,
+      version ? null,
+      srcHash ? null,
+      url ? null,
+      rev ? null,
+      fetcher ? "fetchgit",
+      unpack ? false,
+      latestVersion ? null,
+      projectFile ? null,
+      testProjectFile ? null,
+      dotnetSdk ? null,
+      dotnetFlags ? [],
+      platforms ? null,
       ...
     }:
       mkUpdater {
         name = "${name}-update-deps";
         script = ./scripts/dotnet.sh;
-        runtimeInputs = [
-          pkgs.gitMinimal
-          pkgs.jq
-          pkgs.nix
-        ];
-        env = {
-          VERSION = version;
-          SRC_HASH = srcHash;
-          UPDATE_SYSTEM = pkgs.stdenv.hostPlatform.system;
-        };
+        runtimeInputs =
+          [
+            pkgs.gitMinimal
+            pkgs.gnused
+            pkgs.jq
+            pkgs.nix
+          ]
+          ++ lib.optionals (latestVersion != null) [
+            pkgs.curl
+          ];
+        env =
+          {
+            UPDATE_SYSTEM = pkgs.stdenv.hostPlatform.system;
+            SOURCE_FETCHER = fetcher;
+            UPDATE_UNPACK = lib.boolToString unpack;
+          }
+          // lib.optionalAttrs (version != null) {
+            VERSION = version;
+          }
+          // lib.optionalAttrs (srcHash != null) {
+            SRC_HASH = srcHash;
+          }
+          // lib.optionalAttrs (url != null) {
+            SOURCE_URL = url;
+          }
+          // lib.optionalAttrs (rev != null) {
+            SOURCE_REV = versionedAsset rev version;
+          }
+          // lib.optionalAttrs (latestVersion != null) {
+            LATEST_VERSION_URL = latestVersion.url;
+            LATEST_VERSION_JQ = latestVersion.jq or ".";
+          }
+          // lib.optionalAttrs (projectFile != null) {
+            DOTNET_PROJECT_FILE = builtins.toJSON projectFile;
+          }
+          // lib.optionalAttrs (testProjectFile != null) {
+            DOTNET_TEST_PROJECT_FILE = builtins.toJSON testProjectFile;
+          }
+          // lib.optionalAttrs (dotnetSdk != null) {
+            DOTNET_SDK = dotnetSdk;
+          }
+          // lib.optionalAttrs (dotnetFlags != []) {
+            DOTNET_FLAGS = builtins.toJSON dotnetFlags;
+          }
+          // lib.optionalAttrs (platforms != null) {
+            DOTNET_PLATFORMS = builtins.toJSON platforms;
+          };
       };
 
     fetchurl = mkJsonHashUpdater;
@@ -190,12 +258,32 @@
       rev,
       key ? "src",
       version ? null,
+      latestVersion ? null,
+      versionJq ? null,
       ...
-    }:
+    }: let
+      versionedRev = versionedAsset rev version;
+      shouldBumpVersion = hasVersionToken versionedRev;
+
+      resolvedLatestVersion =
+        if latestVersion != null
+        then latestVersion
+        else if shouldBumpVersion
+        then
+          latestVersionSource.githubRelease {
+            inherit owner repo;
+            versionJq =
+              if versionJq != null
+              then versionJq
+              else versionJqFromTag versionedRev;
+          }
+        else null;
+    in
       mkJsonHashUpdater {
         inherit name key version;
+        latestVersion = resolvedLatestVersion;
         unpack = true;
-        url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
+        url = "https://github.com/${owner}/${repo}/archive/${versionedRev}.tar.gz";
       };
 
     fetchCrateRustPackage = {
@@ -210,6 +298,7 @@
           pkgs.gnused
           pkgs.jq
           pkgs.nix
+          pkgs.curl
         ];
         env = {
           CRATE_PNAME = pname;
@@ -220,8 +309,8 @@
       };
   };
 
-  updateAll = packageSet: let
-    manifest = pkgs.writeText "update-deps-manifest.json" (builtins.toJSON (collectUpdaters [] packageSet));
+  updateAll = let
+    manifest = pkgs.writeText "update-deps-manifest.json" (builtins.toJSON (collectUpdateSources [] updateSources));
   in
     mkUpdater {
       name = "update-deps";

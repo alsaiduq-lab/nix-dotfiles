@@ -38,7 +38,6 @@ trap cleanup EXIT
 
 set +e
 REPO_ROOT="$repo_root" \
-PACKAGE_ATTR="$package_attr" \
 SYSTEM="$system" \
 SRC_HASH="$src_hash" \
 CRATE_PNAME="$crate_pname" \
@@ -46,7 +45,6 @@ CRATE_VERSION="$crate_version" \
   nix build --no-link --impure --expr '
       let
         repoRoot = builtins.getEnv "REPO_ROOT";
-        packageAttr = builtins.getEnv "PACKAGE_ATTR";
         srcHash = builtins.getEnv "SRC_HASH";
         flake = builtins.getFlake repoRoot;
         lib = flake.inputs.nixpkgs.lib;
@@ -54,28 +52,19 @@ CRATE_VERSION="$crate_version" \
           system = builtins.getEnv "SYSTEM";
           config.allowUnfree = true;
         };
-        customPkgs = import (repoRoot + "/pkgs") {
-          inherit pkgs lib;
-        };
         src = pkgs.fetchCrate {
           pname = builtins.getEnv "CRATE_PNAME";
           version = builtins.getEnv "CRATE_VERSION";
           hash = srcHash;
         };
-        target = lib.attrsets.getAttrFromPath (lib.strings.splitString "." packageAttr) customPkgs;
-        cargoDeps =
-          if target ? cargoDeps
-          then target.cargoDeps
-          else throw "${packageAttr}: package does not expose cargoDeps";
-        vendorSource =
-          if cargoDeps ? vendorStaging
-          then cargoDeps.vendorStaging
-          else cargoDeps;
+        vendorSource = pkgs.rustPlatform.fetchCargoVendor {
+          pname = builtins.getEnv "CRATE_PNAME";
+          version = builtins.getEnv "CRATE_VERSION";
+          inherit src;
+          hash = lib.fakeHash;
+        };
       in
-      vendorSource.overrideAttrs (_: {
-        inherit src;
-        outputHash = lib.fakeHash;
-      })
+        vendorSource
     ' > "$build_log" 2>&1
 build_status="$?"
 set -e

@@ -12,6 +12,7 @@
     rpcs3 = pkgs.callPackage ./rpcs3 {inherit updateDeps;};
     vita3k = pkgs.callPackage ./vita3k {inherit updateDeps;};
     ryubing = pkgs.callPackage ./ryubing {inherit updateDeps;};
+    ani-cli = pkgs.callPackage ./ani-cli {inherit updateDeps;};
     dms-plugins = {
       lyrics-on-panel = pkgs.callPackage ./dms-plugins/lyrics-on-panel {inherit updateDeps;};
     };
@@ -20,7 +21,7 @@
   packages =
     packageSet
     // {
-      update-deps = update.updateAll packageSet;
+      update-deps = update.updateAll;
     };
 in
   packages
