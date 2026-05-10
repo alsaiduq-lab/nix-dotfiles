@@ -6,7 +6,7 @@
   users.users.${config.theme.user} = {
     isNormalUser = true;
     shell = builtins.getAttr config.theme.Shell pkgs;
-    extraGroups = ["wheel" "networkmanager" "docker" "video" "render" "input" "audio"];
+    extraGroups = ["wheel" "networkmanager" "docker" "video" "render" "input" "audio" "bluetooth"];
     linger = true;
   };
 
