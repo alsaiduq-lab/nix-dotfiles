@@ -1,10 +1,16 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  tokyo-night,
+  ...
+}: {
   home.packages = with pkgs; [
     git
     git-lfs
     gh
     diff-so-fancy
   ];
+  home.sessionVariables.LG_CONFIG_FILE = "${tokyo-night}/extras/lazygit/tokyonight_storm.yml,${config.xdg.configHome}/lazygit/config.yml";
 
   programs.lazygit = {
     enable = true;

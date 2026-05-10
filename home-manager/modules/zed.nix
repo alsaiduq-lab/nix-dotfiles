@@ -11,7 +11,6 @@
       "tokyo-night"
       "discord-presence"
       "nix"
-      "hyprlang"
       "toml"
       "html"
       "scss"
@@ -225,7 +224,7 @@
           "ctrl-b" = "editor::GoToDefinition";
           "ctrl-alt-b" = "editor::GoToImplementation";
           "ctrl-shift-b" = "editor::GoToTypeDefinition";
-          "f2" = "editor::GoToDiagnostic";
+          "ctrl+f2" = "editor::GoToDiagnostic";
           "shift-f2" = "editor::GoToPreviousDiagnostic";
           "ctrl-alt-h" = "editor::ToggleInlayHints";
           "ctrl-alt-g" = "editor::ToggleGitBlameInline";

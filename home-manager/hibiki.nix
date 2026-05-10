@@ -2,6 +2,7 @@
   imports = [
     ../settings.nix
     ./init.nix
+    ./modules/hyprland.nix
     ./modules/mime.nix
     ./modules/fish.nix
     ./modules/ghostty.nix
@@ -23,6 +24,8 @@
     ./modules/gremlin.nix
     ./modules/wallpaperengine.nix
     ./modules/zed.nix
+    ./modules/btop.nix
+    ./modules/ff.nix
   ];
 
   home.username = "${config.theme.user}";

@@ -1,32 +1,25 @@
-{pkgs, ...}: let
-  modernx = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/cyl0/ModernX/0.6.1/modernx.lua";
-    sha256 = "11n7qqaj2f3l53wg7vqdf007zky45nkviwy10xmb9kxwddnpmxsm";
-  };
-  modernxFont = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/cyl0/ModernX/0.6.1/Material-Design-Iconic-Font.ttf";
-    sha256 = "06nsghfgsvhqfcvfd9k1dp3mvh5xz0cz5k5vqcby4v5nxki5p90q";
-  };
-  anime4k = pkgs.fetchFromGitHub {
-    owner = "bloc97";
-    repo = "Anime4K";
-    rev = "v4.0.1";
-    sha256 = "sha256-OQWJWcDpwmnJJ/kc4uEReaO74dYFlxNQwf33E5Oagb0=";
-  };
-in {
+{
+  pkgs,
+  modernx,
+  anime4k,
+  ...
+}: {
   programs.mpv = {
     enable = true;
+
     scripts = with pkgs.mpvScripts; [
       thumbfast
     ];
+
     scriptOpts = {
       thumbfast = {
         max_height = 200;
         max_width = 200;
         spawn_first = true;
-        tone_mapping = "auto"; #"clip", "hable",
+        tone_mapping = "auto"; # "clip", "hable"
       };
     };
+
     config = {
       profile = "gpu-hq";
       osc = "no";
@@ -38,8 +31,8 @@ in {
     };
   };
 
-  home.file.".config/mpv/scripts/modernx.lua".source = modernx;
-  home.file.".config/mpv/fonts/Material-Design-Iconic-Font.ttf".source = modernxFont;
+  home.file.".config/mpv/scripts/modernx.lua".source = "${modernx}/modernx.lua";
+  home.file.".config/mpv/fonts/Material-Design-Iconic-Font.ttf".source = "${modernx}/Material-Design-Iconic-Font.ttf";
   home.file.".config/mpv/shaders".source = "${anime4k}/glsl";
 
   home.file.".config/mpv/input.conf".text = ''

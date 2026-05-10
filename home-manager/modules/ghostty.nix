@@ -4,7 +4,6 @@
   ...
 }: {
   programs.ghostty = {
-    # TODO: figure another way to do this
     enable = true;
     enableFishIntegration = true;
 
@@ -29,5 +28,4 @@
       ];
     };
   };
-  # home.file."${config.xdg.configHome}/ghostty/config".force = lib.mkForce true;
 }

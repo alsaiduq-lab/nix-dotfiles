@@ -33,7 +33,7 @@
   ];
   programs.direnv = {
     enable = true;
-    nix-direnv.enable = true;
+    loadInNixShell = true;
   };
   environment.etc."xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 }

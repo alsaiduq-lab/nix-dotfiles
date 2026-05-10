@@ -1,8 +1,10 @@
-{...}: {
+{tokyo-night, ...}: {
   programs.nixcord = {
     enable = true;
+    quickCss = builtins.readFile "${tokyo-night}/extras/discord/tokyonight_storm.css";
     discord = {
       enable = true;
+      openASAR.enable = false;
       vencord.enable = true;
       branch = "stable";
       autoscroll.enable = true;
@@ -10,6 +12,7 @@
     config = {
       autoUpdateNotification = true;
       notifyAboutUpdates = true;
+      useQuickCss = true;
       frameless = true;
       plugins = {
         AutoDNDWhilePlaying = {

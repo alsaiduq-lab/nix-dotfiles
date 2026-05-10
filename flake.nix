@@ -11,10 +11,7 @@
 
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-    };
-
-    proton-cachyos = {
-      url = "github:Arsalan2356/proton-cachyos-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     aagl = {
@@ -42,6 +39,11 @@
       flake = false;
     };
 
+    tokyo-night = {
+      url = "github:folke/tokyonight.nvim";
+      flake = false;
+    };
+
     miku-cursor = {
       url = "git+https://git.monaie.ca/alteur/animated-cursors";
     };
@@ -55,11 +57,11 @@
     };
 
     linux-desktop-gremlin = {
-      url = "github:alsaiduq-lab/linux-desktop-gremlin/nix";
+      url = "github:iluvgirlswithglasses/linux-desktop-gremlin";
     };
 
     nixcord = {
-      url = "github:kaylorben/nixcord";
+      url = "github:FlameFlag/nixcord";
     };
 
     dw-proton = {
@@ -76,6 +78,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    modernx = {
+      url = "github:cyl0/ModernX?ref=0.6.1";
+      flake = false;
+    };
+
+    anime4k = {
+      url = "github:bloc97/Anime4K?ref=v4.0.1";
+      flake = false;
+    };
+
+    nvm-fish = {
+      url = "github:jorgebucaran/nvm.fish";
+      flake = false;
+    };
+
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -88,6 +105,7 @@
 
     hermes-agent = {
       url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {
@@ -104,7 +122,6 @@
     self,
     nixpkgs,
     home-manager,
-    nix-gaming,
     sops-nix,
     ...
   } @ inputs: let
@@ -139,13 +156,13 @@
         clear-sans
         vita3k
         ryubing
+        ani-cli
         update-deps
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit inputs;
-        hyprlanddots = inputs.hyprland-dots;
       };
 
       modules = [
@@ -164,19 +181,16 @@
                 ghostty = inputs.ghostty.packages.${system}.default;
                 miku-cursor = inputs.miku-cursor.packages.${system}.default;
                 grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
-                proton-cachyos = inputs.proton-cachyos.packages.${system}.proton-cachyos;
                 desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
                 dgop = unstablePkgs.dgop;
                 hyprland = inputs.hyprland.packages.${system}.default;
                 dw-proton = inputs.dw-proton.packages.${system}.default;
                 ollama = unstablePkgs.ollama-cuda;
                 ryubing = customPkgs.ryubing;
+                ani-cli = customPkgs.ani-cli;
                 pkgsi686Linux = prev.pkgsi686Linux.extend (ifinal: iprev: {
                   openldap = iprev.openldap.overrideAttrs (_: {doCheck = false;});
                 });
-                # python313 = prev.python313.override {
-                # packageOverrides = pyfinal: pyprev: {
-                # pyqtgraph = pyprev.pyqtgraph.overridePythonAttrs (_: {doCheck = false;});
               })
               (final: prev: {
                 inherit
@@ -187,6 +201,7 @@
                   rpcs3
                   vita3k
                   ryubing
+                  ani-cli
                   ;
               })
             ];
@@ -203,6 +218,10 @@
               inherit inputs;
               hyprlanddots = inputs.hyprland-dots;
               nvimDots = inputs.nvim-dots;
+              tokyo-night = inputs.tokyo-night;
+              modernx = inputs.modernx;
+              anime4k = inputs.anime4k;
+              nvm-fish = inputs.nvm-fish;
             };
             sharedModules = [
               inputs.nixcord.homeModules.nixcord
@@ -237,10 +256,8 @@
                 inherit
                   (customPkgs)
                   minijinja-cli
+                  clear-sans
                   ;
-              })
-              (final: prev: {
-                clear-sans = prev.clear-sans.clear-sans;
               })
             ];
           };
@@ -254,7 +271,6 @@
             extraSpecialArgs = {
               inherit inputs;
               nvimDots = inputs.nvim-dots;
-              hyprlanddots = inputs.hyprland-dots;
             };
             users.alteur = import ./home-manager/alteur.nix;
           };

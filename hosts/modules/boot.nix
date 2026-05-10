@@ -4,6 +4,7 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 8;
+        editor = false;
       };
       efi.canTouchEfiVariables = true;
       timeout = 5;
@@ -15,20 +16,23 @@
     kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
     initrd = {
+      systemd.enable = true;
       verbose = false;
       kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
     };
     kernelParams = [
       "quiet"
       "splash"
-      "boot.shell_on_fail"
-      "udev.log_priority=3"
-      "rd.systemd.show_status=auto"
+      "rd.systemd.debug_shell"
+      "udev.log_level=3"
+      "rd.udev.log_level=3"
+      "systemd.show_status=auto"
       "nowatchdog"
       "amd_iommu=on"
       "iommu=pt"
     ];
     kernelModules = ["ntsync"];
+    blacklistedKernelModules = ["esp4" "esp6" "rxrpc"]; # in light of recent events
     kernel.sysctl = {
       "vm.swappiness" = 60;
       "vm.vfs_cache_pressure" = 50;
@@ -57,8 +61,8 @@
   };
 
   # some people really like putting #/bin/sh or #/bin/bash
+  # this normally isnt recommended; i suggest yelling at people not knowing how to properly use shebangs
   system.activationScripts.binbash = {
-    deps = [];
     text = ''
       mkdir -p /bin
       ln -sf ${pkgs.bash}/bin/bash /bin/bash

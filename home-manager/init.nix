@@ -8,29 +8,44 @@
     ./dotfiles.nix
   ];
 
-  home.activation.init-seed = let
+  home.activation.seed-dotfiles = let
     dotfiles =
       lib.concatStringsSep "\n"
       (lib.mapAttrsToList
         (_: entry:
-          lib.optionalString entry.enable ''
-            if [ ! -e "${config.xdg.configHome}/${entry.to}" ]; then
-              ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${entry.from}" "${config.xdg.configHome}/${entry.to}"
-            fi
-          '')
-        config.dotfiles.files);
+          lib.optionalString entry.enable (
+            if entry.files == {}
+            then ''
+              if [ ! -e "${config.xdg.configHome}/${entry.to}" ]; then
+                mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}")"
+                ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${entry.from}" "${config.xdg.configHome}/${entry.to}"
+              fi
+            ''
+            else
+              lib.concatStringsSep "\n"
+              (lib.mapAttrsToList
+                (src: dest: ''
+                  if [ ! -e "${config.xdg.configHome}/${entry.to}/${dest}" ]; then
+                    mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}/${dest}")"
+                    ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${entry.from}/${src}" "${config.xdg.configHome}/${entry.to}/${dest}"
+                  fi
+                '')
+                entry.files)
+          ))
+        (removeAttrs config.dotfiles ["quickshell"]));
+
     quickshell =
       if config.dotfiles.quickshell == null || ! config.dotfiles.quickshell.enable
       then ""
       else ''
         if [ -L "${config.xdg.configHome}/quickshell" ]; then
-          ${pkgs.coreutils}/bin/ln -sfnT "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
+          ln -sfnT "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
         elif [ ! -e "${config.xdg.configHome}/quickshell" ]; then
-          ${pkgs.coreutils}/bin/ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
+          ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
         elif [ -d "${config.xdg.configHome}/quickshell" ] && [ -f "${config.xdg.configHome}/quickshell/${config.dotfiles.quickshell.marker}" ]; then
-          quickshell_back="${config.xdg.configHome}/quickshell.${config.dotfiles.quickshell.name}.$(${pkgs.coreutils}/bin/date +%Y%m%d%H%M%S)"
-          ${pkgs.coreutils}/bin/mv "${config.xdg.configHome}/quickshell" "$quickshell_back"
-          ${pkgs.coreutils}/bin/ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
+          quickshell_back="${config.xdg.configHome}/quickshell.${config.dotfiles.quickshell.name}.$(cat "${config.dotfiles.quickshell.from}/VERSION")"
+          mv "${config.xdg.configHome}/quickshell" "$quickshell_back"
+          ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
         fi
       '';
 
@@ -52,14 +67,11 @@
       "api/vast" = "VAST_API_KEY";
       "github_token" = "GITHUB_TOKEN";
     };
+
     envLines =
       lib.mapAttrsToList
       (secret: varName: "set -gx ${varName} (cat /run/secrets/${secret})")
       envVars;
-    tokyonightStorm = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/545d72cde6400835d895160ecb5853874fd5156d/extras/fish/tokyonight_storm.fish";
-      hash = "sha256-gDzHyaOFk96qiWZZmP6xnK74zrKdCnBRh2AzNNF5Vyg=";
-    };
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
       ${dotfiles}
@@ -68,8 +80,5 @@
       # Auto-generated from sops secrets
       ${lib.concatStringsSep "\n" envLines}
       EOF
-      if [ ! -e "${config.xdg.configHome}/fish/conf.d/tokyonight_storm.fish" ]; then
-        ${pkgs.coreutils}/bin/install -Dm644 "${tokyonightStorm}" "${config.xdg.configHome}/fish/conf.d/tokyonight_storm.fish"
-      fi
     '';
 }
