@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   imports = [
     ../settings.nix
     ./init.nix
@@ -14,7 +14,8 @@
     ./modules/emulators.nix
     ./modules/discord.nix
     ./modules/thorium.nix
-    ./modules/spotify.nix
+    # too lazy to deal with
+    #./modules/spotify.nix
     ./modules/obs.nix
     ./modules/mpv.nix
     ./modules/ani-cli.nix

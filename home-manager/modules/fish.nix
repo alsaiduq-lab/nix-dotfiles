@@ -35,7 +35,7 @@
         src = pkgs.fishPlugins.bass;
       }
       {
-        name = "nvm.fish";
+        name = "nvm";
         src = nvm-fish;
       }
     ];

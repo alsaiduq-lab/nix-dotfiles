@@ -107,7 +107,6 @@
     hl.env("QT_QPA_PLATFORM", "wayland;xcb")
     hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
     hl.env("MOZ_ENABLE_WAYLAND", "1")
-    hl.env("SDL_VIDEODRIVER", "wayland")
     hl.env("CLUTTER_BACKEND", "wayland")
     hl.env("GDK_BACKEND", "wayland,x11")
     hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")

@@ -25,7 +25,6 @@
       dankGifSearch.enable = true;
       calculator.enable = true;
       dockerManager.enable = true;
-      developerUtilities.enable = true;
       emojiLauncher.enable = true;
       webSearch.enable = true;
       nixMonitor.enable = true;

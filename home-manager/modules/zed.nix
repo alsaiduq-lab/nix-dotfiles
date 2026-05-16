@@ -15,6 +15,7 @@
       "html"
       "scss"
       "lua"
+      "fish"
     ];
 
     extraPackages = with pkgs; [
@@ -32,6 +33,13 @@
       prettier
       lua-language-server
       marksman
+      fish
+      typescript
+      typescript-language-server
+      bash-language-server
+      shellcheck
+      shfmt
+      python3Packages.debugpy
     ];
 
     userSettings = {
@@ -56,6 +64,10 @@
       };
 
       agent = {
+        default_model = {
+          provider = "ollama";
+          model = "qwen3.5:27b";
+        };
         tool_permissions = {
           default = "confirm";
 
@@ -108,9 +120,31 @@
         show_other_hints = true;
       };
 
+      language_models = {
+        ollama = {
+          api_url = "http://localhost:11434";
+          context_window = 8192;
+        };
+      };
+
+      show_completions_on_input = true;
+      show_edit_predictions = true;
+
+      edit_predictions = {
+        provider = "ollama";
+        mode = "eager";
+
+        ollama = {
+          api_url = "http://localhost:11434";
+          model = "qwen3.5:27b";
+          prompt_format = "infer";
+          max_output_tokens = 512;
+        };
+      };
+
       languages = {
         Nix = {
-          language_servers = ["nixd" "!nil" "discord_presence"];
+          # language_servers = ["nixd" "!nil" "discord_presence"];
           formatter = {
             external = {
               command = "${pkgs.alejandra}/bin/alejandra";
@@ -120,11 +154,21 @@
         };
 
         Python = {
-          language_servers = ["basedpyright" "ruff" "discord_presence"];
+          # language_servers = ["basedpyright" "ruff" "discord_presence"];
+          code_actions_on_format = {
+            "source.organizeImports.ruff" = true;
+          };
+          formatter = {
+            language_server = {
+              name = "ruff";
+            };
+          };
+        };
+
+        Fish = {
           formatter = {
             external = {
-              command = "${pkgs.ruff}/bin/ruff";
-              arguments = ["format" "--stdin-filename" "{buffer_path}" "-"];
+              command = "${pkgs.fish}/bin/fish_indent";
             };
           };
         };
@@ -173,23 +217,17 @@
           initialization_options = {
             application_id = "1263505205522337886";
             base_icons_url = "https://raw.githubusercontent.com/vyfor/icons/master/icons/minecraft/dark";
-
             details = "Editing {filename}";
             state = "In {workspace}";
-
             large_image = "{base_icons_url}/{language:lo}.png";
             large_text = "{language:u}";
-
             small_image = "https://raw.githubusercontent.com/xhyrom/zed-discord-presence/main/assets/icons/zed.png";
             small_text = "Zed";
-
             git_integration = true;
-
             git_host_overrides = {
               "git.monaie.ca" = "git.monaie.ca";
               "github.com" = "github.com";
             };
-
             idle = {
               timeout = 300;
               action = "clear_activity";
@@ -224,11 +262,21 @@
           "ctrl-b" = "editor::GoToDefinition";
           "ctrl-alt-b" = "editor::GoToImplementation";
           "ctrl-shift-b" = "editor::GoToTypeDefinition";
-          "ctrl+f2" = "editor::GoToDiagnostic";
+          "ctrl-f2" = "editor::GoToDiagnostic";
           "shift-f2" = "editor::GoToPreviousDiagnostic";
           "ctrl-alt-h" = "editor::ToggleInlayHints";
           "ctrl-alt-g" = "editor::ToggleGitBlameInline";
           "ctrl-/" = "editor::ToggleComments";
+          "ctrl-space" = "editor::ShowCompletions";
+          "ctrl-alt-space" = "editor::ShowEditPrediction";
+        };
+      }
+      {
+        context = "Editor && edit_prediction";
+        bindings = {
+          "ctrl-enter" = "editor::AcceptEditPrediction";
+          "ctrl-alt-right" = "editor::AcceptNextWordEditPrediction";
+          "ctrl-alt-down" = "editor::AcceptNextLineEditPrediction";
         };
       }
       {

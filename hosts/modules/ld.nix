@@ -38,11 +38,11 @@
         libxcrypt
         libxcrypt-legacy
         libuuid
-        libxcb-cursor
-        libxcb-image
-        libxcb-keysyms
-        libxcb-render-util
-        libxcb-wm
+        xcbutilcursor
+        xcbutilimage
+        xcbutilkeysyms
+        xcbutilrenderutil
+        xcbutilwm
         freetype
         fontconfig
         harfbuzz
@@ -62,6 +62,7 @@
         alsa-lib
         libpulseaudio
         pipewire
+        qt6.qtmultimedia
         libsndfile
         SDL2
         sdl3

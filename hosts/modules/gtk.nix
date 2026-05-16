@@ -6,16 +6,16 @@
     gtk-icon-theme-name=${config.theme.iconTheme}
     gtk-font-name=${config.theme.font}
     gtk-cursor-theme-name=${config.theme.cursorName}
-    gtk-cursor-theme-size="${toString config.theme.cursorSize}"
+    gtk-cursor-theme-size=${toString config.theme.cursorSize}
   '';
 in {
   environment.etc = {
     "gtk-2.0/gtkrc".text = ''
-      gtk-theme-name=${config.theme.gtkTheme}
-      gtk-icon-theme-name=${config.theme.iconTheme}
-      gtk-font-name=${config.theme.font}
-      gtk-cursor-theme-name=${config.theme.cursorName}
-      gtk-cursor-theme-size="${toString config.theme.cursorSize}"
+      gtk-theme-name="${config.theme.gtkTheme}"
+      gtk-icon-theme-name="${config.theme.iconTheme}"
+      gtk-font-name="${config.theme.font}"
+      gtk-cursor-theme-name="${config.theme.cursorName}"
+      gtk-cursor-theme-size=${toString config.theme.cursorSize}
     '';
     "gtk-3.0/settings.ini".text = gtkSettings;
     "gtk-4.0/settings.ini".text = gtkSettings;
