@@ -10,7 +10,6 @@
       [
         glibc
         stdenv.cc.cc.lib
-        libgcc.lib
         zlib
         zstd
         bzip2
@@ -35,14 +34,15 @@
         libxdamage
         libxshmfence
         libxrender
+        libxscrnsaver
         libxcrypt
         libxcrypt-legacy
         libuuid
-        xcbutilcursor
-        xcbutilimage
-        xcbutilkeysyms
-        xcbutilrenderutil
-        xcbutilwm
+        libxcb-cursor
+        libxcb-image
+        libxcb-keysyms
+        libxcb-render-util
+        libxcb-wm
         freetype
         fontconfig
         harfbuzz
@@ -59,6 +59,10 @@
         readline
         glib
         dbus
+        udev
+        libffi
+        libpng
+        libjpeg
         alsa-lib
         libpulseaudio
         pipewire
@@ -69,6 +73,7 @@
         openal
         ffmpeg
         libvdpau
+        libGLU
         gtk3
         cairo
         pango
@@ -86,6 +91,7 @@
         libsecret
         krb5
         keyutils
+        libunwind
       ]
       ++ lib.optionals config.hardware.nvidia.modesetting.enable [
         config.hardware.nvidia.package

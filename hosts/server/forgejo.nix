@@ -1,7 +1,4 @@
-{...}: let
-  domain = "git.monaie.ca";
-  port = 3000;
-in {
+{config, ...}: {
   services.postgresql = {
     enable = true;
     ensureDatabases = ["forgejo"];
@@ -19,11 +16,11 @@ in {
     lfs.enable = true;
     settings = {
       server = {
-        DOMAIN = domain;
-        ROOT_URL = "https://${domain}/";
+        DOMAIN = "git.${config.server.hostname}";
+        ROOT_URL = "https://git.${config.server.hostname}/";
         HTTP_ADDR = "127.0.0.1";
-        HTTP_PORT = port;
-        SSH_DOMAIN = domain;
+        HTTP_PORT = 3000;
+        SSH_DOMAIN = "git.${config.server.hostname}";
       };
       service = {
         DISABLE_REGISTRATION = true;
@@ -43,7 +40,7 @@ in {
       };
       log.LEVEL = "Warn";
       security.INSTALL_LOCK = true;
-      actions.ENABLED = false;
+      actions.ENABLED = true;
     };
   };
 
@@ -53,52 +50,16 @@ in {
     unixSocket = "/run/redis-forgejo/redis.sock";
     unixSocketPerm = 660;
   };
+
   users.users.forgejo.extraGroups = ["redis-forgejo"];
 
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    recommendedOptimisation = true;
-    recommendedGzipSettings = true;
-    commonHttpConfig = ''
-      set_real_ip_from 173.245.48.0/20;
-      set_real_ip_from 103.21.244.0/22;
-      set_real_ip_from 103.22.200.0/22;
-      set_real_ip_from 103.31.4.0/22;
-      set_real_ip_from 141.101.64.0/18;
-      set_real_ip_from 108.162.192.0/18;
-      set_real_ip_from 190.93.240.0/20;
-      set_real_ip_from 188.114.96.0/20;
-      set_real_ip_from 197.234.240.0/22;
-      set_real_ip_from 198.41.128.0/17;
-      set_real_ip_from 162.158.0.0/15;
-      set_real_ip_from 104.16.0.0/13;
-      set_real_ip_from 104.24.0.0/14;
-      set_real_ip_from 172.64.0.0/13;
-      set_real_ip_from 131.0.72.0/22;
-      real_ip_header CF-Connecting-IP;
-    '';
-    virtualHosts."_" = {
-      default = true;
-      rejectSSL = true;
-      locations."/" = {
-        return = "444";
-      };
+  services.nginx.virtualHosts."git.${config.server.hostname}" = {
+    forceSSL = true;
+    enableACME = true;
+    extraConfig = "client_max_body_size 0M;";
+    locations."/" = {
+      proxyPass = "http://unix:/run/anubis/anubis-forgejo/anubis.sock";
+      proxyWebsockets = true;
     };
-    virtualHosts.${domain} = {
-      forceSSL = true;
-      enableACME = true;
-      extraConfig = "client_max_body_size 0M;";
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString port}";
-        proxyWebsockets = true;
-      };
-    };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "riiidge.racer@gmail.com";
   };
 }

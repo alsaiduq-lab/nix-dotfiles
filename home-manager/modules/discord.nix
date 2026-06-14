@@ -4,10 +4,10 @@
     quickCss = builtins.readFile "${tokyo-night}/extras/discord/tokyonight_storm.css";
     discord = {
       enable = true;
-      openASAR.enable = false;
+      openASAR.enable = true;
       vencord.enable = true;
       branch = "stable";
-      autoscroll.enable = true;
+      commandLineArgs = ["--enable-blink-features=MiddleClickAutoscroll"];
     };
     config = {
       autoUpdateNotification = true;
@@ -15,22 +15,22 @@
       useQuickCss = true;
       frameless = true;
       plugins = {
-        AutoDNDWhilePlaying = {
+        autoDndWhilePlaying = {
           enable = true;
           excludeInvisible = true;
         };
-        BlurNSFW = {
+        blurNsfw = {
           enable = true;
         };
-        ClearURLs = {
+        clearUrls = {
           enable = true;
         };
-        OnePingPerDM = {
+        onePingPerDm = {
           enable = true;
           allowMentions = true;
           ignoreUsers = "Wumpus"; # die
         };
-        ReviewDB = {
+        reviewDb = {
           enable = true;
         };
         anonymiseFileNames = {
@@ -48,6 +48,7 @@
         forceOwnerCrown = {
           enable = true;
         };
+        # keeps warning about using oneko, but using cursorBuddy errors out
         oneko = {
           enable = true;
         };

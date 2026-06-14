@@ -40,5 +40,6 @@
     ./modules/mullvad.nix
     #./modules/syncthing.nix
     ./modules/ld.nix
+    ./modules/controller.nix
   ];
 }

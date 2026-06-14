@@ -30,27 +30,6 @@
           };
         };
       });
-
-      options.quickshell = lib.mkOption {
-        default = null;
-        type = lib.types.nullOr (lib.types.submodule {
-          options = {
-            enable = lib.mkOption {
-              type = lib.types.bool;
-              default = true;
-            };
-            from = lib.mkOption {
-              type = lib.types.str;
-            };
-            marker = lib.mkOption {
-              type = lib.types.str;
-            };
-            name = lib.mkOption {
-              type = lib.types.str;
-            };
-          };
-        });
-      };
     };
   };
 
@@ -58,10 +37,6 @@
     nvim = {
       from = lib.mkDefault "${nvimDots}/";
       to = lib.mkDefault "nvim/";
-    };
-    hypr-scripts = {
-      from = lib.mkDefault "${hyprlanddots}/hypr/scripts/";
-      to = lib.mkDefault "hypr/scripts/";
     };
     tokyo-storm-fish-theme = {
       from = lib.mkDefault "${tokyo-night}/extras/fish/tokyonight_storm.fish";
@@ -94,12 +69,6 @@
     anime4k = {
       from = lib.mkDefault "${anime4k}/glsl/";
       to = lib.mkDefault "mpv/shaders/";
-    };
-    # used to override the quickshell dir
-    quickshell = lib.mkIf (lib.attrByPath ["programs" "dms-shell" "enable"] false config) {
-      from = lib.mkDefault "${pkgs.dms-shell}/share/quickshell/dms";
-      marker = lib.mkDefault "DMSShell.qml";
-      name = lib.mkDefault "dms/";
     };
   };
 }

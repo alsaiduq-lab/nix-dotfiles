@@ -24,6 +24,7 @@
     "git-credentials"
     "api/mullvad"
     "forgejo-cred"
+    "anubis"
   ];
 in {
   imports = [inputs.sops-nix.nixosModules.sops];

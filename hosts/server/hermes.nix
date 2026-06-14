@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
   services.hermes-agent = {
@@ -22,10 +21,6 @@
         port = 8642;
         host = "127.0.0.1";
       };
-    };
-    documents = {
-      "AGENTS.md" = builtins.readFile "${inputs.soul}/AGENTS.md";
-      "SOUL.md" = builtins.readFile "${inputs.soul}/SOUL.md";
     };
     mcpServers = {
       searxng = {

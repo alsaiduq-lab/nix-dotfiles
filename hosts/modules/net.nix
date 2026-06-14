@@ -14,12 +14,14 @@
 
   networking = {
     hostName = "nixos";
+    useDHCP = false;
     networkmanager = {
       enable = true;
       dns = "systemd-resolved";
     };
     firewall = {
       enable = true;
+      checkReversePath = "loose";
       allowedTCPPorts = [80 443 57621];
       allowedTCPPortRanges = [
         {

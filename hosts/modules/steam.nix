@@ -45,5 +45,6 @@
     gamescope-wsi
     umu-launcher
     faugus-launcher
+    heroic
   ];
 }

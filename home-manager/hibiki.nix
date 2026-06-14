@@ -31,7 +31,7 @@
 
   home.username = "${config.theme.user}";
   home.homeDirectory = "/home/${config.theme.user}";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
   programs.home-manager.enable = true;
   home.enableNixpkgsReleaseCheck = false;
 

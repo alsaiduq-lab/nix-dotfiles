@@ -34,11 +34,6 @@
       flake = false;
     };
 
-    hyprland-dots = {
-      url = "git+ssh://git@github.com/alsaiduq-lab/hyprland-dots";
-      flake = false;
-    };
-
     tokyo-night = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -96,11 +91,6 @@
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    soul = {
-      url = "git+ssh://forgejo@git.monaie.ca/alteur/soul";
-      flake = false;
     };
 
     hermes-agent = {
@@ -216,7 +206,6 @@
             backupFileExtension = "bak";
             extraSpecialArgs = {
               inherit inputs;
-              hyprlanddots = inputs.hyprland-dots;
               nvimDots = inputs.nvim-dots;
               tokyo-night = inputs.tokyo-night;
               modernx = inputs.modernx;
@@ -268,9 +257,12 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
+            backupFileExtension = "bak";
             extraSpecialArgs = {
               inherit inputs;
               nvimDots = inputs.nvim-dots;
+              tokyo-night = inputs.tokyo-night;
+              nvm-fish = inputs.nvm-fish;
             };
             users.alteur = import ./home-manager/alteur.nix;
           };

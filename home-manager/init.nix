@@ -32,22 +32,7 @@
                 '')
                 entry.files)
           ))
-        (removeAttrs config.dotfiles ["quickshell"]));
-
-    quickshell =
-      if config.dotfiles.quickshell == null || ! config.dotfiles.quickshell.enable
-      then ""
-      else ''
-        if [ -L "${config.xdg.configHome}/quickshell" ]; then
-          ln -sfnT "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
-        elif [ ! -e "${config.xdg.configHome}/quickshell" ]; then
-          ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
-        elif [ -d "${config.xdg.configHome}/quickshell" ] && [ -f "${config.xdg.configHome}/quickshell/${config.dotfiles.quickshell.marker}" ]; then
-          quickshell_back="${config.xdg.configHome}/quickshell.${config.dotfiles.quickshell.name}.$(cat "${config.dotfiles.quickshell.from}/VERSION")"
-          mv "${config.xdg.configHome}/quickshell" "$quickshell_back"
-          ln -s "${config.dotfiles.quickshell.from}" "${config.xdg.configHome}/quickshell"
-        fi
-      '';
+        config.dotfiles);
 
     envVars = {
       "api/openai" = "OPENAI_API_KEY";
@@ -75,7 +60,6 @@
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
       ${dotfiles}
-      ${quickshell}
       cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
       # Auto-generated from sops secrets
       ${lib.concatStringsSep "\n" envLines}
