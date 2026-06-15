@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dms-plugins-registry = {
       url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -178,6 +183,7 @@
                 ollama = unstablePkgs.ollama-cuda;
                 ryubing = customPkgs.ryubing;
                 ani-cli = customPkgs.ani-cli;
+                dms-shell = inputs.dms.packages.${system}.default;
                 pkgsi686Linux = prev.pkgsi686Linux.extend (ifinal: iprev: {
                   openldap = iprev.openldap.overrideAttrs (_: {doCheck = false;});
                 });
