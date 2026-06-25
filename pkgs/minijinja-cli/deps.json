@@ -1,9 +1,9 @@
 {
   "cargo": {
-    "hash": "sha256-5bZEY7vIXNFm0l0sVgbkIVfI9txEcalSckoSrhedEes="
+    "hash": "sha256-DT/RTXFpBWDCf99ebl2cQcbTG8zEMShKXd8ZdGgKzZg="
   },
   "src": {
-    "hash": "sha256-J+o2JmVeE0RJvYEKS26L9GDbiKz04V5HaIDICd6APtM="
+    "hash": "sha256-8PoMSXBDoI7kEd27VwhGB38VzNxCNny97GHx1QG3KGA="
   },
-  "version": "2.19.0"
+  "version": "2.20.0"
 }

@@ -2,7 +2,9 @@
   description = "bloated rice";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
+
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -153,6 +155,7 @@
         ryubing
         ani-cli
         update-deps
+        proton-ge-11-1
         ;
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -184,9 +187,7 @@
                 ryubing = customPkgs.ryubing;
                 ani-cli = customPkgs.ani-cli;
                 dms-shell = inputs.dms.packages.${system}.default;
-                pkgsi686Linux = prev.pkgsi686Linux.extend (ifinal: iprev: {
-                  openldap = iprev.openldap.overrideAttrs (_: {doCheck = false;});
-                });
+                proton-ge-11-1 = customPkgs.proton-ge-11-1;
               })
               (final: prev: {
                 inherit
@@ -198,6 +199,7 @@
                   vita3k
                   ryubing
                   ani-cli
+                  proton-ge-11-1
                   ;
               })
             ];

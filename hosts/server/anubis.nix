@@ -46,11 +46,26 @@
             path_regex = "^/.well-known/.*$";
             action = "ALLOW";
           }
+          {
+            name = "uptime";
+            user_agent_regex = "(?i)(uptime-kuma|uptimerobot|updown\\.io)";
+            action = "ALLOW";
+          }
           # holy shit go fuck yourself meta
           {
             name = "meta-webindexer";
             user_agent_regex = "(?i)meta-webindexer";
             action = "DENY";
+          }
+          {
+            name = "ai-crawlers";
+            user_agent_regex = "(?i)(claudebot|gptbot|chatgpt-user|oai-searchbot|google-extended|bytespider|amazonbot|meta-externalagent|ccbot|perplexitybot|cohere-ai|diffbot|omgili|imagesift)";
+            action = "DENY";
+          }
+          {
+            name = "generic-browser";
+            user_agent_regex = "Mozilla";
+            action = "CHALLENGE";
           }
         ];
       };

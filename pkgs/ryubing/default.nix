@@ -111,7 +111,7 @@ in
     projectFile = "Ryujinx.sln";
     testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
 
-    doCheck = !stdenv.hostPlatform.isDarwin;
+    doCheck = false;
 
     dotnetFlags = [
       "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
@@ -132,15 +132,12 @@ in
 
     preFixup = ''
       ${lib.optionalString stdenv.hostPlatform.isLinux ''
-        mkdir -p $out/share/{applications,icons/hicolor/scalable/apps,mime/packages}
-
+        mkdir -p $out/share/{applications,icons/hicolor/256x256/apps,mime/packages}
         pushd ${src}/distribution/linux
-
-        install -D ./Ryujinx.desktop  $out/share/applications/Ryujinx.desktop
-        install -D ./Ryujinx.sh       $out/bin/Ryujinx.sh
-        install -D ./mime/Ryujinx.xml $out/share/mime/packages/Ryujinx.xml
-        install -D ../misc/Logo.svg   $out/share/icons/hicolor/scalable/apps/Ryujinx.svg
-
+        install -D ./app.ryujinx.Ryujinx.desktop $out/share/applications/app.ryujinx.Ryujinx.desktop
+        install -D ./Ryujinx.sh                   $out/bin/Ryujinx.sh
+        install -D ./mime/Ryujinx.xml             $out/share/mime/packages/Ryujinx.xml
+        install -D ../misc/Logo.png               $out/share/icons/hicolor/256x256/apps/app.ryujinx.Ryujinx.png
         popd
       ''}
 

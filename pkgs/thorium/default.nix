@@ -14,7 +14,6 @@
   at-spi2-core,
   dbus,
   libdrm,
-  mesa,
   libgbm,
   libGL,
   libX11,
@@ -54,8 +53,8 @@
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
   version = deps.version;
   source = {
-    owner = "Alex313031";
-    repo = "Thorium";
+    owner = "gz83";
+    repo = "thorium";
     tag = version: "M${version}";
     asset = version: "thorium-browser_${version}_AVX2.deb";
   };
@@ -91,7 +90,6 @@ in
       at-spi2-core
       dbus
       libdrm
-      mesa
       libgbm
       libGL
       libX11

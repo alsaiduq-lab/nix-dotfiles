@@ -80,12 +80,10 @@
 
   thorium = {
     depsFile = "pkgs/thorium/deps.json";
-    updater = updateDeps.fetchGitHubReleaseAsset {
+    updater = updateDeps.fetchurl {
       name = "thorium-browser";
-      owner = "Alex313031";
-      repo = "Thorium";
-      tag = version: "M${version}";
-      asset = version: "thorium-browser_${version}_AVX2.deb";
+      version = "144.0.7559.254";
+      url = "https://github.com/gz83/thorium/releases/download/M144.0.7559.254/thorium-browser_144.0.7559.254_AVX2.deb";
     };
   };
 
@@ -96,6 +94,15 @@
       owner = "Vita3K";
       repo = "Vita3K-builds";
       asset = "Vita3K-x86_64.AppImage";
+    };
+  };
+
+  proton-ge-11-1 = {
+    depsFile = "pkgs/proton-ge-11-1/deps.json";
+    updater = updateDeps.fetchurl {
+      name = "proton-ge-11-1";
+      version = "GE-Proton11-1";
+      url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-1/GE-Proton11-1.tar.gz";
     };
   };
 }

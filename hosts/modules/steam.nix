@@ -5,6 +5,7 @@
     extraCompatPackages = [
       pkgs.proton-ge-bin
       pkgs.dw-proton
+      pkgs.proton-ge-11-1
     ];
     # for hosting
     # dedicatedServer.openFirewall = true;
@@ -38,7 +39,6 @@
     enable32Bit = true;
   };
   environment.systemPackages = with pkgs; [
-    lutris
     winetricks
     mangohud
     libstrangle
