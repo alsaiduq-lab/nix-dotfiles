@@ -170,7 +170,7 @@
   keybindings = ''
     local mod = "SUPER"
 
-    hl.bind(mod .. " + Return", hl.dsp.exec_cmd(os.getenv("TERM")))
+    hl.bind(mod .. " + Return", hl.dsp.exec_cmd(os.getenv("TERMINAL")))
     hl.bind(mod .. " + B", hl.dsp.exec_cmd(os.getenv("BROWSER")))
     hl.bind(mod .. " + E", hl.dsp.exec_cmd(os.getenv("EDITOR")))
     hl.bind(mod .. " + D", hl.dsp.exec_cmd("sh -lc 'dms ipc call dash open overview'"))

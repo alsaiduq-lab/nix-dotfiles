@@ -5,7 +5,7 @@
 }: {
   environment.variables = {
     EDITOR = config.theme.Editor;
-    TERM = config.theme.Terminal;
+    TERMINAL = config.theme.Terminal;
     BROWSER = config.theme.Browser;
   };
 
@@ -31,9 +31,5 @@
     "/share/icons"
     "/share/pixmaps"
   ];
-  programs.direnv = {
-    enable = true;
-    loadInNixShell = true;
-  };
   environment.etc."xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 }

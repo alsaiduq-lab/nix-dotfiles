@@ -5,6 +5,6 @@
     #honkers-railway-launcher.enable = true;
     honkers-launcher.enable = true;
     # wavey-launcher.enable = true; #note: just use the steam ver.
-    sleepy-launcher.enable = true;
+    # sleepy-launcher.enable = true; #same as above
   };
 }

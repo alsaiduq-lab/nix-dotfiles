@@ -15,14 +15,11 @@
     };
   };
 
-  systemd.services.greetd.preStart = let
-    cacheDir = "/var/lib/dms-greeter";
-  in
-    lib.mkAfter ''
-      install -d -o dms-greeter -g dms-greeter -m 0750 \
-        ${cacheDir}/.local \
-        ${cacheDir}/.local/state \
-        ${cacheDir}/.local/share \
-        ${cacheDir}/.cache
-    '';
+  systemd.services.greetd.preStart = lib.mkAfter ''
+    install -d -o dms-greeter -g dms-greeter -m 0750 \
+      /var/lib/dms-greeter/.local \
+      /var/lib/dms-greeter/.local/state \
+      /var/lib/dms-greeter/.local/share \
+      /var/lib/dms-greeter/.cache
+  '';
 }

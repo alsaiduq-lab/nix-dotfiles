@@ -4,7 +4,7 @@
     quickCss = builtins.readFile "${tokyo-night}/extras/discord/tokyonight_storm.css";
     discord = {
       enable = true;
-      openASAR.enable = true;
+      openASAR.enable = false;
       vencord.enable = true;
       branch = "stable";
       commandLineArgs = ["--enable-blink-features=MiddleClickAutoscroll"];

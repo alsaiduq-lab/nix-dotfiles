@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  qt.enable = true;
+
   environment.systemPackages = with pkgs; [
     qt6.qtdeclarative
     qt6.qtwayland
@@ -6,5 +8,6 @@
     qt6.qtmultimedia
     qt6.qtimageformats
     qt5.qtwayland
+    qt6.qt5compat
   ];
 }
