@@ -18,7 +18,6 @@
     #./modules/spotify.nix
     ./modules/obs.nix
     ./modules/mpv.nix
-    ./modules/ani-cli.nix
     ./modules/cava.nix
     ./modules/imagemagick.nix
     ./modules/viv.nix

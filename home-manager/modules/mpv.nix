@@ -9,6 +9,7 @@
 
     scripts = with pkgs.mpvScripts; [
       thumbfast
+      webtorrent-mpv-hook
     ];
 
     scriptOpts = {
@@ -17,6 +18,9 @@
         max_width = 200;
         spawn_first = true;
         tone_mapping = "auto"; # "clip", "hable"
+      };
+      webtorrent = {
+        path = "memory";
       };
     };
 

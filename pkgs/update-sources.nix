@@ -1,16 +1,6 @@
 {
   updateDeps,
 }: {
-  ani-cli = {
-    depsFile = "pkgs/ani-cli/deps.json";
-    updater = updateDeps.fetchFromGitHub {
-      name = "ani-cli";
-      owner = "pystardust";
-      repo = "ani-cli";
-      rev = "v{version}";
-    };
-  };
-
   clear-sans = {
     depsFile = "pkgs/clear-sans/deps.json";
     updater = updateDeps.fetchFromGitHub {
