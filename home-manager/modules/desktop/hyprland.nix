@@ -12,7 +12,7 @@
   };
 
   xwayland = {
-    force_zero_scaling = false;
+    force_zero_scaling = true;
   };
 
   misc = {
@@ -136,20 +136,6 @@
 
   windows = ''
     hl.window_rule({
-      name = "fix-xwayland-drags",
-      match = {
-      class = "^$",
-      title = "^$",
-      xwayland = true,
-      float = true,
-      fullscreen = false,
-      pin = false,
-    },
-    no_focus = true,
-    })
-
-
-    hl.window_rule({
       match = { class = "com.mitchellh.ghostty" },
       opacity = "0.9 override 0.7 override 0.9 override",
     })
@@ -158,6 +144,8 @@
       match = { title = "ilgwg_desktop_gremlins.py" },
       no_blur = true,
       no_shadow = true,
+      no_dim = true,
+      no_anim = true,
       border_size = 0,
     })
 
