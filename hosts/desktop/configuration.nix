@@ -3,10 +3,10 @@
 # and in the NixOS manual (accessible by running 'nixos-help').
 {...}: {
   imports = [
-    ../settings.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./system-packages.nix
+    ../modules
+    ./nvidia.nix
   ];
 
   # This value determines the NixOS release from which the default

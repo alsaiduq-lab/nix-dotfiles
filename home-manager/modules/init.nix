@@ -1,20 +1,17 @@
 {
   lib,
   config,
+  custom,
   pkgs,
   ...
 }: {
-  imports = [
-    ./dotfiles.nix
-  ];
-
   home.activation.seed-dotfiles = let
     dotfiles =
       lib.concatStringsSep "\n"
       (lib.mapAttrsToList
         (_: entry:
-          lib.optionalString entry.enable (
-            if entry.files == {}
+          lib.optionalString (entry.enable or true) (
+            if (entry.files or {}) == {}
             then ''
               if [ ! -e "${config.xdg.configHome}/${entry.to}" ]; then
                 mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}")"
@@ -32,9 +29,9 @@
                 '')
                 entry.files)
           ))
-        config.dotfiles);
+        custom.dotfiles);
 
-    envVars = {
+    secrets = {
       "api/openai" = "OPENAI_API_KEY";
       "api/deepseek" = "DEEPSEEK_API_KEY";
       "api/anthropic" = "ANTHROPIC_API_KEY";
@@ -53,16 +50,16 @@
       "github_token" = "GITHUB_TOKEN";
     };
 
-    envLines =
+    createSecrets =
       lib.mapAttrsToList
       (secret: varName: "set -gx ${varName} (cat /run/secrets/${secret})")
-      envVars;
+      secrets;
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
       ${dotfiles}
       cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
       # Auto-generated from sops secrets
-      ${lib.concatStringsSep "\n" envLines}
+      ${lib.concatStringsSep "\n" createSecrets}
       EOF
     '';
 }

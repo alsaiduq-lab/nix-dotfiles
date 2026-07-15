@@ -8,7 +8,6 @@
       owner = "intel";
       repo = "clear-sans";
       rev = "main";
-      version = "1.0";
     };
   };
 
@@ -20,7 +19,6 @@
         owner = "KangweiZhu";
         repo = "lyrics-on-panel";
         rev = "main";
-        version = "unstable";
       };
     };
   };
@@ -72,7 +70,6 @@
     depsFile = "pkgs/thorium/deps.json";
     updater = updateDeps.fetchurl {
       name = "thorium-browser";
-      version = "144.0.7559.254";
       url = "https://github.com/gz83/thorium/releases/download/M144.0.7559.254/thorium-browser_144.0.7559.254_AVX2.deb";
     };
   };
@@ -91,8 +88,17 @@
     depsFile = "pkgs/proton-ge-11-1/deps.json";
     updater = updateDeps.fetchurl {
       name = "proton-ge-11-1";
-      version = "GE-Proton11-1";
       url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-1/GE-Proton11-1.tar.gz";
+    };
+  };
+
+  magna-glassy-icons = {
+    depsFile = "pkgs/magna-glassy-icons/deps.json";
+    updater = updateDeps.fetchFromGitHub {
+      name = "magna-glassy-icons";
+      owner = "L4ki";
+      repo = "Magna-Plasma-Themes";
+      rev = "main";
     };
   };
 }

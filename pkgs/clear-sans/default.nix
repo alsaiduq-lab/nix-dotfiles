@@ -5,8 +5,8 @@
   updateDeps,
 }: let
   pname = "clear-sans";
+  version = "1.0";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  version = deps.version;
   source = {
     owner = "intel";
     repo = "clear-sans";
@@ -23,7 +23,6 @@ in
     passthru = {
       depsFile = "pkgs/clear-sans/deps.json";
       "update-deps" = updateDeps.fetchFromGitHub (source // {
-        inherit version;
         name = pname;
       });
     };

@@ -1,5 +1,5 @@
 {
-  config,
+  settings,
   pkgs,
   ...
 }: {
@@ -94,7 +94,7 @@
 
       ui_font_size = 16;
       buffer_font_size = 15;
-      buffer_font_family = config.theme.TerminalFont;
+      buffer_font_family = settings.TerminalFont;
 
       theme = {
         mode = "system";
@@ -104,7 +104,7 @@
 
       terminal = {
         shell = {
-          program = config.theme.Shell;
+          program = settings.Shell;
         };
       };
 

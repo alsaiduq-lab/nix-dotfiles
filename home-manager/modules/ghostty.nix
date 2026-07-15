@@ -1,6 +1,6 @@
 {
   pkgs,
-  config,
+  settings,
   ...
 }: {
   programs.ghostty = {
@@ -9,7 +9,7 @@
 
     settings = {
       command = "${pkgs.fish}/bin/fish --login --interactive";
-      font-family = "${config.theme.TerminalFont}";
+      font-family = "${settings.TerminalFont}";
       font-size = 12;
       theme = "TokyoNight Storm";
       window-padding-x = 10;

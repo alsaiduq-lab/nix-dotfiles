@@ -10,6 +10,8 @@
     socat
     posting
     mtr
+    openssl
+    cacert
   ];
 
   networking = {

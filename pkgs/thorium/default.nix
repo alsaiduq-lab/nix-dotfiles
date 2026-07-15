@@ -50,8 +50,8 @@
   updateDeps,
 }: let
   pname = "thorium-browser";
+  version = "144.0.7559.254";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  version = deps.version;
   source = {
     owner = "gz83";
     repo = "thorium";

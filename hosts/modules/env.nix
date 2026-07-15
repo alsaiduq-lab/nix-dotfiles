@@ -1,32 +1,31 @@
 {
-  config,
+  settings,
   pkgs,
   ...
 }: {
   environment.variables = {
-    EDITOR = config.theme.Editor;
-    TERMINAL = config.theme.Terminal;
-    BROWSER = config.theme.Browser;
+    EDITOR = settings.Editor;
+    TERMINAL = settings.Terminal;
+    BROWSER = settings.Browser;
   };
 
   environment.sessionVariables = {
-    XCURSOR_THEME = config.theme.cursorName;
-    XCURSOR_SIZE = toString config.theme.cursorSize;
-    QT_QPA_PLATFORMTHEME = config.theme.qtTheme;
-    QT_STYLE_OVERRIDE = config.theme.qtOverride;
+    XCURSOR_THEME = settings.cursorName;
+    XCURSOR_SIZE = toString settings.cursorSize;
+    QT_QPA_PLATFORMTHEME = settings.qtTheme;
+    QT_STYLE_OVERRIDE = settings.qtOverride;
     XDG_SESSION_TYPE = "wayland";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
     GDK_BACKEND = "wayland,x11";
     QT_QPA_PLATFORM = "wayland;xcb";
-    # SDL_VIDEODRIVER = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
     NIXOS_OZONE_WL = "1";
-    HYPRCURSOR_THEME = config.theme.cursorName;
-    HYPRCURSOR_SIZE = toString config.theme.cursorSize;
+    HYPRCURSOR_THEME = settings.cursorName;
+    HYPRCURSOR_SIZE = toString settings.cursorSize;
   };
   environment.pathsToLink = [
-    "/share/${config.theme.Shell}"
+    "/share/${settings.Shell}"
     "/bin"
     "/share/icons"
     "/share/pixmaps"

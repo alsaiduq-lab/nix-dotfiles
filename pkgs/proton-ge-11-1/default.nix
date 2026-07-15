@@ -5,8 +5,8 @@
   updateDeps,
 }: let
   pname = "proton-ge-11-1";
+  version = "GE-Proton11-1";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  version = deps.version;
   source = {
     url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
   };
@@ -36,7 +36,6 @@ in
       depsFile = "pkgs/proton-ge-11-1/deps.json";
       "update-deps" = updateDeps.fetchurl (source
         // {
-          inherit version;
           name = pname;
         });
     };

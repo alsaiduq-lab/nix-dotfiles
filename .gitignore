@@ -5,8 +5,11 @@
 !flake.lock
 !flake.nix
 !.sops.yaml
-!settings.nix
 !README.md
+
+!flake/
+!flake/**/
+!flake/**/*.nix
 
 !home-manager/
 !home-manager/**/

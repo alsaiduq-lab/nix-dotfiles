@@ -14,6 +14,8 @@
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
     candy-icons
+    kdePackages.breeze-icons
+    magna-glassy-icons
     miku-cursor
     tokyonight-gtk-theme
     hyprlock
@@ -44,5 +46,7 @@
     kdePackages.kio-extras
     kdePackages.ffmpegthumbs
     kdePackages.filelight
+    xdg-utils
+    xdg-terminal-exec
   ];
 }

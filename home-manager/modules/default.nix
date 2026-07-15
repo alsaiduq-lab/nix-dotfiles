@@ -1,0 +1,27 @@
+{...}: {
+  imports = [
+    ./init.nix
+    ./mime.nix
+    ./fish.nix
+    ./ghostty.nix
+    ./lazygit.nix
+    ./nvim.nix
+    ./starship.nix
+    ./zellij.nix
+    ./ffmpeg.nix
+    ./emulators.nix
+    ./discord.nix
+    ./thorium.nix
+    ./spotify.nix
+    ./obs.nix
+    ./mpv.nix
+    ./cava.nix
+    ./imagemagick.nix
+    ./viv.nix
+    ./gremlin.nix
+    ./wallpaperengine.nix
+    ./zed.nix
+    ./btop.nix
+    ./ff.nix
+  ];
+}

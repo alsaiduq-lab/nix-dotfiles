@@ -1,6 +1,6 @@
 {
   pkgs,
-  nvm-fish,
+  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -12,10 +12,14 @@
     chafa
     fastfetch
     nix-your-shell
+    jq
+    argc
+    hwinfo
+    bubblewrap
   ];
 
   programs.direnv = {
-    enable = true ;
+    enable = true;
     enableFishIntegration = true;
   };
 
@@ -37,12 +41,12 @@
       }
       {
         name = "nvm";
-        src = nvm-fish;
+        src = inputs.nvm-fish;
       }
     ];
 
     shellAliases = {
-      ls = "eza -al --color=always --group-directories-first --icons";
+      ls = "eza -al --color=always --group-directories-first --icons=always";
       zed = "zeditor";
       ".." = "cd ..";
       "..." = "cd ../..";

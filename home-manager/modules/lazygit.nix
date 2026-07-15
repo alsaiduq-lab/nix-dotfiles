@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  tokyo-night,
+  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -10,7 +10,7 @@
     gh
     diff-so-fancy
   ];
-  home.sessionVariables.LG_CONFIG_FILE = "${tokyo-night}/extras/lazygit/tokyonight_storm.yml,${config.xdg.configHome}/lazygit/config.yml";
+  home.sessionVariables.LG_CONFIG_FILE = "${inputs.tokyo-night}/extras/lazygit/tokyonight_storm.yml,${config.xdg.configHome}/lazygit/config.yml";
 
   programs.lazygit = {
     enable = true;

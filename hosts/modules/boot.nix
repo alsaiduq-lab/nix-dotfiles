@@ -23,26 +23,17 @@
     kernelParams = [
       "quiet"
       "splash"
-      "rd.systemd.debug_shell"
       "udev.log_level=3"
       "rd.udev.log_level=3"
       "systemd.show_status=auto"
       "nowatchdog"
       "amd_iommu=on"
-      "iommu=pt"
     ];
     kernelModules = ["ntsync"];
     blacklistedKernelModules = ["esp4" "esp6" "rxrpc"]; # in light of recent events
     kernel.sysctl = {
-      "vm.swappiness" = 60;
-      "vm.vfs_cache_pressure" = 50;
-      "vm.compaction_proactiveness" = 0;
-      "vm.page_lock_unfairness" = 1;
+      "vm.swappiness" = 150;
       "vm.max_map_count" = 2147483642; #SteamOS default
-      "vm.dirty_ratio" = 15;
-      "vm.dirty_background_ratio" = 5;
-      "kernel.split_lock_mitigate" = 0;
-      "kernel.nmi_watchdog" = 0;
       "net.core.rmem_max" = 16777216;
       "net.core.wmem_max" = 16777216;
       "net.ipv4.tcp_rmem" = "4096 131072 16777216";

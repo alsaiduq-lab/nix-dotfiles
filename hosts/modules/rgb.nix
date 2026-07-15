@@ -1,5 +1,5 @@
 {
-  config,
+  settings,
   pkgs,
   ...
 }: {
@@ -18,7 +18,7 @@
     plugdev = {};
   };
 
-  users.users.${config.theme.user}.extraGroups = ["i2c" "plugdev"];
+  users.users.${settings.user}.extraGroups = ["i2c" "plugdev"];
 
   systemd.services.openrgb.serviceConfig.Environment = ["QT_QPA_PLATFORM=offscreen"];
 }

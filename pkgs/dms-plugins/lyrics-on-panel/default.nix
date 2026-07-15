@@ -7,8 +7,8 @@
   updateDeps,
 }: let
   pname = "dms-lyrics-on-panel";
+  version = "unstable";
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  version = deps.version;
   source = {
     owner = "KangweiZhu";
     repo = "lyrics-on-panel";
@@ -32,7 +32,6 @@ in
     passthru = {
       depsFile = "pkgs/dms-plugins/lyrics-on-panel/deps.json";
       "update-deps" = updateDeps.fetchFromGitHub (source // {
-        inherit version;
         name = pname;
       });
     };

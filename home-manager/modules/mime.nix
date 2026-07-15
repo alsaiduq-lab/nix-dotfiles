@@ -1,4 +1,4 @@
-{config, ...}: {
+{settings, ...}: {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -11,13 +11,13 @@
       "image/bmp" = "org.kde.gwenview.desktop";
       "image/svg+xml" = "org.kde.gwenview.desktop";
       "image/tiff" = "org.kde.gwenview.desktop";
-      "text/html" = "${config.theme.Browser}.desktop";
-      "x-scheme-handler/http" = "${config.theme.Browser}.desktop";
-      "x-scheme-handler/https" = "${config.theme.Browser}.desktop";
-      "application/pdf" = "${config.theme.Browser}.desktop";
+      "text/html" = "${settings.Browser}.desktop";
+      "x-scheme-handler/http" = "${settings.Browser}.desktop";
+      "x-scheme-handler/https" = "${settings.Browser}.desktop";
+      "application/pdf" = "${settings.Browser}.desktop";
       "video/*" = "mpv.desktop";
       "audio/*" = "mpv.desktop";
-      "text/plain" = "${config.theme.Editor}.desktop";
+      "text/plain" = "${settings.Editor}.desktop";
     };
   };
   xdg.configFile."mimeapps.list".force = true;

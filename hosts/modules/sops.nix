@@ -1,6 +1,6 @@
 {
   inputs,
-  config,
+  settings,
   lib,
   ...
 }: let
@@ -32,6 +32,6 @@ in {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-    secrets = lib.genAttrs secrets (_: {owner = "${config.theme.user}";});
+    secrets = lib.genAttrs secrets (_: {owner = "${settings.user}";});
   };
 }

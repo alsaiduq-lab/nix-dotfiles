@@ -16,6 +16,7 @@
     dms-plugins = {
       lyrics-on-panel = pkgs.callPackage ./dms-plugins/lyrics-on-panel {inherit updateDeps;};
     };
+    magna-glassy-icons = pkgs.callPackage ./magna-glassy-icons {inherit updateDeps;};
   };
 
   packages =

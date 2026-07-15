@@ -31,7 +31,7 @@
   updateDeps,
 }: let
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  nugetDeps = builtins.toFile "ryubing-nuget-deps.json" (builtins.toJSON deps.nuget);
+  nugetDeps = builtins.map dotnetCorePackages.fetchNupkg deps.nuget;
   source = {
     url = "https://git.ryujinx.app/projects/Ryubing.git";
     rev = "Canary-${deps.version}";

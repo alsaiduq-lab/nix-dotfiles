@@ -1,12 +1,12 @@
 {
   lib,
-  config,
+  settings,
   ...
 }: let
   toLua = lib.generators.toLua {};
 
   cursor = {
-    no_hardware_cursors = true;
+    no_hardware_cursors = false;
   };
 
   xwayland = {
@@ -29,6 +29,7 @@
     touchpad = {
       natural_scroll = true;
       disable_while_typing = true;
+      tap-to-click = true;
     };
   };
 
@@ -62,17 +63,17 @@
     rounding = 10;
     blur = {
       enabled = true;
-      size = 3;
-      passes = 2;
+      size = 4;
+      passes = 1;
       ignore_opacity = true;
       new_optimizations = true;
     };
     shadow = {
       enabled = true;
-      range = 25;
-      render_power = 3;
+      range = 15;
+      render_power = 2;
       color = lib.generators.mkLuaInline ''"rgba(1f2335dd)"'';
-      offset = [0 8];
+      offset = [0 5];
     };
     dim_inactive = true;
     dim_strength = 0.1;
@@ -109,18 +110,17 @@
     hl.env("MOZ_ENABLE_WAYLAND", "1")
     hl.env("CLUTTER_BACKEND", "wayland")
     hl.env("GDK_BACKEND", "wayland,x11")
-    hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
-    hl.env("GBM_BACKEND", "nvidia-drm")
     hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
-    hl.env("QT_QPA_PLATFORMTHEME", "${config.theme.qtTheme}")
+    hl.env("QT_QPA_PLATFORMTHEME", "${settings.qtTheme}")
     hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
-    hl.env("LIBVA_DRIVER_NAME", "nvidia")
     hl.env("GDK_SCALE", "1")
     hl.env("QT_QUICK_CONTROLS_STYLE", "org.hyprland.style")
-    hl.env("HYPRCURSOR_THEME", "${config.theme.cursorName}")
-    hl.env("HYPRCURSOR_SIZE", "${toString config.theme.cursorSize}")
-    hl.env("XCURSOR_THEME", "${config.theme.cursorName}")
-    hl.env("XCURSOR_SIZE", "${toString config.theme.cursorSize}")
+    hl.env("HYPRCURSOR_THEME", "${settings.cursorName}")
+    hl.env("HYPRCURSOR_SIZE", "${toString settings.cursorSize}")
+    hl.env("XCURSOR_THEME", "${settings.cursorName}")
+    hl.env("XCURSOR_SIZE", "${toString settings.cursorSize}")
+
+    -- GBM_BACKEND, __GLX_VENDOR_LIBRARY_NAME, LIBVA_DRIVER_NAME
 
     hl.config({ cursor = ${toLua cursor} })
     hl.config({ xwayland = ${toLua xwayland} })
@@ -130,11 +130,18 @@
 
   monitors = ''
     hl.monitor({
-      output = "DP-3",
-      mode = "3440x1440@180",
-      position  = "0x0",
-      scale = 1.25,
+      output = "eDP-1",
+      mode = "preferred",
+      position = "0x0",
+      scale = 1.0,
       bitdepth = 8,
+    })
+
+    hl.monitor({
+      output = "",
+      mode = "preferred",
+      position = "auto",
+      scale = 1.0,
     })
   '';
 
@@ -142,13 +149,6 @@
     hl.window_rule({
       match = { class = "com.mitchellh.ghostty" },
       opacity = "0.9 override 0.7 override 0.9 override",
-    })
-
-    hl.window_rule({
-      match = { title = "ilgwg_desktop_gremlins.py" },
-      no_blur = true,
-      no_shadow = true,
-      border_size = 0,
     })
 
     hl.config({ general = ${toLua general} })
@@ -162,7 +162,6 @@
       hl.exec_cmd("nm-applet --indicator")
       hl.exec_cmd("blueman-applet")
       hl.exec_cmd("syshud")
-      hl.exec_cmd("QT_QPA_PLATFORM=wayland linux-desktop-gremlin cafe")
       hl.exec_cmd("udiskie --automount --notify")
     end)
   '';
@@ -203,12 +202,15 @@
     hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("sh -lc 'dms ipc call lock lock'"))
     hl.bind(mod .. " + F5", hl.dsp.exec_cmd("~/.config/hypr/scripts/gamemode.sh"))
 
-    hl.bind("F7", hl.dsp.exec_cmd("dms ipc mpris previous"))
-    hl.bind("F8", hl.dsp.exec_cmd("dms ipc mpris playPause"))
-    hl.bind("F9", hl.dsp.exec_cmd("dms ipc mpris next"))
-    hl.bind("F10", hl.dsp.exec_cmd("dms ipc audio mute"))
-    hl.bind("F11", hl.dsp.exec_cmd("dms ipc audio decrement"), { repeating = true })
-    hl.bind("F12", hl.dsp.exec_cmd("dms ipc audio increment"), { repeating = true })
+    hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("dms ipc mpris previous"))
+    hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("dms ipc mpris playPause"))
+    hl.bind("XF86AudioNext", hl.dsp.exec_cmd("dms ipc mpris next"))
+    hl.bind("XF86AudioMute", hl.dsp.exec_cmd("dms ipc audio mute"))
+    hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc audio decrement"), { repeating = true })
+    hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("dms ipc audio increment"), { repeating = true })
+
+    hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { repeating = true })
+    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = true })
 
     local function zoom(factor)
       local z = hl.get_config("cursor.zoom_factor")
@@ -244,7 +246,7 @@ in {
   xdg.configFile."hypr/env.lua".text = env;
   xdg.configFile."hypr/monitors.lua".text = monitors;
   xdg.configFile."hypr/animations.lua".text = animations;
-  xdg.configFile."hypr/windows.lua".text = windows;
   xdg.configFile."hypr/keybindings.lua".text = keybindings;
   xdg.configFile."hypr/autostart.lua".text = autostart;
+  xdg.configFile."hypr/windows.lua".text = windows;
 }

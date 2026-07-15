@@ -1,5 +1,5 @@
 {
-  config,
+  settings,
   lib,
   pkgs,
   ...
@@ -7,7 +7,7 @@
   services.displayManager.dms-greeter = {
     enable = true;
     compositor.name = "hyprland";
-    configHome = "/home/${config.theme.user}";
+    configHome = "/home/${settings.user}";
     quickshell.package = pkgs.quickshell;
     logs = {
       save = true;

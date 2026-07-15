@@ -1,7 +1,6 @@
 {
   pkgs,
-  modernx,
-  anime4k,
+  inputs,
   ...
 }: {
   programs.mpv = {
@@ -18,9 +17,10 @@
         max_width = 200;
         spawn_first = true;
         tone_mapping = "auto"; # "clip", "hable"
+        network = true;
       };
       webtorrent = {
-        path = "memory";
+        path = "/tmp/vids";
       };
     };
 
@@ -35,9 +35,9 @@
     };
   };
 
-  home.file.".config/mpv/scripts/modernx.lua".source = "${modernx}/modernx.lua";
-  home.file.".config/mpv/fonts/Material-Design-Iconic-Font.ttf".source = "${modernx}/Material-Design-Iconic-Font.ttf";
-  home.file.".config/mpv/shaders".source = "${anime4k}/glsl";
+  home.file.".config/mpv/scripts/modernx.lua".source = "${inputs.modernx}/modernx.lua";
+  home.file.".config/mpv/fonts/Material-Design-Iconic-Font.ttf".source = "${inputs.modernx}/Material-Design-Iconic-Font.ttf";
+  home.file.".config/mpv/shaders".source = "${inputs.anime4k}/glsl";
 
   home.file.".config/mpv/input.conf".text = ''
     CTRL+0 no-osd change-list glsl-shaders clr ""; show-text "Shaders cleared"
