@@ -3,10 +3,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./modules
-  ];
-
   home.username = "${settings.user}";
   home.homeDirectory = "/home/${settings.user}";
   home.stateVersion = "26.05";
