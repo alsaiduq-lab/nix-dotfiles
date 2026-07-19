@@ -1,25 +1,16 @@
-{
-  settings,
-  lib,
-  pkgs,
-  ...
-}: {
-  services.displayManager.dms-greeter = {
+{settings, ...}: {
+  programs.dms-greeter = {
     enable = true;
-    compositor.name = "hyprland";
+    compositor = {
+      name = "hyprland";
+      customConfig = ''
+        hl.env("DMS_RUN_GREETER", "1")
+      '';
+    };
     configHome = "/home/${settings.user}";
-    quickshell.package = pkgs.quickshell;
     logs = {
       save = true;
       path = "/tmp/greeter.log";
     };
   };
-
-  systemd.services.greetd.preStart = lib.mkAfter ''
-    install -d -o dms-greeter -g dms-greeter -m 0750 \
-      /var/lib/dms-greeter/.local \
-      /var/lib/dms-greeter/.local/state \
-      /var/lib/dms-greeter/.local/share \
-      /var/lib/dms-greeter/.cache
-  '';
 }

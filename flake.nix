@@ -86,6 +86,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dank-greeter = {
+      url = "github:AvengeMedia/dank-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     miku-cursor.url = "git+https://git.monaie.ca/alteur/animated-cursors";
 
     ghostty.url = "github:ghostty-org/ghostty";

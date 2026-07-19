@@ -48,5 +48,6 @@
     kdePackages.filelight
     xdg-utils
     xdg-terminal-exec
+    unrar # TODO: move
   ];
 }

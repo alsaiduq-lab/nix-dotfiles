@@ -16,6 +16,7 @@ nixpkgs.lib.nixosSystem {
 
     inputs.aagl.nixosModules.default
     home-manager.nixosModules.home-manager
+    inputs.dank-greeter.nixosModules.default
     {
       nixpkgs = {
         config = {
