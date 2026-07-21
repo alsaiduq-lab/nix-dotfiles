@@ -32,12 +32,19 @@
 }: let
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
   nugetDeps = builtins.map dotnetCorePackages.fetchNupkg deps.nuget;
+
+  # seems to be a nix only issue; no /usr for fonts
+  skiaSharpLinux = lib.head (lib.filter (p: p.pname == "SkiaSharp.NativeAssets.Linux") deps.nuget);
+  skiaSharpFontconfig = dotnetCorePackages.fetchNupkg skiaSharpLinux;
+
+  hostRid = dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system;
+
   source = {
     url = "https://git.ryujinx.app/projects/Ryubing.git";
     rev = "Canary-${deps.version}";
   };
 in
-  buildDotnetModule rec {
+  buildDotnetModule (finalAttrs: {
     pname = "ryubing";
     version = deps.version;
 
@@ -61,25 +68,6 @@ in
     dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
     inherit nugetDeps;
-
-    passthru = {
-      depsFile = "pkgs/ryubing/deps.json";
-
-      "update-deps" = updateDeps.dotnet {
-        name = pname;
-        inherit (source) url;
-        rev = "Canary-{version}";
-        projectFile = "Ryujinx.sln";
-        testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
-        dotnetSdk = "sdk_10_0";
-        inherit dotnetFlags;
-        platforms = meta.platforms;
-        latestVersion = {
-          url = "https://git.ryujinx.app/api/v1/repos/ryubing/ryujinx/tags?limit=100";
-          jq = ''[.[].name | select(startswith("Canary-"))][0] | ltrimstr("Canary-")'';
-        };
-      };
-    };
 
     runtimeDeps =
       [
@@ -110,7 +98,6 @@ in
 
     projectFile = "Ryujinx.sln";
     testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
-
     doCheck = false;
 
     dotnetFlags = [
@@ -133,15 +120,25 @@ in
     preFixup = ''
       ${lib.optionalString stdenv.hostPlatform.isLinux ''
         mkdir -p $out/share/{applications,icons/hicolor/256x256/apps,mime/packages}
-        pushd ${src}/distribution/linux
+        pushd ${finalAttrs.src}/distribution/linux
         install -D ./app.ryujinx.Ryujinx.desktop $out/share/applications/app.ryujinx.Ryujinx.desktop
         install -D ./Ryujinx.sh                   $out/bin/Ryujinx.sh
         install -D ./mime/Ryujinx.xml             $out/share/mime/packages/Ryujinx.xml
         install -D ../misc/Logo.png               $out/share/icons/hicolor/256x256/apps/app.ryujinx.Ryujinx.png
         popd
       ''}
-
       ${lib.optionalString (!stdenv.hostPlatform.isDarwin) "ln -s $out/bin/Ryujinx $out/bin/ryujinx"}
+    '';
+
+    postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+      target=$out/lib/ryubing/runtimes/${hostRid}/native/libSkiaSharp.so
+      if [[ ! -e $target ]]; then
+        echo "expected $target in publish output, layout changed" >&2
+        exit 1
+      fi
+      install -m644 \
+        ${skiaSharpFontconfig}/share/nuget/packages/skiasharp.nativeassets.linux/${skiaSharpLinux.version}/runtimes/${hostRid}/native/libSkiaSharp.so \
+        "$target"
     '';
 
     meta = {
@@ -157,4 +154,4 @@ in
       maintainers = ["Hibiki"];
       mainProgram = "Ryujinx";
     };
-  }
+  })
