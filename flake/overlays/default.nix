@@ -29,6 +29,9 @@
     });
     dms-shell = inputs.dms.packages.${system}.default;
     proton-ge-11-1 = customPkgs.proton-ge-11-1;
+    vencord = inputs.nixcord.packages.${prev.stdenv.hostPlatform.system}.vencord.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [../../patches/vencord.patch];
+    });
   })
 
   (final: prev: builtins.removeAttrs customPkgs ["refresh-deps"])

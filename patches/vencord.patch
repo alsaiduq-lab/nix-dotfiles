@@ -1,0 +1,17 @@
+--- a/src/main/patcher.ts
++++ b/src/main/patcher.ts
+@@ -147,6 +147,15 @@
+             disabledFeatures.add("UseEcoQoSForBackgroundProcess");
+             args[1] += [...disabledFeatures].join(",");
+         }
++        if (args[0] === "enable-features") {
++            const enabledFeatures = new Set((args[1] ?? "").split(","));
++            enabledFeatures.add("WaylandWindowDecorations");
++            enabledFeatures.add("AcceleratedVideoDecodeLinuxGL");
++            enabledFeatures.add("AcceleratedVideoDecodeLinuxZeroCopyGL");
++            enabledFeatures.add("VaapiIgnoreDriverChecks");
++            enabledFeatures.add("PlatformHEVCDecoderSupport");
++            args[1] = [...enabledFeatures].join(",");
++        }
+         return originalAppend.apply(this, args);
+     };

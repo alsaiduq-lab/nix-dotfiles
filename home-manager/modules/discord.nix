@@ -1,13 +1,24 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.nixcord = {
     enable = true;
     quickCss = builtins.readFile "${inputs.tokyo-night}/extras/discord/tokyonight_storm.css";
     discord = {
       enable = true;
       openASAR.enable = false;
-      vencord.enable = true;
+      vencord = {
+        enable = true;
+        package = pkgs.vencord;
+      };
       branch = "stable";
-      commandLineArgs = ["--enable-blink-features=MiddleClickAutoscroll"];
+      commandLineArgs = [
+        "--enable-blink-features=MiddleClickAutoscroll"
+        "--render-node-override=/dev/dri/renderD128"
+      ];
     };
     config = {
       autoUpdateNotification = true;
