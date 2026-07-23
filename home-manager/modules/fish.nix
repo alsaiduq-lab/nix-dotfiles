@@ -57,6 +57,7 @@
       ip = "ip -color";
       wget = "wget -c";
       journal = "journalctl -p 3 -xb";
+      nvim = "nix run ~/.config/nvim/"; # will remove later
     };
 
     functions = {

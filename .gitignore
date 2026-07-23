@@ -26,5 +26,8 @@
 !pkgs/**/deps.json
 !pkgs/**/*.sh
 
+!patches/
+!patches/*.patch
+
 !secrets/
 !secrets/secrets.yaml
