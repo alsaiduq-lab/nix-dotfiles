@@ -5,24 +5,19 @@
   gtk3,
   kdePackages,
   hicolor-icon-theme,
-  updateDeps,
 }: let
   pname = "magna-glassy-icons";
-  version = "unstable";
+  source = (import ../sources.nix).magna-glassy-icons;
+  inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  source = {
-    owner = "L4ki";
-    repo = "Magna-Plasma-Themes";
-    rev = "main";
-  };
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
 
-    src = fetchFromGitHub (source
-      // {
-        hash = deps.src.hash;
-      });
+    src = fetchFromGitHub {
+      inherit (source) owner repo rev;
+      hash = deps.src.hash;
+    };
 
     strictDeps = true;
     dontWrapQtApps = true;

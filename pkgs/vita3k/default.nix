@@ -25,16 +25,11 @@
   alsa-lib,
   systemd,
   wayland,
-  updateDeps,
 }: let
   pname = "vita3k";
+  source = (import ../sources.nix).vita3k;
+  inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  version = deps.version;
-  source = {
-    owner = "Vita3K";
-    repo = "Vita3K-builds";
-    asset = "Vita3K-x86_64.AppImage";
-  };
   resourceDirs = [
     "data"
     "lang"
@@ -42,7 +37,7 @@
   ];
 
   src = fetchurl {
-    url = "https://github.com/${source.owner}/${source.repo}/releases/download/${version}/${source.asset}";
+    inherit (source) url;
     hash = deps.src.hash;
   };
 
@@ -50,13 +45,6 @@
 in
   buildFHSEnv {
     inherit pname version;
-
-    passthru = {
-      depsFile = "pkgs/vita3k/deps.json";
-      "update-deps" = updateDeps.fetchGitHubReleaseAsset (source // {
-        name = pname;
-      });
-    };
 
     targetPkgs = pkgs: [
       SDL2

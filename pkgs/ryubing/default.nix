@@ -28,30 +28,29 @@
   SDL2_mixer,
   gtk3,
   wrapGAppsHook3,
-  updateDeps,
 }: let
+  source = (import ../sources.nix).ryubing;
+  inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
   nugetDeps = builtins.map dotnetCorePackages.fetchNupkg deps.nuget;
 
-  # seems to be a nix only issue; no /usr for fonts
+  # nix lacks the /usr font path expected by the generic SkiaSharp asset
   skiaSharpLinux = lib.head (lib.filter (p: p.pname == "SkiaSharp.NativeAssets.Linux") deps.nuget);
   skiaSharpFontconfig = dotnetCorePackages.fetchNupkg skiaSharpLinux;
 
   hostRid = dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system;
-
-  source = {
-    url = "https://git.ryujinx.app/projects/Ryubing.git";
-    rev = "Canary-${deps.version}";
-  };
 in
   buildDotnetModule (finalAttrs: {
     pname = "ryubing";
-    version = deps.version;
+    inherit version;
 
     src = fetchgit {
-      inherit (source) url rev;
+      inherit (source) url;
+      rev = builtins.replaceStrings ["{version}"] [version] source.rev;
       hash = deps.src.hash;
     };
+
+    strictDeps = true;
 
     nativeBuildInputs =
       lib.optionals stdenv.hostPlatform.isLinux [
@@ -64,7 +63,7 @@ in
 
     enableParallelBuilding = false;
 
-    dotnet-sdk = dotnetCorePackages.sdk_10_0;
+    dotnet-sdk = dotnetCorePackages.${source.dotnetSdk};
     dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
     inherit nugetDeps;
@@ -96,13 +95,8 @@ in
       ]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [moltenvk];
 
-    projectFile = "Ryujinx.sln";
-    testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
+    inherit (source) projectFile testProjectFile dotnetFlags;
     doCheck = false;
-
-    dotnetFlags = [
-      "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
-    ];
 
     executables = [
       "Ryujinx"
@@ -146,11 +140,7 @@ in
       changelog = "https://git.ryujinx.app/ryubing/ryujinx/-/wikis/changelog";
       description = "Experimental Nintendo Switch Emulator written in C# (community fork of Ryujinx)";
       license = lib.licenses.mit;
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
+      platforms = source.platforms;
       maintainers = ["Hibiki"];
       mainProgram = "Ryujinx";
     };

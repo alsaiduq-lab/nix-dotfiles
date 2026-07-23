@@ -2,30 +2,21 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  updateDeps,
 }: let
   pname = "clear-sans";
-  version = "1.0";
+  source = (import ../sources.nix).clear-sans;
+  inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  source = {
-    owner = "intel";
-    repo = "clear-sans";
-    rev = "main";
-  };
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
 
-    src = fetchFromGitHub (source // {
+    src = fetchFromGitHub {
+      inherit (source) owner repo rev;
       hash = deps.src.hash;
-    });
-
-    passthru = {
-      depsFile = "pkgs/clear-sans/deps.json";
-      "update-deps" = updateDeps.fetchFromGitHub (source // {
-        name = pname;
-      });
     };
+
+    strictDeps = true;
 
     installPhase = ''
       runHook preInstall

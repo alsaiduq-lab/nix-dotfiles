@@ -2,24 +2,22 @@
   lib,
   stdenvNoCC,
   fetchurl,
-  updateDeps,
 }: let
   pname = "proton-ge-11-1";
-  version = "GE-Proton11-1";
+  source = (import ../sources.nix).proton-ge-11-1;
+  inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  source = {
-    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
-  };
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
 
-    src = fetchurl (source
-      // {
-        hash = deps.src.hash;
-      });
+    src = fetchurl {
+      inherit (source) url;
+      hash = deps.src.hash;
+    };
 
     outputs = ["out" "steamcompattool"];
+    strictDeps = true;
 
     installPhase = ''
       runHook preInstall
@@ -31,14 +29,6 @@ in
 
       runHook postInstall
     '';
-
-    passthru = {
-      depsFile = "pkgs/proton-ge-11-1/deps.json";
-      "update-deps" = updateDeps.fetchurl (source
-        // {
-          name = pname;
-        });
-    };
 
     meta = {
       description = "GE-Proton11-1: GloriousEggroll's custom Proton build (Proton 11 rebase + winedmo/ffmpeg video playback rework)";

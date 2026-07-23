@@ -28,9 +28,9 @@
     inherit inputs;
   };
 in {
-  packages.${system} = import ./packages.nix {
-    inherit customPkgs;
-  };
+  packages.${system} = customPkgs;
+
+  formatter.${system} = pkgs.alejandra;
 
   nixosConfigurations = {
     desktop = import ./systems/desktop.nix {

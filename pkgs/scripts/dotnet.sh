@@ -4,14 +4,14 @@ set -euo pipefail
 output="${1:?missing output path}"
 package_attr="${PACKAGE_ATTR:?missing PACKAGE_ATTR}"
 repo_root="${REPO_ROOT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
-system="${UPDATE_SYSTEM:?missing UPDATE_SYSTEM}"
+system="${REFRESH_SYSTEM:?missing REFRESH_SYSTEM}"
 
 version="${VERSION:-}"
 src_hash="${SRC_HASH:-}"
 source_url="${SOURCE_URL:-}"
 source_rev="${SOURCE_REV:-}"
 source_fetcher="${SOURCE_FETCHER:-fetchgit}"
-unpack="${UPDATE_UNPACK:-false}"
+unpack="${REFRESH_UNPACK:-false}"
 dotnet_project_file="${DOTNET_PROJECT_FILE:-null}"
 dotnet_test_project_file="${DOTNET_TEST_PROJECT_FILE:-null}"
 dotnet_sdk="${DOTNET_SDK:-}"
@@ -29,16 +29,6 @@ cleanup() {
 
 trap cleanup EXIT
 printf '[]\n' > "$empty_nuget_deps"
-
-if [ -n "${LATEST_VERSION_URL:-}" ]; then
-  version="$(
-    curl -fsSL \
-      -H "Accept: application/json" \
-      -H "User-Agent: nix-update-deps" \
-      "$LATEST_VERSION_URL" \
-      | jq -r "${LATEST_VERSION_JQ:-.}"
-  )"
-fi
 
 if [ -z "$version" ] || [ "$version" = "null" ]; then
   echo "$package_attr: missing version" >&2

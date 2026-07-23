@@ -4,19 +4,9 @@ set -euo pipefail
 output="${1:?missing output path}"
 package_attr="${PACKAGE_ATTR:?missing PACKAGE_ATTR}"
 repo_root="${REPO_ROOT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
-system="${UPDATE_SYSTEM:?missing UPDATE_SYSTEM}"
+system="${REFRESH_SYSTEM:?missing REFRESH_SYSTEM}"
 crate_pname="${CRATE_PNAME:?missing CRATE_PNAME}"
 crate_version="${VERSION:-}"
-
-if [ -n "${LATEST_VERSION_URL:-}" ]; then
-  crate_version="$(
-    curl -fsSL \
-      -H "Accept: application/json" \
-      -H "User-Agent: nix-update-deps" \
-      "$LATEST_VERSION_URL" \
-      | jq -r "${LATEST_VERSION_JQ:-.crate.max_version}"
-  )"
-fi
 
 if [ -z "$crate_version" ] || [ "$crate_version" = "null" ]; then
   echo "missing crate version for $crate_pname" >&2

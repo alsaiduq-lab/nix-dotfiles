@@ -2,20 +2,10 @@
 set -euo pipefail
 
 output="${1:?missing output path}"
-url_template="${UPDATE_URL:?missing UPDATE_URL}"
-key="${UPDATE_KEY:-src}"
-unpack="${UPDATE_UNPACK:-false}"
+url_template="${REFRESH_URL:?missing REFRESH_URL}"
+key="${REFRESH_KEY:-src}"
+unpack="${REFRESH_UNPACK:-false}"
 version="${VERSION:-}"
-
-if [ -n "${LATEST_VERSION_URL:-}" ]; then
-  version="$(
-    curl -fsSL \
-      -H "Accept: application/json" \
-      -H "User-Agent: nix-update-deps" \
-      "$LATEST_VERSION_URL" \
-      | jq -r "${LATEST_VERSION_JQ:-.}"
-  )"
-fi
 
 if [ "$version" = "null" ]; then
   version=""
@@ -44,8 +34,4 @@ jq -n \
   --arg version "$version" \
   --arg key "$key" \
   --arg hash "$hash" \
-  '
-    {}
-    | if $version != "" then .version = $version else . end
-    | .[$key].hash = $hash
-  ' > "$output"
+  '{version: $version} | .[$key].hash = $hash' > "$output"

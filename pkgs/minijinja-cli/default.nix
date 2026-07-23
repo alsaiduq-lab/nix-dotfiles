@@ -2,11 +2,10 @@
   lib,
   rustPlatform,
   fetchCrate,
-  updateDeps,
 }: let
-  pname = "minijinja-cli";
+  source = (import ../sources.nix).minijinja-cli;
+  inherit (source) pname version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  version = deps.version;
 in
   rustPlatform.buildRustPackage {
     inherit pname version;
@@ -18,14 +17,7 @@ in
 
     cargoHash = deps.cargo.hash;
 
-    passthru = {
-      depsFile = "pkgs/minijinja-cli/deps.json";
-      "update-deps" = updateDeps.fetchCrateRustPackage {
-        name = pname;
-        inherit pname;
-      };
-    };
-
+    strictDeps = true;
     doCheck = false;
 
     meta = {

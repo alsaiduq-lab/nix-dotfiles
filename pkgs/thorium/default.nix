@@ -47,31 +47,18 @@
   systemd,
   pipewire,
   gnome-settings-daemon,
-  updateDeps,
 }: let
   pname = "thorium-browser";
-  version = "144.0.7559.254";
+  source = (import ../sources.nix).thorium;
+  inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
-  source = {
-    owner = "gz83";
-    repo = "thorium";
-    tag = version: "M${version}";
-    asset = version: "thorium-browser_${version}_AVX2.deb";
-  };
 in
   stdenv.mkDerivation (finalAttrs: {
     inherit pname version;
 
     src = fetchurl {
-      url = "https://github.com/${source.owner}/${source.repo}/releases/download/${source.tag version}/${source.asset version}";
+      inherit (source) url;
       hash = deps.src.hash;
-    };
-
-    passthru = {
-      depsFile = "pkgs/thorium/deps.json";
-      "update-deps" = updateDeps.fetchGitHubReleaseAsset (source // {
-        name = pname;
-      });
     };
 
     strictDeps = true;

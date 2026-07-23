@@ -31,17 +31,5 @@
     proton-ge-11-1 = customPkgs.proton-ge-11-1;
   })
 
-  (final: prev: {
-    inherit
-      (customPkgs)
-      clear-sans
-      minijinja-cli
-      thorium
-      rpcs3
-      vita3k
-      ryubing
-      proton-ge-11-1
-      magna-glassy-icons
-      ;
-  })
+  (final: prev: builtins.removeAttrs customPkgs ["refresh-deps"])
 ]

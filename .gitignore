@@ -20,8 +20,7 @@
 !hosts/**/*.nix
 
 !pkgs/
-!pkgs/update.nix
-!pkgs/update-sources.nix
+!pkgs/*.nix
 !pkgs/**/
 !pkgs/**/default.nix
 !pkgs/**/deps.json
