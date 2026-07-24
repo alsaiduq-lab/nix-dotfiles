@@ -36,11 +36,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvim-dots = {
-      url = "github:alsaiduq-lab/nvim-dotfiles";
-      flake = false;
-    };
-
     tokyo-night = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -104,6 +99,8 @@
     dw-proton.url = "github:Momoyaan/dwproton-flake";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    nvim-dots.url = "git+https://git.monaie.ca/alteur/nixvim-dotfiles";
   };
 
   outputs = inputs:

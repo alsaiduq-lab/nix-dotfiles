@@ -54,10 +54,7 @@
       "....." = "cd ../../../..";
       "......" = "cd ../../../../..";
       grep = "ugrep --color=auto";
-      ip = "ip -color";
-      wget = "wget -c";
       journal = "journalctl -p 3 -xb";
-      nvim = "nix run ~/.config/nvim/"; # will remove later
     };
 
     functions = {
@@ -121,28 +118,6 @@
     interactiveShellInit = ''
       set fish_greeting
       set -gx VIRTUAL_ENV_DISABLE_PROMPT "1"
-
-      if test -f ~/.fish_profile
-        source ~/.fish_profile
-      end
-
-      if test -d ~/.local/bin
-        fish_add_path -g ~/.local/bin
-      end
-      if test -d ~/.cargo/bin
-        fish_add_path -g ~/.cargo/bin
-      end
-      if test -d ~/.npm-global/bin
-        fish_add_path -g ~/.npm-global/bin
-      end
-
-      if type -q qtile
-        set -gx QT_QPA_PLATFORMTHEME qt5ct
-      end
-
-      # settings for https://github.com/franciscolourenco/done
-      set -U __done_min_cmd_duration 10000
-      set -U __done_notification_urgency_level low
 
       if [ "$fish_key_bindings" = fish_vi_key_bindings ]
         bind -Minsert ! __history_previous_command

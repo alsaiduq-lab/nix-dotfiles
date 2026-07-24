@@ -15,7 +15,7 @@
     wheelNeedsPassword = true;
     extraConfig = ''
       Defaults pwfeedback
-        ${settings.user} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nix-env
+      Defaults !admin_flag
     '';
   };
 

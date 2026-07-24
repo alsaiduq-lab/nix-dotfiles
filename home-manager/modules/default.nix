@@ -23,5 +23,6 @@
     ./zed.nix
     ./btop.nix
     ./ff.nix
+    ./xdg.nix
   ];
 }

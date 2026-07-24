@@ -46,11 +46,6 @@
   };
 
   dotfiles = {
-    nvim = {
-      from = "${inputs.nvim-dots}/";
-      to = "nvim/";
-    };
-
     tokyo-storm-fish-theme = {
       from = "${inputs.tokyo-night}/extras/fish/tokyonight_storm.fish";
       to = "fish/conf.d/tokyonight_storm.fish";
