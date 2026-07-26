@@ -66,6 +66,11 @@
       flake = false;
     };
 
+    steam-gamescope-guide = {
+      url = "github:shahnawazshahin/steam-using-gamescope-guide";
+      flake = false;
+    };
+
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
