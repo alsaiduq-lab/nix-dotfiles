@@ -50,13 +50,4 @@
     memoryPercent = 50;
     priority = 100;
   };
-
-  # some people really like putting #/bin/sh or #/bin/bash
-  # this normally isnt recommended; i suggest yelling at people not knowing how to properly use shebangs
-  system.activationScripts.binbash = {
-    text = ''
-      mkdir -p /bin
-      ln -sf ${pkgs.bash}/bin/bash /bin/bash
-    '';
-  };
 }
