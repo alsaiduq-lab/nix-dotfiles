@@ -85,5 +85,10 @@
       from = "${inputs.anime4k}/glsl/";
       to = "mpv/shaders/";
     };
+
+    hypr-scripts = {
+      from = "../config/scripts/";
+      to = "hypr/scripts/";
+    };
   };
 }

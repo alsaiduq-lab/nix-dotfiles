@@ -49,8 +49,8 @@
 
   proton-ge-11 = {
     kind = "url";
-    version = "GE-Proton11-1";
-    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-1/GE-Proton11-1.tar.gz";
+    version = "GE-Proton11-3";
+    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-3/GE-Proton11-3.tar.gz";
   };
 
   magna-glassy-icons = {
@@ -59,5 +59,21 @@
     owner = "L4ki";
     repo = "Magna-Plasma-Themes";
     rev = "main";
+  };
+
+  tokyonight-gtk-theme = {
+    kind = "sourceBuild";
+    version = "unstable";
+    owner = "Fausto-Korpsvart";
+    repo = "Tokyonight-GTK-Theme";
+    rev = "master";
+  };
+
+  linux-arctis-manager = {
+    kind = "sourceBuild";
+    version = "unstable";
+    owner = "elegos";
+    repo = "Linux-Arctis-Manager";
+    rev = "v2.4.1";
   };
 }

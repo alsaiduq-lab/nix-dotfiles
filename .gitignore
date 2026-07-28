@@ -10,6 +10,7 @@
 !config/
 !config/**/
 !config/**/*.json
+!config/scripts/*.sh
 
 !flake/
 !flake/**/
