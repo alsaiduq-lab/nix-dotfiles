@@ -4,57 +4,48 @@
   pkgs,
   ...
 }: let
-  output = "DP-1";
-  w = 3440;
-  h = 1440;
-  r = 180;
-  extraArgs = ["--sdr-gamut-wideness" "0"];
+  gamescopeArgs = [
+    "-f"
+    "--backend"
+    "drm"
+    "--sdr-gamut-wideness"
+    "0"
+    "--prefer-output"
+    "DP-1,HDMI-A-1,DP-2"
+    "--force-grab-cursor"
+  ];
 
-  gamescopeArgs =
-    [
-      "--steam"
-      "--backend"
-      "drm"
-      "-O"
-      output
-      "-W"
-      (toString w)
-      "-H"
-      (toString h)
-      "-r"
-      (toString r)
-    ]
-    ++ extraArgs;
+  patches = ''
+    '${pkgs.systemd}/bin/systemctl --user restart --no-block headset-connect.service
 
-  gamescopeScripts =
-    (pkgs.runCommandNoCC "steam-gamescope-scripts" {} ''
-            mkdir -p "$out"
-            cp -R ${inputs.steam-gamescope-guide}/usr/* "$out/"
-            chmod -R u+w "$out"
+  '';
 
-            substituteInPlace "$out/bin/gamescope-session" \
-              --replace-fail \
-                'gamescope \' \
-                '${pkgs.systemd}/bin/systemctl --user restart --no-block headset-connect.service
-      gamescope \'
+  gamescopeInit =
+    (pkgs.runCommand "steam-gamescope-scripts" {} ''
+      mkdir -p "$out"
+      cp -R ${inputs.steam-gamescope-guide}/usr/* "$out/"
+      chmod -R u+w "$out"
 
-            substituteInPlace "$out/bin/gamescope-session" \
-              --replace-fail \
-                '-e -- steam -steamdeck -steamos3' \
-                '${lib.escapeShellArgs gamescopeArgs} -e -- steam -steamdeck -steamos3'
+      substituteInPlace "$out/bin/gamescope-session" --replace-fail \
+          'gamescope \' \
+          ${patches}
+          gamescope \'
 
-            substituteInPlace "$out/share/wayland-sessions/steam.desktop" \
-              --replace-fail \
-                "Exec=gamescope-session" \
-                "Exec=$out/bin/gamescope-session"
+      substituteInPlace "$out/bin/gamescope-session" --replace-fail \
+          '-e -- steam -steamdeck -steamos3' \
+          '${lib.escapeShellArgs gamescopeArgs} -e -- steam -steamdeck -steamos3'
 
-            patchShebangs "$out/bin"
+      substituteInPlace "$out/share/wayland-sessions/steam.desktop" --replace-fail \
+          "Exec=gamescope-session" \
+          "Exec=$out/bin/gamescope-session"
+
+      patchShebangs "$out/bin"
     '')
     .overrideAttrs (_: {
       passthru.providedSessions = ["steam"];
     });
 in {
-  programs.steam.extraPackages = [gamescopeScripts];
+  programs.steam.extraPackages = [gamescopeInit];
 
   programs.gamescope = {
     enable = true;
@@ -63,5 +54,5 @@ in {
     capSysNice = false;
   };
 
-  services.displayManager.sessionPackages = [gamescopeScripts];
+  services.displayManager.sessionPackages = [gamescopeInit];
 }
