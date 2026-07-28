@@ -30,7 +30,6 @@
     slurp
     swappy
     satty
-    syshud
     hyprpaper
     hyprpicker
     nwg-look

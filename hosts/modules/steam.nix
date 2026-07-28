@@ -5,7 +5,7 @@
     extraCompatPackages = [
       pkgs.proton-ge-bin
       pkgs.dw-proton
-      pkgs.proton-ge-11-1
+      pkgs.proton-ge-11
     ];
     # for hosting
     # dedicatedServer.openFirewall = true;

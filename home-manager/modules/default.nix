@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./init.nix
+    ./dms.nix
     ./mime.nix
     ./fish.nix
     ./ghostty.nix

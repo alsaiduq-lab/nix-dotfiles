@@ -161,7 +161,6 @@
       hl.exec_cmd("dms run")
       hl.exec_cmd("nm-applet --indicator")
       hl.exec_cmd("blueman-applet")
-      hl.exec_cmd("syshud")
       hl.exec_cmd("udiskie --automount --notify")
     end)
   '';

@@ -1,3 +1,5 @@
+# patch to allow animated cursors keep rendering under wayland
+# really do not like this method, but it works so
 {pkgs, ...}: {
   home.packages = [
     (pkgs.linux-wallpaperengine.overrideAttrs (old: {

@@ -7,6 +7,10 @@
 !.sops.yaml
 !README.md
 
+!config/
+!config/**/
+!config/**/*.json
+
 !flake/
 !flake/**/
 !flake/**/*.nix

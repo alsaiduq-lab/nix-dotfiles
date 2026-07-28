@@ -24,7 +24,6 @@
     ./bluetooth.nix
     ./controller.nix
     ./cups.nix
-    ./dms.nix
     ./flatpak.nix
     ./greeter.nix
     ./gtk.nix
@@ -38,5 +37,6 @@
     ./rgb.nix
     ./steam.nix
     ./udisk.nix
+    ./phone.nix
   ];
 }

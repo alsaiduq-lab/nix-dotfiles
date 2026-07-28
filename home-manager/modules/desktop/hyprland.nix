@@ -126,7 +126,7 @@
 
   monitors = ''
     hl.monitor({
-      output = "DP-3",
+      output = "DP-1",
       mode = "3440x1440@180",
       position  = "0x0",
       scale = 1.25,
@@ -158,7 +158,6 @@
       hl.exec_cmd("dms run")
       hl.exec_cmd("nm-applet --indicator")
       hl.exec_cmd("blueman-applet")
-      hl.exec_cmd("syshud")
       hl.exec_cmd("QT_QPA_PLATFORM=wayland linux-desktop-gremlin cafe")
       hl.exec_cmd("udiskie --automount --notify")
     end)

@@ -36,7 +36,7 @@
         ]);
     });
     dms-shell = inputs.dms.packages.${system}.default;
-    proton-ge-11-1 = customPkgs.proton-ge-11-1;
+    proton-ge-11 = customPkgs.proton-ge-11;
     vencord = inputs.nixcord.packages.${prev.stdenv.hostPlatform.system}.vencord.overrideAttrs (old: {
       patches = (old.patches or []) ++ [../../patches/vencord.patch];
     });
