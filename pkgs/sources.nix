@@ -1,15 +1,14 @@
 {
   clear-sans = {
-    kind = "github";
+    kind = "sourceBuild";
     version = "1.0";
-    locked = true;
     owner = "intel";
     repo = "clear-sans";
     rev = "main";
   };
 
   dms-lyrics-on-panel = {
-    kind = "github";
+    kind = "sourceBuild";
     version = "unstable";
     owner = "KangweiZhu";
     repo = "lyrics-on-panel";
@@ -17,65 +16,45 @@
   };
 
   minijinja-cli = {
-    kind = "rustCrate";
+    kind = "crate";
     version = "2.20.0";
-    locked = true;
     pname = "minijinja-cli";
   };
 
   rpcs3 = {
-    kind = "github";
+    kind = "sourceBuild";
     owner = "Vestrel";
     repo = "discord-rpc";
     rev = "master";
-    key = "discordRpc";
   };
 
   ryubing = {
-    kind = "dotnet";
+    kind = "sourceBuild";
     version = "1.3.335";
-    locked = true;
     url = "https://git.ryujinx.app/projects/Ryubing.git";
-    rev = "Canary-{version}";
-    projectFile = "Ryujinx.sln";
-    testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
-    dotnetSdk = "sdk_10_0";
-    dotnetFlags = [
-      "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "aarch64-darwin"
-    ];
+    rev = "Canary-1.3.335";
   };
 
   thorium = {
     kind = "url";
-    version = "144.0.7559.254";
-    url = "https://github.com/gz83/thorium/releases/download/M144.0.7559.254/thorium-browser_144.0.7559.254_AVX2.deb";
-    latest = {
-      url = "https://api.github.com/repos/gz83/thorium/releases?per_page=1";
-      query = ''.[0].tag_name | ltrimstr("M")'';
-    };
+    version = "150.0.7871.101";
+    url = "https://github.com/gz83/thorium/releases/download/M150.0.7871.101/thorium-browser_150.0.7871.101_AVX2.deb";
   };
 
   vita3k = {
-    kind = "githubAsset";
+    kind = "url";
     version = "3967";
-    locked = true;
     url = "https://github.com/Vita3K/Vita3K-builds/releases/download/3967/Vita3K-x86_64.AppImage";
   };
 
-  proton-ge-11-1 = {
+  proton-ge-11 = {
     kind = "url";
     version = "GE-Proton11-1";
-    locked = true;
     url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-1/GE-Proton11-1.tar.gz";
   };
 
   magna-glassy-icons = {
-    kind = "github";
+    kind = "sourceBuild";
     version = "unstable";
     owner = "L4ki";
     repo = "Magna-Plasma-Themes";

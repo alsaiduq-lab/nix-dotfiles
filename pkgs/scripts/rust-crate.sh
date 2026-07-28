@@ -73,7 +73,6 @@ if [ -z "$cargo_hash" ]; then
 fi
 
 jq -n \
-  --arg version "$crate_version" \
   --arg srcHash "$src_hash" \
   --arg cargoHash "$cargo_hash" \
-  '{ version: $version, src: { hash: $srcHash }, cargo: { hash: $cargoHash } }' > "$output"
+  '{ src: { hash: $srcHash }, cargo: { hash: $cargoHash } }' > "$output"

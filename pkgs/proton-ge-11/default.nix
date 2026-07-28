@@ -3,8 +3,8 @@
   stdenvNoCC,
   fetchurl,
 }: let
-  pname = "proton-ge-11-1";
-  source = (import ../sources.nix).proton-ge-11-1;
+  pname = "proton-ge-11";
+  source = (import ../sources.nix).proton-ge-11;
   inherit (source) version;
   deps = builtins.fromJSON (builtins.readFile ./deps.json);
 in
@@ -31,7 +31,7 @@ in
     '';
 
     meta = {
-      description = "GE-Proton11-1: GloriousEggroll's custom Proton build (Proton 11 rebase + winedmo/ffmpeg video playback rework)";
+      description = "GE-Proton: GloriousEggroll's custom Proton build (ffmpeg video playback rework)";
       homepage = "https://github.com/GloriousEggroll/proton-ge-custom";
       license = lib.licenses.bsd3;
       maintainers = ["Hibiki"];

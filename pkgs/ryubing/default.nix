@@ -45,8 +45,7 @@ in
     inherit version;
 
     src = fetchgit {
-      inherit (source) url;
-      rev = builtins.replaceStrings ["{version}"] [version] source.rev;
+      inherit (source) url rev;
       hash = deps.src.hash;
     };
 
@@ -63,7 +62,7 @@ in
 
     enableParallelBuilding = false;
 
-    dotnet-sdk = dotnetCorePackages.${source.dotnetSdk};
+    dotnet-sdk = dotnetCorePackages.sdk_10_0;
     dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
     inherit nugetDeps;
@@ -95,7 +94,11 @@ in
       ]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [moltenvk];
 
-    inherit (source) projectFile testProjectFile dotnetFlags;
+    projectFile = "Ryujinx.sln";
+    testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
+    dotnetFlags = [
+      "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
+    ];
     doCheck = false;
 
     executables = [
@@ -140,7 +143,11 @@ in
       changelog = "https://git.ryujinx.app/ryubing/ryujinx/-/wikis/changelog";
       description = "Experimental Nintendo Switch Emulator written in C# (community fork of Ryujinx)";
       license = lib.licenses.mit;
-      platforms = source.platforms;
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
       maintainers = ["Hibiki"];
       mainProgram = "Ryujinx";
     };
