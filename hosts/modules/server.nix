@@ -1,26 +1,27 @@
 {...}: {
   imports = [
+    ./anubis.nix
     ./appimage.nix
+    ./bot.nix
+    ./copyparty.nix
     ./docker.nix
-    ./minijinja.nix
+    ./forgejo.nix
+    ./go.nix
+    ./hermes.nix
+    ./kuma.nix
+    ./rust.nix
     ./nano.nix
-    ./net.nix
+    ./nginx.nix
     ./nixos.nix
     ./npm.nix
+    ./ntfy.nix
     ./python.nix
+    ./redis.nix
     ./searxng.nix
+    ./security.nix
     ./sops.nix
     ./ssh.nix
     ./tailscale.nix
     ./timezone.nix
-    ./user.nix
-    ./bot.nix
-    ./forgejo.nix
-    ./copyparty.nix
-    ./hermes.nix
-    ./ntfy.nix
-    ./nginx.nix
-    ./redis.nix
-    ./security.nix
   ];
 }

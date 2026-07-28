@@ -7,7 +7,7 @@
     ./go.nix
     ./ld.nix
     ./libs.nix
-    ./minijinja.nix
+    ./rust.nix
     ./nano.nix
     ./net.nix
     ./nixos.nix
@@ -26,14 +26,12 @@
     ./cups.nix
     ./flatpak.nix
     ./greeter.nix
-    ./gtk.nix
     ./hyprland.nix
     ./ld.nix
     ./libs.nix
     ./mullvad.nix
     ./net.nix
     ./ollama.nix
-    ./qt.nix
     ./rgb.nix
     ./steam.nix
     ./udisk.nix

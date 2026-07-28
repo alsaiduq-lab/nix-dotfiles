@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  settings,
+  ...
+}: {
   services.postgresql = {
     enable = true;
     ensureDatabases = ["forgejo"];
@@ -16,11 +20,11 @@
     lfs.enable = true;
     settings = {
       server = {
-        DOMAIN = "git.${config.server.hostname}";
-        ROOT_URL = "https://git.${config.server.hostname}/";
+        DOMAIN = "git.${settings.domain}";
+        ROOT_URL = "https://git.${settings.domain}/";
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
-        SSH_DOMAIN = "git.${config.server.hostname}";
+        SSH_DOMAIN = "git.${settings.domain}";
       };
       service = {
         DISABLE_REGISTRATION = true;
@@ -53,7 +57,7 @@
 
   users.users.forgejo.extraGroups = ["redis-forgejo"];
 
-  services.nginx.virtualHosts."git.${config.server.hostname}" = {
+  services.nginx.virtualHosts."git.${settings.domain}" = {
     forceSSL = true;
     enableACME = true;
     extraConfig = "client_max_body_size 0M;";

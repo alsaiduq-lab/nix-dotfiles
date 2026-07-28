@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  settings,
   ...
 }: {
   sops.secrets."anubis" = {
@@ -11,7 +12,7 @@
   services.anubis = {
     defaultOptions = {
       settings = {
-        COOKIE_DOMAIN = config.server.hostname;
+        COOKIE_DOMAIN = settings.domain;
         OG_PASSTHROUGH = true;
         OG_EXPIRY_TIME = "24h";
         COOKIE_EXPIRATION_TIME = "24h";

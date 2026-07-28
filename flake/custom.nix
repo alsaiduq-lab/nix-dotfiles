@@ -2,18 +2,15 @@
   desktop = {
     settings = {
       user = "hibiki";
-      cursorName = "Hatsune Miku Colorful Stage";
+      cursorName = "Hatsune-Miku-Colorful-Stage";
       cursorSize = 40;
-      gtkTheme = "Tokyonight-Dark";
-      gtkThemeMode = "dark";
-      qtTheme = "qt6ct";
-      qtOverride = "Fusion";
+      gtkTheme = "Tokyonight-Dark-Storm";
       iconTheme = "Magna-Glassy-Dark-Icons";
       font = "Clear Sans 12";
       Terminal = "ghostty";
       TerminalFont = "0xProto Nerd Font";
       Browser = "thorium-browser";
-      Editor = "zeditor";
+      Editor = "nvim";
       Shell = "fish";
     };
   };
@@ -21,18 +18,15 @@
   laptop = {
     settings = {
       user = "monaie";
-      cursorName = "Hatsune Miku Colorful Stage";
+      cursorName = "Hatsune-Miku-Colorful-Stage";
       cursorSize = 24;
-      gtkTheme = "Tokyonight-Dark";
-      gtkThemeMode = "dark";
-      qtTheme = "qt6ct";
-      qtOverride = "Fusion";
+      gtkTheme = "Tokyonight-Dark-Storm";
       iconTheme = "Magna-Glassy-Dark-Icons";
       font = "Clear Sans 12";
       Terminal = "ghostty";
       TerminalFont = "0xProto Nerd Font";
       Browser = "thorium-browser";
-      Editor = "zeditor";
+      Editor = "nvim";
       Shell = "fish";
     };
   };
@@ -40,8 +34,10 @@
   server = {
     settings = {
       user = "alteur";
-      hostname = "monaie.ca";
+      domain = "monaie.ca";
       port = 8123;
+      Editor = "nvim";
+      Shell = "fish";
     };
   };
 

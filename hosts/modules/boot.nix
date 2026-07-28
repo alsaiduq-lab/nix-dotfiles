@@ -14,6 +14,7 @@
       tmpfsSize = "50%";
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    plymouth.enable = true;
     consoleLogLevel = 3;
     initrd = {
       systemd.enable = true;
@@ -29,7 +30,7 @@
       "nowatchdog"
       "amd_iommu=on"
     ];
-    kernelModules = ["ntsync"];
+    kernelModules = ["ntsync" "tcp_bbr"];
     blacklistedKernelModules = ["esp4" "esp6" "rxrpc"]; # in light of recent events
     kernel.sysctl = {
       "vm.swappiness" = 150;

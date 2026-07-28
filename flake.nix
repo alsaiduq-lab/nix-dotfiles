@@ -36,11 +36,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tokyo-night = {
-      url = "github:folke/tokyonight.nvim";
-      flake = false;
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,13 +66,23 @@
       flake = false;
     };
 
+    tokyo-night = {
+      url = "github:folke/tokyonight.nvim";
+      flake = false;
+    };
+
+    kvantum-tokyo-night = {
+      url = "github:0xsch1zo/Kvantum-Tokyo-Night";
+      flake = false;
+    };
+
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hermes-agent = {
-      url = "github:NousResearch/hermes-agent";
+      url = "github:NousResearch/hermes-agent/cc4cab2f592e60a197e796506de9168f74baf3ea";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

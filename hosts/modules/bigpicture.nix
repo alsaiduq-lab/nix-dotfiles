@@ -2,34 +2,52 @@
   inputs,
   lib,
   pkgs,
+  config,
   ...
 }: let
+  monitor = {
+    output = "DP-1";
+    width = "3440";
+    height = "1440";
+    refresh = "180";
+  };
+
   gamescopeArgs = [
     "-f"
+    "-O"
+    monitor.output
+    "-W"
+    monitor.width
+    "-H"
+    monitor.height
+    "-w"
+    monitor.width
+    "-h"
+    monitor.height
+    "-r"
+    monitor.refresh
     "--backend"
     "drm"
-    "--sdr-gamut-wideness"
-    "0"
-    "--prefer-output"
-    "DP-1,HDMI-A-1,DP-2"
     "--force-grab-cursor"
   ];
 
   patches = ''
-    '${pkgs.systemd}/bin/systemctl --user restart --no-block headset-connect.service
+    ${pkgs.systemd}/bin/systemctl --user restart --no-block headset-connect.service
+    exec > >(${pkgs.systemd}/bin/systemd-cat -t gamescope) 2>&1
 
   '';
 
   gamescopeInit =
-    (pkgs.runCommand "steam-gamescope-scripts" {} ''
+    pkgs.runCommand "steam-gamescope-scripts" {
+      passthru.providedSessions = ["steam"];
+    } ''
       mkdir -p "$out"
       cp -R ${inputs.steam-gamescope-guide}/usr/* "$out/"
       chmod -R u+w "$out"
 
       substituteInPlace "$out/bin/gamescope-session" --replace-fail \
           'gamescope \' \
-          ${patches}
-          gamescope \'
+          '${patches}${config.programs.gamescope.package}/bin/gamescope \'
 
       substituteInPlace "$out/bin/gamescope-session" --replace-fail \
           '-e -- steam -steamdeck -steamos3' \
@@ -40,10 +58,7 @@
           "Exec=$out/bin/gamescope-session"
 
       patchShebangs "$out/bin"
-    '')
-    .overrideAttrs (_: {
-      passthru.providedSessions = ["steam"];
-    });
+    '';
 in {
   programs.steam.extraPackages = [gamescopeInit];
 

@@ -5,6 +5,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   services.gnome.gnome-keyring.enable = true;
@@ -17,7 +18,6 @@
     kdePackages.breeze-icons
     magna-glassy-icons
     miku-cursor
-    tokyonight-gtk-theme
     hyprlock
     wlogout
     wl-clipboard

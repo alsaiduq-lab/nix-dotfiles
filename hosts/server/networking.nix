@@ -1,4 +1,4 @@
-{...}: {
+{settings, ...}: {
   networking = {
     hostName = "magus";
     useDHCP = false;
@@ -13,7 +13,7 @@
     nameservers = ["8.8.8.8" "8.8.4.4"];
     firewall = {
       enable = true;
-      allowedTCPPorts = [8123];
+      allowedTCPPorts = [settings.port];
       extraInputRules = ''
         tcp dport { 80, 443 } ip saddr {
           173.245.48.0/20,

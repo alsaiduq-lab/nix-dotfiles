@@ -1,11 +1,15 @@
-{config, ...}: {
+{
+  config,
+  settings,
+  ...
+}: {
   sops.secrets."ntfy" = {
     owner = "ntfy-sh";
   };
   services.ntfy-sh = {
     enable = true;
     settings = {
-      base-url = "https://ntfy.${config.server.hostname}";
+      base-url = "https://ntfy.${settings.domain}";
       listen-http = "127.0.0.1:2586";
       behind-proxy = true;
       auth-default-access = "deny-all";
@@ -20,7 +24,7 @@
     fi
   '';
 
-  services.nginx.virtualHosts."ntfy.${config.server.hostname}" = {
+  services.nginx.virtualHosts."ntfy.${settings.domain}" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {

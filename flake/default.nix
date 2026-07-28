@@ -49,7 +49,7 @@ in {
 
     magus = import ./systems/server.nix {
       inherit inputs nixpkgs home-manager system custom;
-      overlays = import ./overlays/server.nix {
+      overlays = import ./overlays {
         inherit inputs system unstablePkgs customPkgs;
       };
     };

@@ -1,9 +1,16 @@
 {
   pkgs,
   modulesPath,
-  lib,
   ...
 }: {
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./disk-config.nix
+    ./hardware-configuration.nix
+    ./networking.nix
+    ../modules/server.nix
+  ];
+
   config = {
     system.stateVersion = "26.05";
     boot.loader.grub = {
@@ -11,10 +18,6 @@
       efiSupport = false;
     };
 
-    security.acme = {
-      acceptTerms = true;
-      defaults.email = "riiidge.racer@gmail.com";
-    };
     programs.fish.enable = true;
     environment.systemPackages = with pkgs; [
       xclip

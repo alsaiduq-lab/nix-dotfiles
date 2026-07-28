@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  imports = [./bigpicture.nix];
   programs.steam = {
     enable = true;
 

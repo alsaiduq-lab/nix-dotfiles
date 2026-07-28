@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  settings,
+  ...
+}: {
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
@@ -41,7 +45,7 @@
     enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-    virtualHosts."share.monaie.ca" = {
+    virtualHosts."share.${settings.domain}" = {
       forceSSL = true;
       enableACME = true;
       locations."/" = {

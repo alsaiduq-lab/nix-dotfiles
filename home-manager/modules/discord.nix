@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  lib,
   ...
 }: {
   programs.nixcord = {
@@ -28,7 +27,7 @@
       plugins = {
         autoDndWhilePlaying = {
           enable = true;
-          excludeInvisible = true;
+          # excludeInvisible = true;
         };
         blurNsfw = {
           enable = true;

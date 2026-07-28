@@ -12,7 +12,7 @@
     nvidiaSettings = true;
     nvidiaPersistenced = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
   hardware.nvidia-container-toolkit.enable = true;

@@ -25,5 +25,7 @@
     ./btop.nix
     ./ff.nix
     ./xdg.nix
+    ./gtk.nix
+    ./qt.nix
   ];
 }

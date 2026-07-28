@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  settings,
   ...
 }: {
   imports = [
@@ -29,8 +30,19 @@
       nixMonitor.enable = true;
     };
 
-    settings = builtins.fromJSON (
-      builtins.readFile "${inputs.self.outPath}/config/DankMaterialShell/settings.json"
-    );
+    settings = let
+      dms = builtins.fromJSON (
+        builtins.readFile "${inputs.self.outPath}/config/DankMaterialShell/settings.json"
+      );
+    in
+      dms
+      // {
+        cursorSettings =
+          dms.cursorSettings
+          // {
+            theme = settings.cursorName;
+            size = settings.cursorSize;
+          };
+      };
   };
 }

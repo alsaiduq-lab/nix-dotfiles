@@ -1,8 +1,4 @@
-{
-  lib,
-  settings,
-  ...
-}: let
+{lib, ...}: let
   toLua = lib.generators.toLua {};
 
   cursor = {
@@ -105,20 +101,13 @@
     hl.env("XDG_SESSION_TYPE", "wayland")
     hl.env("XDG_SESSION_DESKTOP", "Hyprland")
     hl.env("NIXOS_OZONE_WL", "1")
-    hl.env("QT_QPA_PLATFORM", "wayland;xcb")
     hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
     hl.env("MOZ_ENABLE_WAYLAND", "1")
     hl.env("CLUTTER_BACKEND", "wayland")
-    hl.env("GDK_BACKEND", "wayland,x11")
     hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
-    hl.env("QT_QPA_PLATFORMTHEME", "${settings.qtTheme}")
     hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
     hl.env("GDK_SCALE", "1")
     hl.env("QT_QUICK_CONTROLS_STYLE", "org.hyprland.style")
-    hl.env("HYPRCURSOR_THEME", "${settings.cursorName}")
-    hl.env("HYPRCURSOR_SIZE", "${toString settings.cursorSize}")
-    hl.env("XCURSOR_THEME", "${settings.cursorName}")
-    hl.env("XCURSOR_SIZE", "${toString settings.cursorSize}")
 
     -- GBM_BACKEND, __GLX_VENDOR_LIBRARY_NAME, LIBVA_DRIVER_NAME
 
