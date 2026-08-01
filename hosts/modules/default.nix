@@ -36,5 +36,6 @@
     ./steam.nix
     ./udisk.nix
     ./phone.nix
+    ./fonts.nix
   ];
 }

@@ -3,7 +3,7 @@
     loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 8;
+        configurationLimit = 4;
         editor = false;
       };
       efi.canTouchEfiVariables = true;
@@ -12,6 +12,7 @@
     tmp = {
       useTmpfs = true;
       tmpfsSize = "50%";
+      tmpfsHugeMemoryPages = "within_size";
     };
     kernelPackages = pkgs.linuxPackages_latest;
     plymouth.enable = true;
@@ -34,6 +35,7 @@
     blacklistedKernelModules = ["esp4" "esp6" "rxrpc"]; # in light of recent events
     kernel.sysctl = {
       "vm.swappiness" = 150;
+      "vm.page-cluster" = 0;
       "vm.max_map_count" = 2147483642; #SteamOS default
       "net.core.rmem_max" = 16777216;
       "net.core.wmem_max" = 16777216;
