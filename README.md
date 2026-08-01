@@ -7,7 +7,7 @@ My config for Hyprland desktop that I normally use as my daily driver (read: all
 if you're curious what's currently available you can run:
 
 ```bash
-nix flake show github:alsaiduq-lab/nix-dotfiles
+nix flake show git+https://git.monaie.ca/alteur/nix-dotfiles
 ```
 
 list generations
