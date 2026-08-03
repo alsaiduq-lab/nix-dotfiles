@@ -1,26 +1,4 @@
 {
-  clear-sans = {
-    kind = "sourceBuild";
-    version = "1.0";
-    owner = "intel";
-    repo = "clear-sans";
-    rev = "main";
-  };
-
-  dms-lyrics-on-panel = {
-    kind = "sourceBuild";
-    version = "unstable";
-    owner = "KangweiZhu";
-    repo = "lyrics-on-panel";
-    rev = "main";
-  };
-
-  minijinja-cli = {
-    kind = "crate";
-    version = "2.20.0";
-    pname = "minijinja-cli";
-  };
-
   rpcs3 = {
     kind = "sourceBuild";
     owner = "Vestrel";
@@ -67,13 +45,5 @@
     owner = "Fausto-Korpsvart";
     repo = "Tokyonight-GTK-Theme";
     rev = "master";
-  };
-
-  linux-arctis-manager = {
-    kind = "sourceBuild";
-    version = "unstable";
-    owner = "elegos";
-    repo = "Linux-Arctis-Manager";
-    rev = "v2.4.1";
   };
 }

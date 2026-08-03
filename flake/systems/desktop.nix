@@ -5,6 +5,7 @@
   system,
   overlays,
   custom,
+  rsync,
 }:
 nixpkgs.lib.nixosSystem {
   specialArgs = {
@@ -33,7 +34,7 @@ nixpkgs.lib.nixosSystem {
         useUserPackages = true;
         backupFileExtension = "bak";
         extraSpecialArgs = {
-          inherit inputs custom;
+          inherit inputs custom rsync;
           settings = custom.desktop.settings;
           dotfiles = custom.dotfiles;
         };

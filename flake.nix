@@ -76,6 +76,26 @@
       flake = false;
     };
 
+    "0x-proto-nerd-font" = {
+      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/0xProto.tar.xz";
+      flake = false;
+    };
+
+    clear-sans = {
+      url = "github:intel/clear-sans";
+      flake = false;
+    };
+
+    dms-lyrics-on-panel = {
+      url = "github:KangweiZhu/lyrics-on-panel";
+      flake = false;
+    };
+
+    linux-arctis-manager = {
+      url = "github:elegos/Linux-Arctis-Manager/v2.4.1";
+      flake = false;
+    };
+
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";

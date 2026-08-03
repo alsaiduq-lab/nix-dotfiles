@@ -1,12 +1,12 @@
 {
   lib,
   config,
-  custom,
-  pkgs,
+  dotfiles,
+  rsync,
   ...
 }: {
-  home.activation.seed-dotfiles = let
-    dotfiles =
+  home.activation.dotfiles = let
+    seedDotfiles =
       lib.concatStringsSep "\n"
       (lib.mapAttrsToList
         (_: entry:
@@ -15,7 +15,7 @@
             then ''
               if [ ! -e "${config.xdg.configHome}/${entry.to}" ]; then
                 mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}")"
-                ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${entry.from}" "${config.xdg.configHome}/${entry.to}"
+                ${rsync}/bin/rsync -rlD "${entry.from}" "${config.xdg.configHome}/${entry.to}"
               fi
             ''
             else
@@ -24,12 +24,12 @@
                 (src: dest: ''
                   if [ ! -e "${config.xdg.configHome}/${entry.to}/${dest}" ]; then
                     mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}/${dest}")"
-                    ${pkgs.rsync}/bin/rsync -rlD --ignore-existing "${entry.from}/${src}" "${config.xdg.configHome}/${entry.to}/${dest}"
+                    ${rsync}/bin/rsync -rlD "${entry.from}/${src}" "${config.xdg.configHome}/${entry.to}/${dest}"
                   fi
                 '')
                 entry.files)
           ))
-        custom.dotfiles);
+        dotfiles);
 
     secrets = {
       "api/openai" = "OPENAI_API_KEY";
@@ -45,9 +45,10 @@
       "api/gelbooru_id" = "GELBOORU_USER_ID";
       "api/gelbooru_api" = "GELBOORU_API_KEY";
       "api/fireworks" = "FIREWORKS_API_KEY";
-      "api/cachix" = "CACHIX_AUTH_TOKEN";
-      "api/vast" = "VAST_API_KEY";
+      # TODO: update this key before enabling
+      # "api/cachix" = "CACHIX_AUTH_TOKEN";
       "github_token" = "GITHUB_TOKEN";
+      "api/hf" = "HF_TOKEN";
     };
 
     createSecrets =
@@ -56,7 +57,7 @@
       secrets;
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
-      ${dotfiles}
+      ${seedDotfiles}
       cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
       # Auto-generated from sops secrets
       ${lib.concatStringsSep "\n" createSecrets}

@@ -1,5 +1,5 @@
 {inputs}: let
-  inherit (inputs) self nixpkgs home-manager;
+  inherit (inputs) nixpkgs home-manager;
 
   system = "x86_64-linux";
 
@@ -19,36 +19,36 @@
     };
   };
 
-  customPkgs = import "${self}/pkgs" {
-    inherit pkgs;
+  customPkgs = import ./overlays/packages.nix {
+    inherit pkgs inputs;
     lib = nixpkgs.lib;
   };
 
   custom = import ./custom.nix {
     inherit inputs;
   };
+
+  inherit (pkgs) rsync;
 in {
   packages.${system} = customPkgs;
 
-  formatter.${system} = pkgs.alejandra;
-
   nixosConfigurations = {
     desktop = import ./systems/desktop.nix {
-      inherit inputs nixpkgs home-manager system custom;
+      inherit inputs nixpkgs home-manager system custom rsync;
       overlays = import ./overlays {
         inherit inputs system unstablePkgs customPkgs;
       };
     };
 
     laptop = import ./systems/laptop.nix {
-      inherit inputs nixpkgs home-manager system custom;
+      inherit inputs nixpkgs home-manager system custom rsync;
       overlays = import ./overlays {
         inherit inputs system unstablePkgs customPkgs;
       };
     };
 
     magus = import ./systems/server.nix {
-      inherit inputs nixpkgs home-manager system custom;
+      inherit inputs nixpkgs home-manager system custom rsync;
       overlays = import ./overlays {
         inherit inputs system unstablePkgs customPkgs;
       };

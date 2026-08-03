@@ -1,20 +1,15 @@
 {
   lib,
   stdenvNoCC,
-  fetchFromGitHub,
+  src,
 }: let
   pname = "clear-sans";
-  source = (import ../sources.nix).clear-sans;
-  inherit (source) version;
-  deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = "1.0";
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
 
-    src = fetchFromGitHub {
-      inherit (source) owner repo rev;
-      hash = deps.src.hash;
-    };
+    inherit src;
 
     strictDeps = true;
 

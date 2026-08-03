@@ -1,5 +1,18 @@
 {
   "nodes": {
+    "0x-proto-nerd-font": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712922707,
+        "narHash": "sha256-aIoS9qL1pXu4DbD68KPXZ0e7Betqy1BO6ZkPubVr9Rc=",
+        "type": "tarball",
+        "url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/0xProto.tar.xz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/0xProto.tar.xz"
+      }
+    },
     "aagl": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -87,6 +100,22 @@
       "original": {
         "owner": "hyprwm",
         "repo": "aquamarine",
+        "type": "github"
+      }
+    },
+    "clear-sans": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673052403,
+        "narHash": "sha256-+xdetdE3Z4NlrWiEYCUO5bmf06g/+p5blkkNk+XcruQ=",
+        "owner": "intel",
+        "repo": "clear-sans",
+        "rev": "1993725b24a36af21e7ebaa8977103983b608572",
+        "type": "github"
+      },
+      "original": {
+        "owner": "intel",
+        "repo": "clear-sans",
         "type": "github"
       }
     },
@@ -203,6 +232,22 @@
       "original": {
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
+        "type": "github"
+      }
+    },
+    "dms-lyrics-on-panel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784597576,
+        "narHash": "sha256-6r35RicvxZalvhHrAIel+8ye6do4pDtwTolti8RrBbE=",
+        "owner": "KangweiZhu",
+        "repo": "lyrics-on-panel",
+        "rev": "7aab0a1955f4e79cffd663823e3d1c6933f7dd2b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KangweiZhu",
+        "repo": "lyrics-on-panel",
         "type": "github"
       }
     },
@@ -887,6 +932,23 @@
         "type": "github"
       }
     },
+    "linux-arctis-manager": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779705215,
+        "narHash": "sha256-wrhuHB2/Hz6jAMLT5VzTqNHa5djtDjljMmkcmlNrMGU=",
+        "owner": "elegos",
+        "repo": "Linux-Arctis-Manager",
+        "rev": "1fe1f4bc313d4bb212e28d705eeb13a10e09105d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elegos",
+        "ref": "v2.4.1",
+        "repo": "Linux-Arctis-Manager",
+        "type": "github"
+      }
+    },
     "linux-desktop-gremlin": {
       "inputs": {
         "nixpkgs": "nixpkgs_5"
@@ -1380,12 +1442,15 @@
     },
     "root": {
       "inputs": {
+        "0x-proto-nerd-font": "0x-proto-nerd-font",
         "aagl": "aagl",
         "anime4k": "anime4k",
+        "clear-sans": "clear-sans",
         "copyparty": "copyparty",
         "dank-greeter": "dank-greeter",
         "disko": "disko",
         "dms": "dms",
+        "dms-lyrics-on-panel": "dms-lyrics-on-panel",
         "dms-plugins-registry": "dms-plugins-registry",
         "dw-proton": "dw-proton",
         "ghostty": "ghostty",
@@ -1394,6 +1459,7 @@
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "kvantum-tokyo-night": "kvantum-tokyo-night",
+        "linux-arctis-manager": "linux-arctis-manager",
         "linux-desktop-gremlin": "linux-desktop-gremlin",
         "miku-cursor": "miku-cursor",
         "modernx": "modernx",

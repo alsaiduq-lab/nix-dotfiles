@@ -1,14 +1,12 @@
 {
   lib,
   stdenvNoCC,
-  fetchFromGitHub,
+  src,
   python313,
   makeWrapper,
 }: let
   pname = "dms-lyrics-on-panel";
-  source = (import ../sources.nix).dms-lyrics-on-panel;
-  inherit (source) version;
-  deps = builtins.fromJSON (builtins.readFile ./deps.json);
+  version = "unstable";
   python = python313.withPackages (ps: [
     ps.websockets
     ps.dbus-python
@@ -17,10 +15,7 @@ in
   stdenvNoCC.mkDerivation {
     inherit pname version;
 
-    src = fetchFromGitHub {
-      inherit (source) owner repo rev;
-      hash = deps.src.hash;
-    };
+    inherit src;
 
     strictDeps = true;
     dontBuild = true;

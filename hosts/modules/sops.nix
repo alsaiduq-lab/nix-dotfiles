@@ -25,13 +25,14 @@
     "api/mullvad"
     "forgejo-cred"
     "anubis"
+    "api/hf"
   ];
 in {
   imports = [inputs.sops-nix.nixosModules.sops];
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    age.keyFile = "/home/${settings.user}/.config/sops/age/keys.txt";
     secrets = lib.genAttrs secrets (_: {owner = "${settings.user}";});
   };
 }
