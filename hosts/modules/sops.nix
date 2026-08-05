@@ -32,7 +32,11 @@ in {
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-    age.keyFile = "/home/${settings.user}/.config/sops/age/keys.txt";
+    age = {
+      keyFile = "/home/${settings.user}/.config/sops/age/keys.txt";
+      sshKeyPaths = [];
+    };
+    gnupg.sshKeyPaths = [];
     secrets = lib.genAttrs secrets (_: {owner = "${settings.user}";});
   };
 }

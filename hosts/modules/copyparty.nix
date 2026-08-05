@@ -6,7 +6,6 @@
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     secrets.copyparty = {
       owner = "copyparty";
     };
@@ -19,6 +18,8 @@
       e2dsa = true;
       e2ts = true;
       xff-src = "127.0.0.1";
+      og = true;
+      og-title = "share.${settings.domain}";
       og-ua = "(Discord|Twitter|Slack)bot";
     };
     accounts = {

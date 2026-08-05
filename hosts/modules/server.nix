@@ -2,7 +2,7 @@
   imports = [
     ./anubis.nix
     ./appimage.nix
-    ./bot.nix
+    #./bot.nix
     ./copyparty.nix
     ./docker.nix
     ./forgejo.nix

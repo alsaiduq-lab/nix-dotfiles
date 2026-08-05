@@ -52,6 +52,11 @@
             user_agent_regex = "(?i)(uptime-kuma|uptimerobot|updown\\.io)";
             action = "ALLOW";
           }
+          {
+            name = "discordbot";
+            user_agent_regex = "(?i)discordbot";
+            action = "ALLOW";
+          }
           # holy shit go fuck yourself meta
           {
             name = "meta-webindexer";
