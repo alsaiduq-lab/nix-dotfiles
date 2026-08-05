@@ -5,9 +5,6 @@
 }:
 (import "${inputs.self}/pkgs" {inherit pkgs lib;})
 // {
-  "0x-proto-nerd-font" = pkgs.callPackage ../../pkgs/0x-proto-nerd-font {
-    src = inputs."0x-proto-nerd-font";
-  };
   clear-sans = pkgs.callPackage ../../pkgs/clear-sans {
     src = inputs.clear-sans;
   };

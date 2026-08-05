@@ -71,16 +71,6 @@
       flake = false;
     };
 
-    kvantum-tokyo-night = {
-      url = "github:0xsch1zo/Kvantum-Tokyo-Night";
-      flake = false;
-    };
-
-    "0x-proto-nerd-font" = {
-      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/0xProto.tar.xz";
-      flake = false;
-    };
-
     clear-sans = {
       url = "github:intel/clear-sans";
       flake = false;
