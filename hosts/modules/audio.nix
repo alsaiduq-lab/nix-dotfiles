@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   security.rtkit.enable = true;
 
   services.pipewire = {
@@ -14,26 +10,6 @@
     pulse.enable = true;
     jack.enable = true;
     wireplumber.enable = true;
-  };
-
-  systemd.user.services.headset-connect = {
-    description = "Connect headset";
-    wants = ["wireplumber.service"];
-    after = ["wireplumber.service"];
-    wantedBy = ["graphical-session.target"];
-    startLimitIntervalSec = 0;
-
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStartPre = [
-        "${lib.getExe' pkgs.bluez "bluetoothctl"} power on"
-        "-${lib.getExe' pkgs.bluez "bluetoothctl"} --timeout 5 disconnect 20:AF:1B:34:F9:C7 hfp-hf"
-      ];
-      ExecStart = "${lib.getExe' pkgs.bluez "bluetoothctl"} --timeout 10 connect 20:AF:1B:34:F9:C7 a2dp-sink";
-      Restart = "on-failure";
-      RestartSec = 5;
-      TimeoutStartSec = 15;
-    };
   };
 
   # TODO: enable back once i get out of my lazy ass and find the USB dongle for this

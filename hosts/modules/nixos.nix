@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
@@ -49,7 +48,6 @@
         "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
       ];
-    trusted-users = ["root" "@wheel"];
   };
   nix.gc = {
     automatic = true;

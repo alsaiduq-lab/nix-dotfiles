@@ -27,10 +27,7 @@
     ./flatpak.nix
     ./greeter.nix
     ./hyprland.nix
-    ./ld.nix
-    ./libs.nix
     ./mullvad.nix
-    ./net.nix
     ./ollama.nix
     ./rgb.nix
     ./steam.nix

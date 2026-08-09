@@ -1,26 +1,7 @@
-{
-  config,
-  pkgs,
-  settings,
-  ...
-}: {
+{pkgs, ...}: {
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
-    qt5ctSettings.Appearance = {
-      color_scheme_path = "${config.xdg.configHome}/qt5ct/colors/matugen.conf";
-      custom_palette = true;
-      icon_theme = settings.iconTheme;
-      standard_dialogs = "xdgdesktopportal";
-      style = "Fusion";
-    };
-    qt6ctSettings.Appearance = {
-      color_scheme_path = "${config.xdg.configHome}/qt6ct/colors/matugen.conf";
-      custom_palette = true;
-      icon_theme = settings.iconTheme;
-      standard_dialogs = "xdgdesktopportal";
-      style = "Fusion";
-    };
+    platformTheme.name = "gtk3";
   };
 
   home.packages = with pkgs; [

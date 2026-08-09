@@ -32,7 +32,6 @@
   ];
 
   patches = ''
-    ${pkgs.systemd}/bin/systemctl --user restart --no-block headset-connect.service
     exec > >(${pkgs.systemd}/bin/systemd-cat -t gamescope) 2>&1
 
   '';
