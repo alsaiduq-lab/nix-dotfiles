@@ -7,7 +7,6 @@
     inherit system;
     config = {
       allowUnfree = true;
-      allowAliases = true;
     };
   };
 
@@ -15,7 +14,6 @@
     inherit system;
     config = {
       allowUnfree = true;
-      allowAliases = true;
     };
   };
 
@@ -28,30 +26,25 @@
     inherit inputs;
   };
 
+  overlays = import ./overlays {
+    inherit inputs system unstablePkgs customPkgs;
+  };
+
   inherit (pkgs) rsync;
 in {
   packages.${system} = customPkgs;
 
   nixosConfigurations = {
     desktop = import ./systems/desktop.nix {
-      inherit inputs nixpkgs home-manager system custom rsync;
-      overlays = import ./overlays {
-        inherit inputs system unstablePkgs customPkgs;
-      };
+      inherit inputs nixpkgs home-manager pkgs overlays custom rsync;
     };
 
     laptop = import ./systems/laptop.nix {
-      inherit inputs nixpkgs home-manager system custom rsync;
-      overlays = import ./overlays {
-        inherit inputs system unstablePkgs customPkgs;
-      };
+      inherit inputs nixpkgs home-manager pkgs overlays custom rsync;
     };
 
     magus = import ./systems/server.nix {
-      inherit inputs nixpkgs home-manager system custom rsync;
-      overlays = import ./overlays {
-        inherit inputs system unstablePkgs customPkgs;
-      };
+      inherit inputs nixpkgs home-manager pkgs overlays custom rsync;
     };
   };
 }

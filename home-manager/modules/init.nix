@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  settings,
   dotfiles,
   rsync,
   ...
@@ -55,12 +56,26 @@
       lib.mapAttrsToList
       (secret: varName: "set -gx ${varName} (cat /run/secrets/${secret})")
       secrets;
+
+    createSecretsNu =
+      lib.mapAttrsToList
+      (secret: varName: "$env.${varName} = (cat /run/secrets/${secret})")
+      secrets;
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
       ${seedDotfiles}
-      cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
-      # Auto-generated from sops secrets
-      ${lib.concatStringsSep "\n" createSecrets}
-      EOF
+      ${lib.optionalString (settings.Shell == "fish") ''
+        cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
+        # Auto-generated from sops secrets
+        ${lib.concatStringsSep "\n" createSecrets}
+        EOF
+      ''}
+      ${lib.optionalString (settings.Shell == "nushell") ''
+        mkdir -p "${config.xdg.configHome}/nushell/autoload"
+        cat > "${config.xdg.configHome}/nushell/autoload/envs.nu" <<'EOF'
+        # Auto-generated from sops secrets
+        ${lib.concatStringsSep "\n" createSecretsNu}
+        EOF
+      ''}
     '';
 }

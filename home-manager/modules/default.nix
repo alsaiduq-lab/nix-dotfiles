@@ -17,7 +17,7 @@
     ./obs.nix
     ./mpv.nix
     ./cava.nix
-    ./imagemagick.nix
+    ./images.nix
     ./viv.nix
     ./gremlin.nix
     ./wallpaperengine.nix

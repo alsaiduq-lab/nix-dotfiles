@@ -3,7 +3,7 @@
     kind = "sourceBuild";
     owner = "Vestrel";
     repo = "discord-rpc";
-    rev = "master";
+    rev = "3dc2c326cb4dc5815c6069970c13154898f58d48";
   };
 
   ryubing = {
@@ -36,7 +36,7 @@
     version = "unstable";
     owner = "L4ki";
     repo = "Magna-Plasma-Themes";
-    rev = "main";
+    rev = "16444a850ca0809f757e0d7d68c371796e0776ff";
   };
 
   tokyonight-gtk-theme = {
@@ -44,6 +44,6 @@
     version = "unstable";
     owner = "Fausto-Korpsvart";
     repo = "Tokyonight-GTK-Theme";
-    rev = "master";
+    rev = "93295bf8688724ea8c529c4fe3fa3fda1ebda2c6";
   };
 }

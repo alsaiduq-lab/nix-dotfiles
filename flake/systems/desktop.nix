@@ -2,7 +2,7 @@
   inputs,
   nixpkgs,
   home-manager,
-  system,
+  pkgs,
   overlays,
   custom,
   rsync,
@@ -19,14 +19,7 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     inputs.dank-greeter.nixosModules.default
     {
-      nixpkgs = {
-        config = {
-          allowUnfree = true;
-          allowAliases = true;
-        };
-        hostPlatform = system;
-        inherit overlays;
-      };
+      nixpkgs = {inherit pkgs overlays;};
     }
     {
       home-manager = {

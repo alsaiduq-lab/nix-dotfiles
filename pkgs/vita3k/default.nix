@@ -41,7 +41,7 @@
     hash = deps.src.hash;
   };
 
-  contents = appimageTools.extractType2 {inherit pname version src;};
+  contents = appimageTools.extract {inherit pname version src;};
 in
   buildFHSEnv {
     inherit pname version;

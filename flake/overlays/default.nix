@@ -4,12 +4,14 @@
   unstablePkgs,
   customPkgs,
 }: [
+  inputs.affinity-nix.overlays.default
+
   (final: prev: {
     quickshell =
       inputs.quickshell.packages.${system}.default.withModules
       [final.qt6Packages.qtwebsockets];
     ghostty = inputs.ghostty.packages.${system}.default;
-    miku-cursor = inputs.miku-cursor.packages.${system}.default;
+    miyabi-cursor = inputs.miyabi-cursor.packages.${system}.default;
     grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
     desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
     dgop = unstablePkgs.dgop;

@@ -11,11 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     aagl = {
       url = "github:alsaiduq-lab/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,7 +87,7 @@
     };
 
     hermes-agent = {
-      url = "github:NousResearch/hermes-agent/cc4cab2f592e60a197e796506de9168f74baf3ea";
+      url = "github:NousResearch/hermes-agent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -106,7 +101,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    miku-cursor.url = "git+https://git.monaie.ca/alteur/animated-cursors";
+    miyabi-cursor.url = "git+ssh://forgejo@git.monaie.ca/alteur/animated-cursors.git?ref=miyabi";
 
     ghostty.url = "github:ghostty-org/ghostty";
 
@@ -121,6 +116,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     nvim-dots.url = "git+https://git.monaie.ca/alteur/nixvim-dotfiles";
+
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
   };
 
   outputs = inputs:

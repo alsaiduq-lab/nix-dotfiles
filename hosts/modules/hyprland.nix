@@ -17,7 +17,7 @@
     candy-icons
     kdePackages.breeze-icons
     magna-glassy-icons
-    miku-cursor
+    miyabi-cursor
     hyprlock
     wlogout
     wl-clipboard

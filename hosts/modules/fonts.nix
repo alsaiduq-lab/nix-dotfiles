@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, settings, ...}: {
   fonts = {
     packages = with pkgs; [
       noto-fonts
@@ -26,8 +26,16 @@
         rgba = "rgb";
         lcdfilter = "default";
       };
+      localConf = ''
+        <alias>
+          <family>ui-monospace</family>
+          <prefer>
+            <family>${settings.TerminalFont}</family>
+          </prefer>
+        </alias>
+      '';
       defaultFonts = {
-        monospace = ["0xProto Nerd Font" "Noto Sans Mono CJK JP"];
+        monospace = [settings.TerminalFont "Noto Sans Mono CJK JP"];
         sansSerif = ["Clear Sans" "Noto Sans CJK JP"];
         serif = ["Noto Serif" "Noto Serif CJK JP"];
         emoji = ["Noto Color Emoji"];

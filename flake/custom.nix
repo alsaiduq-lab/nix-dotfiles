@@ -2,7 +2,7 @@
   desktop = {
     settings = {
       user = "hibiki";
-      cursorName = "Hatsune-Miku-Colorful-Stage";
+      cursorName = "Hoshimi Miyabi Cursor";
       cursorSize = 40;
       gtkTheme = "Tokyonight-Dark-Storm";
       iconTheme = "Magna-Glassy-Dark-Icons";
@@ -11,7 +11,7 @@
       TerminalFont = "0xProto Nerd Font";
       Browser = "thorium-browser";
       Editor = "nvim";
-      Shell = "fish";
+      Shell = "nushell";
     };
   };
 
@@ -38,6 +38,7 @@
       port = 8123;
       Editor = "nvim";
       Shell = "fish";
+      TerminalFont = "0xProto Nerd Font";
     };
   };
 
