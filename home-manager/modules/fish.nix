@@ -139,7 +139,7 @@
           if type -q check_and_display
             check_and_display
           else
-            fastfetch -c neofetch
+            fastfetch
           end
         end
       end

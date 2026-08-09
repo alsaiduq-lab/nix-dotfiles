@@ -11,7 +11,7 @@
       TerminalFont = "0xProto Nerd Font";
       Browser = "thorium-browser";
       Editor = "nvim";
-      Shell = "nushell";
+      Shell = "fish";
     };
   };
 

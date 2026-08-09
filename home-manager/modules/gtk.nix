@@ -13,6 +13,13 @@
         tweakVariants = ["storm"];
       };
     };
+    gtk4.theme = {
+      name = settings.gtkTheme;
+      package = pkgs.tokyonight-gtk-theme.override {
+        colorVariants = ["dark"];
+        tweakVariants = ["storm"];
+      };
+    };
     iconTheme = {
       name = settings.iconTheme;
       package = pkgs.magna-glassy-icons;
@@ -24,4 +31,7 @@
       @import url("dank-colors.css");
     '';
   };
+
+  xdg.configFile."gtk-4.0/gtk.css".force = true;
+  xdg.configFile."gtk-4.0/settings.ini".force = true;
 }

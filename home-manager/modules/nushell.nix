@@ -78,7 +78,7 @@
 
       if ("IN_NIX_SHELL" in $env) == false {
         if (which check_and_display | is-empty) {
-          fastfetch -c neofetch
+          fastfetch
         } else {
           check_and_display
         }
