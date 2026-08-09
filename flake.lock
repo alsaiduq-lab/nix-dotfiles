@@ -1220,18 +1220,15 @@
     },
     "nixpkgs_11": {
       "locked": {
-        "lastModified": 1786241216,
-        "narHash": "sha256-9lIDk9O/R652YJztOMcwKFV+mnJarOCdbSBjABriBLk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "971945c53fcfd2ce8b5c95875572f3839ca7aba8",
-        "type": "github"
+        "lastModified": 1786254359,
+        "narHash": "sha256-ERV273tcMo0aNuzNqnQVTxSMZV8UMhHqUJl8kXR3oi8=",
+        "rev": "533d5c2a8cf484615ea18f07b16b8ad1a73747ad",
+        "type": "tarball",
+        "url": "https://git.monaie.ca/api/v1/repos/alteur/nixpkgs/archive/533d5c2a8cf484615ea18f07b16b8ad1a73747ad.tar.gz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz"
       }
     },
     "nixpkgs_12": {
@@ -1808,16 +1805,13 @@
       "locked": {
         "lastModified": 1786106723,
         "narHash": "sha256-zDSUbpoeo/9ZmD2+wXnzxoo1+uhL8vxc0b8yuYMKYq0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
         "rev": "f13ff45afd1bb73e640eaa08a7066dbed07e3238",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.monaie.ca/api/v1/repos/alteur/nixpkgs/archive/f13ff45afd1bb73e640eaa08a7066dbed07e3238.tar.gz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://git.monaie.ca/alteur/nixpkgs/archive/nixos-unstable.tar.gz"
       }
     },
     "uv2nix": {

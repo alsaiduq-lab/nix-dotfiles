@@ -7,7 +7,6 @@
     fzf
     ripgrep
     eza
-    ugrep
     yazi
     chafa
     fastfetch
@@ -16,6 +15,7 @@
     argc
     hwinfo
     bubblewrap
+    unrar
   ];
 
   programs.direnv = {
@@ -53,7 +53,6 @@
       "...." = "cd ../../..";
       "....." = "cd ../../../..";
       "......" = "cd ../../../../..";
-      grep = "ugrep --color=auto";
       journal = "journalctl -p 3 -xb";
     };
 
