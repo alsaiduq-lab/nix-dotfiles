@@ -1,7 +1,8 @@
-{...}: {
+{settings, ...}: {
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
+    enableFishIntegration = settings.Shell == "fish";
+    enableNushellIntegration = settings.Shell == "nushell";
     enableInteractive = true;
 
     settings = {

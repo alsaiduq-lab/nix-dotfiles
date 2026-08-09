@@ -16,6 +16,7 @@
       "scss"
       "lua"
       "fish"
+      "nushell"
     ];
 
     extraPackages = with pkgs; [
