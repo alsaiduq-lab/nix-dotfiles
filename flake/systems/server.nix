@@ -18,7 +18,6 @@ nixpkgs.lib.nixosSystem {
     inputs.disko.nixosModules.disko
     inputs.nix-index-database.nixosModules.nix-index
     inputs.copyparty.nixosModules.default
-    inputs.sops-nix.nixosModules.sops
     inputs.hermes-agent.nixosModules.default
     home-manager.nixosModules.home-manager
 

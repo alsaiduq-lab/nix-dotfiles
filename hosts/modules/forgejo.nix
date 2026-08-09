@@ -1,8 +1,4 @@
-{
-  config,
-  settings,
-  ...
-}: {
+{settings, ...}: {
   services.postgresql = {
     enable = true;
     ensureDatabases = ["forgejo"];
@@ -42,6 +38,11 @@
         TYPE = "redis";
         CONN_STR = "network=unix,addr=/run/redis-forgejo/redis.sock,db=2";
       };
+      "git.timeout" = {
+        MIGRATE = 6000;
+        MIRROR = 3600;
+      };
+
       log.LEVEL = "Warn";
       security.INSTALL_LOCK = true;
       actions.ENABLED = true;

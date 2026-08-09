@@ -20,6 +20,4 @@
   };
 
   programs."${settings.Shell}".enable = true;
-
-  nix.settings.trusted-users = ["root"];
 }
