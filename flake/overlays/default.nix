@@ -1,11 +1,9 @@
 {
   inputs,
   system,
-  unstablePkgs,
   customPkgs,
 }: [
   inputs.affinity-nix.overlays.default
-
   (final: prev: {
     quickshell =
       inputs.quickshell.packages.${system}.default.withModules
@@ -14,7 +12,6 @@
     miyabi-cursor = inputs.miyabi-cursor.packages.${system}.default;
     grim-hyprland = inputs.grim-hyprland.packages.${system}.default;
     desktop-gremlin = inputs.linux-desktop-gremlin.packages.${system}.default;
-    dgop = unstablePkgs.dgop;
     hyprland = inputs.hyprland.packages.${system}.default;
     dw-proton = inputs.dw-proton.packages.${system}.default;
     ryubing = customPkgs.ryubing;

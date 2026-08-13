@@ -13,7 +13,7 @@
         enable = true;
         package = pkgs.vencord;
       };
-      branch = "stable";
+      branches = ["stable"];
       commandLineArgs = [
         "--enable-blink-features=MiddleClickAutoscroll"
         "--render-node-override=/dev/dri/renderD128"

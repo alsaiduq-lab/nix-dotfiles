@@ -2,9 +2,9 @@
   description = "bloated rice";
 
   inputs = {
-    nixpkgs.url = "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz";
+    nixpkgs.url = "https://git.monaie.ca/alteur/nixpkgs/archive/nixos-unstable.tar.gz";
 
-    unstable.url = "https://git.monaie.ca/alteur/nixpkgs/archive/nixos-unstable.tar.gz";
+    # master.url = "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz";
 
     home-manager = {
       url = "github:nix-community/home-manager";

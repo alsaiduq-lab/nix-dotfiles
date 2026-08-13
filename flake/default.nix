@@ -10,13 +10,6 @@
     };
   };
 
-  unstablePkgs = import inputs.unstable {
-    inherit system;
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   customPkgs = import ./overlays/packages.nix {
     inherit pkgs inputs;
     lib = nixpkgs.lib;
@@ -27,7 +20,7 @@
   };
 
   overlays = import ./overlays {
-    inherit inputs system unstablePkgs customPkgs;
+    inherit inputs system customPkgs;
   };
 
   inherit (pkgs) rsync;

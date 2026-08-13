@@ -5,15 +5,7 @@
 }: {
   gtk = {
     enable = true;
-    colorScheme = "dark";
     theme = {
-      name = settings.gtkTheme;
-      package = pkgs.tokyonight-gtk-theme.override {
-        colorVariants = ["dark"];
-        tweakVariants = ["storm"];
-      };
-    };
-    gtk4.theme = {
       name = settings.gtkTheme;
       package = pkgs.tokyonight-gtk-theme.override {
         colorVariants = ["dark"];
@@ -24,12 +16,27 @@
       name = settings.iconTheme;
       package = pkgs.magna-glassy-icons;
     };
-    gtk3.extraCss = ''
-      @import url("dank-colors.css");
-    '';
-    gtk4.extraCss = ''
-      @import url("dank-colors.css");
-    '';
+    gtk3 = {
+      colorScheme = "dark";
+      extraCss = ''
+        @import url("dank-colors.css");
+      '';
+    };
+    gtk4 = {
+      theme = {
+        name = settings.gtkTheme;
+        package = pkgs.tokyonight-gtk-theme.override {
+          colorVariants = ["dark"];
+          tweakVariants = ["storm"];
+        };
+      };
+      extraConfig = {
+        gtk-interface-color-scheme = "dark";
+      };
+      extraCss = ''
+        @import url("dank-colors.css");
+      '';
+    };
   };
 
   xdg.configFile."gtk-4.0/gtk.css".force = true;

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   settings,
   ...
 }: let
@@ -99,6 +100,8 @@
     hl.env("QT_QUICK_CONTROLS_STYLE", "org.hyprland.style")
     hl.env("HYPRCURSOR_THEME", "${settings.cursorName}")
     hl.env("HYPRCURSOR_SIZE", "${toString settings.cursorSize}")
+    hl.env("XCURSOR_THEME", "${toString settings.cursorName}")
+    hl.env("XCURSOR_SIZE", "${toString settings.cursorSize}")
 
     hl.config({ cursor = ${toLua cursor} })
     hl.config({ xwayland = ${toLua xwayland} })
@@ -138,6 +141,7 @@
   autostart = ''
     hl.on("hyprland.start", function()
       -- hl.exec_cmd("dms run")
+      hl.exec_cmd("${pkgs.xrdb}/bin/xrdb -merge ~/.Xresources")
       hl.exec_cmd("nm-applet --indicator")
       hl.exec_cmd("blueman-applet")
       hl.exec_cmd("QT_QPA_PLATFORM=wayland linux-desktop-gremlin cafe")
@@ -210,6 +214,11 @@
     hl.bind(mod .. " + SHIFT + 0", zoom_reset)
   '';
 in {
+  xresources.properties = {
+    "Xcursor.theme" = settings.cursorName;
+    "Xcursor.size" = settings.cursorSize;
+  };
+
   xdg.configFile."hypr/hyprland.lua".text = ''
     require("env")
     require("monitors")

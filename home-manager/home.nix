@@ -1,14 +1,14 @@
-{
-  settings,
-  pkgs,
-  ...
-}: {
-  home.username = "${settings.user}";
-  home.homeDirectory = "/home/${settings.user}";
-  home.stateVersion = "26.05";
+{settings, ...}: {
   programs.home-manager.enable = true;
-  home.enableNixpkgsReleaseCheck = false;
+  home = {
+    username = settings.user;
+    homeDirectory = "/home/${settings.user}";
+    stateVersion = "26.05";
+    enableNixpkgsReleaseCheck = false;
+  };
 
-  #home.packages = with pkgs; [
-  #];
+  xresources.properties = {
+    "Xcursor.theme" = settings.cursorName;
+    "Xcursor.size" = settings.cursorSize;
+  };
 }

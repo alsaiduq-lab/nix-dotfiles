@@ -6,7 +6,6 @@
   "matugenScheme": "scheme-tonal-spot",
   "matugenContrast": 0,
   "runUserMatugenTemplates": true,
-  "matugenTargetMonitor": "DP-1",
   "popupTransparency": 1,
   "dockTransparency": 1,
   "widgetBackgroundColor": "sc",
@@ -332,21 +331,11 @@
   "greeterFontFamily": "",
   "greeterWallpaperFillMode": "",
   "greeterPamExternallyManaged": false,
-  "greeterSyncPending": false,
-  "greeterSyncBaseline": {},
   "mediaSize": 1,
   "appLauncherViewMode": "list",
   "spotlightModalViewMode": "grid",
   "browserPickerViewMode": "grid",
-  "browserUsageHistory": {
-    "thorium-browser": {
-      "count": 232,
-      "lastUsed": 1772900527103,
-      "name": "Thorium Browser"
-    }
-  },
   "appPickerViewMode": "grid",
-  "filePickerUsageHistory": {},
   "sortAppsAlphabetically": false,
   "appLauncherGridColumns": 4,
   "spotlightCloseNiriOverview": true,
@@ -399,7 +388,6 @@
   "iconThemeDark": "System Default",
   "iconThemeLight": "System Default",
   "iconThemePerMode": false,
-  "lastAppliedIconTheme": "",
   "cursorSettings": {
     "dwl": {
       "cursorHideTimeout": 0
@@ -412,9 +400,7 @@
     "niri": {
       "hideAfterInactiveMs": 0,
       "hideWhenTyping": false
-    },
-    "size": 40,
-    "theme": "Hatsune-Miku-Colorful-Stage"
+    }
   },
   "launcherLogoMode": "os",
   "launcherLogoCustomPath": "",
@@ -479,8 +465,6 @@
   "fadeToDpmsEnabled": true,
   "fadeToDpmsGracePeriod": 5,
   "launchPrefix": "",
-  "gtkThemingEnabled": false,
-  "qtThemingEnabled": false,
   "syncModeWithPortal": true,
   "terminalsAlwaysDark": true,
   "muxType": "zellij",
@@ -578,8 +562,6 @@
   "lockU2fPamPath": "",
   "lockScreenInactiveColor": "#000000",
   "lockScreenNotificationMode": 1,
-  "lockScreenVideoEnabled": true,
-  "lockScreenVideoPath": "/home/hibiki/screensaver.webm",
   "lockScreenVideoCycling": false,
   "lockScreenWallpaperPath": "",
   "lockScreenWallpaperFillMode": "",
@@ -649,19 +631,7 @@
     ]
   },
   "showOnLastDisplay": {},
-  "niriOutputSettings": {},
-  "hyprlandOutputSettings": {
-    "DP-3": {},
-    "HDMI-A-1": {
-      "bitdepth": 10,
-      "colorManagement": "auto",
-      "sdrBrightness": 1.3,
-      "sdrSaturation": 1.2
-    }
-  },
   "displayProfiles": {},
-  "activeDisplayProfile": {},
-  "activeDisplayProfileModes": {},
   "displayPreviousRefreshModes": {},
   "displayProfileAutoSelect": false,
   "displayShowDisconnected": true,
@@ -738,7 +708,6 @@
         {
           "enabled": true,
           "id": "gpuTemp",
-          "pciId": "10de:2c05",
           "selectedGpuIndex": 0
         },
         {
@@ -955,11 +924,6 @@
           "enabled": true,
           "id": "diskUsage",
           "mountPath": "/"
-        },
-        {
-          "enabled": true,
-          "id": "diskUsage",
-          "mountPath": "/run/media/cobray/ssd"
         }
       ],
       "screenPreferences": [],
@@ -1028,71 +992,6 @@
       "widgetTransparency": 0.62
     }
   ],
-  "desktopClockEnabled": false,
-  "desktopClockStyle": "analog",
-  "desktopClockTransparency": 0.8,
-  "desktopClockColorMode": "primary",
-  "desktopClockCustomColor": {
-    "r": 1,
-    "g": 1,
-    "b": 1,
-    "a": 1,
-    "hsvHue": -1,
-    "hsvSaturation": 0,
-    "hsvValue": 1,
-    "hslHue": -1,
-    "hslSaturation": 0,
-    "hslLightness": 1,
-    "valid": true
-  },
-  "desktopClockShowDate": true,
-  "desktopClockShowAnalogNumbers": false,
-  "desktopClockShowAnalogSeconds": true,
-  "desktopClockX": -1,
-  "desktopClockY": -1,
-  "desktopClockWidth": 280,
-  "desktopClockHeight": 180,
-  "desktopClockDisplayPreferences": ["all"],
-  "systemMonitorEnabled": false,
-  "systemMonitorShowHeader": true,
-  "systemMonitorTransparency": 0.8,
-  "systemMonitorColorMode": "primary",
-  "systemMonitorCustomColor": {
-    "r": 1,
-    "g": 1,
-    "b": 1,
-    "a": 1,
-    "hsvHue": -1,
-    "hsvSaturation": 0,
-    "hsvValue": 1,
-    "hslHue": -1,
-    "hslSaturation": 0,
-    "hslLightness": 1,
-    "valid": true
-  },
-  "systemMonitorShowCpu": true,
-  "systemMonitorShowCpuGraph": true,
-  "systemMonitorShowCpuTemp": true,
-  "systemMonitorShowGpuTemp": false,
-  "systemMonitorGpuPciId": "",
-  "systemMonitorShowMemory": true,
-  "systemMonitorShowMemoryGraph": true,
-  "systemMonitorShowNetwork": true,
-  "systemMonitorShowNetworkGraph": true,
-  "systemMonitorShowDisk": true,
-  "systemMonitorShowTopProcesses": false,
-  "systemMonitorTopProcessCount": 3,
-  "systemMonitorTopProcessSortBy": "cpu",
-  "systemMonitorGraphInterval": 60,
-  "systemMonitorLayoutMode": "auto",
-  "systemMonitorX": -1,
-  "systemMonitorY": -1,
-  "systemMonitorWidth": 320,
-  "systemMonitorHeight": 480,
-  "systemMonitorDisplayPreferences": ["all"],
-  "systemMonitorVariants": [],
-  "desktopWidgetPositions": {},
-  "desktopWidgetGridSettings": {},
   "desktopWidgetInstances": [
     {
       "config": {
@@ -1133,20 +1032,6 @@
       "enabled": true,
       "id": "dw_1778307567731_rhhv190sn",
       "name": "Dank Audio Visualizer",
-      "positions": {
-        "DP-1": {
-          "height": 685.671875,
-          "width": 824.2578125,
-          "x": 365.68359375,
-          "y": 389.51953125
-        },
-        "_synced": {
-          "height": 685.671875,
-          "width": 824.2578125,
-          "x": 0.1063033702761628,
-          "y": 0.2704996744791667
-        }
-      },
       "widgetType": "dankAudioVisualizer"
     },
     {
@@ -1178,20 +1063,6 @@
       "enabled": true,
       "id": "dw_1778308328258_2kqfgx0py",
       "name": "System Monitor",
-      "positions": {
-        "DP-1": {
-          "height": 512.125,
-          "width": 457.125,
-          "x": 2966.5859375,
-          "y": 64.74609375
-        },
-        "_synced": {
-          "height": 512.125,
-          "width": 457.125,
-          "x": 0.8623796329941861,
-          "y": 0.044962565104166664
-        }
-      },
       "widgetType": "systemMonitor"
     }
   ],
@@ -1239,5 +1110,5 @@
   "barInsetPaddingShared": -1,
   "barInsetPaddingSyncAll": false,
   "frameBarInsetPadding": -1,
-  "configVersion": 13
+  "configVersion": 15
 }

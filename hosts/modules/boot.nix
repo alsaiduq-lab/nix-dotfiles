@@ -15,6 +15,7 @@
       tmpfsHugeMemoryPages = "within_size";
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    # TODO: a better splash page
     plymouth.enable = true;
     consoleLogLevel = 3;
     initrd = {
@@ -30,6 +31,9 @@
       "systemd.show_status=auto"
       "nowatchdog"
       "amd_iommu=on"
+      # enables reBAR; unsure if this actively changes it from 256 mb
+      "nvidia.NVreg_EnableResizableBar=1"
+      "pci=realloc,big_root_window"
     ];
     kernelModules = ["ntsync" "tcp_bbr"];
     blacklistedKernelModules = ["esp4" "esp6" "rxrpc"]; # in light of recent events
