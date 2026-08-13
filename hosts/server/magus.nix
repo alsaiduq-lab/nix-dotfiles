@@ -1,6 +1,7 @@
 {
   pkgs,
   modulesPath,
+  settings,
   ...
 }: {
   imports = [
@@ -23,6 +24,8 @@
       xclip
       direnv
     ];
+
+    nix.settings.trusted-users = [settings.user];
 
     services = {
       fstrim.enable = true;

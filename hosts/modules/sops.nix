@@ -32,6 +32,7 @@ in {
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
+    useSystemdActivation = true;
     age = {
       keyFile = "/home/${settings.user}/.config/sops/age/keys.txt";
       sshKeyPaths = [];

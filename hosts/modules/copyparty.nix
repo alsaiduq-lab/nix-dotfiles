@@ -39,6 +39,11 @@
       };
     };
   };
+  # prevents a race condition error when initializing w/ secrets from sops
+  systemd.services.copyparty = {
+    requires = ["sops-install-secrets.service"];
+    after = ["sops-install-secrets.service"];
+  };
   systemd.tmpfiles.rules = [
     "d /srv/copyparty 0750 copyparty copyparty -"
   ];

@@ -37,6 +37,7 @@ nixpkgs.lib.nixosSystem {
           imports = [
             ../../home-manager/home.nix
             ../../home-manager/modules/laptop
+            ../../home-manager/modules/workstation
           ];
         };
       };
