@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.mpv = {
     enable = true;
 
@@ -26,6 +22,7 @@
 
     config = {
       profile = "gpu-hq";
+      vo = "gpu-next";
       osc = "no";
       border = "no";
       hwdec = "nvdec";
@@ -35,13 +32,11 @@
     };
   };
 
-  home.file.".config/mpv/scripts/modernx.lua".source = "${inputs.modernx}/modernx.lua";
-  home.file.".config/mpv/fonts/Material-Design-Iconic-Font.ttf".source = "${inputs.modernx}/Material-Design-Iconic-Font.ttf";
-  home.file.".config/mpv/shaders".source = "${inputs.anime4k}/glsl";
-
+  # note they can vary depending on how old and destroyed the material is.
+  # I found the best results with anime from ~2006-2012ish; anything else will vary
   home.file.".config/mpv/input.conf".text = ''
     CTRL+0 no-osd change-list glsl-shaders clr ""; show-text "Shaders cleared"
-    CTRL+1 no-osd change-list glsl-shaders set "~~/shaders/Restore/Anime4K_Clamp_Highlights.glsl:~~/shaders/Restore/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Upscale/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Upscale/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Upscale/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Upscale/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A (HQ)"
-    CTRL+2 no-osd change-list glsl-shaders set "~~/shaders/Restore/Anime4K_Clamp_Highlights.glsl:~~/shaders/Upscale+Denoise/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl:~~/shaders/Upscale/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Upscale/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Upscale/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode B (Denoise - for artifact-heavy anime)"
+    CTRL+1 no-osd change-list glsl-shaders set "~~/shaders/Anime4K/Restore/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K/Restore/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Anime4K/Upscale/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K/Upscale/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K/Upscale/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K/Upscale/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A (HQ)"
+    CTRL+2 no-osd change-list glsl-shaders set "~~/shaders/Anime4K/Restore/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K/Upscale+Denoise/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl:~~/shaders/Anime4K/Upscale/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K/Upscale/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K/Upscale/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode B (Denoise)"
   '';
 }

@@ -8,6 +8,7 @@
     ./forgejo.nix
     ./go.nix
     ./hermes.nix
+    ./homer.nix
     ./kuma.nix
     ./rust.nix
     ./nano.nix

@@ -45,32 +45,32 @@
   dotfiles = {
     tokyo-storm-fish-theme = {
       from = "${inputs.tokyo-night}/extras/fish/tokyonight_storm.fish";
-      to = "fish/conf.d/tokyonight_storm.fish";
+      final = "fish/conf.d/tokyonight_storm.fish";
     };
 
     tokyo-storm-btop-theme = {
       from = "${inputs.tokyo-night}/extras/btop/tokyonight_storm.theme";
-      to = "btop/themes/tokyonight_storm.theme";
+      final = "btop/themes/tokyonight_storm.theme";
     };
 
     eza-theme = {
       from = "${inputs.tokyo-night}/extras/eza/tokyonight_moon.yml";
-      to = "eza/theme.yml";
+      final = "eza/theme.yml";
     };
 
     yazi-theme = {
       from = "${inputs.tokyo-night}/extras/yazi/tokyonight_storm.toml";
-      to = "yazi/theme.toml";
+      final = "yazi/theme.toml";
     };
 
     zellij-theme = {
       from = "${inputs.tokyo-night}/extras/zellij/tokyonight_moon.kdl";
-      to = "zellij/theme/tokyonight_moon.kdl";
+      final = "zellij/theme/tokyonight_moon.kdl";
     };
 
     modernx = {
       from = "${inputs.modernx}";
-      to = "mpv/";
+      final = "mpv/";
 
       files = {
         "modernx.lua" = "scripts/modernx.lua";
@@ -80,12 +80,12 @@
 
     anime4k = {
       from = "${inputs.anime4k}/glsl/";
-      to = "mpv/shaders/";
+      final = "mpv/shaders/Anime4K/";
     };
 
     hypr-scripts = {
       from = "../config/scripts/";
-      to = "hypr/scripts/";
+      final = "hypr/scripts/";
     };
   };
 }

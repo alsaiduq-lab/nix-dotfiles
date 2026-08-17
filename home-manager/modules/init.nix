@@ -14,18 +14,18 @@
           lib.optionalString (entry.enable or true) (
             if (entry.files or {}) == {}
             then ''
-              if [ ! -e "${config.xdg.configHome}/${entry.to}" ]; then
-                mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}")"
-                ${rsync}/bin/rsync -rlD "${entry.from}" "${config.xdg.configHome}/${entry.to}"
+              if [ ! -e "${config.xdg.configHome}/${entry.final}" ]; then
+                mkdir -p "$(dirname "${config.xdg.configHome}/${entry.final}")"
+                ${rsync}/bin/rsync -rlD --chmod=Du+w,Fu+w "${entry.from}" "${config.xdg.configHome}/${entry.final}"
               fi
             ''
             else
               lib.concatStringsSep "\n"
               (lib.mapAttrsToList
                 (src: dest: ''
-                  if [ ! -e "${config.xdg.configHome}/${entry.to}/${dest}" ]; then
-                    mkdir -p "$(dirname "${config.xdg.configHome}/${entry.to}/${dest}")"
-                    ${rsync}/bin/rsync -rlD "${entry.from}/${src}" "${config.xdg.configHome}/${entry.to}/${dest}"
+                  if [ ! -e "${config.xdg.configHome}/${entry.final}/${dest}" ]; then
+                    mkdir -p "$(dirname "${config.xdg.configHome}/${entry.final}/${dest}")"
+                    ${rsync}/bin/rsync -rlD --chmod=Du+w,Fu+w "${entry.from}/${src}" "${config.xdg.configHome}/${entry.final}/${dest}"
                   fi
                 '')
                 entry.files)
@@ -56,11 +56,6 @@
       lib.mapAttrsToList
       (secret: varName: "set -gx ${varName} (cat /run/secrets/${secret})")
       secrets;
-
-    createSecretsNu =
-      lib.mapAttrsToList
-      (secret: varName: "$env.${varName} = (cat /run/secrets/${secret})")
-      secrets;
   in
     lib.hm.dag.entryAfter ["linkGeneration"] ''
       ${seedDotfiles}
@@ -68,13 +63,6 @@
         cat > "${config.xdg.configHome}/fish/conf.d/envs.fish" <<'EOF'
         # Auto-generated from sops secrets
         ${lib.concatStringsSep "\n" createSecrets}
-        EOF
-      ''}
-      ${lib.optionalString (settings.Shell == "nushell") ''
-        mkdir -p "${config.xdg.configHome}/nushell/autoload"
-        cat > "${config.xdg.configHome}/nushell/autoload/envs.nu" <<'EOF'
-        # Auto-generated from sops secrets
-        ${lib.concatStringsSep "\n" createSecretsNu}
         EOF
       ''}
     '';
