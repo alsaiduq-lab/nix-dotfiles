@@ -81,6 +81,9 @@
         translate = {
           enable = true;
         };
+        noMiddleClickPaste = {
+          enable = true;
+        };
       };
     };
   };
