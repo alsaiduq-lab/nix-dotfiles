@@ -345,11 +345,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786969807,
-        "narHash": "sha256-PNqlH9F8+qRI978c8Zimm8eGRUy6bDjpI6wWteYDOhc=",
+        "lastModified": 1787032065,
+        "narHash": "sha256-4cRupXquFsxSKyLHhK+HPtpSkv3s9S2iaJs6NbmIaIk=",
         "owner": "AvengeMedia",
         "repo": "dms-plugin-registry",
-        "rev": "72f5f946e50d427772fee87d3fbcd0e2dfb98db7",
+        "rev": "70a3228c2726dee0e7fbfbee71a55da5343fe438",
         "type": "github"
       },
       "original": {
@@ -658,11 +658,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1787002776,
-        "narHash": "sha256-uAPsbdyl256YyWv+788NhJWOkCq6J+iNQFa7tGs4KWU=",
+        "lastModified": 1787042331,
+        "narHash": "sha256-sKJFoXWsVdTgsLcV2UoSd1K8WObq1u2zj7rIFQqmES8=",
         "owner": "NousResearch",
         "repo": "hermes-agent",
-        "rev": "dc2e9dde9a6ef4625c24eba9c33421da869a79a1",
+        "rev": "2d511f55aa66f6f48fdf66b5d539bcc119e1318d",
         "type": "github"
       },
       "original": {
@@ -1133,11 +1133,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1786941321,
-        "narHash": "sha256-+cRbUo2O2Ltcssmz5f0/lhXScxkdYPOT1CVcS0cZ41Y=",
+        "lastModified": 1787027348,
+        "narHash": "sha256-OfO2+Uw6VKbusWyuggE4x4GNbM/NlRvMgzs//Pjio5I=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "3f15cc298ceb3794adfcc69f97c04aae7796aa0d",
+        "rev": "befe06adc4df1d8ea4ebc3fabb92a22e0cecccf1",
         "type": "github"
       },
       "original": {
@@ -1242,11 +1242,11 @@
     },
     "nixpkgs_11": {
       "locked": {
-        "lastModified": 1787005068,
-        "narHash": "sha256-NyPaLBDx7iBVVPo/UQNy52A1XBgH23/UyZBxy0CW54E=",
-        "rev": "ab31385b81635312a830d5241211a3b250a98b92",
+        "lastModified": 1787034161,
+        "narHash": "sha256-1IpOiXfrDhrUMwVEZhCK3mgjLMnjbb2b2Gk/W+Zv0bY=",
+        "rev": "bfa9e9c773f6c2553968bf460513cc52d1f6b850",
         "type": "tarball",
-        "url": "https://git.monaie.ca/api/v1/repos/alteur/nixpkgs/archive/ab31385b81635312a830d5241211a3b250a98b92.tar.gz"
+        "url": "https://git.monaie.ca/api/v1/repos/alteur/nixpkgs/archive/bfa9e9c773f6c2553968bf460513cc52d1f6b850.tar.gz"
       },
       "original": {
         "type": "tarball",
