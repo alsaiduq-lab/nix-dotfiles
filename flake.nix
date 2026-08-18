@@ -2,7 +2,7 @@
   description = "bloated rice";
 
   inputs = {
-    nixpkgs.url = "https://git.monaie.ca/alteur/nixpkgs/archive/nixos-unstable.tar.gz";
+    nixpkgs.url = "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz";
 
     # master.url = "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz";
 
