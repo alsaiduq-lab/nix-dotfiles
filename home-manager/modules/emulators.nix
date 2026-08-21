@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    desmume
+    melonds
     rpcs3
     ppsspp
     mgba

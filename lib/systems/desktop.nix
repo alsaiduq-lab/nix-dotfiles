@@ -4,13 +4,13 @@
   home-manager,
   pkgs,
   overlays,
-  custom,
+  settings,
   rsync,
 }:
 nixpkgs.lib.nixosSystem {
   specialArgs = {
     inherit inputs;
-    settings = custom.desktop.settings;
+    settings = settings.desktop.settings;
   };
   modules = [
     ../../hosts/desktop/configuration.nix
@@ -27,12 +27,12 @@ nixpkgs.lib.nixosSystem {
         useUserPackages = true;
         backupFileExtension = "bak";
         extraSpecialArgs = {
-          inherit inputs custom rsync;
-          settings = custom.desktop.settings;
-          dotfiles = custom.dotfiles;
+          inherit inputs rsync;
+          settings = settings.desktop.settings;
+          dotfiles = settings.dotfiles;
         };
         sharedModules = [inputs.nixcord.homeModules.nixcord];
-        users.${custom.desktop.settings.user} = {
+        users.${settings.desktop.settings.user} = {
           imports = [
             ../../home-manager/home.nix
             ../../home-manager/modules/desktop

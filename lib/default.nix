@@ -15,7 +15,7 @@
     lib = nixpkgs.lib;
   };
 
-  custom = import ./custom.nix {
+  settings = import ./settings.nix {
     inherit inputs;
   };
 
@@ -29,15 +29,15 @@ in {
 
   nixosConfigurations = {
     desktop = import ./systems/desktop.nix {
-      inherit inputs nixpkgs home-manager pkgs overlays custom rsync;
+      inherit inputs nixpkgs home-manager pkgs overlays settings rsync;
     };
 
     laptop = import ./systems/laptop.nix {
-      inherit inputs nixpkgs home-manager pkgs overlays custom rsync;
+      inherit inputs nixpkgs home-manager pkgs overlays settings rsync;
     };
 
     magus = import ./systems/server.nix {
-      inherit inputs nixpkgs home-manager pkgs overlays custom rsync;
+      inherit inputs nixpkgs home-manager pkgs overlays settings rsync;
     };
   };
 }

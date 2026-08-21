@@ -4,13 +4,13 @@
   home-manager,
   pkgs,
   overlays,
-  custom,
+  settings,
   rsync,
 }:
 nixpkgs.lib.nixosSystem {
   specialArgs = {
     inherit inputs;
-    settings = custom.server.settings;
+    settings = settings.server.settings;
   };
   modules = [
     ../../hosts/server/magus.nix
@@ -30,11 +30,11 @@ nixpkgs.lib.nixosSystem {
         useUserPackages = true;
         backupFileExtension = "bak";
         extraSpecialArgs = {
-          inherit inputs custom rsync;
-          settings = custom.server.settings;
-          dotfiles = custom.dotfiles;
+          inherit inputs rsync;
+          settings = settings.server.settings;
+          dotfiles = settings.dotfiles;
         };
-        users.${custom.server.settings.user} = {
+        users.${settings.server.settings.user} = {
           imports = [
             ../../home-manager/home.nix
             ../../home-manager/modules/server

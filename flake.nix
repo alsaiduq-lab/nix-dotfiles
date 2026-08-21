@@ -121,7 +121,7 @@
   };
 
   outputs = inputs:
-    import ./flake {
+    import ./lib {
       inherit inputs;
     };
 }

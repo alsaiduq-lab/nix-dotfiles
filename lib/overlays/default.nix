@@ -18,10 +18,26 @@
     dms-shell = inputs.dms.packages.${system}.default;
     proton-ge-11 = customPkgs.proton-ge-11;
     vencord = inputs.nixcord.packages.${prev.stdenv.hostPlatform.system}.vencord.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [../../patches/vencord.patch];
+      patches = (old.patches or []) ++ [../../pkgs/patches/vencord.patch];
     });
     tokyonight-gtk-theme = customPkgs.tokyonight-gtk-theme;
     linux-arctis-manager = customPkgs.linux-arctis-manager;
+
+    # remove whenever fixed
+    pythonPackagesExtensions =
+      prev.pythonPackagesExtensions
+      ++ [
+        (_: pythonPrev: {
+          curl-cffi = pythonPrev.curl-cffi.overridePythonAttrs (old: {
+            disabledTests =
+              (old.disabledTests or [])
+              ++ [
+                "test_verify"
+                "test_delete_cookies"
+              ];
+          });
+        })
+      ];
   })
 
   # only used for testing

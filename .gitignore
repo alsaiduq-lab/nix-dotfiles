@@ -12,9 +12,9 @@
 !config/**/*.json
 !config/scripts/*.sh
 
-!flake/
-!flake/**/
-!flake/**/*.nix
+!lib/
+!lib/**/
+!lib/**/*.nix
 
 !home-manager/
 !home-manager/**/
@@ -30,9 +30,7 @@
 !pkgs/**/default.nix
 !pkgs/**/deps.json
 !pkgs/**/*.sh
-
-!patches/
-!patches/*.patch
+!pkgs/patches/*.patch
 
 !secrets/
 !secrets/secrets.yaml
