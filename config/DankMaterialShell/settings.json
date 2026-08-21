@@ -338,7 +338,6 @@
   "appPickerViewMode": "grid",
   "sortAppsAlphabetically": false,
   "appLauncherGridColumns": 4,
-  "spotlightCloseNiriOverview": true,
   "rememberLastQuery": false,
   "rememberLastMode": true,
   "spotlightSectionViewModes": {
@@ -707,8 +706,7 @@
         },
         {
           "enabled": true,
-          "id": "gpuTemp",
-          "selectedGpuIndex": 0
+          "id": "nvidiaGpuDankbarMonitor"
         },
         {
           "enabled": true,
@@ -1110,5 +1108,5 @@
   "barInsetPaddingShared": -1,
   "barInsetPaddingSyncAll": false,
   "frameBarInsetPadding": -1,
-  "configVersion": 15
+  "configVersion": 16
 }
