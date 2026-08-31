@@ -10,11 +10,11 @@
       obs-vkcapture
       obs-pipewire-audio-capture
       obs-backgroundremoval
-      obs-shaderfilter
+      # obs-shaderfilter
       obs-websocket
       obs-tuna
       input-overlay
-      obs-move-transition
+      # obs-move-transition
       obs-source-record
     ];
   };

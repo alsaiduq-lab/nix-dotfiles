@@ -9,11 +9,7 @@
     libraries = with pkgs;
       [
         glibc
-        stdenv.cc.cc.lib
-        zlib
-        zstd
-        bzip2
-        xz
+        libarchive
         libglvnd
         mesa
         libdrm
@@ -47,14 +43,10 @@
         fontconfig
         harfbuzz
         icu
-        openssl
-        curl
         sqlite
         expat
-        libxml2
         libxslt
         pcre2
-        libsodium
         ncurses
         readline
         glib
@@ -66,7 +58,11 @@
         alsa-lib
         libpulseaudio
         pipewire
+        qt6.qtbase
         qt6.qtmultimedia
+        qt6.qtdeclarative
+        qt6.qtsvg
+        qt6.qtwayland
         libsndfile
         SDL2
         sdl3
@@ -75,11 +71,16 @@
         libvdpau
         libGLU
         gtk3
+        gtk4
+        libadwaita
+        libnotify
+        libusb1
+        libinput
+        libevdev
+        hidapi
         cairo
         pango
         gdk-pixbuf
-        atk
-        at-spi2-atk
         at-spi2-core
         openblas
         fuse3

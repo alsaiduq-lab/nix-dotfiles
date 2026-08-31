@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: {
-  environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
   programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
   environment.systemPackages = with pkgs; [
@@ -33,6 +32,7 @@
         "https://hyprland.cachix.org"
         "https://cache.nixos-cuda.org"
         "https://ezkea.cachix.org"
+        "https://cache.forall.systems"
       ];
     trusted-public-keys =
       [
@@ -45,6 +45,7 @@
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+        "cache.forall.systems:5PmD7QO4MSF8YgyRZtkSGXRDo96H3bybIf2SsQh8ScI="
       ];
   };
   nix.gc = {
