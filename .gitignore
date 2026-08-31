@@ -34,3 +34,6 @@
 
 !secrets/
 !secrets/secrets.yaml
+
+!.gcroots/
+!.gcroots/*
