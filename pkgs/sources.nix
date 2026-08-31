@@ -15,8 +15,8 @@
 
   thorium = {
     kind = "url";
-    version = "151.0.7922.72";
-    url = "https://github.com/gz83/thorium/releases/download/M151.0.7922.72/thorium-browser_151.0.7922.72_AVX2.deb";
+    version = "152.0.7977.55";
+    url = "https://github.com/gz83/thorium/releases/download/M152.0.7977.55/thorium-browser_152.0.7977.55_AVX2.deb";
   };
 
   vita3k = {
@@ -27,8 +27,8 @@
 
   proton-ge-11 = {
     kind = "url";
-    version = "GE-Proton11-5";
-    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz";
+    version = "GE-Proton11-6";
+    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-6/GE-Proton11-6-x86_64.tar.gz";
   };
 
   magna-glassy-icons = {
