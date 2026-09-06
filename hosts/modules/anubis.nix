@@ -15,63 +15,22 @@
         COOKIE_DOMAIN = settings.domain;
         OG_PASSTHROUGH = true;
         OG_EXPIRY_TIME = "24h";
-        COOKIE_EXPIRATION_TIME = "24h";
+        COOKIE_EXPIRATION_TIME = "30m";
         SERVE_ROBOTS_TXT = true;
-        DIFFICULTY = 3;
+        DIFFICULTY = 5;
       };
       policy = {
-        useDefaultBotRules = false;
+        useDefaultBotRules = true;
         extraBots = [
           {
-            name = "forgejo-assets";
-            path_regex = "^/assets/.*$";
-            action = "ALLOW";
-          }
-          {
-            name = "forgejo-manifest";
-            path_regex = "^/manifest.json$";
-            action = "ALLOW";
-          }
-          {
-            name = "favicon";
-            path_regex = "^/favicon.ico$";
-            action = "ALLOW";
-          }
-          {
-            name = "robots-txt";
-            path_regex = "^/robots.txt$";
-            action = "ALLOW";
-          }
-          {
-            name = "well-known";
-            path_regex = "^/.well-known/.*$";
-            action = "ALLOW";
-          }
-          {
             name = "uptime";
-            user_agent_regex = "(?i)(uptime-kuma|uptimerobot|updown\\.io)";
+            user_agent_regex = "Uptime-Kuma";
             action = "ALLOW";
           }
           {
             name = "discordbot";
-            user_agent_regex = "(?i)discordbot";
+            user_agent_regex = "^Mozilla/5[.]0 [(]compatible; Discordbot/2[.]0; [+]https://discordapp[.]com[)]$";
             action = "ALLOW";
-          }
-          # holy shit go fuck yourself meta
-          {
-            name = "meta-webindexer";
-            user_agent_regex = "(?i)meta-webindexer";
-            action = "DENY";
-          }
-          {
-            name = "ai-crawlers";
-            user_agent_regex = "(?i)(claudebot|gptbot|chatgpt-user|oai-searchbot|google-extended|bytespider|amazonbot|meta-externalagent|ccbot|perplexitybot|cohere-ai|diffbot|omgili|imagesift)";
-            action = "DENY";
-          }
-          {
-            name = "generic-browser";
-            user_agent_regex = "Mozilla";
-            action = "CHALLENGE";
           }
         ];
       };

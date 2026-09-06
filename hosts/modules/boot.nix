@@ -21,16 +21,13 @@
     initrd = {
       systemd.enable = true;
       verbose = false;
-      kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+      kernelModules = ["nvidia" "nvidia_modeset" "nvidia_drm"];
     };
     kernelParams = [
       "quiet"
-      "splash"
       "udev.log_level=3"
       "rd.udev.log_level=3"
       "systemd.show_status=auto"
-      "nowatchdog"
-      "amd_iommu=on"
       # enables reBAR; unsure if this actively changes it from 256 mb
       "nvidia.NVreg_EnableResizableBar=1"
       "pci=realloc,big_root_window"
