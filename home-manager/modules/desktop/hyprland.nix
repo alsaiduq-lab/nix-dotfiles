@@ -7,6 +7,7 @@
 }: let
   toLua = lib.generators.toLua {};
 
+  # TODO: kinda bloated; will move some stuff later
   cursor = {
     no_hardware_cursors = 2; # auto
     use_cpu_buffer = 2;
@@ -71,14 +72,13 @@
   animations = ''
     hl.curve("smooth", { type = "bezier", points = {{0.23, 1}, {0.32, 1 }}})
     hl.curve("fluid", { type = "bezier", points = {{0.4, 0}, {0.2, 1 }}})
-    hl.curve("linear", { type = "bezier", points = {{0, 0}, {1, 1 }}})
 
     hl.animation({ leaf = "windows", enabled = true, speed = 5, bezier = "fluid", style = "popin 10%" })
     hl.animation({ leaf = "windowsOut", enabled = true, speed = 5, bezier = "fluid", style = "popin 10%" })
     hl.animation({ leaf = "layers", enabled = true, speed = 5, bezier = "fluid", style = "fade" })
     hl.animation({ leaf = "fadeLayers", enabled = true, speed = 7, bezier = "smooth" })
     hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "smooth" })
-    hl.animation({ leaf = "borderangle", enabled = true, speed = 100, bezier = "linear", style = "once", })
+    hl.animation({ leaf = "borderangle", enabled = true, speed = 100, bezier = "fluid", style = "once", })
     hl.animation({ leaf = "fade", enabled = true, speed = 7, bezier = "smooth" })
     hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "fluid", style = "slide" })
     hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5, bezier = "fluid",  style = "slidevert" })
@@ -138,6 +138,26 @@
     hl.config({ decoration = ${toLua decoration} })
   '';
 
+  plugins = ''
+    hl.plugin.load("${config.xdg.configHome}/hypr/plugins/libscrolloverview.so")
+    hl.config({
+      plugin = {
+        scrolloverview = {
+          gesture_distance = 300,
+          scale = 0.5,
+          workspace_gap = 100,
+          layout = "vertical",
+          wallpaper = 2,
+          blur = true,
+          shadow = {
+            enabled = true,
+            range = 50,
+          },
+        },
+      },
+    })
+  '';
+
   autostart = ''
     hl.on("hyprland.start", function()
       -- hl.exec_cmd("dms run")
@@ -190,7 +210,6 @@
 
     hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("hyprctl reload && dms restart"))
     hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("sh -lc 'dms ipc call lock lock'"))
-    hl.bind(mod .. " + F5", hl.dsp.exec_cmd("~/.config/hypr/scripts/gamemode.sh"))
 
     hl.bind("F7", hl.dsp.exec_cmd("dms ipc mpris previous"))
     hl.bind("F8", hl.dsp.exec_cmd("dms ipc mpris playPause"))
@@ -225,7 +244,6 @@ in {
   };
 
   xdg.configFile."hypr/hyprland.lua".text = ''
-    hl.plugin.load("${config.xdg.configHome}/hypr/plugins/libscrolloverview.so")
     require("env")
     require("monitors")
     require("animations")
@@ -235,6 +253,7 @@ in {
     require("autostart")
     require("dms.layout")
     require("dms.outputs")
+    require("plugins")
   '';
 
   xdg.configFile."hypr/env.lua".text = env;
@@ -243,6 +262,7 @@ in {
   xdg.configFile."hypr/windows.lua".text = windows;
   xdg.configFile."hypr/keybindings.lua".text = keybindings;
   xdg.configFile."hypr/autostart.lua".text = autostart;
+  xdg.configFile."hypr/plugins.lua".text = plugins;
 
   programs.dank-material-shell.settings.matugenTemplateHyprland = lib.mkForce false;
 
