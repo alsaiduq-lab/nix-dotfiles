@@ -101,19 +101,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    grim-hyprland.url = "github:eriedaberrie/grim-hyprland";
+
+    hyprland-scroll-overview = {
+      url = "github:yayuuu/hyprland-scroll-overview/new-release";
+      inputs.hyprland.follows = "hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     miyabi-cursor.url = "git+ssh://forgejo@git.monaie.ca/alteur/animated-cursors.git?ref=miyabi";
 
     ghostty.url = "github:ghostty-org/ghostty";
-
-    grim-hyprland.url = "github:eriedaberrie/grim-hyprland";
 
     linux-desktop-gremlin.url = "github:iluvgirlswithglasses/linux-desktop-gremlin";
 
     nixcord.url = "github:FlameFlag/nixcord";
 
     dw-proton.url = "github:Momoyaan/dwproton-flake";
-
-    hyprland.url = "github:hyprwm/Hyprland";
 
     nvim-dots.url = "git+https://git.monaie.ca/alteur/nixvim-dotfiles";
 

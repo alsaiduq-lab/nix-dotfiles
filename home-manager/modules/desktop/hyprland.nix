@@ -43,7 +43,7 @@
     col = {
       inactive_border = "rgba(3b4261cc)";
     };
-    layout = "master";
+    layout = "scrolling";
     resize_on_border = true;
     extend_border_grab_area = 15;
   };
@@ -159,6 +159,13 @@
     hl.bind(mod .. " + M", hl.dsp.exec_cmd("sh -lc 'dms ipc call dash toggle media'"))
     hl.bind(mod .. " + L", hl.dsp.exec_cmd("sh -lc 'dms ipc call spotlight toggleQuery \"\"'"))
 
+    hl.bind(mod .. " + left", hl.dsp.focus({ direction = "left" }))
+    hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }))
+
+    hl.bind("SUPER + G", function()
+      hl.plugin.scrolloverview.overview("toggle all")
+    end)
+
     for i = 1, 10 do
       local key = i % 10
       hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
@@ -189,8 +196,6 @@
     hl.bind("F8", hl.dsp.exec_cmd("dms ipc mpris playPause"))
     hl.bind("F9", hl.dsp.exec_cmd("dms ipc mpris next"))
     hl.bind("F10", hl.dsp.exec_cmd("dms ipc audio mute"))
-    hl.bind("F11", hl.dsp.exec_cmd("dms ipc audio decrement"), { repeating = true })
-    hl.bind("F12", hl.dsp.exec_cmd("dms ipc audio increment"), { repeating = true })
 
     local function zoom(factor)
       local z = hl.get_config("cursor.zoom_factor")
@@ -220,6 +225,7 @@ in {
   };
 
   xdg.configFile."hypr/hyprland.lua".text = ''
+    hl.plugin.load("${config.xdg.configHome}/hypr/plugins/libscrolloverview.so")
     require("env")
     require("monitors")
     require("animations")

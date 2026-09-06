@@ -87,5 +87,10 @@
       from = "../config/scripts/";
       final = "hypr/scripts/";
     };
+
+    hypr-scroll-overview = {
+      from = "${inputs.hyprland-scroll-overview.packages.x86_64-linux.scrolloverview}/lib/libscrolloverview.so";
+      final = "hypr/plugins/libscrolloverview.so";
+    };
   };
 }
