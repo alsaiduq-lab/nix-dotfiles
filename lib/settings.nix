@@ -84,7 +84,7 @@
     };
 
     hypr-scripts = {
-      from = "../config/scripts/";
+      from = "${../config/scripts}/";
       final = "hypr/scripts/";
     };
 

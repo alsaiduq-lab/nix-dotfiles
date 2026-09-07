@@ -14,19 +14,15 @@
           lib.optionalString (entry.enable or true) (
             if (entry.files or {}) == {}
             then ''
-              if [ ! -e "${config.xdg.configHome}/${entry.final}" ]; then
-                mkdir -p "$(dirname "${config.xdg.configHome}/${entry.final}")"
-                ${rsync}/bin/rsync -rlD --chmod=Du+w,Fu+w "${entry.from}" "${config.xdg.configHome}/${entry.final}"
-              fi
+              mkdir -p "$(dirname "${config.xdg.configHome}/${entry.final}")"
+              ${rsync}/bin/rsync -rlD --chmod=Du+w,Fu+w "${entry.from}" "${config.xdg.configHome}/${entry.final}"
             ''
             else
               lib.concatStringsSep "\n"
               (lib.mapAttrsToList
                 (src: dest: ''
-                  if [ ! -e "${config.xdg.configHome}/${entry.final}/${dest}" ]; then
-                    mkdir -p "$(dirname "${config.xdg.configHome}/${entry.final}/${dest}")"
-                    ${rsync}/bin/rsync -rlD --chmod=Du+w,Fu+w "${entry.from}/${src}" "${config.xdg.configHome}/${entry.final}/${dest}"
-                  fi
+                  mkdir -p "$(dirname "${config.xdg.configHome}/${entry.final}/${dest}")"
+                  ${rsync}/bin/rsync -rlD --chmod=Du+w,Fu+w "${entry.from}/${src}" "${config.xdg.configHome}/${entry.final}/${dest}"
                 '')
                 entry.files)
           ))
