@@ -14,7 +14,7 @@
       tmpfsSize = "50%";
       tmpfsHugeMemoryPages = "within_size";
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_testing;
     # TODO: a better splash page
     plymouth.enable = true;
     consoleLogLevel = 3;

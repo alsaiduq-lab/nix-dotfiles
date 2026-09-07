@@ -12,7 +12,20 @@
     nvidiaSettings = true;
     nvidiaPersistenced = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    #package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = let
+      driver = config.boot.kernelPackages.nvidiaPackages.latest;
+    in
+      driver
+      // {
+        open = driver.open.overrideAttrs (old: {
+          patches =
+            (old.patches or [])
+            ++ [
+              ../../pkgs/patches/nvidia.patch
+            ];
+        });
+      };
   };
 
   hardware.nvidia-container-toolkit.enable = true;

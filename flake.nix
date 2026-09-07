@@ -2,7 +2,7 @@
   description = "bloated rice";
 
   inputs = {
-    nixpkgs.url = "https://git.monaie.ca/alteur/nixpkgs/archive/nixos-unstable.tar.gz";
+    nixpkgs.url = "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz";
 
     # master.url = "https://git.monaie.ca/alteur/nixpkgs/archive/master.tar.gz";
 
@@ -79,6 +79,11 @@
     linux-arctis-manager = {
       url = "github:elegos/Linux-Arctis-Manager/v2.4.1";
       flake = false;
+    };
+
+    proton-ge = {
+      url = "github:Daaboulex/proton-ge-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     copyparty = {
