@@ -16,30 +16,13 @@
     dw-proton = inputs.dw-proton.packages.${system}.default;
     ryubing = customPkgs.ryubing;
     dms-shell = inputs.dms.packages.${system}.default;
-    proton-ge-11 = customPkgs.proton-ge-11;
+    proton-ge = inputs.proton-ge.packages.${system}.default;
     vencord = inputs.nixcord.packages.${prev.stdenv.hostPlatform.system}.vencord.overrideAttrs (old: {
       patches = (old.patches or []) ++ [../../pkgs/patches/vencord.patch];
     });
     tokyonight-gtk-theme = customPkgs.tokyonight-gtk-theme;
     linux-arctis-manager = customPkgs.linux-arctis-manager;
-
-    # remove whenever fixed
-    pythonPackagesExtensions =
-      prev.pythonPackagesExtensions
-      ++ [
-        (_: pythonPrev: {
-          curl-cffi = pythonPrev.curl-cffi.overridePythonAttrs (old: {
-            disabledTests =
-              (old.disabledTests or [])
-              ++ [
-                "test_verify"
-                "test_delete_cookies"
-              ];
-          });
-        })
-      ];
   })
-
   # only used for testing
   (final: prev: removeAttrs customPkgs ["refresh-deps"])
 ]

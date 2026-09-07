@@ -2,18 +2,13 @@
   pkgs,
   settings,
   ...
-}: let
-  shellBin =
-    if settings.Shell == "nushell"
-    then "nu"
-    else settings.Shell;
-in {
+}: {
   programs.ghostty = {
     enable = true;
-    enableFishIntegration = settings.Shell == "fish";
+    enableFishIntegration = true;
 
     settings = {
-      command = "${pkgs.${settings.Shell}}/bin/${shellBin} --login --interactive";
+      command = "${pkgs.fish}/bin/fish --login --interactive";
       font-family = "${settings.TerminalFont}";
       font-size = 12;
       theme = "TokyoNight Storm";

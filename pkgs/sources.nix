@@ -25,12 +25,6 @@
     url = "https://github.com/Vita3K/Vita3K-builds/releases/download/4074/Vita3K-x86_64.AppImage";
   };
 
-  proton-ge-11 = {
-    kind = "url";
-    version = "GE-Proton11-6";
-    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-6/GE-Proton11-6-x86_64.tar.gz";
-  };
-
   magna-glassy-icons = {
     kind = "sourceBuild";
     version = "unstable";
