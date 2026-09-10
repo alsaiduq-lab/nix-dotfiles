@@ -111,7 +111,7 @@
     grim-hyprland.url = "github:eriedaberrie/grim-hyprland";
 
     hyprland-scroll-overview = {
-      url = "github:yayuuu/hyprland-scroll-overview/new-release";
+      url = "github:silicalet/hyprland-scroll-overview/c49d7da132344b83d956e25e8cadd2c7af5ef97e";
       inputs.hyprland.follows = "hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
