@@ -1,0 +1,43 @@
+{inputs}: let
+  inherit (inputs) nixpkgs home-manager;
+
+  system = "x86_64-linux";
+
+  pkgs = import nixpkgs {
+    inherit system;
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+  customPkgs = import ./overlays/packages.nix {
+    inherit pkgs inputs;
+    lib = nixpkgs.lib;
+  };
+
+  settings = import ./settings.nix {
+    inherit inputs;
+  };
+
+  overlays = import ./overlays {
+    inherit inputs system customPkgs;
+  };
+
+  inherit (pkgs) rsync;
+in {
+  packages.${system} = customPkgs;
+
+  nixosConfigurations = {
+    desktop = import ./systems/desktop.nix {
+      inherit inputs nixpkgs home-manager pkgs overlays settings rsync;
+    };
+
+    laptop = import ./systems/laptop.nix {
+      inherit inputs nixpkgs home-manager pkgs overlays settings rsync;
+    };
+
+    magus = import ./systems/server.nix {
+      inherit inputs nixpkgs home-manager pkgs overlays settings rsync;
+    };
+  };
+}

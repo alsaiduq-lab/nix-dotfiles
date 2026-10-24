@@ -1,0 +1,17 @@
+diff --git a/kernel-open/nvidia/os-interface.c b/kernel-open/nvidia/os-interface.c
+index 2bf5a5df55..a943ffda5f 100644
+--- a/kernel-open/nvidia/os-interface.c
++++ b/kernel-open/nvidia/os-interface.c
+@@ -2817,7 +2817,12 @@ NvU32 NV_API_CALL os_cgroup_implementation(void)
+ 
+ void* NV_API_CALL os_dmem_cgroup_register_region(NvU64 size, const char *name)
+ {
++    #if LINUX_VERSION_CODE >= KERNEL_VERSION(7, 3, 0)
++    struct dmem_cgroup_init init = { .size = size };
++    void *region = dmem_cgroup_register_region(&init, name);
++    #else
+     void *region = dmem_cgroup_register_region(size, name);
++    #endif
+     if (IS_ERR(region))
+     {
+         return NULL;

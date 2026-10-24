@@ -1,0 +1,39 @@
+{settings, ...}: {
+  networking = {
+    hostName = "magus";
+    useDHCP = false;
+    nftables.enable = true;
+    interfaces.enX0.ipv4.addresses = [
+      {
+        address = "104.152.210.245";
+        prefixLength = 24;
+      }
+    ];
+    defaultGateway = "104.152.210.1";
+    nameservers = ["8.8.8.8" "8.8.4.4"];
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [settings.port];
+      extraInputRules = ''
+        tcp dport { 80, 443 } ip saddr {
+          173.245.48.0/20,
+          103.21.244.0/22,
+          103.22.200.0/22,
+          103.31.4.0/22,
+          141.101.64.0/18,
+          108.162.192.0/18,
+          190.93.240.0/20,
+          188.114.96.0/20,
+          197.234.240.0/22,
+          198.41.128.0/17,
+          162.158.0.0/15,
+          104.16.0.0/13,
+          104.24.0.0/14,
+          172.64.0.0/13,
+          131.0.72.0/22
+        } accept
+        tcp dport { 80, 443 } drop
+      '';
+    };
+  };
+}

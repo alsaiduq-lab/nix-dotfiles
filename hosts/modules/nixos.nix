@@ -1,0 +1,56 @@
+{
+  settings,
+  lib,
+  pkgs,
+  ...
+}: {
+  programs.nix-index.enable = true;
+  programs.command-not-found.enable = false;
+  environment.systemPackages = with pkgs; [
+    cachix
+    nix-prefetch-git
+    nix-search
+    nix-your-shell
+    nh
+  ];
+  nix.settings = {
+    auto-optimise-store = true;
+    max-jobs = "auto";
+    cores = 0;
+    experimental-features = ["nix-command" "flakes"];
+    warn-dirty = false;
+    use-xdg-base-directories = true;
+
+    # TODO: move urls somewhere else
+    substituters =
+      [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+      ]
+      ++ lib.optionals (settings.user != "alteur") [
+        "https://ghostty.cachix.org"
+        "https://hyprland.cachix.org"
+        "https://cache.nixos-cuda.org"
+        "https://ezkea.cachix.org"
+        # "https://cache.forall.systems"
+      ];
+    trusted-public-keys =
+      [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ]
+      # need to change the check
+      ++ lib.optionals (settings.user != "alteur") [
+        "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+        "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+        # "cache.forall.systems:5PmD7QO4MSF8YgyRZtkSGXRDo96H3bybIf2SsQh8ScI="
+      ];
+  };
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
+  };
+}

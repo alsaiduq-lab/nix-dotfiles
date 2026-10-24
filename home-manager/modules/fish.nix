@@ -1,0 +1,147 @@
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  home.packages = with pkgs; [
+    fzf
+    ripgrep
+    eza
+    yazi
+    chafa
+    fastfetch
+    nix-your-shell
+    jq
+    argc
+    hwinfo
+    bubblewrap
+    unrar
+  ];
+
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.bat = {
+    enable = true;
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      prettybat
+    ];
+  };
+
+  programs.fish = {
+    enable = true;
+    plugins = [
+      {
+        name = "bass";
+        src = pkgs.fishPlugins.bass;
+      }
+      {
+        name = "nvm";
+        src = inputs.nvm-fish;
+      }
+    ];
+
+    shellAliases = {
+      ls = "eza -al --color=always --group-directories-first --icons=always";
+      zed = "zeditor";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+      "....." = "cd ../../../..";
+      "......" = "cd ../../../../..";
+      journal = "journalctl -p 3 -xb";
+    };
+
+    functions = {
+      __history_previous_command = ''
+        switch (commandline -t)
+        case "!"
+          commandline -t $history[1]; commandline -f repaint
+        case "*"
+          commandline -i !
+        end
+      '';
+
+      # needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
+      __history_previous_command_arguments = ''
+        switch (commandline -t)
+        case "!"
+          commandline -t ""
+          commandline -f history-token-search-backward
+        case "*"
+          commandline -i '$'
+        end
+      '';
+
+      history = "builtin history --show-time='%F %T '";
+
+      backup = {
+        argumentNames = ["filename"];
+        body = "cp $filename $filename.bak";
+      };
+
+      pip-freeze = ''
+        python -c "
+        from importlib.metadata import distributions
+        for d in sorted(distributions(), key=lambda x: x.metadata['Name'].lower()):
+            print(f\"{d.metadata['Name']}=={d.version}\")
+        "
+      '';
+
+      cat = {
+        wraps = "bat";
+        body = ''
+          if not isatty stdout; or not type -q bat
+            command cat $argv
+            return
+          end
+          if contains -- -f $argv
+            bat --paging=never --style=numbers,changes (string match -v -- -f $argv)
+            return
+          end
+          for file in $argv
+            if test -f "$file"; and test (wc -l < "$file") -gt 500
+              echo "$file: "(wc -l < "$file")" lines (-f to show)"
+              return
+            end
+          end
+          bat --paging=never --style=numbers,changes $argv
+        '';
+      };
+    };
+
+    interactiveShellInit = ''
+      set fish_greeting
+      set -gx VIRTUAL_ENV_DISABLE_PROMPT "1"
+
+      if [ "$fish_key_bindings" = fish_vi_key_bindings ]
+        bind -Minsert ! __history_previous_command
+        bind -Minsert '$' __history_previous_command_arguments
+      else
+        bind ! __history_previous_command
+        bind '$' __history_previous_command_arguments
+      end
+
+      set -gx SSL_CERT_FILE /etc/ssl/certs/ca-certificates.crt
+      set -gx REQUESTS_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
+
+      if type -q nix-your-shell
+        nix-your-shell fish | source
+      end
+
+      if status --is-interactive
+        if not set -q IN_NIX_SHELL
+          if type -q check_and_display
+            check_and_display
+          else
+            fastfetch
+          end
+        end
+      end
+    '';
+  };
+}

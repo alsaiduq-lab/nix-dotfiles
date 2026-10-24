@@ -1,0 +1,30 @@
+{...}: {
+  imports = [
+    ./init.nix
+    ./dms.nix
+    ./mime.nix
+    ./fish.nix
+    ./ghostty.nix
+    ./lazygit.nix
+    ./nvim.nix
+    ./starship.nix
+    ./zellij.nix
+    ./ffmpeg.nix
+    ./emulators.nix
+    ./discord.nix
+    ./thorium.nix
+    ./spotify.nix
+    ./obs.nix
+    ./mpv.nix
+    ./cava.nix
+    ./images.nix
+    ./viv.nix
+    ./gremlin.nix
+    ./wallpaperengine.nix
+    ./zed.nix
+    ./btop.nix
+    ./xdg.nix
+    ./gtk.nix
+    ./qt.nix
+  ];
+}
